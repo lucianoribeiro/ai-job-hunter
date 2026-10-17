@@ -46,7 +46,8 @@ class PagesVisibilityTests(unittest.TestCase):
         self.assertIn("setupPager('mainPanelRegional','.regional-card')",page)
         self.assertIn("selectTab(0,false)",page)
         self.assertIn("panel.style.display=active?'':'none'",page)
-        self.assertEqual(page.count('data-area="Projetos"'),15)
+        table_body = page.split("<tbody>", 1)[1].split("</tbody>", 1)[0]
+        self.assertEqual(table_body.count('data-area="Projetos"'), 15)
 
     def test_japanese_bilingual_job_is_readable_in_general_table(self):
         title = "[2WP] 二輪&パワースポーツ ECU プロジェクトマネジャー/ECU Project Manager for Two Wheeler & Powersports"
