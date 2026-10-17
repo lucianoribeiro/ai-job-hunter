@@ -86,6 +86,18 @@ def render(queue: dict, generated: str = "", insights: dict | None = None, strat
         '<p><small>' + escape(statuses or "Coleta ainda não executada") + '</small></p>'
         '<ul>' + strategic_cards + '</ul></section>'
     )
+    apinfo_html = (
+        '<section class="advisor" id="apinfo" style="background:#fff;border:1px solid #dfe5ed;'
+        'border-radius:18px;padding:24px;margin:20px 0">'
+        '<h2>APinfo · fonte externa</h2>'
+        '<p>Consulte vagas de tecnologia diretamente no portal APinfo. '
+        'Não há API pública oficial confirmada: esta fonte exige consulta manual, '
+        'não alimenta automaticamente os resultados nem os indicadores do painel.</p>'
+        '<p><a href="https://www.apinfo.com/apinfo/" target="_blank" '
+        'rel="noopener noreferrer">Abrir portal de vagas APinfo ↗</a></p>'
+        '<small>Status: consulta externa · integração automática não habilitada</small>'
+        '</section>'
+    )
     return """<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>AI Job Hunter | Dashboard</title>
@@ -134,7 +146,7 @@ footer{margin-top:25px;color:#7b879b;font-size:12px;line-height:1.8}
 <header class="hero"><span class="pill">✦ Busca inteligente de oportunidades</span><h1>Encontre sua próxima grande oportunidade.</h1>
 <p>Explore vagas de QA, liderança e contratos remotos. Compare oportunidades e revise os anúncios antes de se candidatar.</p>
 <div class="pills"><span class="pill">✓ Remoto e internacional</span><span class="pill">✓ Freelance e contratos</span><span class="pill">✓ Busca por empresa e vaga</span></div></header>
-""" + advisor + strategic_html + """<section class="stats">""" + stats + """</section>
+""" + advisor + strategic_html + apinfo_html + """<section class="stats">""" + stats + """</section>
 <h2 class="section-title" id="vagas">Explore oportunidades</h2><p class="section-sub">Dados do último processamento · gerado em """ + timestamp + """</p>
 <div class="workspace"><aside class="filters" id="filtros"><h2>Filtros de busca</h2><div class="controls">
 <div><label for="query">Cargo ou empresa</label><input id="query" aria-label="Pesquisar vagas" placeholder="Ex.: QA Manager, Bosch"></div>
