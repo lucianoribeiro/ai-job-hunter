@@ -35,6 +35,8 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python -m src.ai_advisor
+      - name: Monitor strategic companies
+        run: python -m src.strategic_companies
       - name: Generate dashboard
         run: python -m src.dashboard
       - name: Upload reports
@@ -49,11 +51,12 @@ jobs:
             data/applications.json
             data/dashboard.html
             data/ai_insights.json
+            data/strategic_jobs.json
       - name: Persist reports and review history
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/jobs.csv data/report.md data/applications.md data/history.json data/applications.json data/dashboard.html data/ai_insights.json
+          git add data/jobs.csv data/report.md data/applications.md data/history.json data/applications.json data/dashboard.html data/ai_insights.json data/strategic_jobs.json
           if ! git diff --cached --quiet; then
             git commit -m "chore: refresh QA opportunity and review reports"
             git push
@@ -90,6 +93,7 @@ jobs:
           PY
           python -m src.review
           python -m src.ai_advisor
+          python -m src.strategic_companies --config config/strategic_companies.test.json
           python -m src.dashboard
           test -s data/dashboard.html
           test -s data/applications.json
