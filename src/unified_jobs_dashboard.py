@@ -82,7 +82,7 @@ def normalize(project_report, qa_jobs, linkedin_jobs=None):
     return rows
 
 
-def render(project_report, qa_jobs, linkedin_jobs=None):
+def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None):
     jobs = normalize(project_report, qa_jobs, linkedin_jobs)
     qa_count = sum(x["area"] == "QA" for x in jobs)
     projects_count = sum(x["area"] == "Projetos" for x in jobs)
@@ -94,6 +94,11 @@ def render(project_report, qa_jobs, linkedin_jobs=None):
         "</td><td>" + e(j["modality"]) + "</td><td>" + e(j["source"]) + "</td><td>" +
         e(j["published"]) + "</td></tr>" for j in jobs
     )
+    source_options = "".join('<option value="' + e(s) + '">' + e(s) + '</option>' for s in sorted({j["source"] for j in jobs}))
+    regional_sources = regional_sources or []
+    portals = "".join('<article><strong>' + e(s.get("name")) + '</strong> · ' + e(s.get("city")) +
+        ' · <span>Consulta no portal oficial (sem API integrada)</span> · <a href="' + e(safe_url(s.get("url"))) +
+        '" target="_blank" rel="noopener noreferrer">Abrir fonte</a></article>' for s in regional_sources)
     return """<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>AI Job Hunter | Vagas reais</title>
@@ -119,40 +124,25 @@ th{background:#edf2fa}a{color:#1456aa}p,footer{color:#53627b}footer{margin-top:1
 <select id="area" aria-label="Área"><option value="">Todas as áreas</option><option>QA</option><option>Projetos</option><option>LinkedIn · Revisar</option></select>
 <select id="mode" aria-label="Modalidade"><option value="">Todas as modalidades</option>
 <option value="remote">Remoto informado</option><option value="verify">Remoto citado — confirmar</option>
-<option value="unknown">Não informado</option></select></div>
-<div class="filters"><input id="linkedinInput" aria-label="Link LinkedIn" placeholder="Cole um link de vaga ou publicação do LinkedIn">
-<button id="linkedinAdd" type="button">Adicionar para revisão</button></div>
-<p id="linkedinMessage" aria-live="polite">Importação manual: não consulta o LinkedIn nem confirma disponibilidade de vagas. O link é incluído apenas nesta sessão do navegador.</p>
+<option value="unknown">Não informado</option></select>
+<select id="source" aria-label="Fonte das vagas"><option value="">Todas as fontes integradas</option>""" + source_options + """</select></div>
 <p id="count" aria-live="polite"></p>
 <div class="table"><table><thead><tr><th>Cargo</th><th>Empresa</th><th>Área</th><th>Local</th>
 <th>Modalidade</th><th>Fonte</th><th>Publicação</th></tr></thead><tbody>""" + body + """</tbody></table></div>
 <p id="empty" hidden>Nenhuma vaga corresponde aos filtros.</p>
-</section><footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
+</section><section><h2>Fontes regionais oficiais · Nova Odessa e região</h2>
+<p>Estes portais são referências de consulta, NÃO foram sincronizados como vagas individuais. Nenhuma vaga é inventada ou coletada sem integração autorizada.</p>
+""" + portals + """</section><footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
 na página oficial. Datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
-const linked=document.getElementById('linkedinInput'), add=document.getElementById('linkedinAdd'), notice=document.getElementById('linkedinMessage');
-add.addEventListener('click',()=>{
-try {
- const u=new URL(linked.value.trim());
- const path=u.pathname, job=/^\\/jobs\\/view\\/(?:[^/?#]*\\/)?\d{6,}\\/?$/.test(path),
- post=/^\\/posts\\/[A-Za-z0-9_-]{6,}\\/?$/.test(path)||/^\\/feed\\/update\\/urn:li:activity:\d+\\/?$/.test(path);
- if(u.protocol!=='https:'||!['linkedin.com','www.linkedin.com'].includes(u.hostname)||u.username||u.password||!(job||post)) throw Error('URL inválida');
- const clean='https://www.linkedin.com'+path.replace(/\\/$/,'');
- if([...document.querySelectorAll('tbody a')].some(x=>x.href.replace(/\\/$/,'')===clean)){notice.textContent='Este link já está na lista.';return;}
- const tr=document.createElement('tr');tr.dataset.area='LinkedIn · Revisar';tr.dataset.mode='unknown';
- const td=document.createElement('td'),aLink=document.createElement('a');aLink.href=clean;aLink.target='_blank';aLink.rel='noopener noreferrer';aLink.textContent='Publicação compartilhada — verificar vaga';td.append(aLink);tr.append(td);
- for(const value of ['Não verificada','LinkedIn · Revisar','Não informada','Não informado','LinkedIn (compartilhado)','Não informada']){const cell=document.createElement('td');cell.textContent=value;tr.append(cell);}
- document.querySelector('tbody').append(tr);rows.push(tr);linked.value='';notice.textContent='Link adicionado para revisão nesta sessão. Não foi salva nenhuma candidatura.';apply();
-}catch(e){notice.textContent='Cole um link https válido de vaga ou post do LinkedIn.';}
-});
-const q=document.getElementById('q'),a=document.getElementById('area'),m=document.getElementById('mode');
+const q=document.getElementById('q'),a=document.getElementById('area'),m=document.getElementById('mode'),source=document.getElementById('source');
 const rows=[...document.querySelectorAll('tbody tr')],count=document.getElementById('count');
 function apply(){let visible=0;for(const r of rows){
-const show=(!a.value||r.dataset.area===a.value)&&(!m.value||r.dataset.mode===m.value)&&
+const show=(!a.value||r.dataset.area===a.value)&&(!m.value||r.dataset.mode===m.value)&&(!source.value||r.dataset.source===source.value)&&
 r.textContent.toLocaleLowerCase().includes(q.value.trim().toLocaleLowerCase());
 r.hidden=!show;if(show)visible++;
 }count.textContent=visible+' vaga(s) exibida(s)';document.getElementById('empty').hidden=visible!==0;}
-[q,a,m].forEach(el=>el.addEventListener('input',apply));apply();
+[q,a,m,source].forEach(el=>el.addEventListener('input',apply));apply();
 </script></body></html>"""
 
 
@@ -162,6 +152,7 @@ def main():
     parser.add_argument("--qa", type=Path, default=Path("data/jobs.csv"))
     parser.add_argument("--output", type=Path, default=Path("data/unified_jobs.html"))
     parser.add_argument("--linkedin", type=Path, default=Path("data/linkedin_shared_jobs.json"))
+    parser.add_argument("--regional", type=Path, default=Path("config/regional_sources.json"))
     args = parser.parse_args()
     project = json.loads(args.projects.read_text(encoding="utf-8"))
     if not args.qa.exists():
@@ -171,8 +162,9 @@ def main():
     linkedin_jobs = json.loads(args.linkedin.read_text(encoding="utf-8")) if args.linkedin.exists() else []
     if not isinstance(linkedin_jobs, list):
         raise ValueError("LinkedIn import must be an array")
+    regional = json.loads(args.regional.read_text(encoding="utf-8")) if args.regional.exists() else {"sources": []}
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(render(project, qa, linkedin_jobs), encoding="utf-8")
+    args.output.write_text(render(project, qa, linkedin_jobs, regional.get("sources", [])), encoding="utf-8")
     print(f"Unified dashboard: {len(normalize(project, qa, linkedin_jobs))} unique real listings")
 
 
