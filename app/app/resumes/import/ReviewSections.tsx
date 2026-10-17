@@ -1,14 +1,19 @@
 "use client";
-import { useMemo,useState } from "react";
+import { useMemo,useState,useTransition } from "react";
 import { splitResumeText } from "@/lib/resume-sections";
+import { improveResume } from "./ai-actions";
 import { createResume } from "../actions";
 export default function ReviewSections({text}:{text:string}){
+ const [pending,start]=useTransition();
+ const [message,setMessage]=useState("");
+ const [role,setRole]=useState("");
  const parsed=useMemo(()=>splitResumeText(text),[text]);
  const [summary,setSummary]=useState(parsed.summary);
  const [experience,setExperience]=useState(parsed.experience);
  const [skills,setSkills]=useState(parsed.skills);
  const [education,setEducation]=useState(parsed.education);
  const [unclassified,setUnclassified]=useState(parsed.unclassified);
+ const enhance=()=>start(async()=>{try{const data=new FormData();data.set("source",JSON.stringify({summary,experience,skills,education,targetRole:role}));const result=await improveResume(data);if(typeof result.summary==="string")setSummary(result.summary);if(typeof result.experience==="string")setExperience(result.experience);if(typeof result.skills==="string")setSkills(result.skills);if(typeof result.education==="string")setEducation(result.education);setMessage("Sugestões aplicadas. Revise antes de salvar.");}catch{setMessage("IA indisponível. Seus dados foram preservados.");}});
  return <form className="form" action={createResume}>
  <p className="note">A classificação é baseada apenas em títulos de seção reconhecidos. Nenhum dado é inventado. Revise os campos antes de salvar.</p>
  <label>Nome do currículo<input name="title" required maxLength={120} placeholder="Ex.: Currículo principal — Projetos Industriais"/></label>
