@@ -31,6 +31,7 @@ export default async function Outreach({searchParams}:{searchParams:Promise<{job
  {drafts.map(d=><article className="tile" key={d.id}><h3>{d.subject}</h3><p>Para: {d.recipient_email}</p>
  <small>{d.status==="approved"?"Aprovado para uso futuro":"Aguardando revisão"}</small>
  <details><summary>Revisar mensagem</summary><pre style={{whiteSpace:"pre-wrap",overflowWrap:"anywhere"}}>{d.body}</pre></details>
+ {d.status==="approved"&&<p><Link href={`/applications/outreach/${d.id}/compose`}>Abrir mensagem aprovada no Gmail →</Link></p>}
  {d.status==="pending_review"&&<form action={approveOutreachDraft}><input type="hidden" name="draft_id" value={d.id}/><button>Confirmar conteúdo</button></form>}
  </article>)}</section>
  <p className="note">Aprovar aqui não envia e-mail nem cria rascunho no Gmail. Integração Gmail autenticada e anexo real do CV ainda são pendentes.</p></main>;
