@@ -19,3 +19,17 @@ class RegionalCatalogTests(unittest.TestCase):
         self.assertIn("Honda Brasil", page)
         self.assertIn("Nenhum anúncio regional foi obtido", page)
         self.assertNotIn('class="regional-card"', page)
+
+    def test_location_unknown_and_city_filter_explanation(self):
+        from src.strategic_companies import inferred_city
+        self.assertEqual(inferred_city("Analista de Rede Sumaré - SP"), "Sumaré")
+        self.assertEqual(inferred_city("Gerente de Projetos Americana - SP"), "Americana")
+        self.assertEqual(inferred_city("Analista Financeiro São Paulo - SP"), "")
+        report = {"sources": [{"company": "Honda Brasil", "city": "Sumaré", "state": "ok"}],
+                  "jobs": [{"title": "Gerente de Projetos Americana - SP",
+                            "company": "Honda Brasil", "url": "https://honda.gupy.io/jobs/123",
+                            "location": "Americana", "source": "Portal oficial"}]}
+        page = render({"jobs": []}, [], strategic=report)
+        self.assertIn('data-city="Americana"', page)
+        self.assertIn('value="unverified"', page)
+        self.assertIn('coleta é parcial', page)
