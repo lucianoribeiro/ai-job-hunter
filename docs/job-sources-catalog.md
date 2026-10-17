@@ -8,11 +8,11 @@ A plataforma exibe **somente fontes com vagas reais no resultado**, nunca 20 op�
 | Jooble | Conector criado, opcional | `JOOBLE_API_KEY`; homologar acesso e termos |
 | Careerjet | Não integrado | Avaliar affiliate ID, documentação e licença |
 | Remotive | Integrado | Feed público |
-| RemoteOK | Não integrado | Verificar atribuição, limites e estabilidade |
+| RemoteOK | Conector implementado | Feed público; atribuição e homologação de coleta real |
 | Jobicy | Conector criado | Endpoint público; verificar execução real na CI |
 | Himalayas | Integrado | Feed remoto público, atribuição |
 | Arbeitnow | Integrado | Feed público |
-| The Muse | Não integrado | Verificar endpoint e termos atuais |
+| The Muse | Conector implementado | API pública; homologar coleta real |
 | USAJOBS | Não integrado | Exige autorização e relevância para elegibilidade Brasil |
 | Reed | Não integrado | Exige chave; foco Reino Unido |
 | Findwork | Não integrado | Verificar disponibilidade de API e licença |
@@ -20,7 +20,7 @@ A plataforma exibe **somente fontes com vagas reais no resultado**, nunca 20 op�
 | Lever | Conector integrado | Empresa precisa de board público validado |
 | Ashby | Conector integrado | Empresa precisa de board público validado |
 | SmartRecruiters | Conector integrado | Empresa precisa de board público validado |
-| Workable | Não integrado | API de anúncios públicos por empresa; validar slug da empresa |
+| Workable | Conector implementado, inativo sem empresas configuradas | Definir slugs verificados em WORKABLE_COMPANIES |
 | Gupy não oficial | Não integrado | Acesso não oficial: não usar sem autorização e termos compatíveis |
 | GitHub Issues | Não integrado | Repositório real de vagas precisa existir e permitir consumo |
 | Dados.gov.br / CAGED / RAIS | Não é feed de vagas | Dados históricos/estatísticos, não anúncios individuais |
