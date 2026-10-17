@@ -133,12 +133,18 @@ def main():
     parser.add_argument("--projects", type=Path, default=Path("data/project_jobs_poc.json"))
     parser.add_argument("--qa", type=Path, default=Path("data/jobs.csv"))
     parser.add_argument("--output", type=Path, default=Path("data/unified_jobs.html"))
+    parser.add_argument("--regional-qa", type=Path, default=Path("data/regional_qa_jobs.json"))
     args = parser.parse_args()
     project = json.loads(args.projects.read_text(encoding="utf-8"))
     if not args.qa.exists():
         raise FileNotFoundError(f"QA source file missing: {args.qa}")
     with args.qa.open(encoding="utf-8", newline="") as stream:
         qa = list(csv.DictReader(stream))
+    if args.regional_qa.exists():
+        regional_qa = json.loads(args.regional_qa.read_text(encoding="utf-8"))
+        if not isinstance(regional_qa, list):
+            raise ValueError("Regional QA payload must be a list")
+        qa.extend(regional_qa)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(render(project, qa), encoding="utf-8")
     print(f"Unified dashboard: {len(normalize(project, qa))} unique real listings")
