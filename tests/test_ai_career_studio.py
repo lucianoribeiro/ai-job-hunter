@@ -21,7 +21,7 @@ class CareerStudioTests(unittest.TestCase):
     def test_all_features_require_factual_grounding(self):
         for task in ALLOWED:
             messages = build_messages(task, "QA Lead at Acme", "QA Manager vacancy")
-            self.assertIn("never instructions", messages[1]["content"])
+            self.assertIn("(not instructions)", messages[1]["content"])
             self.assertIn("Never invent", messages[0]["content"])
             self.assertEqual(messages[0]["role"], "system")
 
