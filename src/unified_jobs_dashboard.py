@@ -53,6 +53,30 @@ def studio_job_eligible(job):
     return True
 
 
+def studio_seniority(title):
+    title = str(title or "")
+    if re.search(r"\\b(intern|internship|estagi[aá]ri[oa]|trainee)\\b", title, re.I):
+        return "Estágio"
+    if re.search(r"\\b(junior|jr\\.?|júnior)\\b", title, re.I):
+        return "Júnior"
+    if re.search(r"\\b(senior|sr\\.?|sênior|lead|head|director|diretor)\\b", title, re.I):
+        return "Sênior/Liderança"
+    if re.search(r"\\b(mid.level|pleno)\\b", title, re.I):
+        return "Pleno"
+    return "Não informada"
+
+
+def studio_region(location, mode_key):
+    location = str(location or "")
+    if region_city(location):
+        return "Região de Campinas"
+    if re.search(r"\\b(brasil|brazil|\\bBR\\b)\\b", location, re.I):
+        return "Brasil"
+    if mode_key == "remote":
+        return "Remoto (elegibilidade a verificar)"
+    return "Outra ou não informada"
+
+
 def published_date(value):
     if value in (None, ""):
         return "Não informada"
@@ -162,11 +186,14 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
     source_options = "".join('<option value="' + e(s) + '">' + e(s) + '</option>' for s in sorted({j["source"] for j in jobs}))
     studio_jobs = [j for j in jobs if studio_job_eligible(j)]
     job_options = "".join(
-        '<option value="' + e(j["url"]) + '">' + e(studio_job_label(j["title"]) + " · " + j["company"] +
+        '<option data-category="' + e(j["area"]) +
+        '" data-seniority="' + e(studio_seniority(j["title"])) +
+        '" data-region="' + e(studio_region(j["location"], j["mode_key"])) +
+        '" value="' + e(j["url"]) + '">' + e(studio_job_label(j["title"]) + " · " + j["company"] +
         (" · " + j["location"] if j["location"] else "")) + '</option>'
         for j in studio_jobs
     )
-    studio_html = "<section id=\"ai-career-studio\" aria-labelledby=\"aiTitle\">\n<h2 id=\"aiTitle\">✦ AI Career Studio</h2>\n<p>Quatro ferramentas para sua carreira. <strong>Prévia da interface:</strong> a análise por IA requer uma conexão privada com o servidor; este arquivo estático não envia dados ou currículos.</p>\n<div class=\"ai-tabs\" role=\"tablist\" aria-label=\"Ferramentas de inteligência artificial\">\n<button type=\"button\" class=\"ai-tab\" data-task=\"fit\" aria-pressed=\"true\">Compatibilidade</button>\n<button type=\"button\" class=\"ai-tab\" data-task=\"cv\" aria-pressed=\"false\">CV Premium</button>\n<button type=\"button\" class=\"ai-tab\" data-task=\"application\" aria-pressed=\"false\">Candidatura</button>\n<button type=\"button\" class=\"ai-tab\" data-task=\"career\" aria-pressed=\"false\">Carreira</button>\n</div>\n<div class=\"ai-workspace\">\n<h3 id=\"aiTaskTitle\">AI Job Match</h3>\n<p id=\"aiTaskHelp\">Compare seu perfil com uma vaga e identifique aderência, evidências e lacunas.</p>\n<label for=\"aiJob\">Vaga real para análise</label>\n<select id=\"aiJob\"><option value=\"\">Selecionar uma vaga do catálogo...</option>__AI_JOB_OPTIONS__</select>\n<p class=\"muted\">Não faça upload de CV neste arquivo offline. Nenhuma informação pessoal é armazenada ou enviada.</p>\n<div class=\"ai-actions\"><button type=\"button\" id=\"aiCopy\">Copiar link da vaga</button><span id=\"aiStatus\" role=\"status\"></span></div>\n<p class=\"muted\"><strong>Análise por IA ainda indisponível neste HTML.</strong> O processamento real dependerá de autenticação e API privada antes de ativarmos upload de currículo ou geração de conteúdo.</p>\n</div>\n</section>"
+    studio_html = "<section id=\"ai-career-studio\" aria-labelledby=\"aiTitle\">\n<h2 id=\"aiTitle\">✦ AI Career Studio</h2>\n<p>Quatro ferramentas para sua carreira. <strong>Prévia da interface:</strong> a análise por IA requer uma conexão privada com o servidor; este arquivo estático não envia dados ou currículos.</p>\n<div class=\"ai-tabs\" role=\"tablist\" aria-label=\"Ferramentas de inteligência artificial\">\n<button type=\"button\" class=\"ai-tab\" data-task=\"fit\" aria-pressed=\"true\">Compatibilidade</button>\n<button type=\"button\" class=\"ai-tab\" data-task=\"cv\" aria-pressed=\"false\">CV Premium</button>\n<button type=\"button\" class=\"ai-tab\" data-task=\"application\" aria-pressed=\"false\">Candidatura</button>\n<button type=\"button\" class=\"ai-tab\" data-task=\"career\" aria-pressed=\"false\">Carreira</button>\n</div>\n<div class=\"ai-workspace\">\n<h3 id=\"aiTaskTitle\">AI Job Match</h3>\n<p id=\"aiTaskHelp\">Compare seu perfil com uma vaga e identifique aderência, evidências e lacunas.</p>\n<div class=\"studio-filters\"><label for=\"studioCategory\">Categoria profissional<select id=\"studioCategory\"><option value=\"Projetos\">Gestão de Projetos</option><option value=\"QA\">QA / Quality Engineering</option></select></label><label for=\"studioSeniority\">Senioridade<select id=\"studioSeniority\"><option value=\"\">Todas</option><option>Estágio</option><option>Júnior</option><option>Pleno</option><option>Sênior/Liderança</option><option>Não informada</option></select></label><label for=\"studioRegion\">Localização<select id=\"studioRegion\"><option value=\"\">Todas</option><option>Região de Campinas</option><option>Brasil</option><option>Remoto (elegibilidade a verificar)</option><option>Outra ou não informada</option></select></label></div>\n<label for=\"aiJob\">Vaga real para análise <span id=\"studioCount\" role=\"status\"></span></label>\n<select id=\"aiJob\"><option value=\"\">Selecionar uma vaga do catálogo...</option>__AI_JOB_OPTIONS__</select>\n<p class=\"muted\">Não faça upload de CV neste arquivo offline. Nenhuma informação pessoal é armazenada ou enviada.</p>\n<div class=\"ai-actions\"><button type=\"button\" id=\"aiCopy\">Copiar link da vaga</button><span id=\"aiStatus\" role=\"status\"></span></div>\n<p class=\"muted\"><strong>Análise por IA ainda indisponível neste HTML.</strong> O processamento real dependerá de autenticação e API privada antes de ativarmos upload de currículo ou geração de conteúdo.</p>\n</div>\n</section>"
     studio_html = studio_html.replace("__AI_JOB_OPTIONS__", job_options)
     strategic = strategic or {}
     source_status = strategic.get("sources", [])
@@ -288,7 +315,7 @@ a{color:#93c5b7;font-weight:650;text-decoration:none}a:hover{text-decoration:und
 p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13px}
 #count{color:#e7e9ea;font-weight:700}#empty{padding:20px;color:#ffd493}
 @media(max-width:650px){body{padding:12px}header,section{padding:19px;border-radius:18px}.summary{gap:8px}.summary article{padding:13px;border-radius:12px}.summary strong{font-size:27px}.filters{grid-template-columns:1fr}td,th{padding:11px}}
-.ai-tabs{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}.ai-tab,.ai-actions button{cursor:pointer;border-radius:12px;background:#2b3038;color:#e4e5e7;border:1px solid #515960;padding:12px 16px;font-weight:700}.ai-tab[aria-pressed=true]{background:#477f71;border-color:#78af9f;color:white}.ai-workspace{background:#1b2026;border:1px solid #404750;border-radius:18px;padding:20px}.ai-workspace h3{color:white}.ai-workspace label{display:block;margin-bottom:8px;color:#d6d9df}.ai-actions{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}#aiStatus{color:#d3d7da;font-size:13px}.muted{color:#aeb4bd}
+.studio-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:14px 0}.studio-filters label{display:grid;gap:6px;color:#d6d9df;font-size:13px}#studioCount{color:#9bd4c6;font-size:12px}.ai-tabs{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}.ai-tab,.ai-actions button{cursor:pointer;border-radius:12px;background:#2b3038;color:#e4e5e7;border:1px solid #515960;padding:12px 16px;font-weight:700}.ai-tab[aria-pressed=true]{background:#477f71;border-color:#78af9f;color:white}.ai-workspace{background:#1b2026;border:1px solid #404750;border-radius:18px;padding:20px}.ai-workspace h3{color:white}.ai-workspace label{display:block;margin-bottom:8px;color:#d6d9df}.ai-actions{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}#aiStatus{color:#d3d7da;font-size:13px}.muted{color:#aeb4bd}
 .regional-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:18px 0}.regional-filters label{font-size:13px;display:grid;gap:7px;color:#d6d9df}.regional-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:13px}.regional-card{padding:17px;border:1px solid #46505a;border-radius:15px;background:#252a31}.regional-heading{display:flex;justify-content:space-between;align-items:start;gap:12px}.regional-pill{font-size:11px;border:1px solid #638e82;border-radius:20px;padding:4px 7px;white-space:nowrap}.regional-card p{color:#bbc3cc;font-size:13px;line-height:1.5}.regional-card summary,.regional-sources summary{cursor:pointer;color:#9bd4c6;font-weight:650}.regional-card details a{display:inline-block;margin-top:12px}.regional-sources{margin-top:20px}.regional-card[hidden]{display:none}
 </style></head><body>
 <header><h1>AI Job Hunter</h1><p>Oportunidades reais, de QA e Gerência / Coordenação de Projetos, em um só lugar.</p></header>
@@ -331,6 +358,22 @@ r.hidden=!show;if(show)visible++;
 
 const rc=document.getElementById('regionalCompany'),rCity=document.getElementById('regionalCity'),rArea=document.getElementById('regionalArea'),rq=document.getElementById('regionalQuery');
 if(rc&&rCity&&rArea&&rq){const cards=[...document.querySelectorAll('.regional-card')];const updateRegional=()=>{let count=0;for(const c of cards){const match=(!rc.value||c.dataset.company===rc.value)&&(!rCity.value||(rCity.value==='unverified'?!c.dataset.city:c.dataset.city===rCity.value))&&(!rArea.value||c.dataset.area===rArea.value)&&c.textContent.toLocaleLowerCase().includes(rq.value.trim().toLocaleLowerCase());c.hidden=!match;if(match)count++;}document.getElementById('regionalCount').textContent=count+' vaga(s) encontrada(s)'+(count===0?' para os filtros selecionados. Isso não significa que não existam vagas nos portais; a coleta é parcial.':'');};[rc,rCity,rArea,rq].forEach(x=>x.addEventListener('input',updateRegional));updateRegional();}
+const studioCategory=document.getElementById('studioCategory'),studioSeniority=document.getElementById('studioSeniority'),studioRegion=document.getElementById('studioRegion'),aiJob=document.getElementById('aiJob'),studioCount=document.getElementById('studioCount');
+if(studioCategory&&studioSeniority&&studioRegion&&aiJob&&studioCount){
+ const opts=[...aiJob.options].filter(o=>o.value);
+ const refreshStudio=()=>{
+  let matched=0;
+  for(const o of opts){
+   const show=o.dataset.category===studioCategory.value&&(!studioSeniority.value||o.dataset.seniority===studioSeniority.value)&&(!studioRegion.value||o.dataset.region===studioRegion.value);
+   o.hidden=!show;o.disabled=!show;if(show)matched++;
+  }
+  if(aiJob.selectedOptions[0]&&aiJob.selectedOptions[0].disabled)aiJob.value='';
+  studioCount.textContent='('+matched+' vagas)';
+  if(matched===0)aiJob.value='';
+ };
+ [studioCategory,studioSeniority,studioRegion].forEach(el=>el.addEventListener('change',refreshStudio));
+ refreshStudio();
+}
 const taskInfo={
 fit:['AI Job Match','Compare seu perfil com uma vaga e identifique aderência, evidências e lacunas.'],
 cv:['AI CV Studio','Produza uma versão ATS-friendly do seu currículo, sem inventar informações.'],
