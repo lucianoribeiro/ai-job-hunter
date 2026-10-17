@@ -58,10 +58,14 @@ def classify(job: dict, config: dict) -> dict | None:
     combined = (title + " " + details)
     if any(term in title for term in config["blocked_title_terms"]):
         return None
-    if not any(term in combined for term in config["full_time_keywords"]):
+    project_terms = config.get("project_management_keywords", ["project manager", "project coordinator", "gerente de projetos", "coordenador de projetos", "coordenadora de projetos", "pmo manager", "program manager"])
+    is_qa = any(term in title for term in config["full_time_keywords"])
+    is_projects = any(term in title for term in project_terms)
+    if not (is_qa or is_projects):
         return None
+    profile = "qa" if is_qa else "project_management"
     remote = bool(job.get("remote")) or "remote" in (title + " " + job["location"] + " " + details[:1200]).lower()
-    if config["remote_required"] and not remote:
+    if (config["remote_required"] if profile == "qa" else config.get("project_management_remote_required", False)) and not remote:
         return None
     contractor = bool(re.search(r"\b(contract|contractor|freelanc|part.time|consultant|hourly)\w*", combined))
     category = "freelance" if contractor else "full-time/unspecified"
@@ -70,7 +74,7 @@ def classify(job: dict, config: dict) -> dict | None:
     senior = bool(re.search(r"\b(lead|manager|head|principal|senior|staff)\b", title))
     score = 30 + (20 if senior else 0) + (20 if contractor else 0) + (15 if usd else 0) + (10 if flexibility else 0) + (5 if remote else 0)
     result = dict(job)
-    result.update(score=score, category=category, remote=remote, usd_confirmed=usd,
+    result.update(score=score, profile=profile, category=category, remote=remote, usd_confirmed=usd,
                   flexibility_mentioned=flexibility, two_hours_confirmed=False)
     # Never infer exactly 2h/day from broad 'part-time' or 'flexible' language.
     result.pop("description", None)
@@ -101,12 +105,13 @@ def collect(config: dict) -> tuple[list[dict], list[str]]:
         if match:
             ranked.append(match)
     ranked.sort(key=lambda x: (-x["score"], x["company"].lower(), x["title"].lower()))
-    return ranked[: config.get("max_results", 100)], errors
+    limit = config.get("max_results_per_profile", config.get("max_results", 100))
+    return ([j for j in ranked if j["profile"] == "qa"][:limit] + [j for j in ranked if j["profile"] == "project_management"][:limit]), errors
 
 
 FIELDS = ["score", "category", "title", "company", "location", "salary", "type",
           "remote", "usd_confirmed", "flexibility_mentioned", "two_hours_confirmed",
-          "published", "source", "url", "id"]
+          "published", "source", "url", "id", "profile"]
 
 
 def write_outputs(jobs: list[dict], errors: list[str]) -> None:
