@@ -34,7 +34,7 @@ def lever(company, board):
     data = get(f"https://api.lever.co/v0/postings/{slug(board)}?mode=json")
     return [normalized("Lever", company, j.get("id"), j.get("text"), j.get("hostedUrl"),
                        (j.get("categories") or {}).get("location"), j.get("descriptionPlain") or j.get("description"),
-                       job_type=(j.get("categories") or {}).get("commitment")) for j in data]
+                       job_type=(j.get("categories") or {}).get("commitment"),\n                       remote=str(j.get("workplaceType") or "").lower() == "remote") for j in data]
 
 def ashby(company, board):
     data = get(f"https://api.ashbyhq.com/posting-api/job-board/{slug(board)}?includeCompensation=true")
