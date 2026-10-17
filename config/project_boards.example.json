@@ -24,6 +24,11 @@
       "source": "lever",
       "company": "CI&T",
       "slug": "ciandt"
+    },
+    {
+      "source": "smartrecruiters",
+      "company": "Bosch Group",
+      "slug": "BoschGroup"
     }
   ]
 }
