@@ -40,7 +40,7 @@ def ashby(company, board):
     data = get(f"https://api.ashbyhq.com/posting-api/job-board/{slug(board)}?includeCompensation=true")
     return [normalized("Ashby", company, j.get("id") or j.get("jobUrl"), j.get("title"),
                        j.get("jobUrl") or j.get("applyUrl"), j.get("location"), j.get("descriptionPlain") or j.get("descriptionHtml"),
-                       j.get("publishedAt") or "", str(j.get("compensation") or ""),
+                       j.get("publishedAt") or "", (j.get("compensation") or {}).get("compensationTierSummary", "") if isinstance(j.get("compensation"), dict) else "",
                        j.get("employmentType"), j.get("isRemote", False)) for j in data.get("jobs", []) if j.get("isListed", True)]
 
 def personio(company, board):
@@ -55,6 +55,7 @@ def personio(company, board):
     return result
 
 def workable(company, board):
+    # Public careers endpoint; verify availability for each employer before enabling.
     data = get(f"https://apply.workable.com/api/v3/accounts/{slug(board)}/jobs")
     return [normalized("Workable", company, j.get("shortcode"), j.get("title"),
                        j.get("url") or f"https://apply.workable.com/{slug(board)}/j/{quote(str(j.get('shortcode') or ''))}/",
@@ -70,9 +71,12 @@ def collect_boards(config):
         if source not in ADAPTERS:
             errors.append(f"Unknown source: {source}")
             continue
+        if not isinstance(companies, list):
+            errors.append(f"{source}: company boards must be a list")
+            continue
         for item in companies:
             try:
                 jobs.extend(ADAPTERS[source](item["company"], item["board"]))
-            except (OSError, ValueError, KeyError, TypeError, ET.ParseError) as exc:
+            except (OSError, ValueError, KeyError, TypeError, AttributeError, ET.ParseError) as exc:
                 errors.append(f"{source}/{item.get('company', '?')}: {exc}")
     return jobs, errors
