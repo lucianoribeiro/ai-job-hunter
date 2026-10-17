@@ -38,6 +38,14 @@ class UnifiedDashboardTests(unittest.TestCase):
         self.assertIn('data-city="Campinas"', page)
         self.assertIn('id="city"', page)
 
+    def test_premium_dashboard_uses_live_rows_not_demo(self):
+        page = render({"jobs": [{"title": "Project Manager", "company": "Real",
+            "url": "https://example.com/role", "location": "Campinas"}]}, [])
+        self.assertIn("DASHBOARD PREMIUM", page)
+        self.assertIn("radial-gradient", page)
+        self.assertIn("Project Manager", page)
+        self.assertNotIn("Prévia com dados demonstrativos", page)
+
     def test_dedupe_and_html_escape(self):
         projects = {"jobs": [{"title": "<script>alert(1)</script>", "company": "Test",
             "url": "https://example.com/role?a=1", "remote_evidence": "unknown"}]}
