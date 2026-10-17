@@ -22,6 +22,37 @@ def safe_url(value):
 QA_TITLE = re.compile(r"\b(qa|quality assurance|quality engineer|quality engineering|software tester|test engineer|sdet|test automation|test lead|automation tester)\b", re.I)
 
 
+CJK = re.compile(r"[\u3040-\u30ff\u3400-\u9fff]")
+LANGUAGE_REQUIREMENT = re.compile(r"\b(?:japanese|mandarin|korean|chinese)[ -]speaking\b", re.I)
+OVERSEAS_LOCATION = re.compile(r"\b(?:Japan|Tokyo|Osaka|Vietnam|Hanoi|Malaysia|India|Indonesia|Germany|France|Poland|China|Thailand|Philippines)\b", re.I)
+ROLE_TERMS = re.compile(r"\b(?:project|program|portfolio|pmo|coordinator|manager|quality|qa|test|projetos?|gerente|coordenador)\b", re.I)
+
+
+def studio_job_label(title):
+    """Preserve a meaningful Latin-script job title; never alter source record."""
+    value = str(title or "").strip()
+    if CJK.search(value):
+        parts = re.split(r"\s*[/|–—]\s*", value)
+        latin = [p.strip(" -|/") for p in parts if not CJK.search(p) and ROLE_TERMS.search(p)]
+        if latin:
+            return max(latin, key=len)
+        value = CJK.sub("", value).strip(" -|/[]")
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def studio_job_eligible(job):
+    """Conservative selector ranking: avoid known foreign/on-site or language-mismatch roles."""
+    title = str(job.get("title") or "")
+    cleaned = studio_job_label(title)
+    if not cleaned or not ROLE_TERMS.search(cleaned) or LANGUAGE_REQUIREMENT.search(title):
+        return False
+    location = str(job.get("location") or "")
+    # Explicit overseas location must not be presented as a local/default eligible role.
+    if OVERSEAS_LOCATION.search(location) and job.get("mode_key") != "remote":
+        return False
+    return True
+
+
 def published_date(value):
     if value in (None, ""):
         return "Não informada"
@@ -129,9 +160,11 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         e(j["published"]) + "</td></tr>" for j in jobs
     )
     source_options = "".join('<option value="' + e(s) + '">' + e(s) + '</option>' for s in sorted({j["source"] for j in jobs}))
+    studio_jobs = [j for j in jobs if studio_job_eligible(j)]
     job_options = "".join(
-        '<option value="' + e(j["url"]) + '">' + e(j["title"] + " · " + j["company"]) + '</option>'
-        for j in jobs
+        '<option value="' + e(j["url"]) + '">' + e(studio_job_label(j["title"]) + " · " + j["company"] +
+        (" · " + j["location"] if j["location"] else "")) + '</option>'
+        for j in studio_jobs
     )
     studio_html = "<section id=\"ai-career-studio\" aria-labelledby=\"aiTitle\">\n<h2 id=\"aiTitle\">✦ AI Career Studio</h2>\n<p>Quatro ferramentas para sua carreira. <strong>Prévia da interface:</strong> a análise por IA requer uma conexão privada com o servidor; este arquivo estático não envia dados ou currículos.</p>\n<div class=\"ai-tabs\" role=\"tablist\" aria-label=\"Ferramentas de inteligência artificial\">\n<button type=\"button\" class=\"ai-tab\" data-task=\"fit\" aria-pressed=\"true\">Compatibilidade</button>\n<button type=\"button\" class=\"ai-tab\" data-task=\"cv\" aria-pressed=\"false\">CV Premium</button>\n<button type=\"button\" class=\"ai-tab\" data-task=\"application\" aria-pressed=\"false\">Candidatura</button>\n<button type=\"button\" class=\"ai-tab\" data-task=\"career\" aria-pressed=\"false\">Carreira</button>\n</div>\n<div class=\"ai-workspace\">\n<h3 id=\"aiTaskTitle\">AI Job Match</h3>\n<p id=\"aiTaskHelp\">Compare seu perfil com uma vaga e identifique aderência, evidências e lacunas.</p>\n<label for=\"aiJob\">Vaga real para análise</label>\n<select id=\"aiJob\"><option value=\"\">Selecionar uma vaga do catálogo...</option>__AI_JOB_OPTIONS__</select>\n<p class=\"muted\">Não faça upload de CV neste arquivo offline. Nenhuma informação pessoal é armazenada ou enviada.</p>\n<div class=\"ai-actions\"><button type=\"button\" id=\"aiCopy\">Copiar link da vaga</button><span id=\"aiStatus\" role=\"status\"></span></div>\n<p class=\"muted\"><strong>Análise por IA ainda indisponível neste HTML.</strong> O processamento real dependerá de autenticação e API privada antes de ativarmos upload de currículo ou geração de conteúdo.</p>\n</div>\n</section>"
     studio_html = studio_html.replace("__AI_JOB_OPTIONS__", job_options)
