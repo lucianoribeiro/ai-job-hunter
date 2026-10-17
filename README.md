@@ -63,3 +63,23 @@ publication dates or remote eligibility; these values must not be inferred. Work
 endpoint requires employer-by-employer verification. Failures appear under source errors in
 `data/report.md`. Existing Remotive and Arbeitnow jobs continue to be collected.
 
+
+## Regional expansion: Campinas and Paulínia
+
+The SmartRecruiters adapter is configured for BoschGroup (Bosch) and SyngentaGroup
+(Syngenta). It reads the documented public company postings API with bounded
+pagination, including city and published date when supplied. The Recruitee careers
+site adapter is implemented but has no employer boards configured.
+
+**Important:** A configured board is not proof that it returned jobs. Run the
+workflow and inspect the source errors and real job output. Do not claim that
+every employer board or region has vacancies. Workable remains disabled pending
+endpoint verification. Recruitee has announced a Careers Site API token
+requirement effective February 2027; do not bypass authentication or use
+private credentials. Prefer the officially public XML feed if the API becomes
+restricted.
+
+The two profiles are QA (remote-first) and project management (remote, hybrid,
+or onsite). Regional cities are preserved in the location field. An explicit
+regional city filter and a broader discovery mechanism are still needed to
+guarantee useful coverage for Paulínia, Campinas, Sumaré and nearby cities.
