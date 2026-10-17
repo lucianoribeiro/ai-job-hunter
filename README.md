@@ -40,3 +40,7 @@ This repository is public. **Never commit personal CVs, email addresses, private
 ## LinkedIn alerts (opt-in)
 
 An offline importer is available for LinkedIn alert emails exported as .eml files. It extracts only direct public job links and tentative titles; no login or mailbox access is required. Run `python -m src.linkedin_alerts /path/to/alert.eml` and then `python -m src.review` and `python -m src.dashboard`. See [instructions](docs/linkedin-alerts.md). Do not commit email exports.
+
+## LinkedIn recruiter outreach (review-only)
+
+For LinkedIn posts explicitly inviting QA applications by email, run the offline recruiter-email extractor and draft generator. It generates only a local review-required draft; it **does not access Gmail, attach a CV or send messages**. See [recruiter outreach instructions](docs/recruiter-outreach.md). Never commit private applicant information.
