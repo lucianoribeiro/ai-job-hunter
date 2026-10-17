@@ -50,3 +50,7 @@ For local CV matching, save your CV as a UTF-8 text file **outside this reposito
 ## Empresas estratégicas — Honda Brasil
 
 The daily job discovery workflow checks the official public Honda careers landing page (`https://honda.gupy.io/`) for directly exposed job links. Results are exported to `data/strategic_jobs.json` and displayed in the dashboard, separately from remote/USD opportunities. The region includes Sumaré, Campinas, Paulínia, Nova Odessa, Americana and Hortolândia. Gupy's documented integration API requires authorization; this watcher never uses employer credentials or claims official API access. If the career page loads links dynamically, the dashboard reports `needs_connector` instead of falsely showing zero openings. Employer, location, and role suitability must be verified on the official job posting. The implementation does not submit applications.
+
+## APinfo — consulta externa (sem API oficial confirmada)
+
+O dashboard apresenta um link para o portal [APinfo](https://www.apinfo.com/apinfo/), identificado como fonte de consulta **manual**. A APinfo não integra a coleta automática, não gera vagas fictícias nem aumenta os contadores de oportunidades. Antes de automatizar a ingestão, é necessário confirmar uma API/feed oficialmente permitido ou obter autorização explícita da plataforma. A presença do link não indica parceria ou integração de dados.
