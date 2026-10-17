@@ -47,3 +47,13 @@ class PagesVisibilityTests(unittest.TestCase):
         self.assertIn("selectTab(0,false)",page)
         self.assertIn("panel.style.display=active?'':'none'",page)
         self.assertEqual(page.count('data-area="Projetos"'),15)
+
+    def test_japanese_bilingual_job_is_readable_in_general_table(self):
+        title = "[2WP] 二輪&パワースポーツ ECU プロジェクトマネジャー/ECU Project Manager for Two Wheeler & Powersports"
+        url = "https://example.org/jobs/987"
+        page = render({"jobs":[{"title":title,"company":"Bosch Group","location":"Yokohama, JP","url":url}]}, [])
+        table = page.split("<tbody>",1)[1].split("</tbody>",1)[0]
+        self.assertIn("ECU Project Manager for Two Wheeler", table)
+        self.assertNotIn("二輪",table)
+        self.assertIn(url,table)
+        self.assertIn("Bosch Group",table)
