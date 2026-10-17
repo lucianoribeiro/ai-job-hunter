@@ -1,8 +1,57 @@
 {
+  "cities": [
+    "Sumaré",
+    "Paulínia",
+    "Americana"
+  ],
   "companies": [
     {
       "name": "Honda Brasil",
-      "url": "https://honda.gupy.io/"
+      "city": "Sumaré",
+      "url": "https://honda.gupy.io/",
+      "monitor": "public_links"
+    },
+    {
+      "name": "3M Brasil",
+      "city": "Sumaré",
+      "url": "",
+      "monitor": "manual"
+    },
+    {
+      "name": "Villares Metals",
+      "city": "Sumaré",
+      "url": "",
+      "monitor": "manual"
+    },
+    {
+      "name": "PPG",
+      "city": "Sumaré",
+      "url": "",
+      "monitor": "manual"
+    },
+    {
+      "name": "Petrobras / Replan",
+      "city": "Paulínia",
+      "url": "https://petrobras.com.br/quem-somos/refinaria-de-paulinia",
+      "monitor": "manual"
+    },
+    {
+      "name": "Rhodia / Solvay",
+      "city": "Paulínia",
+      "url": "https://www.solvay.com/pt-br/brazil/carreiras",
+      "monitor": "manual"
+    },
+    {
+      "name": "Braskem",
+      "city": "Paulínia",
+      "url": "https://www.braskem.com.br/braskemsaopaulo-homolog",
+      "monitor": "manual"
+    },
+    {
+      "name": "Goodyear",
+      "city": "Americana",
+      "url": "",
+      "monitor": "manual"
     }
   ]
 }
