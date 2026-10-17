@@ -38,6 +38,24 @@ def published_date(value):
     return "Não informada"
 
 
+def published_iso(value):
+    """Return only a source-supplied publication date, never an update or first-seen date."""
+    if value in (None, ""):
+        return ""
+    try:
+        if isinstance(value, (int, float)) or str(value).isdigit():
+            timestamp = float(value)
+            if timestamp > 1e12:
+                timestamp /= 1000
+            return datetime.fromtimestamp(timestamp, timezone.utc).date().isoformat()
+        raw = str(value)
+        if re.match(r"^\\d{4}-\\d{2}-\\d{2}", raw):
+            return datetime.fromisoformat(raw.replace("Z", "+00:00")).date().isoformat()
+    except (OverflowError, ValueError, OSError):
+        pass
+    return ""
+
+
 def normalize(project_report, qa_jobs, linkedin_jobs=None):
     rows, seen = [], set()
     for area, jobs in (("Projetos", project_report.get("jobs", [])), ("QA", qa_jobs)):
@@ -64,6 +82,7 @@ def normalize(project_report, qa_jobs, linkedin_jobs=None):
                 "modality": modality, "mode_key": "remote" if evidence == "explicit" else (
                     "verify" if evidence == "description_only" else "unknown"),
                 "published": published_date(job.get("published")),
+                "published_iso": published_iso(job.get("published")),
                 "brazil": job.get("brazil_eligible") or "Não verificado"
             })
     return rows
@@ -74,7 +93,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None):
     qa_count = sum(x["area"] == "QA" for x in jobs)
     projects_count = sum(x["area"] == "Projetos" for x in jobs)
     body = "".join(
-        '<tr data-area="' + e(j["area"]) + '" data-mode="' + e(j["mode_key"]) + '" data-source="' + e(j["source"]) + '" data-location="' + e(j["location"]) + '">' +
+        '<tr data-area="' + e(j["area"]) + '" data-mode="' + e(j["mode_key"]) + '" data-source="' + e(j["source"]) + '" data-location="' + e(j["location"]) + '" data-published="' + e(j["published_iso"]) + '">' +
         '<td><a href="' + e(j["url"]) + '" target="_blank" rel="noopener noreferrer">' + e(j["title"]) + '</a></td>' +
         "<td>" + e(j["company"]) + "</td><td>" + e(j["area"]) + "</td><td>" + e(j["location"]) +
         "</td><td>" + e(j["modality"]) + "</td><td>" + e(j["source"]) + "</td><td>" +
@@ -113,18 +132,21 @@ th{background:#edf2fa}a{color:#1456aa}p,footer{color:#53627b}footer{margin-top:1
 <th>Modalidade</th><th>Fonte</th><th>Publicação</th></tr></thead><tbody>""" + body + """</tbody></table></div>
 <p id="empty" hidden>Nenhuma vaga corresponde aos filtros.</p>
 </section><footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
-na página oficial. Datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
+na página oficial. Apenas datas de publicação fornecidas pelas fontes são exibidas; datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
-const q=document.getElementById('q'),a=document.getElementById('area'),m=document.getElementById('mode'),source=document.getElementById('source'),region=document.getElementById('region');
+const q=document.getElementById('q'),a=document.getElementById('area'),m=document.getElementById('mode'),source=document.getElementById('source'),region=document.getElementById('region'),age=document.getElementById('age');
 const rows=[...document.querySelectorAll('tbody tr')],count=document.getElementById('count');
 function apply(){let visible=0;for(const r of rows){
 const local=/nova odessa|americana|sumaré|sumare|santa bárbara|santa barbara|hortolândia|hortolandia|campinas/i.test(r.dataset.location||'');
 const locOK=!region.value||(region.value==='local'?local:r.dataset.mode==='remote');
-const show=locOK&&(!a.value||r.dataset.area===a.value)&&(!m.value||r.dataset.mode===m.value)&&(!source.value||r.dataset.source===source.value)&&
+const published=r.dataset.published;
+let dateOK=!age.value||(age.value==='unknown'?!published:false);
+if(age.value&&age.value!=='unknown'&&published){const date=Date.parse(published+'T00:00:00Z');const now=Date.now();const elapsed=(now-date)/86400000;dateOK=elapsed>=0&&elapsed<=Number(age.value);}
+const show=dateOK&&locOK&&(!a.value||r.dataset.area===a.value)&&(!m.value||r.dataset.mode===m.value)&&(!source.value||r.dataset.source===source.value)&&
 r.textContent.toLocaleLowerCase().includes(q.value.trim().toLocaleLowerCase());
 r.hidden=!show;if(show)visible++;
 }count.textContent=visible+' vaga(s) exibida(s)';document.getElementById('empty').hidden=visible!==0;}
-[q,a,m,source,region].forEach(el=>el.addEventListener('input',apply));apply();
+[q,a,m,source,region,age].forEach(el=>el.addEventListener('input',apply));apply();
 </script></body></html>"""
 
 
