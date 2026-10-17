@@ -84,9 +84,65 @@ def jooble(getter=read_json):
     return jobs, "active"
 
 
+
+def remoteok(getter=read_json):
+    data = getter("https://remoteok.com/api")
+    if not isinstance(data, list):
+        raise ValueError("Unexpected RemoteOK payload")
+    jobs = []
+    for j in data:
+        if not isinstance(j, dict) or not j.get("position"):
+            continue
+        x = candidate(j.get("position"), j.get("company"), j.get("url") or j.get("apply_url"),
+                      j.get("location") or "Remoto — país não confirmado", j.get("date"),
+                      "RemoteOK", explicit_remote=True)
+        if x:
+            jobs.append(x)
+    return jobs
+
+
+def themuse(getter=read_json):
+    jobs = []
+    for page in (0, 1, 2):
+        data = getter("https://www.themuse.com/api/public/jobs?" + urlencode({"page": page}))
+        if not isinstance(data, dict) or not isinstance(data.get("results"), list):
+            raise ValueError("Unexpected The Muse payload")
+        for j in data["results"]:
+            places = j.get("locations") or []
+            location = ", ".join(str(x.get("name") or "") for x in places if isinstance(x, dict))
+            company = j.get("company") or {}
+            x = candidate(j.get("name"), company.get("name") if isinstance(company, dict) else "",
+                          (j.get("refs") or {}).get("landing_page"), location,
+                          j.get("publication_date"), "The Muse")
+            if x:
+                jobs.append(x)
+    return jobs
+
+
+def workable(getter=read_json):
+    """Only explicitly configured public employer boards, not arbitrary URL guesses."""
+    slugs = [x.strip() for x in os.getenv("WORKABLE_COMPANIES", "").split(",") if x.strip()]
+    if not slugs:
+        return [], "boards_required"
+    jobs = []
+    for slug in slugs:
+        if not re.fullmatch(r"[a-zA-Z0-9_-]{2,70}", slug):
+            raise ValueError("Invalid Workable company slug")
+        data = getter("https://www.workable.com/api/accounts/" + slug + "?details=false")
+        if not isinstance(data, dict) or not isinstance(data.get("jobs"), list):
+            raise ValueError("Unexpected Workable payload")
+        for j in data["jobs"]:
+            loc = ", ".join(filter(None, [j.get("city"), j.get("state"), j.get("country")]))
+            x = candidate(j.get("title"), data.get("name") or slug,
+                          j.get("application_url") or j.get("url") or j.get("shortlink"),
+                          loc, j.get("published_on"), "Workable",
+                          explicit_remote=j.get("workplace_type") == "remote")
+            if x: jobs.append(x)
+    return jobs, "active"
+
 def collect(getter=read_json):
     results, status = [], {}
-    for name, fn in (("Jobicy", jobicy), ("Adzuna", adzuna), ("Jooble", jooble)):
+    for name, fn in (("Jobicy", jobicy), ("RemoteOK", remoteok), ("The Muse", themuse), ("Workable", workable), ("Adzuna", adzuna), ("Jooble", jooble)):
         try:
             value = fn(getter)
             jobs, state = value if isinstance(value, tuple) else (value, "active")
