@@ -45,6 +45,9 @@ jobs:
           test -s site/index.html
           grep -q 'AI Career Studio' site/index.html
           grep -q 'DASHBOARD PREMIUM' site/index.html
+          grep -q 'id="regionalCompany"' site/index.html
+          grep -q 'id="regionalCards"' site/index.html
+          grep -q 'Ver informações da vaga' src/unified_jobs_dashboard.py
           test ! -e site/.env
           touch site/.nojekyll
       - name: Configure Pages
