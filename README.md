@@ -9,6 +9,7 @@ A zero-paid-API, **review-first** QA job discovery agent.
 - Creates a rolling job history with first/last seen dates and stable URL-based identities.
 - Creates a review queue, preserving human decisions on subsequent runs.
 - Produces `data/jobs.csv`, `data/report.md`, `data/history.json`, `data/applications.json` and `data/applications.md`.
+- Generates an offline HTML dashboard (`data/dashboard.html`) showing job counts, freelance listings and application statuses; it can be downloaded from GitHub Actions artifacts and opened locally.
 - Runs daily through GitHub Actions.
 
 ## Quick start
@@ -17,6 +18,7 @@ A zero-paid-API, **review-first** QA job discovery agent.
 python -m unittest discover -s tests -v
 python -m src.hunter
 python -m src.review
+python -m src.dashboard
 ```
 
 Or go to [GitHub Actions](https://github.com/lucianoribeiro/ai-job-hunter/actions), select **Discover QA jobs**, and choose **Run workflow**.
