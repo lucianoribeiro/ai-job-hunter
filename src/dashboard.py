@@ -49,12 +49,12 @@ def render(queue: dict, generated: str = "") -> str:
         link = f'<a href="{escape(url)}" target="_blank" rel="noopener noreferrer">{title}</a>'
         checks = job.get("assessment") if isinstance(job.get("assessment"), dict) else {}
         reputation = checks.get("company_reputation") if isinstance(checks.get("company_reputation"), dict) else {}
-        row = [link, escape(job.get("company")), escape(job.get("category")),
+        row = [link, escape(job.get("company")), escape("Gestão de Projetos" if job.get("profile") == "project_management" else "QA"), escape(job.get("category")),
                escape(job.get("score")), escape(status),
                escape(checks.get("salary_currency", "unspecified")),
                escape(checks.get("two_hours_per_day", "unverified")),
                escape(reputation.get("status", "unverified"))]
-        rows.append('<tr data-status="' + escape(status) + '" data-type="' + escape(job.get("category")) + '">' +
+        rows.append('<tr data-profile="' + escape(job.get("profile", "qa")) + '" data-status="' + escape(status) + '" data-type="' + escape(job.get("category")) + '">' +
                     "".join(f"<td>{cell}</td>" for cell in row) + "</tr>")
     timestamp = escape(generated or datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"))
     return """<!doctype html>
@@ -77,17 +77,17 @@ th{color:#cbd5e1;background:#1f2937}a{color:#8bc2ff}footer{margin-top:20px;font-
 <div class="controls"><input id="query" aria-label="Pesquisar vagas" placeholder="Pesquisar empresa ou vaga">
 <select id="status" aria-label="Filtrar status"><option value="">Todos os status</option>""" + "".join(
         f'<option value="{escape(s)}">{escape(s.replace("_", " ").title())}</option>' for s in sorted(ALLOWED)) + """</select>
-<select id="type" aria-label="Filtrar tipo"><option value="">Todos os tipos</option><option value="freelance">Freelance</option>
+<select id="profile" aria-label="Filtrar perfil"><option value="">Ambos os perfis</option><option value="qa">QA</option><option value="project_management">Gestão de Projetos</option></select>\n<select id="type" aria-label="Filtrar tipo"><option value="">Todos os tipos</option><option value="freelance">Freelance</option>
 <option value="full-time/unspecified">Integral / não especificado</option></select></div>
-<div class="table"><table id="jobs"><thead><tr><th>Vaga</th><th>Empresa</th><th>Categoria</th><th>Score</th>
+<div class="table"><table id="jobs"><thead><tr><th>Vaga</th><th>Empresa</th><th>Perfil</th><th>Categoria</th><th>Score</th>
 <th>Status</th><th>Moeda</th><th>2h/dia</th><th>Reputação</th></tr></thead><tbody>""" + "".join(rows) + """</tbody></table></div>
 <footer>Empresas, elegibilidade no Brasil, disponibilidade de 2h/dia e pagamento devem ser verificados diretamente.
 O status do painel não envia candidatura. Não armazene CV ou informações pessoais neste repositório público.</footer>
 <script>
-const q=document.querySelector('#query'),s=document.querySelector('#status'),t=document.querySelector('#type');
+const q=document.querySelector('#query'),s=document.querySelector('#status'),t=document.querySelector('#type'),p=document.querySelector('#profile');
 function filter(){const search=q.value.toLocaleLowerCase();for(const row of document.querySelectorAll('#jobs tbody tr')){
-row.hidden=!(row.textContent.toLocaleLowerCase().includes(search)&&(!s.value||row.dataset.status===s.value)&&(!t.value||row.dataset.type===t.value));}}
-[q,s,t].forEach(x=>x.addEventListener('input',filter));
+row.hidden=!(row.textContent.toLocaleLowerCase().includes(search)&&(!s.value||row.dataset.status===s.value)&&(!t.value||row.dataset.type===t.value)&&(!p.value||row.dataset.profile===p.value));}}
+[q,s,t,p].forEach(x=>x.addEventListener('input',filter));
 </script></body></html>"""
 
 
