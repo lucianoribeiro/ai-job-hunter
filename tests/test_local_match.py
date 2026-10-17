@@ -47,3 +47,14 @@ class LocalMatchTests(unittest.TestCase):
             for code in scripts:
                 result=subprocess.run(['node','--check'],input=code,text=True,capture_output=True)
                 self.assertEqual(result.returncode,0,result.stderr)
+
+    def test_clean_three_step_match_flow_keeps_advanced_inputs(self):
+        page=render({'jobs': []}, [])
+        self.assertIn('1. Selecione uma vaga',page)
+        self.assertIn('2. Envie seu currículo',page)
+        self.assertIn('3. Analisar compatibilidade',page)
+        self.assertIn('id="matchFilters"',page)
+        self.assertIn('id="matchReviewDetails"',page)
+        self.assertIn('id="matchDescriptionDetails"',page)
+        self.assertIn('id="matchAnalyze"',page)
+        self.assertIn('id="matchResult"',page)
