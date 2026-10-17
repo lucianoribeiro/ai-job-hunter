@@ -87,5 +87,20 @@
       }
     ],
     "workable": []
-  }
+  },
+  "project_management_keywords": [
+    "project manager",
+    "project coordinator",
+    "gerente de projetos",
+    "gerente de projeto",
+    "coordenador de projetos",
+    "coordenadora de projetos",
+    "coordenador de projeto",
+    "pmo manager",
+    "program manager",
+    "gerente de programas",
+    "coordenador de pmo"
+  ],
+  "project_management_remote_required": false,
+  "max_results_per_profile": 100
 }
