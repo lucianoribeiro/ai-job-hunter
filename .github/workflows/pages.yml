@@ -43,6 +43,8 @@ jobs:
           python -m src.himalayas_jobs --output data/himalayas_jobs.json
           python -m src.unified_jobs_dashboard --projects data/project_jobs_poc.json --qa data/jobs.csv --output site/index.html
           test -s site/index.html
+          python -m src.municipal_jobs --dashboard site/index.html --output data/municipal_jobs.json
+          grep -q 'id="municipal-jobs"' site/index.html
           grep -q 'AI Career Studio' site/index.html
           grep -q 'DASHBOARD PREMIUM' site/index.html
           grep -q 'id="regionalCompany"' site/index.html
