@@ -4,16 +4,17 @@ import os
 from urllib.request import Request, urlopen
 from datetime import datetime, timezone
 from src.hunter import DATA
+from src.opportunity_assessment import assess_opportunity
 
 def summarize(queue):
     jobs = sorted((j for j in queue.values() if isinstance(j, dict) and j.get("status") not in ("dismissed", "rejected")), key=lambda j: -int(j.get("score") or 0))
     recommended = []
     for job in jobs[:3]:
-        assessment = job.get("assessment") or {}
-        reasons = assessment.get("fit_reasons") or []
+        assessment = assess_opportunity(job)
+        reasons = assessment.get("evidence") or []
         recommended.append({"title": job.get("title", ""), "company": job.get("company", ""),
                             "url": job.get("url", ""), "score": job.get("score", 0),
-                            "reason": "; ".join(reasons) or "Compatibilidade preliminar: validar requisitos."})
+                            "reason": ("; ".join(reasons) or "Compatibilidade preliminar: validar requisitos.") + " | " + "; ".join(assessment["warnings"][:2])})
     return {"mode": "rules", "headline": "Seu radar inteligente de oportunidades",
             "summary": "Ranking preliminar por critérios objetivos. A avaliação por modelo de IA ainda não está configurada. Confirme reputação da empresa, elegibilidade no Brasil, remuneração em USD e horas disponíveis.",
             "recommendations": recommended, "generated_at": datetime.now(timezone.utc).isoformat()}
@@ -22,7 +23,7 @@ def llm_summary(queue, token):
     jobs = sorted(queue.values(), key=lambda j: -int(j.get("score") or 0))[:15]
     facts = [{"title": j.get("title"), "company": j.get("company"),
               "score": j.get("score"), "category": j.get("category"),
-              "assessment": j.get("assessment", {})} for j in jobs if isinstance(j, dict)]
+              "assessment": assess_opportunity(j)} for j in jobs if isinstance(j, dict)]
     body = {"model": os.getenv("OPENAI_MODEL", "gpt-4.1-mini"),
             "response_format": {"type": "json_object"},
             "messages": [
