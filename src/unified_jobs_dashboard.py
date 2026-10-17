@@ -120,6 +120,9 @@ th{background:#edf2fa}a{color:#1456aa}p,footer{color:#53627b}footer{margin-top:1
 <select id="mode" aria-label="Modalidade"><option value="">Todas as modalidades</option>
 <option value="remote">Remoto informado</option><option value="verify">Remoto citado — confirmar</option>
 <option value="unknown">Não informado</option></select></div>
+<div class="filters"><input id="linkedinInput" aria-label="Link LinkedIn" placeholder="Cole um link de vaga ou publicação do LinkedIn">
+<button id="linkedinAdd" type="button">Adicionar para revisão</button></div>
+<p id="linkedinMessage" aria-live="polite">Importação manual: não consulta o LinkedIn nem confirma disponibilidade de vagas. O link é incluído apenas nesta sessão do navegador.</p>
 <p id="count" aria-live="polite"></p>
 <div class="table"><table><thead><tr><th>Cargo</th><th>Empresa</th><th>Área</th><th>Local</th>
 <th>Modalidade</th><th>Fonte</th><th>Publicação</th></tr></thead><tbody>""" + body + """</tbody></table></div>
@@ -127,6 +130,21 @@ th{background:#edf2fa}a{color:#1456aa}p,footer{color:#53627b}footer{margin-top:1
 </section><footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
 na página oficial. Datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
+const linked=document.getElementById('linkedinInput'), add=document.getElementById('linkedinAdd'), notice=document.getElementById('linkedinMessage');
+add.addEventListener('click',()=>{
+try {
+ const u=new URL(linked.value.trim());
+ const path=u.pathname, job=/^\\/jobs\\/view\\/(?:[^/?#]*\\/)?\\d{6,}\\/?$/.test(path),
+ post=/^\\/posts\\/[A-Za-z0-9_-]{6,}\\/?$/.test(path)||/^\\/feed\\/update\\/urn:li:activity:\\d+\\/?$/.test(path);
+ if(u.protocol!=='https:'||!['linkedin.com','www.linkedin.com'].includes(u.hostname)||u.username||u.password||!(job||post)) throw Error('URL inválida');
+ const clean='https://www.linkedin.com'+path.replace(/\\/$/,'');
+ if([...document.querySelectorAll('tbody a')].some(x=>x.href.replace(/\\/$/,'')===clean)){notice.textContent='Este link já está na lista.';return;}
+ const tr=document.createElement('tr');tr.dataset.area='LinkedIn · Revisar';tr.dataset.mode='unknown';
+ const td=document.createElement('td'),aLink=document.createElement('a');aLink.href=clean;aLink.target='_blank';aLink.rel='noopener noreferrer';aLink.textContent='Publicação compartilhada — verificar vaga';td.append(aLink);tr.append(td);
+ for(const value of ['Não verificada','LinkedIn · Revisar','Não informada','Não informado','LinkedIn (compartilhado)','Não informada']){const cell=document.createElement('td');cell.textContent=value;tr.append(cell);}
+ document.querySelector('tbody').append(tr);rows.push(tr);linked.value='';notice.textContent='Link adicionado para revisão nesta sessão. Não foi salva nenhuma candidatura.';apply();
+}catch(e){notice.textContent='Cole um link https válido de vaga ou post do LinkedIn.';}
+});
 const q=document.getElementById('q'),a=document.getElementById('area'),m=document.getElementById('mode');
 const rows=[...document.querySelectorAll('tbody tr')],count=document.getElementById('count');
 function apply(){let visible=0;for(const r of rows){
