@@ -39,6 +39,7 @@ def render(queue: dict, generated: str = "") -> str:
         ("Candidaturas / entrevistas / ofertas", active),
     ]
     stats = "".join(f'<article class="stat"><span>{escape(label)}</span><strong>{number}</strong></article>' for label, number in cards)
+    companies = sorted({str(j.get("company") or "").strip() for j in entries if str(j.get("company") or "").strip()}, key=str.casefold)
     rows = []
     for job in sorted(entries, key=lambda j: -int(j.get("score") or 0)):
         status = str(job.get("status", "pending_review"))
@@ -84,10 +85,10 @@ th{color:#cbd5e1;background:#1f2937}a{color:#8bc2ff}footer{margin-top:20px;font-
 <footer>Empresas, elegibilidade no Brasil, disponibilidade de 2h/dia e pagamento devem ser verificados diretamente.
 O status do painel não envia candidatura. Não armazene CV ou informações pessoais neste repositório público.</footer>
 <script>
-const q=document.querySelector('#query'),s=document.querySelector('#status'),t=document.querySelector('#type');
+const q=document.querySelector('#query'),s=document.querySelector('#status'),t=document.querySelector('#type'),company=document.querySelector('#company');
 function filter(){const search=q.value.toLocaleLowerCase();for(const row of document.querySelectorAll('#jobs tbody tr')){
-row.hidden=!(row.textContent.toLocaleLowerCase().includes(search)&&(!s.value||row.dataset.status===s.value)&&(!t.value||row.dataset.type===t.value));}}
-[q,s,t].forEach(x=>x.addEventListener('input',filter));
+row.hidden=!(row.textContent.toLocaleLowerCase().includes(search)&&(!s.value||row.dataset.status===s.value)&&(!t.value||row.dataset.type===t.value)&&(!company.value||row.dataset.company===company.value));}}
+[q,s,t,company].forEach(x=>x.addEventListener('input',filter));
 </script></body></html>"""
 
 
