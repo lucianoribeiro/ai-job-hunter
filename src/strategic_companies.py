@@ -10,7 +10,7 @@ from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 JOB_PATH = re.compile(r"^/jobs/\d+(?:[/?#]|$)")
-REGIONAL = ("sumaré", "sumare", "campinas", "paulínia", "paulinia", "nova odessa", "americana", "hortolândia", "hortolandia")
+REGIONAL = ("sumaré", "sumare", "paulínia", "paulinia", "americana")
 TITLE = re.compile(r"\b(qa|quality|qualidade|test|teste|projetos?|projects?|pmo|program manager|coordenador|gerente)\b", re.I)
 
 class Links(HTMLParser):
@@ -68,6 +68,9 @@ def collect(config, fetcher=fetch_page):
     for item in config["companies"]:
         url = item["url"]
         company = item["name"]
+        if item.get("monitor") != "public_links":
+            statuses.append({"company": company, "city": item.get("city", ""), "url": url, "state": "manual", "found": 0})
+            continue
         try:
             page = fetcher(url)
             if len(page) > 2_000_000:
@@ -75,9 +78,9 @@ def collect(config, fetcher=fetch_page):
             found = extract_jobs(page, url, company)
             jobs.extend(found)
             statuses.append({"company": company, "state": "ok" if found else "needs_connector",
-                             "found": len(found)})
+                             "found": len(found), "city": item.get("city", ""), "url": url})
         except (OSError, ValueError, UnicodeError) as exc:
-            statuses.append({"company": company, "state": "error", "error": type(exc).__name__, "found": 0})
+            statuses.append({"company": company, "state": "error", "error": type(exc).__name__, "found": 0, "city": item.get("city", ""), "url": url})
     return {"generated_at": datetime.now(timezone.utc).isoformat(),
             "jobs": jobs, "sources": statuses,
             "note": "Only publicly exposed links; zero results do not prove no openings. ATS APIs may require authentication."}
