@@ -24,7 +24,7 @@ def safe_url(value: object) -> str:
     return url if parts.scheme in ("http", "https") and parts.netloc else "#"
 
 
-def render(queue: dict, generated: str = "", insights: dict | None = None) -> str:
+def render(queue: dict, generated: str = "", insights: dict | None = None, strategic: dict | None = None) -> str:
     entries = [j for j in queue.values() if isinstance(j, dict)]
     counts = Counter(str(j.get("status", "")) for j in entries)
     total = len(entries)
