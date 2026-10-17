@@ -85,6 +85,8 @@ def reconcile(jobs: list[dict], history: dict, queue: dict, today: str) -> tuple
         if job_id not in queue:
             queue[job_id] = {"status": "pending_review", "created_at": today, "notes": ""}
         previous = queue[job_id]
+        previous.setdefault("status_updated_at", previous.get("created_at", today))
+        previous.setdefault("status_history", [{"status": previous.get("status"), "date": previous["status_updated_at"]}])
         if previous.get("status") not in VALID_STATUSES:
             raise ValueError(f"Invalid status for {job_id}: {previous.get('status')}")
         previous.update({
