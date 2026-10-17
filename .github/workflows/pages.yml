@@ -40,6 +40,7 @@ jobs:
           python -m src.hunter
           python -m src.regional_ats_qa --output data/regional_qa_jobs.json
           python -m src.himalayas_jobs --output data/himalayas_jobs.json
+          python -m src.extra_sources --output data/extra_jobs.json
           python -m src.unified_jobs_dashboard --projects data/project_jobs_poc.json --qa data/jobs.csv --output site/index.html
           test -s site/index.html
           grep -q 'AI Career Studio' site/index.html
