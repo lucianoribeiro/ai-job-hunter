@@ -56,6 +56,19 @@ def published_iso(value):
     return ""
 
 
+REGIONAL_CITIES = ("Nova Odessa", "Americana", "Sumaré", "Santa Bárbara d'Oeste", "Hortolândia", "Campinas")
+
+
+def region_city(location):
+    """Matches only named cities; a generic Brazil posting is not a local vacancy."""
+    normalized = str(location or "").casefold()
+    normalized = normalized.replace("sumare", "sumaré").replace("hortolandia", "hortolândia").replace("santa barbara", "santa bárbara")
+    for city in REGIONAL_CITIES:
+        if city.casefold() in normalized:
+            return city
+    return ""
+
+
 def normalize(project_report, qa_jobs, linkedin_jobs=None):
     rows, seen = [], set()
     for area, jobs in (("Projetos", project_report.get("jobs", [])), ("QA", qa_jobs)):
@@ -78,7 +91,7 @@ def normalize(project_report, qa_jobs, linkedin_jobs=None):
             # Absence of an explicit signal is NOT proof of on-site or hybrid.
             rows.append({
                 "area": area, "title": job.get("title", ""), "company": job.get("company", ""),
-                "location": loc, "source": job.get("source", ""), "url": url,
+                "location": loc, "regional_city": region_city(loc), "source": job.get("source", ""), "url": url,
                 "modality": modality, "mode_key": "remote" if evidence == "explicit" else (
                     "verify" if evidence == "description_only" else "unknown"),
                 "published": published_date(job.get("published")),
@@ -93,7 +106,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None):
     qa_count = sum(x["area"] == "QA" for x in jobs)
     projects_count = sum(x["area"] == "Projetos" for x in jobs)
     body = "".join(
-        '<tr data-area="' + e(j["area"]) + '" data-mode="' + e(j["mode_key"]) + '" data-source="' + e(j["source"]) + '" data-location="' + e(j["location"]) + '" data-published="' + e(j["published_iso"]) + '">' +
+        '<tr data-area="' + e(j["area"]) + '" data-mode="' + e(j["mode_key"]) + '" data-source="' + e(j["source"]) + '" data-location="' + e(j["location"]) + '" data-city="' + e(j["regional_city"]) + '" data-published="' + e(j["published_iso"]) + '">' +
         '<td><a href="' + e(j["url"]) + '" target="_blank" rel="noopener noreferrer">' + e(j["title"]) + '</a></td>' +
         "<td>" + e(j["company"]) + "</td><td>" + e(j["area"]) + "</td><td>" + e(j["location"]) +
         "</td><td>" + e(j["modality"]) + "</td><td>" + e(j["source"]) + "</td><td>" +
@@ -126,28 +139,30 @@ th{background:#edf2fa}a{color:#1456aa}p,footer{color:#53627b}footer{margin-top:1
 <select id="mode" aria-label="Modalidade"><option value="">Todas as modalidades</option>
 <option value="remote">Remoto informado</option><option value="verify">Remoto citado — confirmar</option>
 <option value="unknown">Não informado</option></select>
-<select id="source" aria-label="Fonte das vagas"><option value="">Todas as fontes integradas</option>""" + source_options + """</select><select id="region" aria-label="Região"><option value="">Todas as localidades</option><option value="local">Nova Odessa e região</option><option value="remote">Remoto informado</option></select>
+<select id="source" aria-label="Fonte das vagas"><option value="">Todas as fontes integradas</option>""" + source_options + """</select><select id="region" aria-label="Filtro regional"><option value="">Todas as localidades</option><option value="local">Vagas nas cidades da região</option><option value="remote">Remoto informado — conferir elegibilidade</option><option value="brazil">Brasil (localização genérica)</option><option value="unknown">Localização sem cidade regional identificada</option></select>
+<select id="city" aria-label="Cidade regional"><option value="">Todas as cidades</option><option>Nova Odessa</option><option>Americana</option><option>Sumaré</option><option>Santa Bárbara d'Oeste</option><option>Hortolândia</option><option>Campinas</option></select>
 <select id="age" aria-label="Data da publicação"><option value="">Todas as datas</option><option value="1">Último dia</option><option value="7">Últimos 7 dias</option><option value="15">Últimos 15 dias</option><option value="30">Últimos 30 dias</option><option value="unknown">Data não informada</option></select></div>
-<p id="count" aria-live="polite"></p>
+<p>Filtro regional baseado na cidade informada no anúncio; não calcula distância ou comprova elegibilidade para trabalho remoto.</p><p id="count" aria-live="polite"></p>
 <div class="table"><table><thead><tr><th>Cargo</th><th>Empresa</th><th>Área</th><th>Local</th>
 <th>Modalidade</th><th>Fonte</th><th>Publicação</th></tr></thead><tbody>""" + body + """</tbody></table></div>
 <p id="empty" hidden>Nenhuma vaga corresponde aos filtros.</p>
 </section><footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
 na página oficial. Apenas datas de publicação fornecidas pelas fontes são exibidas; datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
-const q=document.getElementById('q'),a=document.getElementById('area'),m=document.getElementById('mode'),source=document.getElementById('source'),region=document.getElementById('region'),age=document.getElementById('age');
+const q=document.getElementById('q'),a=document.getElementById('area'),m=document.getElementById('mode'),source=document.getElementById('source'),region=document.getElementById('region'),city=document.getElementById('city'),age=document.getElementById('age');
 const rows=[...document.querySelectorAll('tbody tr')],count=document.getElementById('count');
 function apply(){let visible=0;for(const r of rows){
-const local=/nova odessa|americana|sumaré|sumare|santa bárbara|santa barbara|hortolândia|hortolandia|campinas/i.test(r.dataset.location||'');
-const locOK=!region.value||(region.value==='local'?local:r.dataset.mode==='remote');
+const local=Boolean(r.dataset.city),location=(r.dataset.location||'').toLocaleLowerCase();
+const locOK=!region.value||(region.value==='local'?local:region.value==='remote'?r.dataset.mode==='remote':region.value==='brazil'?(!local&&/brasil|brazil/.test(location)):!local);
+const cityOK=!city.value||r.dataset.city===city.value;
 const published=r.dataset.published;
 let dateOK=!age.value||(age.value==='unknown'?!published:false);
 if(age.value&&age.value!=='unknown'&&published){const date=Date.parse(published+'T00:00:00Z');const now=Date.now();const elapsed=(now-date)/86400000;dateOK=elapsed>=0&&elapsed<=Number(age.value);}
-const show=dateOK&&locOK&&(!a.value||r.dataset.area===a.value)&&(!m.value||r.dataset.mode===m.value)&&(!source.value||r.dataset.source===source.value)&&
+const show=dateOK&&locOK&&cityOK&&(!a.value||r.dataset.area===a.value)&&(!m.value||r.dataset.mode===m.value)&&(!source.value||r.dataset.source===source.value)&&
 r.textContent.toLocaleLowerCase().includes(q.value.trim().toLocaleLowerCase());
 r.hidden=!show;if(show)visible++;
 }count.textContent=visible+' vaga(s) exibida(s)';document.getElementById('empty').hidden=visible!==0;}
-[q,a,m,source,region,age].forEach(el=>el.addEventListener('input',apply));apply();
+[q,a,m,source,region,city,age].forEach(el=>el.addEventListener('input',apply));apply();
 </script></body></html>"""
 
 
