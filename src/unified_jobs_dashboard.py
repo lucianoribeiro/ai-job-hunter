@@ -133,18 +133,28 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>AI Job Hunter | Vagas reais</title>
 <style>
-:root{font-family:system-ui,sans-serif;color:#182744;background:#f3f6fb}
-body{max-width:1180px;margin:30px auto;padding:0 16px}header{background:#192b4a;color:white;padding:26px;border-radius:16px}
-h1{margin:0 0 5px}.summary{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}
-.summary article{background:white;border-radius:12px;padding:16px;min-width:135px;flex:1}
-.summary strong{display:block;font-size:26px}section{background:white;border-radius:14px;padding:20px}
-.filters{display:flex;gap:12px;flex-wrap:wrap;margin:15px 0}
-input,select{font:inherit;padding:11px;border:1px solid #a5b2c8;border-radius:9px;flex:1;min-width:155px}
-.table{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:870px}
-td,th{text-align:left;padding:12px;border-bottom:1px solid #e2e7f0;font-size:14px}
-th{background:#edf2fa}a{color:#1456aa}p,footer{color:#53627b}footer{margin-top:18px}
+:root{font-family:Inter,system-ui,-apple-system,sans-serif;color:#e9efff;background:#0a1020;color-scheme:dark}
+*{box-sizing:border-box}body{background:radial-gradient(ellipse at 80% 0%,#1a3264 0%,transparent 42%),#0a1020;max-width:1280px;margin:0 auto;padding:28px 20px;min-height:100vh}
+header{background:linear-gradient(135deg,#192842,#101c32);border:1px solid #304562;padding:28px;border-radius:22px;box-shadow:0 18px 40px #02061742}
+header h1{font-size:clamp(26px,4vw,42px);letter-spacing:-1.1px;margin:0 0 10px;color:white}
+header:before{content:'✦ CAREER AI · DASHBOARD PREMIUM';display:block;color:#a3b8ff;font-size:12px;letter-spacing:2px;font-weight:750;margin-bottom:14px}
+.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:20px 0}
+.summary article{background:#20314b;border:1px solid #3b516f;border-radius:18px;padding:22px;color:#b7c7e0;box-shadow:0 8px 20px #0206171f}
+.summary strong{display:block;font-size:34px;color:white;margin-top:7px}
+section{background:linear-gradient(135deg,#192842ed,#101c32f5);border:1px solid #304562;border-radius:22px;padding:24px;box-shadow:0 18px 40px #02061742;margin-bottom:20px}
+h2{margin-top:0;font-size:22px;color:#f5f8ff}.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:18px 0}
+input,select{font:inherit;width:100%;min-width:0;padding:13px 14px;background:#152540;color:#f3f7ff;border:1px solid #415574;border-radius:11px}
+input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #9ab6ff;outline-offset:2px}
+.table{overflow-x:auto;border:1px solid #304562;border-radius:15px}
+table{width:100%;border-collapse:collapse;min-width:850px}td,th{text-align:left;padding:15px 13px;border-bottom:1px solid #304562;font-size:14px}
+th{background:#243651;color:#b9d3ff;font-size:12px;letter-spacing:.4px;text-transform:uppercase}
+tbody tr:nth-child(2n){background:#192941}tbody tr:hover{background:#243a5e}
+a{color:#a3baff;font-weight:650;text-decoration:none}a:hover{text-decoration:underline}
+p,footer{color:#a7b7d3;line-height:1.6}footer{padding:4px 6px 24px;font-size:13px}
+#count{color:#c9dcff;font-weight:700}#empty{padding:20px;color:#ffd493}
+@media(max-width:650px){body{padding:12px}header,section{padding:19px;border-radius:18px}.summary{gap:8px}.summary article{padding:13px;border-radius:12px}.summary strong{font-size:27px}.filters{grid-template-columns:1fr}td,th{padding:11px}}
 </style></head><body>
-<header><h1>AI Job Hunter</h1>Vagas reais de QA e Gerência / Coordenação de Projetos</header>
+<header><h1>AI Job Hunter</h1><p>Oportunidades reais, de QA e Gerência / Coordenação de Projetos, em um só lugar.</p></header>
 <div class="summary"><article>Total de vagas<strong>""" + str(len(jobs)) + """</strong></article>
 <article>QA<strong>""" + str(qa_count) + """</strong></article>
 <article>Projetos<strong>""" + str(projects_count) + """</strong></article>
