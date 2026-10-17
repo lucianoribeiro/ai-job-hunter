@@ -31,6 +31,8 @@ jobs:
         run: python -m src.hunter
       - name: Build review pipeline
         run: python -m src.review
+      - name: Generate advisory insights
+        run: python -m src.ai_advisor
       - name: Generate dashboard
         run: python -m src.dashboard
       - name: Upload reports
@@ -44,11 +46,12 @@ jobs:
             data/history.json
             data/applications.json
             data/dashboard.html
+            data/ai_insights.json
       - name: Persist reports and review history
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/jobs.csv data/report.md data/applications.md data/history.json data/applications.json data/dashboard.html
+          git add data/jobs.csv data/report.md data/applications.md data/history.json data/applications.json data/dashboard.html data/ai_insights.json
           if ! git diff --cached --quiet; then
             git commit -m "chore: refresh QA opportunity and review reports"
             git push
@@ -84,6 +87,7 @@ jobs:
                             'url': 'https://example.com/synthetic-job', 'source': 'test'})
           PY
           python -m src.review
+          python -m src.ai_advisor
           python -m src.dashboard
           test -s data/dashboard.html
           test -s data/applications.json
