@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import html
 import json
+import re
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -22,6 +23,30 @@ def safe_url(value: object) -> str:
     url = str(value or "")
     parts = urlsplit(url)
     return url if parts.scheme in ("http", "https") and parts.netloc else "#"
+
+
+def monthly_usd_salary(job: dict) -> float | None:
+    """Return a conservative monthly USD floor; unknown salary is excluded."""
+    salary = str(job.get("salary") or "").strip()
+    checks = job.get("assessment") if isinstance(job.get("assessment"), dict) else {}
+    currency = str(checks.get("salary_currency") or "").upper()
+    if not salary or not (re.search(r"\\bUSD\\b|US\\$|\\$", salary, re.I) or currency == "USD"):
+        return None
+    numbers = re.findall(r"(?<![\\w])(?:USD\\s*|US\\$\\s*|\\$\\s*)?(\\d{1,3}(?:,\\d{3})+|\\d{4,6}|\\d{1,3})(?:\\.\\d+)?\\s*([kK]?)", salary)
+    if not numbers:
+        return None
+    values = [float(n.replace(",", "")) * (1000 if k else 1) for n, k in numbers]
+    amount = min(values)
+    unit = salary.lower()
+    if re.search(r"/\\s*(?:year|yr|annum)|per\\s+(?:year|annum)|annual|yearly", unit):
+        return amount / 12
+    if re.search(r"/\\s*(?:month|mo)\\b|per\\s+month|monthly", unit):
+        return amount
+    if re.search(r"/\\s*(?:hour|hr|h)\\b|per\\s+hour|hourly", unit):
+        return amount * 40 * 52 / 12
+    if re.search(r"/\\s*(?:week|wk)\\b|per\\s+week|weekly", unit):
+        return amount * 52 / 12
+    return None
 
 
 def render(queue: dict, generated: str = "", insights: dict | None = None, strategic: dict | None = None) -> str:
@@ -153,16 +178,19 @@ footer{margin-top:25px;color:#7b879b;font-size:12px;line-height:1.8}
 <div><label for="status">Etapa da candidatura</label><select id="status" aria-label="Filtrar status"><option value="">Todos os status</option>""" + "".join(
         f'<option value="{escape(s)}">{escape(s.replace("_", " ").title())}</option>' for s in sorted(ALLOWED)) + """</select></div>
 <div><label for="type">Modalidade</label><select id="type" aria-label="Filtrar tipo"><option value="">Todas as modalidades</option><option value="freelance">Freelance</option><option value="full-time/unspecified">Integral / não especificado</option></select></div>
+<div><label for="salary-min">Salário mínimo (USD/mês)</label><input id="salary-min" type="number" min="0" step="100" value="5000" aria-label="Salário mínimo em dólar por mês"></div>
+<div><label><input id="salary-unknown" type="checkbox" style="width:auto;margin-right:8px">Incluir salários não divulgados</label></div>
 </div></aside><section class="results"><div class="results-head"><h2>Vagas encontradas</h2><p>Resultados disponíveis no arquivo gerado</p></div>
 <div class="table"><table id="jobs"><thead><tr><th>Vaga</th><th>Empresa</th><th>Categoria</th><th>Score</th>
 <th>Status</th><th>Moeda</th><th>2h/dia</th><th>Reputação</th></tr></thead><tbody>""" + "".join(rows) + """</tbody></table></div></section></div>
 <footer>Empresas, elegibilidade no Brasil, disponibilidade de 2h/dia e pagamento devem ser verificados diretamente.
 O status do painel não envia candidatura. Não armazene CV ou informações pessoais neste repositório público.</footer></main></div>
 <script>
-const q=document.querySelector('#query'),s=document.querySelector('#status'),t=document.querySelector('#type');
+const q=document.querySelector('#query'),s=document.querySelector('#status'),t=document.querySelector('#type'),min=document.querySelector('#salary-min'),unknown=document.querySelector('#salary-unknown');
 function filter(){const search=q.value.toLocaleLowerCase();for(const row of document.querySelectorAll('#jobs tbody tr')){
-row.hidden=!(row.textContent.toLocaleLowerCase().includes(search)&&(!s.value||row.dataset.status===s.value)&&(!t.value||row.dataset.type===t.value));}}
-[q,s,t].forEach(x=>x.addEventListener('input',filter));
+const salary=row.dataset.salaryUsdMonthly;const threshold=Number(min.value||0);const salaryMatch=salary===''?unknown.checked:Number(salary)>=threshold;
+row.hidden=!(salaryMatch&&row.textContent.toLocaleLowerCase().includes(search)&&(!s.value||row.dataset.status===s.value)&&(!t.value||row.dataset.type===t.value));}}
+[q,s,t,min,unknown].forEach(x=>x.addEventListener('input',filter));filter();
 </script></body></html>"""
 
 
