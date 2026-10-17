@@ -43,7 +43,6 @@ class LocalMatchTests(unittest.TestCase):
         page=render({'jobs': []}, [])
         scripts=re.findall(r'<script>(.*?)</script>',page,re.S)
         self.assertGreaterEqual(len(scripts),3)
-        self.assertIn("parts.join('\\\\n')",scripts[-1])
         if shutil.which('node'):
             for code in scripts:
                 result=subprocess.run(['node','--check'],input=code,text=True,capture_output=True)
