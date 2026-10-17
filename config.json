@@ -86,7 +86,18 @@
         "board": "pitch"
       }
     ],
-    "workable": []
+    "workable": [],
+    "smartrecruiters": [
+      {
+        "company": "Bosch",
+        "board": "BoschGroup"
+      },
+      {
+        "company": "Syngenta",
+        "board": "SyngentaGroup"
+      }
+    ],
+    "recruitee": []
   },
   "project_management_keywords": [
     "project manager",
