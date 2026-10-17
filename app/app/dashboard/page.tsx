@@ -11,7 +11,7 @@ export default async function Dashboard() {
   const { data, error: dbError } = await supabase.from("career_profiles").select("id,label,industry,target_roles,origin_city,max_radius_km,include_hybrid").order("created_at", { ascending: false });
   const profiles = (data || []) as Profile[];
   return <main className="shell"><header className="top"><span className="logo">✦ AI Job Hunter</span><form action={signOut}><button>Encerrar sessão</button></form></header>
-    <section className="panel"><Link href="/resumes">Abrir AI Resume Studio →</Link><span className="eyebrow">MEU ESPAÇO</span><h1>Minha carreira</h1><p>Configure seu perfil e suas preferências para encontrar oportunidades relevantes.</p>
+    <section className="panel"><div className="controls"><Link href="/jobs">Explorar vagas recentes →</Link><Link href="/applications">Minhas candidaturas →</Link><Link href="/resumes">Meus currículos →</Link></div><span className="eyebrow">MEU ESPAÇO</span><h1>Minha carreira</h1><p>Configure seu perfil e suas preferências para encontrar oportunidades relevantes.</p>
     {dbError && <p role="alert">Não foi possível carregar seus perfis. Verifique a configuração do banco.</p>}
     <div className="cards">{profiles.map(p => <article className="tile" key={p.id}><h3>{p.label}</h3><p>{p.industry || "Setor não informado"}</p><p>{p.target_roles.join(" · ")}</p><small>Remoto primeiro {p.include_hybrid ? `· híbrido até ${p.max_radius_km} km` : ""}{p.origin_city ? ` · ${p.origin_city}` : ""}</small></article>)}</div>
     </section>
