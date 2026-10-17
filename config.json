@@ -32,5 +32,86 @@
   "sources": [
     "remotive",
     "arbeitnow"
-  ]
+  ],
+  "company_boards": {
+    "greenhouse": [
+      {
+        "company": "Arena.im",
+        "board": "arenaim"
+      },
+      {
+        "company": "MSQ DX",
+        "board": "arke"
+      },
+      {
+        "company": "Capco",
+        "board": "capco"
+      },
+      {
+        "company": "Arionkoder",
+        "board": "arionkoder"
+      },
+      {
+        "company": "Upgrade",
+        "board": "upgrade"
+      },
+      {
+        "company": "Exadel",
+        "board": "exadelinc"
+      }
+    ],
+    "lever": [
+      {
+        "company": "Loadsmart",
+        "board": "loadsmart"
+      },
+      {
+        "company": "Airtm",
+        "board": "airtm"
+      },
+      {
+        "company": "CI&T",
+        "board": "ciandt"
+      }
+    ],
+    "ashby": [
+      {
+        "company": "Linear",
+        "board": "linear"
+      }
+    ],
+    "personio": [
+      {
+        "company": "Pitch",
+        "board": "pitch"
+      }
+    ],
+    "workable": [],
+    "smartrecruiters": [
+      {
+        "company": "Bosch",
+        "board": "BoschGroup"
+      },
+      {
+        "company": "Syngenta",
+        "board": "SyngentaGroup"
+      }
+    ],
+    "recruitee": []
+  },
+  "project_management_keywords": [
+    "project manager",
+    "project coordinator",
+    "gerente de projetos",
+    "gerente de projeto",
+    "coordenador de projetos",
+    "coordenadora de projetos",
+    "coordenador de projeto",
+    "pmo manager",
+    "program manager",
+    "gerente de programas",
+    "coordenador de pmo"
+  ],
+  "project_management_remote_required": false,
+  "max_results_per_profile": 100
 }

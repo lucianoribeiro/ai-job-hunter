@@ -45,6 +45,8 @@ def assess(job: dict) -> dict:
     salary = job.get("salary", "")
     location = job.get("location", "").lower()
     reasons = []
+    if job.get("profile") == "project_management":
+        reasons.append("Matches project management target")
     if any(term in title for term in ("qa lead", "qa manager", "quality engineering manager", "test lead")):
         reasons.append("Matches QA leadership target")
     elif any(term in title for term in ("qa", "quality", "test", "sdet")):
@@ -90,7 +92,7 @@ def reconcile(jobs: list[dict], history: dict, queue: dict, today: str) -> tuple
         previous.update({
             "job_id": job_id, "url": url, "company": job.get("company", ""),
             "title": job.get("title", ""), "score": int(job.get("score", 0)),
-            "category": job.get("category", ""), "assessment": assess(job),
+            "category": job.get("category", ""), "profile": job.get("profile", "qa"), "assessment": assess(job),
         })
     return history, queue, new_jobs
 
