@@ -46,6 +46,14 @@ class UnifiedDashboardTests(unittest.TestCase):
         self.assertIn("Project Manager", page)
         self.assertNotIn("Prévia com dados demonstrativos", page)
 
+    def test_ai_studio_is_visible_without_claiming_live_ai(self):
+        page = render({"jobs": [{"title": "Project Manager", "company": "Company",
+            "url": "https://example.com/job", "location": "Campinas"}]}, [])
+        for label in ("AI Career Studio", "AI Job Match", "AI CV Studio", "AI Application Assistant", "AI Career Advisor"):
+            self.assertIn(label, page)
+        self.assertIn("Análise por IA ainda indisponível", page)
+        self.assertIn("https://example.com/job", page)
+
     def test_dedupe_and_html_escape(self):
         projects = {"jobs": [{"title": "<script>alert(1)</script>", "company": "Test",
             "url": "https://example.com/role?a=1", "remote_evidence": "unknown"}]}
