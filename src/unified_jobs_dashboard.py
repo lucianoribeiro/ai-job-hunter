@@ -69,7 +69,7 @@ def region_city(location):
     return ""
 
 
-def normalize(project_report, qa_jobs, linkedin_jobs=None):
+def normalize(project_report, qa_jobs, linkedin_jobs=None, remote_jobs=None):
     rows, seen = [], set()
     for area, jobs in (("Projetos", project_report.get("jobs", [])), ("QA", qa_jobs)):
         for job in jobs:
@@ -98,11 +98,27 @@ def normalize(project_report, qa_jobs, linkedin_jobs=None):
                 "published_iso": published_iso(job.get("published")),
                 "brazil": job.get("brazil_eligible") or "Não verificado"
             })
+    for job in (remote_jobs or []):
+        if job.get("area") not in ("QA", "Projetos"):
+            continue
+        url = safe_url(job.get("url"))
+        if url == "#":
+            continue
+        key = urlsplit(url)._replace(query="", fragment="").geturl().rstrip("/").lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        loc = str(job.get("location") or "")
+        rows.append({"area": job["area"], "title": job.get("title", ""), "company": job.get("company", ""),
+                     "location": loc, "regional_city": region_city(loc), "source": "Himalayas",
+                     "url": url, "modality": "Remoto informado — elegibilidade a confirmar",
+                     "mode_key": "remote", "published": published_date(job.get("published")),
+                     "published_iso": published_iso(job.get("published")), "brazil": "Não verificado"})
     return rows
 
 
-def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None):
-    jobs = normalize(project_report, qa_jobs, linkedin_jobs)
+def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, remote_jobs=None):
+    jobs = normalize(project_report, qa_jobs, linkedin_jobs, remote_jobs)
     qa_count = sum(x["area"] == "QA" for x in jobs)
     projects_count = sum(x["area"] == "Projetos" for x in jobs)
     body = "".join(
@@ -147,7 +163,7 @@ th{background:#edf2fa}a{color:#1456aa}p,footer{color:#53627b}footer{margin-top:1
 <th>Modalidade</th><th>Fonte</th><th>Publicação</th></tr></thead><tbody>""" + body + """</tbody></table></div>
 <p id="empty" hidden>Nenhuma vaga corresponde aos filtros.</p>
 </section><footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
-na página oficial. Apenas datas de publicação fornecidas pelas fontes são exibidas; datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
+na página oficial. Fonte Himalayas: <a href="https://himalayas.app">himalayas.app</a>. Apenas datas de publicação fornecidas pelas fontes são exibidas; datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
 const q=document.getElementById('q'),a=document.getElementById('area'),m=document.getElementById('mode'),source=document.getElementById('source'),region=document.getElementById('region'),city=document.getElementById('city'),age=document.getElementById('age');
 const rows=[...document.querySelectorAll('tbody tr')],count=document.getElementById('count');
@@ -172,6 +188,7 @@ def main():
     parser.add_argument("--qa", type=Path, default=Path("data/jobs.csv"))
     parser.add_argument("--output", type=Path, default=Path("data/unified_jobs.html"))
     parser.add_argument("--regional-qa", type=Path, default=Path("data/regional_qa_jobs.json"))
+    parser.add_argument("--remote-jobs", type=Path, default=Path("data/himalayas_jobs.json"))
     args = parser.parse_args()
     project = json.loads(args.projects.read_text(encoding="utf-8"))
     if not args.qa.exists():
@@ -183,9 +200,10 @@ def main():
         if not isinstance(regional_qa, list):
             raise ValueError("Regional QA payload must be a list")
         qa.extend(regional_qa)
+    remote_report = json.loads(args.remote_jobs.read_text(encoding="utf-8")) if args.remote_jobs.exists() else {"jobs": []}
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(render(project, qa), encoding="utf-8")
-    print(f"Unified dashboard: {len(normalize(project, qa))} unique real listings")
+    args.output.write_text(render(project, qa, remote_jobs=remote_report["jobs"]), encoding="utf-8")
+    print(f"Unified dashboard: {len(normalize(project, qa, remote_jobs=remote_report["jobs"]))} unique real listings")
 
 
 if __name__ == "__main__":
