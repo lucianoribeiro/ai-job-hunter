@@ -88,17 +88,8 @@ jobs:
           test -s data/dashboard.html
           test -s data/applications.json
           grep -q 'Senior QA Lead' data/dashboard.html
-      - name: Discover project jobs from real employer public board
-        run: |
-          python -m src.project_jobs_poc --config config/project_boards.example.json --output data/project_jobs_poc.json
-          python -m src.project_jobs_dashboard --input data/project_jobs_poc.json --output data/project_jobs_poc.html
-          python -m src.hunter
-          python -m src.regional_ats_qa --output data/regional_qa_jobs.json
-          python -m src.himalayas_jobs --output data/himalayas_jobs.json
-          python -m src.extra_sources --output data/extra_jobs.json
-          python -m src.unified_jobs_dashboard --projects data/project_jobs_poc.json --qa data/jobs.csv --output data/unified_jobs.html
       - name: Upload real project jobs
-        if: always()
+        if: false # External API probes belong in scheduled integration workflow
         uses: actions/upload-artifact@v4
         with:
           name: project-jobs-real-results
