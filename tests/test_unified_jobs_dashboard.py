@@ -1,5 +1,5 @@
 import unittest
-from src.unified_jobs_dashboard import normalize, render, published_iso
+from src.unified_jobs_dashboard import normalize, render, published_iso, region_city
 
 class UnifiedDashboardTests(unittest.TestCase):
     def test_qa_and_projects_and_remote_labels(self):
@@ -27,6 +27,16 @@ class UnifiedDashboardTests(unittest.TestCase):
         page = render(project, [])
         self.assertIn('data-published=""', page)
         self.assertIn('id="age"', page)
+
+    def test_regional_city_filter_preserves_truth(self):
+        self.assertEqual(region_city("Campinas, São Paulo"), "Campinas")
+        self.assertEqual(region_city("Sumaré, SP"), "Sumaré")
+        self.assertEqual(region_city("Brazil"), "")
+        self.assertEqual(region_city("Remote"), "")
+        page = render({"jobs": [{"title": "Project Manager", "company": "Company",
+            "url": "https://example.com/job", "location": "Campinas, SP"}]}, [])
+        self.assertIn('data-city="Campinas"', page)
+        self.assertIn('id="city"', page)
 
     def test_dedupe_and_html_escape(self):
         projects = {"jobs": [{"title": "<script>alert(1)</script>", "company": "Test",
