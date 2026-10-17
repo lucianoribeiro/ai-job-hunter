@@ -108,6 +108,9 @@ def discover(config: dict, getter=load_json) -> dict:
                 fetched = greenhouse(company, slug, getter)
             elif source == "lever":
                 fetched = lever(company, slug, getter, item.get("region", "global"))
+            elif source in ("ashby", "smartrecruiters"):
+                from src.ats_sources import ashby, smartrecruiters
+                fetched = (ashby if source == "ashby" else smartrecruiters)(company, slug, getter)
             else:
                 raise ValueError("Unsupported source")
             counts[key] = {"fetched": len(fetched), "matched": 0}
