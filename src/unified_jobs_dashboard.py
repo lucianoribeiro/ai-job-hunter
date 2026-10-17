@@ -382,6 +382,65 @@ if(studioCategory&&studioSeniority&&studioRegion&&aiJob&&studioCount){
  refreshStudio();
 }
 
+const taskInfo={
+fit:['AI Job Match','Compare seu perfil com uma vaga e identifique aderência, evidências e lacunas.'],
+cv:['AI CV Studio','Produza uma versão ATS-friendly do seu currículo, sem inventar informações.'],
+application:['AI Application Assistant','Prepare rascunhos de candidatura para revisão humana, sem envio automático.'],
+career:['AI Career Advisor','Planeje competências, entrevistas e oportunidades de desenvolvimento.']};
+for(const btn of document.querySelectorAll('.ai-tab'))btn.addEventListener('click',()=>{
+for(const other of document.querySelectorAll('.ai-tab'))other.setAttribute('aria-pressed',String(other===btn));
+document.getElementById('aiTaskTitle').textContent=taskInfo[btn.dataset.task][0];
+document.getElementById('aiTaskHelp').textContent=taskInfo[btn.dataset.task][1];
+for(const [key,id] of Object.entries({fit:'studioFitPanel',cv:'studioCvPanel',application:'studioApplicationPanel',career:'studioCareerPanel'})){
+ const panel=document.getElementById(id);
+ panel.hidden=key!==btn.dataset.task;
+}
+
+});
+
+function studioText(id){return document.getElementById(id).value.trim();}
+function studioOutput(id,value){document.getElementById(id).textContent=value;}
+document.getElementById('studioCvPrepare').addEventListener('click',()=>{
+ const experience=studioText('studioCvText');
+ studioOutput('studioCvOutput',experience?'PERFIL PROFISSIONAL\\n'+experience+'\\n\\nEXPERIÊNCIAS E RESULTADOS\\nOrganize as experiências acima por empresa, período, responsabilidades e resultados mensuráveis.\\n\\nCOMPETÊNCIAS\\nListe apenas habilidades que possa comprovar.':'Insira seu histórico profissional para preparar a estrutura.');
+});
+document.getElementById('studioAppPrepare').addEventListener('click',()=>{
+ const role=studioText('studioAppRole'),exp=studioText('studioAppExperience');
+ studioOutput('studioAppOutput',role&&exp?'Olá, tenho interesse na oportunidade de '+role+'.\\n\\nMinha experiência relevante inclui: '+exp+'\\n\\nGostaria de conversar sobre como posso contribuir.\\n\\nAtenciosamente,\\n[Seu nome]':'Informe o cargo e sua experiência comprovada.');
+});
+document.getElementById('studioCareerPrepare').addEventListener('click',()=>{
+ const goal=studioText('studioCareerGoal'),gaps=studioText('studioCareerGap');
+ studioOutput('studioCareerOutput',goal?'OBJETIVO: '+goal+'\\n1. Mapear requisitos de vagas reais relacionadas ao objetivo.\\n2. Avaliar evidências das competências: '+(gaps||'definir competências a desenvolver')+'.\\n3. Planejar atividades e entregas para os próximos 30 dias.\\n4. Revisar progresso e candidaturas a cada semana.':'Informe seu objetivo profissional.');
+});
+
+document.getElementById('aiCopy').addEventListener('click',async()=>{
+const value=document.getElementById('aiJob').value,status=document.getElementById('aiStatus');
+if(!value){status.textContent='Selecione uma vaga primeiro.';return;}
+try{await navigator.clipboard.writeText(value);status.textContent='Link copiado. A análise de IA ainda requer backend privado.';}
+catch(_){status.textContent='Abra a vaga diretamente na lista acima para copiar o link.';}
+});
+</script><script>
+(()=>{'use strict';
+const tabs=[['mainTabGeneral','mainPanelGeneral'],['mainTabRegional','mainPanelRegional'],['mainTabAI','mainPanelAI']];
+function selectTab(index,focus){tabs.forEach(([tabId,panelId],i)=>{const tab=document.getElementById(tabId),panel=document.getElementById(panelId),active=i===index;if(!tab||!panel)return;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;panel.hidden=!active;panel.style.display=active?'':'none';});if(focus)document.getElementById(tabs[index][0]).focus();}
+tabs.forEach(([tabId],i)=>{const tab=document.getElementById(tabId);if(!tab)return;tab.addEventListener('click',()=>selectTab(i,false));tab.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const next=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;selectTab(next,true);});});
+selectTab(0,false);
+function setupTableSort(panelId){const panel=document.getElementById(panelId);if(!panel)return;const table=panel.querySelector('table'),tbody=table?.tBodies[0];if(!tbody)return;const buttons=[...table.querySelectorAll('.sort-column')];const collator=new Intl.Collator('pt-BR',{numeric:true,sensitivity:'base'});let col=-1,asc=true;
+buttons.forEach(btn=>btn.addEventListener('click',()=>{const selected=Number(btn.dataset.column);asc=col===selected?!asc:true;col=selected;const rows=[...tbody.rows];rows.sort((a,b)=>{const av=col===6?a.dataset.published||'':a.cells[col].textContent.trim(),bv=col===6?b.dataset.published||'':b.cells[col].textContent.trim();if(!av&&!bv)return 0;if(!av)return 1;if(!bv)return -1;const cmp=collator.compare(av,bv);return asc?cmp:-cmp;});tbody.replaceChildren(...rows);buttons.forEach(b=>{const active=b===btn;b.closest('th').setAttribute('aria-sort',active?(asc?'ascending':'descending'):'none');b.querySelector('span').textContent=active?(asc?'↑':'↓'):'↕';});panel.dispatchEvent(new Event('table-sorted'));}));}
+setupTableSort('mainPanelGeneral');
+function setupPager(panelId,selector){const panel=document.getElementById(panelId);if(!panel)return;const ctl=panel.querySelector('.page-controls');if(!ctl)return;let items=[...panel.querySelectorAll(selector)],size=ctl.querySelector('.page-size'),prev=ctl.querySelector('.page-prev'),next=ctl.querySelector('.page-next'),summary=ctl.querySelector('.page-summary'),index=ctl.querySelector('.page-index');let page=1;
+function render(){items=[...panel.querySelectorAll(selector)];const matching=items.filter(el=>el.dataset.filterPass!=='false');const limit=size.value==='all'?Math.max(1,matching.length):10;const pages=Math.max(1,Math.ceil(matching.length/limit));page=Math.min(page,pages);const from=(page-1)*limit;const slice=new Set(matching.slice(from,from+limit));for(const el of items)el.hidden=!slice.has(el);summary.textContent=matching.length+' resultado(s) correspondem aos filtros';index.textContent=size.value==='all'?'Todos':('Página '+page+' de '+pages);prev.disabled=page<=1||size.value==='all';next.disabled=page>=pages||size.value==='all';}
+panel.addEventListener('table-sorted',()=>{page=1;render();});size.addEventListener('change',()=>{page=1;render();});prev.addEventListener('click',()=>{page=Math.max(1,page-1);render();});next.addEventListener('click',()=>{page++;render();});
+const filterIds=panelId==='mainPanelGeneral'?['q','area','mode','source','region','city','age']:['regionalCompany','regionalCity','regionalArea','regionalQuery'];for(const id of filterIds){const el=document.getElementById(id);if(el)el.addEventListener('input',()=>{page=1;render();});}
+render();
+}
+setupPager('mainPanelGeneral','tbody tr');
+setupPager('mainPanelRegional','.regional-card');
+})();
+</script><script>
+(()=>{
+'use strict';
+try{
 const matchId=id=>document.getElementById(id);
 const matchTerms={
  Projetos:['projetos','project','pmo','scrum','agile','stakeholder','gestão','management','cronograma','planning','orçamento','budget','risco','risk','liderança','leadership'],
@@ -441,65 +500,13 @@ matchId('matchFile').addEventListener('change',async()=>{
 });
 matchId('matchAnalyze').addEventListener('click',()=>{
  const job=matchId('aiJob'),opt=job.selectedOptions[0],profile=matchId('matchProfile').value.trim(),description=matchId('matchDescription').value.trim();
- if(!job.value||!profile){matchId('matchResult').textContent='Selecione uma vaga real e preencha seu perfil para continuar.';return;}
+ if(!job.value){matchId('matchResult').textContent='Selecione uma vaga real para calcular a compatibilidade.';job.focus();return;}if(!profile){matchId('matchReviewDetails').open=true;matchId('matchResult').textContent='Carregue o currículo e aguarde a confirmação da extração, ou cole as experiências no perfil.';return;}
  if(!description){matchId('matchDescriptionDetails').open=true;matchId('matchResult').textContent='Perfil carregado. Para calcular um match confiável, abra “Adicionar descrição e requisitos da vaga” e cole os requisitos; a API pode fornecer somente o título.';return;}
  showMatchResult(matchScore(profile,description,opt));
 });
 
-const taskInfo={
-fit:['AI Job Match','Compare seu perfil com uma vaga e identifique aderência, evidências e lacunas.'],
-cv:['AI CV Studio','Produza uma versão ATS-friendly do seu currículo, sem inventar informações.'],
-application:['AI Application Assistant','Prepare rascunhos de candidatura para revisão humana, sem envio automático.'],
-career:['AI Career Advisor','Planeje competências, entrevistas e oportunidades de desenvolvimento.']};
-for(const btn of document.querySelectorAll('.ai-tab'))btn.addEventListener('click',()=>{
-for(const other of document.querySelectorAll('.ai-tab'))other.setAttribute('aria-pressed',String(other===btn));
-document.getElementById('aiTaskTitle').textContent=taskInfo[btn.dataset.task][0];
-document.getElementById('aiTaskHelp').textContent=taskInfo[btn.dataset.task][1];
-for(const [key,id] of Object.entries({fit:'studioFitPanel',cv:'studioCvPanel',application:'studioApplicationPanel',career:'studioCareerPanel'})){
- const panel=document.getElementById(id);
- panel.hidden=key!==btn.dataset.task;
-}
 
-});
-
-function studioText(id){return document.getElementById(id).value.trim();}
-function studioOutput(id,value){document.getElementById(id).textContent=value;}
-document.getElementById('studioCvPrepare').addEventListener('click',()=>{
- const experience=studioText('studioCvText');
- studioOutput('studioCvOutput',experience?'PERFIL PROFISSIONAL\\n'+experience+'\\n\\nEXPERIÊNCIAS E RESULTADOS\\nOrganize as experiências acima por empresa, período, responsabilidades e resultados mensuráveis.\\n\\nCOMPETÊNCIAS\\nListe apenas habilidades que possa comprovar.':'Insira seu histórico profissional para preparar a estrutura.');
-});
-document.getElementById('studioAppPrepare').addEventListener('click',()=>{
- const role=studioText('studioAppRole'),exp=studioText('studioAppExperience');
- studioOutput('studioAppOutput',role&&exp?'Olá, tenho interesse na oportunidade de '+role+'.\\n\\nMinha experiência relevante inclui: '+exp+'\\n\\nGostaria de conversar sobre como posso contribuir.\\n\\nAtenciosamente,\\n[Seu nome]':'Informe o cargo e sua experiência comprovada.');
-});
-document.getElementById('studioCareerPrepare').addEventListener('click',()=>{
- const goal=studioText('studioCareerGoal'),gaps=studioText('studioCareerGap');
- studioOutput('studioCareerOutput',goal?'OBJETIVO: '+goal+'\\n1. Mapear requisitos de vagas reais relacionadas ao objetivo.\\n2. Avaliar evidências das competências: '+(gaps||'definir competências a desenvolver')+'.\\n3. Planejar atividades e entregas para os próximos 30 dias.\\n4. Revisar progresso e candidaturas a cada semana.':'Informe seu objetivo profissional.');
-});
-
-document.getElementById('aiCopy').addEventListener('click',async()=>{
-const value=document.getElementById('aiJob').value,status=document.getElementById('aiStatus');
-if(!value){status.textContent='Selecione uma vaga primeiro.';return;}
-try{await navigator.clipboard.writeText(value);status.textContent='Link copiado. A análise de IA ainda requer backend privado.';}
-catch(_){status.textContent='Abra a vaga diretamente na lista acima para copiar o link.';}
-});
-</script><script>
-(()=>{'use strict';
-const tabs=[['mainTabGeneral','mainPanelGeneral'],['mainTabRegional','mainPanelRegional'],['mainTabAI','mainPanelAI']];
-function selectTab(index,focus){tabs.forEach(([tabId,panelId],i)=>{const tab=document.getElementById(tabId),panel=document.getElementById(panelId),active=i===index;if(!tab||!panel)return;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;panel.hidden=!active;panel.style.display=active?'':'none';});if(focus)document.getElementById(tabs[index][0]).focus();}
-tabs.forEach(([tabId],i)=>{const tab=document.getElementById(tabId);if(!tab)return;tab.addEventListener('click',()=>selectTab(i,false));tab.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const next=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;selectTab(next,true);});});
-selectTab(0,false);
-function setupTableSort(panelId){const panel=document.getElementById(panelId);if(!panel)return;const table=panel.querySelector('table'),tbody=table?.tBodies[0];if(!tbody)return;const buttons=[...table.querySelectorAll('.sort-column')];const collator=new Intl.Collator('pt-BR',{numeric:true,sensitivity:'base'});let col=-1,asc=true;
-buttons.forEach(btn=>btn.addEventListener('click',()=>{const selected=Number(btn.dataset.column);asc=col===selected?!asc:true;col=selected;const rows=[...tbody.rows];rows.sort((a,b)=>{const av=col===6?a.dataset.published||'':a.cells[col].textContent.trim(),bv=col===6?b.dataset.published||'':b.cells[col].textContent.trim();if(!av&&!bv)return 0;if(!av)return 1;if(!bv)return -1;const cmp=collator.compare(av,bv);return asc?cmp:-cmp;});tbody.replaceChildren(...rows);buttons.forEach(b=>{const active=b===btn;b.closest('th').setAttribute('aria-sort',active?(asc?'ascending':'descending'):'none');b.querySelector('span').textContent=active?(asc?'↑':'↓'):'↕';});panel.dispatchEvent(new Event('table-sorted'));}));}
-setupTableSort('mainPanelGeneral');
-function setupPager(panelId,selector){const panel=document.getElementById(panelId);if(!panel)return;const ctl=panel.querySelector('.page-controls');if(!ctl)return;let items=[...panel.querySelectorAll(selector)],size=ctl.querySelector('.page-size'),prev=ctl.querySelector('.page-prev'),next=ctl.querySelector('.page-next'),summary=ctl.querySelector('.page-summary'),index=ctl.querySelector('.page-index');let page=1;
-function render(){items=[...panel.querySelectorAll(selector)];const matching=items.filter(el=>el.dataset.filterPass!=='false');const limit=size.value==='all'?Math.max(1,matching.length):10;const pages=Math.max(1,Math.ceil(matching.length/limit));page=Math.min(page,pages);const from=(page-1)*limit;const slice=new Set(matching.slice(from,from+limit));for(const el of items)el.hidden=!slice.has(el);summary.textContent=matching.length+' resultado(s) correspondem aos filtros';index.textContent=size.value==='all'?'Todos':('Página '+page+' de '+pages);prev.disabled=page<=1||size.value==='all';next.disabled=page>=pages||size.value==='all';}
-panel.addEventListener('table-sorted',()=>{page=1;render();});size.addEventListener('change',()=>{page=1;render();});prev.addEventListener('click',()=>{page=Math.max(1,page-1);render();});next.addEventListener('click',()=>{page++;render();});
-const filterIds=panelId==='mainPanelGeneral'?['q','area','mode','source','region','city','age']:['regionalCompany','regionalCity','regionalArea','regionalQuery'];for(const id of filterIds){const el=document.getElementById(id);if(el)el.addEventListener('input',()=>{page=1;render();});}
-render();
-}
-setupPager('mainPanelGeneral','tbody tr');
-setupPager('mainPanelRegional','.regional-card');
+}catch(error){const result=document.getElementById('matchResult'),status=document.getElementById('matchFileStatus');if(result)result.textContent='Não foi possível iniciar a análise local: '+error.message;if(status)status.textContent='Falha ao inicializar a leitura. Atualize a página.';}
 })();
 </script></body></html>"""
 
