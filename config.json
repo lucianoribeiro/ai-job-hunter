@@ -1,5 +1,5 @@
 {
-  "max_results": 100,
+  "max_results": 250,
   "full_time_keywords": [
     "qa engineer",
     "quality engineer",
@@ -10,7 +10,10 @@
     "quality assurance lead",
     "qa manager",
     "quality engineering manager",
-    "test lead"
+    "test lead",
+    "project manager",
+    "project coordinator",
+    "program manager"
   ],
   "freelance_keywords": [
     "qa",
@@ -31,6 +34,9 @@
   ],
   "sources": [
     "remotive",
-    "arbeitnow"
+    "arbeitnow",
+    "jobicy",
+    "himalayas",
+    "remoteok"
   ]
 }
