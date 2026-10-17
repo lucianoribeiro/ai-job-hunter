@@ -58,7 +58,7 @@ jobs:
           import json, os, re
           from pathlib import Path
           url = os.getenv('AI_MATCH_API_URL', '').strip().rstrip('/')
-          if url and not re.fullmatch(r'https://[a-z0-9.-]+\\.workers\\.dev', url, re.I):
+          if url and not re.fullmatch(r'https://[a-z0-9.-]+\.workers\.dev', url, re.I):
               raise ValueError('AI_MATCH_API_URL must be an HTTPS workers.dev host')
           path = Path('site/index.html')
           page = path.read_text(encoding='utf-8')
