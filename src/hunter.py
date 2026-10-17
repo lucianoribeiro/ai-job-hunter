@@ -53,26 +53,33 @@ def arbeitnow() -> list[dict]:
 
 
 def classify(job: dict, config: dict) -> dict | None:
-    title = job["title"].lower()
-    details = (job["type"] + " " + job["description"][:3000]).lower()
-    combined = (title + " " + details)
+    title = str(job.get("title") or "").lower()
+    location = str(job.get("location") or "").lower()
+    job_type = str(job.get("type") or "").lower()
+    description = str(job.get("description") or "").lower()
     if any(term in title for term in config["blocked_title_terms"]):
         return None
-    if not any(term in combined for term in config["full_time_keywords"]):
+    # QA terms in descriptions do not establish that a role itself is in QA.
+    allowed = config["full_time_keywords"] + config.get("freelance_keywords", [])
+    if not any(term in title for term in allowed):
         return None
-    remote = bool(job.get("remote")) or "remote" in (title + " " + job["location"] + " " + details[:1200]).lower()
+    context = title + " " + location + " " + job_type
+    negative = bool(re.search(r"\b(not remote|no remote|on.site|onsite|on site|in.office|office.based|hybrid)\b", context))
+    explicit_remote = bool(job.get("remote")) or bool(re.search(r"\b(remote|worldwide remote|work from anywhere|distributed)\b", context))
+    remote = explicit_remote and not negative
     if config["remote_required"] and not remote:
         return None
-    contractor = bool(re.search(r"\b(contract|contractor|freelanc|part.time|consultant|hourly)\w*", combined))
-    category = "freelance" if contractor else "full-time/unspecified"
-    usd = bool(re.search(r"(?:USD|US\$|\$)", job["salary"], re.I))
-    flexibility = bool(re.search(r"\b(flexible|part.time|few hours|hours per (day|week))\b", combined))
+    contract = bool(re.search(r"\b(freelanc\w*|independent contractor|contractor|contract|part.time|hourly|project.based)\b", title + " " + job_type))
+    category = "freelance" if contract else "full-time/unspecified"
+    salary = str(job.get("salary") or "")
+    usd = bool(re.search(r"\bUSD\b|US\$|\$", salary, re.I))
+    flexible = bool(re.search(r"\b(flexible|part.time|few hours|hours per (day|week))\b", title + " " + job_type + " " + description[:1500]))
+    hours = bool(re.search(r"\b(?:2|two)\s+hours?\s+(?:per|a|/)\s+day\b|\b(?:up to|maximum|max)\s+10\s+hours?\s+(?:per|a|/)\s+week\b", title + " " + job_type + " " + description[:2000]))
     senior = bool(re.search(r"\b(lead|manager|head|principal|senior|staff)\b", title))
-    score = 30 + (20 if senior else 0) + (20 if contractor else 0) + (15 if usd else 0) + (10 if flexibility else 0) + (5 if remote else 0)
+    score = min(100, 30 + (20 if senior else 0) + (20 if contract else 0) + (15 if usd else 0) + (10 if flexible else 0) + (5 if remote else 0))
     result = dict(job)
     result.update(score=score, category=category, remote=remote, usd_confirmed=usd,
-                  flexibility_mentioned=flexibility, two_hours_confirmed=False)
-    # Never infer exactly 2h/day from broad 'part-time' or 'flexible' language.
+                  flexibility_mentioned=flexible, two_hours_confirmed=hours)
     result.pop("description", None)
     return result
 
