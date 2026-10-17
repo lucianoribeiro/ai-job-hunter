@@ -34,3 +34,16 @@ class PagesVisibilityTests(unittest.TestCase):
         self.assertNotIn('j["title"]', selection)
         self.assertNotIn('__AI_JOB_OPTIONS__', selection)
         self.assertIn('Selecionar uma vaga do catálogo...', selection)
+
+    def test_main_tabs_and_both_paginators(self):
+        jobs=[{"title":f"Gerente de Projetos {i}","company":"Acme","location":"Americana, SP",
+               "url":f"https://example.com/job/{i}"} for i in range(15)]
+        page=render({"jobs":jobs},[],strategic={"jobs":[],"sources":[]})
+        self.assertEqual(page.count('class="page-controls"'),2)
+        self.assertIn('option value="10"',page)
+        self.assertIn('option value="all"',page)
+        self.assertIn("setupPager('mainPanelGeneral','tbody tr')",page)
+        self.assertIn("setupPager('mainPanelRegional','.regional-card')",page)
+        self.assertIn("selectTab(0,false)",page)
+        self.assertIn("panel.style.display=active?'':'none'",page)
+        self.assertEqual(page.count('data-area="Projetos"'),15)
