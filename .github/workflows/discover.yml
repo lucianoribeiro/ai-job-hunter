@@ -95,6 +95,7 @@ jobs:
           python -m src.hunter
           python -m src.regional_ats_qa --output data/regional_qa_jobs.json
           python -m src.himalayas_jobs --output data/himalayas_jobs.json
+          python -m src.extra_sources --output data/extra_jobs.json
           python -m src.unified_jobs_dashboard --projects data/project_jobs_poc.json --qa data/jobs.csv --output data/unified_jobs.html
       - name: Upload real project jobs
         if: always()
@@ -105,6 +106,7 @@ jobs:
             data/project_jobs_poc.json
             data/regional_qa_jobs.json
             data/himalayas_jobs.json
+            data/extra_jobs.json
             data/project_jobs_poc.html
             data/unified_jobs.html
             data/jobs.csv
