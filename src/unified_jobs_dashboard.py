@@ -138,11 +138,20 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         for j in seen_jobs[:12] if isinstance(j, dict)
     )
     status_text = ", ".join(str(x.get("company", "")) + ": " + str(x.get("state", "unknown")) for x in source_status if isinstance(x, dict))
-    strategic_html = ('<section id="empresas-estrategicas"><h2>Empresas estratégicas · Honda Brasil</h2>'
-        '<p>Monitoramento do portal oficial. Se a consulta estiver incompleta, não significa ausência de vagas.</p>'
-        '<p><a href="https://honda.gupy.io/" target="_blank" rel="noopener noreferrer">Consultar vagas oficiais da Honda</a></p>'
-        '<p>Coleta: ' + e(status_text or "Ainda não executada") + '</p>'
-        '<ul>' + (honda_rows or '<li>Links de vagas indisponíveis na página pública; consulte o portal oficial.</li>') + '</ul></section>')
+    company_cards = "".join(
+        '<li><strong>' + e(item.get("company", "")) + '</strong> · ' + e(item.get("city", "")) +
+        ' · ' + e({"manual": "Portal a integrar", "needs_connector": "Coleta incompleta", "ok": "Links encontrados", "error": "Consulta indisponível"}.get(item.get("state"), "A verificar")) +
+        (' · <a href="' + e(safe_url(item.get("url"))) + '" target="_blank" rel="noopener noreferrer">Site oficial</a>' if safe_url(item.get("url")) != "#" else '') + '</li>'
+        for item in source_status if isinstance(item, dict)
+    )
+    strategic_html = (
+        '<section id="empresas-estrategicas"><h2>Empresas estratégicas · Sumaré, Paulínia e Americana</h2>'
+        '<p>Empresas selecionadas por presença regional. Vagas abertas somente quando links públicos forem identificados. '
+        'Os demais portais permanecem para consulta manual.</p><ul>' + company_cards + '</ul>'
+        '<h3>Vagas públicas identificadas</h3><ul>' +
+        (honda_rows or '<li>Nenhuma vaga extraída automaticamente; consulte os portais oficiais.</li>') +
+        '</ul></section>'
+    )
     return """<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>AI Job Hunter | Vagas reais</title>
