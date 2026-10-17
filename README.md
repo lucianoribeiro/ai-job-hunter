@@ -36,3 +36,7 @@ The ranking is heuristic, not an LLM. Employer reputation is initially `unverifi
 ## Privacy
 
 This repository is public. **Never commit personal CVs, email addresses, private application notes, credentials, interview correspondence or other confidential data.** Review status and job metadata are visible publicly. Use a private repository before tracking personal details.
+
+## LinkedIn alerts (opt-in)
+
+An offline importer is available for LinkedIn alert emails exported as .eml files. It extracts only direct public job links and tentative titles; no login or mailbox access is required. Run `python -m src.linkedin_alerts /path/to/alert.eml` and then `python -m src.review` and `python -m src.dashboard`. See [instructions](docs/linkedin-alerts.md). Do not commit email exports.

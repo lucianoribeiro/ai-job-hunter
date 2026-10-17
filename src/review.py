@@ -100,6 +100,12 @@ def run() -> None:
         raise FileNotFoundError(f"Run the hunter first: {JOBS}")
     with JOBS.open(newline="", encoding="utf-8") as fp:
         jobs = list(csv.DictReader(fp))
+    linkedin_path = DATA / "linkedin_jobs.json"
+    if linkedin_path.exists():
+        imported = json.loads(linkedin_path.read_text(encoding="utf-8"))
+        if not isinstance(imported, list):
+            raise ValueError("linkedin_jobs.json must be a JSON list")
+        jobs.extend(imported)
     today = datetime.now(timezone.utc).date().isoformat()
     history, queue, new_jobs = reconcile(jobs, load_json(HISTORY), load_json(QUEUE), today)
     DATA.mkdir(exist_ok=True)
