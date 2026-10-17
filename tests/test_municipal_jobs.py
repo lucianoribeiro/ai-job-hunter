@@ -34,5 +34,21 @@ class MunicipalSourcesTests(unittest.TestCase):
         self.assertEqual(result["status"], "unavailable")
         self.assertEqual(result["reason"], "TimeoutError")
 
+
+    def test_premium_static_body_supported(self):
+        from src.unified_jobs_dashboard import render
+        report = {"sources": [{**SOURCE, "jobs": [], "status": "browse_only"}], "jobs": []}
+        premium = render({"jobs": []}, [])
+        result = inject_dashboard(premium, report)
+        self.assertIn('id="municipal-jobs"', result)
+        self.assertLess(result.index('id="municipal-jobs"'), result.index("</body>"))
+        self.assertEqual(result.count('id="municipal-jobs"'), 1)
+
+    def test_no_duplicate_municipal_section(self):
+        report = {"sources": [{**SOURCE, "jobs": [], "status": "browse_only"}], "jobs": []}
+        once = inject_dashboard("<body><p>App</p></body>", report)
+        with self.assertRaisesRegex(ValueError, "already present"):
+            inject_dashboard(once, report)
+
 if __name__ == "__main__":
     unittest.main()

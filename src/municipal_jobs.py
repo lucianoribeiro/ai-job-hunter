@@ -102,9 +102,14 @@ def inject_dashboard(page, report):
                '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">' +
                "".join(cards) + '</div><div style="display:grid;gap:10px;margin-top:16px">' +
                "".join(listings) + '</div></section>')
-    if "</main>" not in page:
-        raise ValueError("Dashboard missing main element")
-    return page.replace("</main>", section + "</main>", 1)
+    # Premium dashboard is a static <body> document; older layouts used <main>.
+    if 'id="municipal-jobs"' in page:
+        raise ValueError("Municipal section already present")
+    if "</main>" in page:
+        return page.replace("</main>", section + "</main>", 1)
+    if "</body>" in page:
+        return page.replace("</body>", section + "</body>", 1)
+    raise ValueError("Dashboard missing a supported closing container")
 
 def main():
     p = argparse.ArgumentParser()
