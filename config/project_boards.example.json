@@ -4,6 +4,21 @@
       "source": "ashby",
       "company": "Ashby",
       "slug": "Ashby"
+    },
+    {
+      "source": "ashby",
+      "company": "NextLink Labs",
+      "slug": "nextlinklabs"
+    },
+    {
+      "source": "ashby",
+      "company": "Quorum",
+      "slug": "quorumai"
+    },
+    {
+      "source": "ashby",
+      "company": "Agent",
+      "slug": "Agent"
     }
   ]
 }
