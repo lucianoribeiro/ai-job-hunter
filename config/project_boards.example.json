@@ -1,14 +1,9 @@
 {
   "boards": [
     {
-      "source": "greenhouse",
-      "company": "Example Greenhouse employer",
-      "slug": "example"
-    },
-    {
-      "source": "lever",
-      "company": "Lever",
-      "slug": "lever"
+      "source": "ashby",
+      "company": "Ashby",
+      "slug": "Ashby"
     }
   ]
 }
