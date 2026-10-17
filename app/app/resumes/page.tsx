@@ -14,7 +14,7 @@ export default async function ResumeStudio(){
  ]);
  const resumes=(resumeRows||[]) as Resume[],versions=(versionRows||[]) as Version[];
  return <main className="shell"><header className="top"><span className="logo">✦ AI Job Hunter</span><Link href="/dashboard">← Dashboard</Link></header>
- <section className="panel"><span className="eyebrow">AI RESUME STUDIO</span><h1>Seus currículos</h1>
+ <section className="panel"><span className="eyebrow">AI RESUME STUDIO</span><p><Link href="/resumes/import">Importar currículo PDF/DOCX →</Link></p><h1>Seus currículos</h1>
  <p>Crie um currículo principal e versões específicas para diferentes cargos. Revise as informações antes de aprovar.</p>
  {(resumeError||versionError)&&<p role="alert">Não foi possível carregar os currículos. Verifique a migração de dados.</p>}
  <div className="cards">{resumes.map(r=><article className="tile" key={r.id}>
