@@ -9,7 +9,7 @@ class LocalMatchTests(unittest.TestCase):
         self.assertIn("https://example.org/real-job",page)
         self.assertIn("matchScore(profile,description,opt)",page)
         self.assertIn("Nenhum texto extraído",page)
-        self.assertIn("Cole a descrição/requisitos da vaga",page)
+        self.assertIn("Para calcular um match confiável",page)
         self.assertIn("Match preliminar:",page)
         self.assertNotIn("sk-test-",page)
 
