@@ -86,6 +86,10 @@ def collect(config: dict) -> tuple[list[dict], list[str]]:
             raw.extend(fn())
         except (OSError, ValueError, KeyError, TypeError) as error:
             errors.append(f"{name}: {error}")
+    from src.public_sources import collect_boards
+    board_jobs, board_errors = collect_boards(config)
+    raw.extend(board_jobs)
+    errors.extend(board_errors)
     seen, ranked = set(), []
     for job in raw:
         url = job.get("url", "").split("?")[0].rstrip("/").lower()
