@@ -32,6 +32,8 @@ jobs:
       - name: Build review pipeline
         run: python -m src.review
       - name: Generate advisory insights
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python -m src.ai_advisor
       - name: Generate dashboard
         run: python -m src.dashboard
