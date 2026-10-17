@@ -117,7 +117,7 @@ def normalize(project_report, qa_jobs, linkedin_jobs=None, remote_jobs=None):
     return rows
 
 
-def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, remote_jobs=None):
+def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, remote_jobs=None, strategic=None):
     jobs = normalize(project_report, qa_jobs, linkedin_jobs, remote_jobs)
     qa_count = sum(x["area"] == "QA" for x in jobs)
     projects_count = sum(x["area"] == "Projetos" for x in jobs)
@@ -129,6 +129,20 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         e(j["published"]) + "</td></tr>" for j in jobs
     )
     source_options = "".join('<option value="' + e(s) + '">' + e(s) + '</option>' for s in sorted({j["source"] for j in jobs}))
+    studio_html = "<section id=\"ai-career-studio\" aria-labelledby=\"aiTitle\">\n<h2 id=\"aiTitle\">✦ AI Career Studio</h2>\n<p>Quatro ferramentas para sua carreira. <strong>Prévia da interface:</strong> a análise por IA requer uma conexão privada com o servidor; este arquivo estático não envia dados ou currículos.</p>\n<div class=\"ai-tabs\" role=\"tablist\" aria-label=\"Ferramentas de inteligência artificial\">\n<button type=\"button\" class=\"ai-tab\" data-task=\"fit\" aria-pressed=\"true\">Compatibilidade</button>\n<button type=\"button\" class=\"ai-tab\" data-task=\"cv\" aria-pressed=\"false\">CV Premium</button>\n<button type=\"button\" class=\"ai-tab\" data-task=\"application\" aria-pressed=\"false\">Candidatura</button>\n<button type=\"button\" class=\"ai-tab\" data-task=\"career\" aria-pressed=\"false\">Carreira</button>\n</div>\n<div class=\"ai-workspace\">\n<h3 id=\"aiTaskTitle\">AI Job Match</h3>\n<p id=\"aiTaskHelp\">Compare seu perfil com uma vaga e identifique aderência, evidências e lacunas.</p>\n<label for=\"aiJob\">Vaga real para análise</label>\n<select id=\"aiJob\"><option value=\"\">Selecionar uma vaga do catálogo...</option>\"\"\" + \"\".join('<option value=\"' + e(j[\"url\"]) + '\">' + e(j[\"title\"] + \" · \" + j[\"company\"]) + '</option>' for j in jobs) + \"\"\"</select>\n<p class=\"muted\">Não faça upload de CV neste arquivo offline. Nenhuma informação pessoal é armazenada ou enviada.</p>\n<div class=\"ai-actions\"><button type=\"button\" id=\"aiCopy\">Copiar link da vaga</button><span id=\"aiStatus\" role=\"status\"></span></div>\n<p class=\"muted\"><strong>Análise por IA ainda indisponível neste HTML.</strong> O processamento real dependerá de autenticação e API privada antes de ativarmos upload de currículo ou geração de conteúdo.</p>\n</div>\n</section>"
+    strategic = strategic or {}
+    source_status = strategic.get("sources", [])
+    seen_jobs = strategic.get("jobs", [])
+    honda_rows = "".join(
+        '<li><a target="_blank" rel="noopener noreferrer" href="' + e(safe_url(j.get("url"))) + '">' + e(j.get("title", "")) + '</a> · ' + e(j.get("company", "")) + '</li>'
+        for j in seen_jobs[:12] if isinstance(j, dict)
+    )
+    status_text = ", ".join(str(x.get("company", "")) + ": " + str(x.get("state", "unknown")) for x in source_status if isinstance(x, dict))
+    strategic_html = ('<section id="empresas-estrategicas"><h2>Empresas estratégicas · Honda Brasil</h2>'
+        '<p>Monitoramento do portal oficial. Se a consulta estiver incompleta, não significa ausência de vagas.</p>'
+        '<p><a href="https://honda.gupy.io/" target="_blank" rel="noopener noreferrer">Consultar vagas oficiais da Honda</a></p>'
+        '<p>Coleta: ' + e(status_text or "Ainda não executada") + '</p>'
+        '<ul>' + (honda_rows or '<li>Links de vagas indisponíveis na página pública; consulte o portal oficial.</li>') + '</ul></section>')
     return """<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>AI Job Hunter | Vagas reais</title>
@@ -156,6 +170,7 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 .ai-tabs{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}.ai-tab,.ai-actions button{cursor:pointer;border-radius:12px;background:#2b3038;color:#e4e5e7;border:1px solid #515960;padding:12px 16px;font-weight:700}.ai-tab[aria-pressed=true]{background:#477f71;border-color:#78af9f;color:white}.ai-workspace{background:#1b2026;border:1px solid #404750;border-radius:18px;padding:20px}.ai-workspace h3{color:white}.ai-workspace label{display:block;margin-bottom:8px;color:#d6d9df}.ai-actions{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}#aiStatus{color:#d3d7da;font-size:13px}.muted{color:#aeb4bd}
 </style></head><body>
 <header><h1>AI Job Hunter</h1><p>Oportunidades reais, de QA e Gerência / Coordenação de Projetos, em um só lugar.</p></header>
+""" + studio_html + strategic_html + """
 <div class="summary"><article>Total de vagas<strong>""" + str(len(jobs)) + """</strong></article>
 <article>QA<strong>""" + str(qa_count) + """</strong></article>
 <article>Projetos<strong>""" + str(projects_count) + """</strong></article>
@@ -174,25 +189,7 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 <th>Modalidade</th><th>Fonte</th><th>Publicação</th></tr></thead><tbody>""" + body + """</tbody></table></div>
 <p id="empty" hidden>Nenhuma vaga corresponde aos filtros.</p>
 </section>
-<section id="ai-career-studio" aria-labelledby="aiTitle">
-<h2 id="aiTitle">✦ AI Career Studio</h2>
-<p>Quatro ferramentas para sua carreira. <strong>Prévia da interface:</strong> a análise por IA requer uma conexão privada com o servidor; este arquivo estático não envia dados ou currículos.</p>
-<div class="ai-tabs" role="tablist" aria-label="Ferramentas de inteligência artificial">
-<button type="button" class="ai-tab" data-task="fit" aria-pressed="true">Compatibilidade</button>
-<button type="button" class="ai-tab" data-task="cv" aria-pressed="false">CV Premium</button>
-<button type="button" class="ai-tab" data-task="application" aria-pressed="false">Candidatura</button>
-<button type="button" class="ai-tab" data-task="career" aria-pressed="false">Carreira</button>
-</div>
-<div class="ai-workspace">
-<h3 id="aiTaskTitle">AI Job Match</h3>
-<p id="aiTaskHelp">Compare seu perfil com uma vaga e identifique aderência, evidências e lacunas.</p>
-<label for="aiJob">Vaga real para análise</label>
-<select id="aiJob"><option value="">Selecionar uma vaga do catálogo...</option>""" + "".join('<option value="' + e(j["url"]) + '">' + e(j["title"] + " · " + j["company"]) + '</option>' for j in jobs) + """</select>
-<p class="muted">Não faça upload de CV neste arquivo offline. Nenhuma informação pessoal é armazenada ou enviada.</p>
-<div class="ai-actions"><button type="button" id="aiCopy">Copiar link da vaga</button><span id="aiStatus" role="status"></span></div>
-<p class="muted"><strong>Análise por IA ainda indisponível neste HTML.</strong> O processamento real dependerá de autenticação e API privada antes de ativarmos upload de currículo ou geração de conteúdo.</p>
-</div>
-</section><footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
+<footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
 na página oficial. Fonte Himalayas: <a href="https://himalayas.app">himalayas.app</a>. Apenas datas de publicação fornecidas pelas fontes são exibidas; datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
 const q=document.getElementById('q'),a=document.getElementById('area'),m=document.getElementById('mode'),source=document.getElementById('source'),region=document.getElementById('region'),city=document.getElementById('city'),age=document.getElementById('age');
@@ -252,7 +249,9 @@ def main():
         extra_report = json.loads(args.extra_jobs.read_text(encoding="utf-8"))
         remote_report["jobs"].extend(extra_report.get("jobs", []))
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(render(project, qa, remote_jobs=remote_report["jobs"]), encoding="utf-8")
+    strategic_path = Path("data/strategic_jobs.json")
+    strategic = json.loads(strategic_path.read_text(encoding="utf-8")) if strategic_path.exists() else {}
+    args.output.write_text(render(project, qa, remote_jobs=remote_report["jobs"], strategic=strategic), encoding="utf-8")
     print(f"Unified dashboard: {len(normalize(project, qa, remote_jobs=remote_report['jobs']))} unique real listings")
 
 
