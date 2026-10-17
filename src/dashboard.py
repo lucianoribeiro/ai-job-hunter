@@ -24,7 +24,7 @@ def safe_url(value: object) -> str:
     return url if parts.scheme in ("http", "https") and parts.netloc else "#"
 
 
-def render(queue: dict, generated: str = "") -> str:
+def render(queue: dict, generated: str = "", insights: dict | None = None) -> str:
     entries = [j for j in queue.values() if isinstance(j, dict)]
     counts = Counter(str(j.get("status", "")) for j in entries)
     total = len(entries)
@@ -57,6 +57,14 @@ def render(queue: dict, generated: str = "") -> str:
         rows.append('<tr data-status="' + escape(status) + '" data-type="' + escape(job.get("category")) + '">' +
                     "".join(f"<td>{cell}</td>" for cell in row) + "</tr>")
     timestamp = escape(generated or datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"))
+    insights = insights or {}
+    advisor = ('<section style="background:white;border:1px solid #dbe5fb;border-radius:18px;padding:24px;margin-bottom:20px">'
+               '<strong>✦ AI Job Hunter · Assistente de oportunidades</strong>'
+               '<h2>' + escape(insights.get("headline", "Seu radar inteligente de oportunidades")) + '</h2>'
+               '<p>' + escape(insights.get("summary", "Análise ainda não executada.")) + '</p>'
+               '<ol>' + ''.join('<li><strong>' + escape(j.get("title", "")) + '</strong> — ' + escape(j.get("company", "")) +
+               '<p>' + escape(j.get("reason", "")) + '</p></li>' for j in insights.get("recommendations", [])[:3]) + '</ol>'
+               '<small>Modo: ' + ("IA" if insights.get("mode") == "ai" else "Regras explicáveis") + '</small></section>')
     return """<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>AI Job Hunter | Dashboard</title>
@@ -105,7 +113,7 @@ footer{margin-top:25px;color:#7b879b;font-size:12px;line-height:1.8}
 <header class="hero"><span class="pill">✦ Busca inteligente de oportunidades</span><h1>Encontre sua próxima grande oportunidade.</h1>
 <p>Explore vagas de QA, liderança e contratos remotos. Compare oportunidades e revise os anúncios antes de se candidatar.</p>
 <div class="pills"><span class="pill">✓ Remoto e internacional</span><span class="pill">✓ Freelance e contratos</span><span class="pill">✓ Busca por empresa e vaga</span></div></header>
-<section class="stats">""" + stats + """</section>
+""" + advisor + """<section class="stats">""" + stats + """</section>
 <h2 class="section-title" id="vagas">Explore oportunidades</h2><p class="section-sub">Dados do último processamento · gerado em """ + timestamp + """</p>
 <div class="workspace"><aside class="filters" id="filtros"><h2>Filtros de busca</h2><div class="controls">
 <div><label for="query">Cargo ou empresa</label><input id="query" aria-label="Pesquisar vagas" placeholder="Ex.: QA Manager, Bosch"></div>
@@ -131,7 +139,9 @@ def run() -> None:
     if not isinstance(queue, dict):
         raise ValueError("applications.json must be an object")
     DATA.mkdir(exist_ok=True)
-    OUTPUT.write_text(render(queue), encoding="utf-8")
+    path = DATA / "ai_insights.json"
+    insights = json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+    OUTPUT.write_text(render(queue, insights=insights), encoding="utf-8")
     print(f"Dashboard written to {OUTPUT}")
 
 
