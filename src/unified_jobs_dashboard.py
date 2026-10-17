@@ -140,7 +140,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
     status_text = ", ".join(str(x.get("company", "")) + ": " + str(x.get("state", "unknown")) for x in source_status if isinstance(x, dict))
     company_cards = "".join(
         '<li><strong>' + e(item.get("company", "")) + '</strong> · ' + e(item.get("city", "")) +
-        ' · ' + e({"manual": "Portal a integrar", "needs_connector": "Coleta incompleta", "ok": "Links encontrados", "error": "Consulta indisponível"}.get(item.get("state"), "A verificar")) +
+        ' · ' + e({"manual": "Portal a integrar", "needs_connector": "Coleta incompleta (needs_connector)", "ok": "Links encontrados", "error": "Consulta indisponível"}.get(item.get("state"), "A verificar")) +
         (' · <a href="' + e(safe_url(item.get("url"))) + '" target="_blank" rel="noopener noreferrer">Site oficial</a>' if safe_url(item.get("url")) != "#" else '') + '</li>'
         for item in source_status if isinstance(item, dict)
     )
