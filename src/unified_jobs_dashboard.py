@@ -153,6 +153,7 @@ a{color:#a3baff;font-weight:650;text-decoration:none}a:hover{text-decoration:und
 p,footer{color:#a7b7d3;line-height:1.6}footer{padding:4px 6px 24px;font-size:13px}
 #count{color:#c9dcff;font-weight:700}#empty{padding:20px;color:#ffd493}
 @media(max-width:650px){body{padding:12px}header,section{padding:19px;border-radius:18px}.summary{gap:8px}.summary article{padding:13px;border-radius:12px}.summary strong{font-size:27px}.filters{grid-template-columns:1fr}td,th{padding:11px}}
+.ai-tabs{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}.ai-tab,.ai-actions button{cursor:pointer;border-radius:12px;background:#223958;color:#dbe9ff;border:1px solid #45658c;padding:12px 16px;font-weight:700}.ai-tab[aria-pressed=true]{background:#4e68de;border-color:#8098ff;color:white}.ai-workspace{background:#14233b;border:1px solid #334963;border-radius:18px;padding:20px}.ai-workspace h3{color:white}.ai-workspace label{display:block;margin-bottom:8px;color:#b9d3ff}.ai-actions{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}#aiStatus{color:#c7d8f9;font-size:13px}.muted{color:#a7b7d3}
 </style></head><body>
 <header><h1>AI Job Hunter</h1><p>Oportunidades reais, de QA e Gerência / Coordenação de Projetos, em um só lugar.</p></header>
 <div class="summary"><article>Total de vagas<strong>""" + str(len(jobs)) + """</strong></article>
@@ -172,6 +173,25 @@ p,footer{color:#a7b7d3;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 <div class="table"><table><thead><tr><th>Cargo</th><th>Empresa</th><th>Área</th><th>Local</th>
 <th>Modalidade</th><th>Fonte</th><th>Publicação</th></tr></thead><tbody>""" + body + """</tbody></table></div>
 <p id="empty" hidden>Nenhuma vaga corresponde aos filtros.</p>
+</section>
+<section id="ai-career-studio" aria-labelledby="aiTitle">
+<h2 id="aiTitle">✦ AI Career Studio</h2>
+<p>Quatro ferramentas para sua carreira. <strong>Prévia da interface:</strong> a análise por IA requer uma conexão privada com o servidor; este arquivo estático não envia dados ou currículos.</p>
+<div class="ai-tabs" role="tablist" aria-label="Ferramentas de inteligência artificial">
+<button type="button" class="ai-tab" data-task="fit" aria-pressed="true">Compatibilidade</button>
+<button type="button" class="ai-tab" data-task="cv" aria-pressed="false">CV Premium</button>
+<button type="button" class="ai-tab" data-task="application" aria-pressed="false">Candidatura</button>
+<button type="button" class="ai-tab" data-task="career" aria-pressed="false">Carreira</button>
+</div>
+<div class="ai-workspace">
+<h3 id="aiTaskTitle">AI Job Match</h3>
+<p id="aiTaskHelp">Compare seu perfil com uma vaga e identifique aderência, evidências e lacunas.</p>
+<label for="aiJob">Vaga real para análise</label>
+<select id="aiJob"><option value="">Selecionar uma vaga do catálogo...</option>""" + "".join('<option value="' + e(j["url"]) + '">' + e(j["title"] + " · " + j["company"]) + '</option>' for j in jobs) + """</select>
+<p class="muted">Não faça upload de CV neste arquivo offline. Nenhuma informação pessoal é armazenada ou enviada.</p>
+<div class="ai-actions"><button type="button" id="aiCopy">Copiar link da vaga</button><span id="aiStatus" role="status"></span></div>
+<p class="muted"><strong>Análise por IA ainda indisponível neste HTML.</strong> O processamento real dependerá de autenticação e API privada antes de ativarmos upload de currículo ou geração de conteúdo.</p>
+</div>
 </section><footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
 na página oficial. Fonte Himalayas: <a href="https://himalayas.app">himalayas.app</a>. Apenas datas de publicação fornecidas pelas fontes são exibidas; datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
@@ -189,6 +209,22 @@ r.textContent.toLocaleLowerCase().includes(q.value.trim().toLocaleLowerCase());
 r.hidden=!show;if(show)visible++;
 }count.textContent=visible+' vaga(s) exibida(s)';document.getElementById('empty').hidden=visible!==0;}
 [q,a,m,source,region,city,age].forEach(el=>el.addEventListener('input',apply));apply();
+const taskInfo={
+fit:['AI Job Match','Compare seu perfil com uma vaga e identifique aderência, evidências e lacunas.'],
+cv:['AI CV Studio','Produza uma versão ATS-friendly do seu currículo, sem inventar informações.'],
+application:['AI Application Assistant','Prepare rascunhos de candidatura para revisão humana, sem envio automático.'],
+career:['AI Career Advisor','Planeje competências, entrevistas e oportunidades de desenvolvimento.']};
+for(const btn of document.querySelectorAll('.ai-tab'))btn.addEventListener('click',()=>{
+for(const other of document.querySelectorAll('.ai-tab'))other.setAttribute('aria-pressed',String(other===btn));
+document.getElementById('aiTaskTitle').textContent=taskInfo[btn.dataset.task][0];
+document.getElementById('aiTaskHelp').textContent=taskInfo[btn.dataset.task][1];
+});
+document.getElementById('aiCopy').addEventListener('click',async()=>{
+const value=document.getElementById('aiJob').value,status=document.getElementById('aiStatus');
+if(!value){status.textContent='Selecione uma vaga primeiro.';return;}
+try{await navigator.clipboard.writeText(value);status.textContent='Link copiado. A análise de IA ainda requer backend privado.';}
+catch(_){status.textContent='Abra a vaga diretamente na lista acima para copiar o link.';}
+});
 </script></body></html>"""
 
 
@@ -213,7 +249,7 @@ def main():
     remote_report = json.loads(args.remote_jobs.read_text(encoding="utf-8")) if args.remote_jobs.exists() else {"jobs": []}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(render(project, qa, remote_jobs=remote_report["jobs"]), encoding="utf-8")
-    print(f"Unified dashboard: {len(normalize(project, qa, remote_jobs=remote_report["jobs"]))} unique real listings")
+    print(f"Unified dashboard: {len(normalize(project, qa, remote_jobs=remote_report['jobs']))} unique real listings")
 
 
 if __name__ == "__main__":
