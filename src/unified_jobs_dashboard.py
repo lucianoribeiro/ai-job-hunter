@@ -22,22 +22,22 @@ def safe_url(value):
 QA_TITLE = re.compile(r"\b(qa|quality assurance|quality engineer|quality engineering|software tester|test engineer|sdet|test automation|test lead|automation tester)\b", re.I)
 
 
-CJK = re.compile(r"[\\u3040-\\u30ff\\u3400-\\u9fff]")
-LANGUAGE_REQUIREMENT = re.compile(r"\\b(?:japanese|mandarin|korean|chinese)[ -]speaking\\b", re.I)
-OVERSEAS_LOCATION = re.compile(r"\\b(?:Japan|Tokyo|Osaka|Vietnam|Hanoi|Malaysia|India|Indonesia|Germany|France|Poland|China|Thailand|Philippines)\\b", re.I)
-ROLE_TERMS = re.compile(r"\\b(?:project|program|portfolio|pmo|coordinator|manager|quality|qa|test|projetos?|gerente|coordenador)\\b", re.I)
+CJK = re.compile(r"[\u3040-\u30ff\u3400-\u9fff]")
+LANGUAGE_REQUIREMENT = re.compile(r"\b(?:japanese|mandarin|korean|chinese)[ -]speaking\b", re.I)
+OVERSEAS_LOCATION = re.compile(r"\b(?:Japan|Tokyo|Osaka|Vietnam|Hanoi|Malaysia|India|Indonesia|Germany|France|Poland|China|Thailand|Philippines)\b", re.I)
+ROLE_TERMS = re.compile(r"\b(?:project|program|portfolio|pmo|coordinator|manager|quality|qa|test|projetos?|gerente|coordenador)\b", re.I)
 
 
 def studio_job_label(title):
     """Preserve a meaningful Latin-script job title; never alter source record."""
     value = str(title or "").strip()
     if CJK.search(value):
-        parts = re.split(r"\\s*[/|–—]\\s*", value)
+        parts = re.split(r"\s*[/|–—]\s*", value)
         latin = [p.strip(" -|/") for p in parts if not CJK.search(p) and ROLE_TERMS.search(p)]
         if latin:
             return max(latin, key=len)
         value = CJK.sub("", value).strip(" -|/[]")
-    return re.sub(r"\\s+", " ", value).strip()
+    return re.sub(r"\s+", " ", value).strip()
 
 
 def studio_job_eligible(job):
