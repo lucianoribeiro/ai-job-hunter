@@ -88,7 +88,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None):
     projects_count = sum(x["area"] == "Projetos" for x in jobs)
     linkedin_count = len(jobs) - qa_count - projects_count
     body = "".join(
-        '<tr data-area="' + e(j["area"]) + '" data-mode="' + e(j["mode_key"]) + '">' +
+        '<tr data-area="' + e(j["area"]) + '" data-mode="' + e(j["mode_key"]) + '" data-source="' + e(j["source"]) + '">' +
         '<td><a href="' + e(j["url"]) + '" target="_blank" rel="noopener noreferrer">' + e(j["title"]) + '</a></td>' +
         "<td>" + e(j["company"]) + "</td><td>" + e(j["area"]) + "</td><td>" + e(j["location"]) +
         "</td><td>" + e(j["modality"]) + "</td><td>" + e(j["source"]) + "</td><td>" +
