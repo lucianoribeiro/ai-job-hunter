@@ -29,10 +29,21 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Verify code
+      - name: Compile Python sources
+        run: python -m compileall -q src tests
+      - name: Run unit tests
+        shell: bash
         run: |
-          python -m compileall -q src tests
-          python -m unittest discover -s tests -v
+          set -o pipefail
+          mkdir -p diagnostics
+          python -m unittest discover -s tests -v 2>&1 | tee diagnostics/unit-tests.log
+      - name: Upload test diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pages-test-diagnostics
+          path: diagnostics/
+          if-no-files-found: ignore
       - name: Collect only publicly listed jobs
         run: |
           mkdir -p data site
