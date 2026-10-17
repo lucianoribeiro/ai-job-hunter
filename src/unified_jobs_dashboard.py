@@ -88,7 +88,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None):
     projects_count = sum(x["area"] == "Projetos" for x in jobs)
     linkedin_count = len(jobs) - qa_count - projects_count
     body = "".join(
-        '<tr data-area="' + e(j["area"]) + '" data-mode="' + e(j["mode_key"]) + '" data-source="' + e(j["source"]) + '">' +
+        '<tr data-area="' + e(j["area"]) + '" data-mode="' + e(j["mode_key"]) + '" data-source="' + e(j["source"]) + '" data-location="' + e(j["location"]) + '">' +
         '<td><a href="' + e(j["url"]) + '" target="_blank" rel="noopener noreferrer">' + e(j["title"]) + '</a></td>' +
         "<td>" + e(j["company"]) + "</td><td>" + e(j["area"]) + "</td><td>" + e(j["location"]) +
         "</td><td>" + e(j["modality"]) + "</td><td>" + e(j["source"]) + "</td><td>" +
@@ -125,7 +125,7 @@ th{background:#edf2fa}a{color:#1456aa}p,footer{color:#53627b}footer{margin-top:1
 <select id="mode" aria-label="Modalidade"><option value="">Todas as modalidades</option>
 <option value="remote">Remoto informado</option><option value="verify">Remoto citado — confirmar</option>
 <option value="unknown">Não informado</option></select>
-<select id="source" aria-label="Fonte das vagas"><option value="">Todas as fontes integradas</option>""" + source_options + """</select></div>
+<select id="source" aria-label="Fonte das vagas"><option value="">Todas as fontes integradas</option>""" + source_options + """</select><select id="region" aria-label="Região"><option value="">Todas as localidades</option><option value="local">Nova Odessa e região</option><option value="remote">Remoto informado</option></select></div>
 <p id="count" aria-live="polite"></p>
 <div class="table"><table><thead><tr><th>Cargo</th><th>Empresa</th><th>Área</th><th>Local</th>
 <th>Modalidade</th><th>Fonte</th><th>Publicação</th></tr></thead><tbody>""" + body + """</tbody></table></div>
@@ -135,14 +135,16 @@ th{background:#edf2fa}a{color:#1456aa}p,footer{color:#53627b}footer{margin-top:1
 """ + portals + """</section><footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
 na página oficial. Datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
-const q=document.getElementById('q'),a=document.getElementById('area'),m=document.getElementById('mode'),source=document.getElementById('source');
+const q=document.getElementById('q'),a=document.getElementById('area'),m=document.getElementById('mode'),source=document.getElementById('source'),region=document.getElementById('region');
 const rows=[...document.querySelectorAll('tbody tr')],count=document.getElementById('count');
 function apply(){let visible=0;for(const r of rows){
-const show=(!a.value||r.dataset.area===a.value)&&(!m.value||r.dataset.mode===m.value)&&(!source.value||r.dataset.source===source.value)&&
+const local=/nova odessa|americana|sumaré|sumare|santa bárbara|santa barbara|hortolândia|hortolandia|campinas/i.test(r.dataset.location||'');
+const locOK=!region.value||(region.value==='local'?local:r.dataset.mode==='remote');
+const show=locOK&&(!a.value||r.dataset.area===a.value)&&(!m.value||r.dataset.mode===m.value)&&(!source.value||r.dataset.source===source.value)&&
 r.textContent.toLocaleLowerCase().includes(q.value.trim().toLocaleLowerCase());
 r.hidden=!show;if(show)visible++;
 }count.textContent=visible+' vaga(s) exibida(s)';document.getElementById('empty').hidden=visible!==0;}
-[q,a,m,source].forEach(el=>el.addEventListener('input',apply));apply();
+[q,a,m,source,region].forEach(el=>el.addEventListener('input',apply));apply();
 </script></body></html>"""
 
 
