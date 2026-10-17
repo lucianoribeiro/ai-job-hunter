@@ -9,7 +9,7 @@ export async function getSupabase() {
   return createServerClient(url, key, {
     cookies: {
       getAll() { return store.getAll(); },
-      setAll(values) {
+      setAll(values: {name: string; value: string; options?: Record<string, any>}[]) {
         try {
           values.forEach(({ name, value, options }) => store.set(name, value, options));
         } catch {
