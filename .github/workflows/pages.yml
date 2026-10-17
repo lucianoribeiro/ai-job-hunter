@@ -38,6 +38,7 @@ jobs:
           mkdir -p data site
           python -m src.project_jobs_poc --config config/project_boards.example.json --output data/project_jobs_poc.json
           python -m src.hunter
+          python -m src.strategic_companies
           python -m src.regional_ats_qa --output data/regional_qa_jobs.json
           python -m src.himalayas_jobs --output data/himalayas_jobs.json
           python -m src.unified_jobs_dashboard --projects data/project_jobs_poc.json --qa data/jobs.csv --output site/index.html
