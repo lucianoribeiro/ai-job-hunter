@@ -33,3 +33,17 @@ class RegionalCatalogTests(unittest.TestCase):
         self.assertIn('data-city="Americana"', page)
         self.assertIn('value="unverified"', page)
         self.assertIn('coleta é parcial', page)
+
+    def test_only_collected_companies_in_filter(self):
+        from html import unescape
+        report = {"jobs": [{"title": "Analista de Projetos Sumaré", "company": "Honda Brasil",
+                             "url": "https://honda.gupy.io/jobs/888", "location": "Sumaré"}],
+                  "sources": [{"company": "Honda Brasil", "city": "Sumaré", "state": "ok"},
+                              {"company": "PPG", "city": "Sumaré", "state": "manual"}]}
+        page = render({"jobs": []}, [], strategic=report)
+        options = page.split('id="regionalCompany"', 1)[1].split('</select>', 1)[0]
+        self.assertIn('<option value="Honda Brasil">', options)
+        self.assertNotIn('<option value="PPG">', options)
+        self.assertIn("PPG", page)
+        self.assertIn("Vagas coletadas: 1", page)
+        self.assertIn("Sumaré (1)", page)

@@ -173,8 +173,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         '" target="_blank" rel="noopener noreferrer">Ver anúncio original / candidatar-se ↗</a></details></article>'
         for item in entries
     )
-    companies = sorted({str(x.get("company", "")) for x in source_status if isinstance(x, dict) and x.get("company")} |
-                       {x["company"] for x in entries})
+    companies = sorted({x["company"] for x in entries if x.get("company")})
     company_options = "".join('<option value="' + e(name) + '">' + e(name) + '</option>' for name in companies)
     company_cards = "".join(
         '<li><strong>' + e(item.get("company", "")) + '</strong> · ' + e(item.get("city", "")) +
@@ -184,21 +183,28 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
          if safe_url(item.get("url")) != "#" else '') + '</li>'
         for item in source_status if isinstance(item, dict)
     )
+    monitored_count = len([x for x in source_status if isinstance(x, dict)])
+    live_count = len(entries)
+    city_counts = {city: sum(j["city"] == city for j in entries) for city in city_scope}
+    city_counts["unverified"] = sum(not j["city"] for j in entries)
     strategic_html = (
         '<section id="empresas-estrategicas" aria-labelledby="regionalTitle"><h2 id="regionalTitle">Vagas regionais · Sumaré, Paulínia e Americana</h2>'
-        '<p>Explore oportunidades em um só lugar. Apenas anúncios efetivamente obtidos das fontes aparecem como vagas; '
-        'a presença de uma empresa na lista não garante vagas abertas.</p>'
-        '<div class="regional-filters"><label>Empresa<select id="regionalCompany"><option value="">Todas as empresas</option>' +
+        '<p>Vagas coletadas: ' + str(live_count) + '. Empresas acompanhadas: ' + str(monitored_count) +
+        '. Cidades são as informadas nos anúncios, nunca deduzidas pela sede da empresa.</p>'
+        '<div class="regional-filters"><label>Empresa<select id="regionalCompany"><option value="">Todas as empresas com vagas</option>' +
         company_options + '</select></label><label>Cidade<select id="regionalCity"><option value="">Todas as cidades</option>'
-        '<option value="Sumaré">Sumaré</option><option value="Paulínia">Paulínia</option>'
-        '<option value="Americana">Americana</option><option value="unverified">Local não confirmado</option></select></label>'
+        '<option value="Sumaré">Sumaré (' + str(city_counts["Sumaré"]) + ')</option>'
+        '<option value="Paulínia">Paulínia (' + str(city_counts["Paulínia"]) + ')</option>'
+        '<option value="Americana">Americana (' + str(city_counts["Americana"]) + ')</option>'
+        '<option value="unverified">Local não confirmado (' + str(city_counts["unverified"]) + ')</option></select></label>'
         '<label>Área<select id="regionalArea"><option value="">Todas as áreas</option>'
         '<option value="QA">QA</option><option value="Projetos">Projetos</option>'
         '<option value="A confirmar">A confirmar</option></select></label>'
         '<label>Pesquisar<input id="regionalQuery" placeholder="Cargo, empresa..." aria-label="Pesquisar vagas regionais"></label></div>'
         '<p id="regionalCount" role="status"></p><div id="regionalCards" class="regional-cards">' +
         (regional_cards or '<p>Nenhum anúncio regional foi obtido nas fontes atuais. Consulte os portais das empresas abaixo.</p>') +
-        '</div><details class="regional-sources"><summary>Empresas monitoradas e cobertura das fontes</summary><ul>' +
+        '</div><details class="regional-sources"><summary>Empresas acompanhadas (inclusive sem integração)</summary>'
+        '<p>Essas empresas não necessariamente possuem vagas coletadas. Consulte as fontes oficiais para cobertura adicional.</p><ul>' +
         company_cards + '</ul></details></section>'
     )
 
