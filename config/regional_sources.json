@@ -1,0 +1,53 @@
+{
+  "home_city": "Nova Odessa, SP",
+  "sources": [
+    {
+      "id": "novaodessa",
+      "name": "Emprega Nova Odessa",
+      "city": "Nova Odessa",
+      "url": "https://www.novaodessa.sp.gov.br/emprega-novaodessa",
+      "status": "official_portal_no_api",
+      "category": "municipal"
+    },
+    {
+      "id": "sumare",
+      "name": "PAT Sumaré",
+      "city": "Sumaré",
+      "url": "https://sumare.atende.net/cidadao/pagina/vagas-pat-disponiveis/",
+      "status": "official_portal_no_api",
+      "category": "municipal"
+    },
+    {
+      "id": "americana",
+      "name": "PAT Americana",
+      "city": "Americana",
+      "url": "https://www.americana.sp.gov.br/americana-index.php?a=pat-vagas-emprego-gov",
+      "status": "official_portal_no_api",
+      "category": "municipal"
+    },
+    {
+      "id": "hortolandia",
+      "name": "PAT Hortolândia",
+      "city": "Hortolândia",
+      "url": "https://www.hortolandia.sp.gov.br/vagaspat/",
+      "status": "official_portal_no_api",
+      "category": "municipal"
+    },
+    {
+      "id": "campinas",
+      "name": "CPAT Campinas",
+      "city": "Campinas",
+      "url": "https://www.campinas.sp.gov.br/servico/vagas-de-emprego",
+      "status": "official_portal_no_api",
+      "category": "municipal"
+    },
+    {
+      "id": "santabarbara",
+      "name": "Casa do Trabalhador Santa Bárbara d'Oeste",
+      "city": "Santa Bárbara d'Oeste",
+      "url": "https://www.santabarbara.sp.gov.br/casadotrabalhador",
+      "status": "official_portal_no_api",
+      "category": "municipal"
+    }
+  ]
+}
