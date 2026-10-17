@@ -32,6 +32,18 @@ class Links(HTMLParser):
             self.href = None
             self.label = []
 
+def inferred_city(title):
+    """Extract only an explicit city from the job title, never the employer HQ."""
+    value = str(title or "").casefold()
+    if re.search(r"\\bsumar[eé]\\b", value):
+        return "Sumaré"
+    if re.search(r"\\bpaul[ií]nia\\b", value):
+        return "Paulínia"
+    if re.search(r"\\bamericana\\b", value):
+        return "Americana"
+    return ""
+
+
 def extract_jobs(html_text, base_url, company):
     parser = Links()
     parser.feed(html_text)
@@ -47,7 +59,7 @@ def extract_jobs(html_text, base_url, company):
             continue
         url = base_url.rstrip("/") + "/jobs/" + match.group(1)
         result[url] = {"company": company, "title": label or "Título não disponível",
-                       "location": "Não informado", "url": url,
+                       "location": inferred_city(label) or "Não informado", "url": url,
                        "source": "Portal oficial", "published": "",
                        "regional": any(x in label.casefold() for x in REGIONAL),
                        "target_role": bool(TITLE.search(label)),
