@@ -447,7 +447,7 @@ const matchTerms={
  QA:['qa','qualidade','quality','testes','testing','automation','automação','selenium','playwright','cypress','api','regressão','regression','ci/cd','defeitos','bugs']
 };
 const matchNormalize=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('pt-BR');
-const matchWords=s=>new Set(matchNormalize(s).match(/[a-z0-9+#./-]{3,}/g)||[]);
+const matchWords=s=>new Set(matchNormalize(s).match(/[a-z0-9+#.-]{3,}/g)||[]);
 function matchScore(profile,description,job){
  const category=job.dataset.category||'Projetos';
  const dictionary=matchTerms[category]||[];
