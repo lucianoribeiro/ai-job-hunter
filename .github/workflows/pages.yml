@@ -43,6 +43,17 @@ jobs:
           python -m src.himalayas_jobs --output data/himalayas_jobs.json
           python -m src.unified_jobs_dashboard --projects data/project_jobs_poc.json --qa data/jobs.csv --output site/index.html
           test -s site/index.html
+          # Verify the generated public artifact, not just the Python source.
+          python - <<'PY'
+          from pathlib import Path
+          from src.unified_jobs_dashboard import studio_job_label
+          title = '[2WP] 二輪&パワースポーツ ECU プロジェクトマネジャー/ECU Project Manager for Two Wheeler & Powersports'
+          assert studio_job_label(title) == 'ECU Project Manager for Two Wheeler & Powersports'
+          page = Path('site/index.html').read_text(encoding='utf-8')
+          table = page.split('<tbody>', 1)[1].split('</tbody>', 1)[0]
+          assert '二輪' not in table and 'プロジェクトマネジャー' not in table, 'Unnormalized CJK vacancy title in published HTML'
+          print('Validated display titles in generated public HTML')
+          PY
           python -m src.municipal_jobs --dashboard site/index.html --output data/municipal_jobs.json
           grep -q 'id="municipal-jobs"' site/index.html
           grep -q 'AI Career Studio' site/index.html
