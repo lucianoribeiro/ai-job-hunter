@@ -6,6 +6,7 @@ import html
 import json
 import re
 from pathlib import Path
+from datetime import datetime, timezone
 from urllib.parse import urlsplit
 
 
@@ -18,10 +19,31 @@ def safe_url(value):
     return str(value) if parsed.scheme == "https" and parsed.netloc else "#"
 
 
-def normalize(project_report, qa_jobs):
+QA_TITLE = re.compile(r"\\b(qa|quality assurance|quality engineer|quality engineering|software tester|test engineer|sdet|test automation|test lead|automation tester)\\b", re.I)
+
+
+def published_date(value):
+    if value in (None, ""):
+        return "Não informada"
+    try:
+        if isinstance(value, (int, float)) or str(value).isdigit():
+            timestamp = float(value)
+            if timestamp > 1e12:
+                timestamp /= 1000
+            return datetime.fromtimestamp(timestamp, timezone.utc).strftime("%d/%m/%Y")
+        if re.match(r"^\\d{4}-\\d{2}-\\d{2}", str(value)):
+            return datetime.fromisoformat(str(value).replace("Z", "+00:00")).strftime("%d/%m/%Y")
+    except (OverflowError, ValueError, OSError):
+        pass
+    return "Não informada"
+
+
+def normalize(project_report, qa_jobs, linkedin_jobs=None):
     rows, seen = [], set()
     for area, jobs in (("Projetos", project_report.get("jobs", [])), ("QA", qa_jobs)):
         for job in jobs:
+            if area == "QA" and not QA_TITLE.search(str(job.get("title", ""))):
+                continue
             url = safe_url(job.get("url"))
             if url == "#":
                 continue
@@ -41,16 +63,30 @@ def normalize(project_report, qa_jobs):
                 "location": loc, "source": job.get("source", ""), "url": url,
                 "modality": modality, "mode_key": "remote" if evidence == "explicit" else (
                     "verify" if evidence == "description_only" else "unknown"),
-                "published": job.get("published") or "Não informada",
+                "published": published_date(job.get("published")),
                 "brazil": job.get("brazil_eligible") or "Não verificado"
             })
+    for entry in (linkedin_jobs or []):
+        url = safe_url(entry.get("url"))
+        if url == "#" or not urlsplit(url).hostname in ("linkedin.com", "www.linkedin.com"):
+            continue
+        key = urlsplit(url)._replace(query="", fragment="").geturl().rstrip("/").lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        rows.append({"area": "LinkedIn · Revisar", "title": "Publicação compartilhada — verificar vaga",
+                     "company": "Não verificada", "location": "Não informada",
+                     "source": "LinkedIn (compartilhado)", "url": url,
+                     "modality": "Não informado", "mode_key": "unknown",
+                     "published": "Não informada", "brazil": "Não verificado"})
     return rows
 
 
-def render(project_report, qa_jobs):
-    jobs = normalize(project_report, qa_jobs)
+def render(project_report, qa_jobs, linkedin_jobs=None):
+    jobs = normalize(project_report, qa_jobs, linkedin_jobs)
     qa_count = sum(x["area"] == "QA" for x in jobs)
-    projects_count = len(jobs) - qa_count
+    projects_count = sum(x["area"] == "Projetos" for x in jobs)
+    linkedin_count = len(jobs) - qa_count - projects_count
     body = "".join(
         '<tr data-area="' + e(j["area"]) + '" data-mode="' + e(j["mode_key"]) + '">' +
         '<td><a href="' + e(j["url"]) + '" target="_blank" rel="noopener noreferrer">' + e(j["title"]) + '</a></td>' +
@@ -76,10 +112,11 @@ th{background:#edf2fa}a{color:#1456aa}p,footer{color:#53627b}footer{margin-top:1
 <header><h1>AI Job Hunter</h1>Vagas reais de QA e Gerência / Coordenação de Projetos</header>
 <div class="summary"><article>Total de vagas<strong>""" + str(len(jobs)) + """</strong></article>
 <article>QA<strong>""" + str(qa_count) + """</strong></article>
-<article>Projetos<strong>""" + str(projects_count) + """</strong></article></div>
+<article>Projetos<strong>""" + str(projects_count) + """</strong></article>
+<article>LinkedIn · revisar<strong>""" + str(linkedin_count) + """</strong></article></div>
 <section><h2>Pesquisar oportunidades</h2><div class="filters">
 <input id="q" aria-label="Pesquisar vaga ou empresa" placeholder="Cargo, empresa, local...">
-<select id="area" aria-label="Área"><option value="">Todas as áreas</option><option>QA</option><option>Projetos</option></select>
+<select id="area" aria-label="Área"><option value="">Todas as áreas</option><option>QA</option><option>Projetos</option><option>LinkedIn · Revisar</option></select>
 <select id="mode" aria-label="Modalidade"><option value="">Todas as modalidades</option>
 <option value="remote">Remoto informado</option><option value="verify">Remoto citado — confirmar</option>
 <option value="unknown">Não informado</option></select></div>
@@ -106,15 +143,19 @@ def main():
     parser.add_argument("--projects", type=Path, default=Path("data/project_jobs_poc.json"))
     parser.add_argument("--qa", type=Path, default=Path("data/jobs.csv"))
     parser.add_argument("--output", type=Path, default=Path("data/unified_jobs.html"))
+    parser.add_argument("--linkedin", type=Path, default=Path("data/linkedin_shared_jobs.json"))
     args = parser.parse_args()
     project = json.loads(args.projects.read_text(encoding="utf-8"))
     if not args.qa.exists():
         raise FileNotFoundError(f"QA source file missing: {args.qa}")
     with args.qa.open(encoding="utf-8", newline="") as stream:
         qa = list(csv.DictReader(stream))
+    linkedin_jobs = json.loads(args.linkedin.read_text(encoding="utf-8")) if args.linkedin.exists() else []
+    if not isinstance(linkedin_jobs, list):
+        raise ValueError("LinkedIn import must be an array")
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(render(project, qa), encoding="utf-8")
-    print(f"Unified dashboard: {len(normalize(project, qa))} unique real listings")
+    args.output.write_text(render(project, qa, linkedin_jobs), encoding="utf-8")
+    print(f"Unified dashboard: {len(normalize(project, qa, linkedin_jobs))} unique real listings")
 
 
 if __name__ == "__main__":
