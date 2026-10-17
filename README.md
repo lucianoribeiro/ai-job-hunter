@@ -40,3 +40,26 @@ This repository is public. **Never commit personal CVs, email addresses, private
 ## LinkedIn alerts (opt-in)
 
 An offline importer is available for LinkedIn alert emails exported as .eml files. It extracts only direct public job links and tentative titles; no login or mailbox access is required. Run `python -m src.linkedin_alerts /path/to/alert.eml` and then `python -m src.review` and `python -m src.dashboard`. See [instructions](docs/linkedin-alerts.md). Do not commit email exports.
+
+## Public company-board sources (opt-in)
+
+The `company_boards` configuration supports Greenhouse, Lever, Ashby, Personio and Workable.
+Only add a verified **public employer board slug**; no recruiter tokens or private APIs are needed.
+Example (replace with a real board identifier after checking its public careers page):
+
+```json
+"company_boards": {
+  "greenhouse": [{"company": "Employer Name", "board": "verified-board-slug"}],
+  "lever": [],
+  "ashby": [],
+  "personio": [],
+  "workable": []
+}
+```
+
+Empty arrays are intentional: **a connector does not automatically discover employers**. Until
+verified boards are configured, the five adapters return zero jobs. Company feeds may omit
+publication dates or remote eligibility; these values must not be inferred. Workable's public
+endpoint requires employer-by-employer verification. Failures appear under source errors in
+`data/report.md`. Existing Remotive and Arbeitnow jobs continue to be collected.
+
