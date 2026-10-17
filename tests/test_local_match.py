@@ -25,3 +25,13 @@ class LocalMatchTests(unittest.TestCase):
         self.assertIn('Arquivo carregado:',page)
         self.assertIn('Iniciando leitura...',page)
         self.assertIn('matchDescriptionDetails',page)
+
+    def test_match_is_independent_and_reports_missing_job_or_profile(self):
+        page=render({'jobs': []}, [])
+        scripts=page.split('<script>')
+        self.assertGreaterEqual(len(scripts),4)
+        match_script=scripts[-1].split('</script>',1)[0]
+        self.assertIn("matchId('matchAnalyze').addEventListener",match_script)
+        self.assertIn('Selecione uma vaga real para calcular',match_script)
+        self.assertIn('aguarde a confirmação da extração',match_script)
+        self.assertIn('Não foi possível iniciar a análise local',match_script)
