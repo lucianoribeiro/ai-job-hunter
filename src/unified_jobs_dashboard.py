@@ -221,7 +221,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         '<label>Pesquisar<input id="regionalQuery" placeholder="Cargo, empresa..." aria-label="Pesquisar vagas regionais"></label></div>'
         '<p id="regionalCount" role="status"></p><div id="regionalCards" class="regional-cards">' +
         (regional_cards or '<p>Nenhum anúncio regional foi obtido nas fontes atuais. Consulte os portais das empresas abaixo.</p>') +
-        '</div><details class="regional-sources"><summary>Empresas acompanhadas (inclusive sem integração)</summary>'
+        '</div>' + audit_html + '<details class="regional-sources"><summary>Empresas acompanhadas (inclusive sem integração)</summary>'
         '<p>Essas empresas não necessariamente possuem vagas coletadas. Consulte as fontes oficiais para cobertura adicional.</p><ul>' +
         company_cards + '</ul></details></section>'
     )
