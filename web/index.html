@@ -1,30 +1,30 @@
 <!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI Job Hunter — Prévia</title>
+<title>AI Job Hunter | Sua carreira, em movimento</title>
 <style>
-:root{font-family:Inter,system-ui,sans-serif;color:#152238;background:#f5f7fb}*{box-sizing:border-box}
-body{margin:0}.app{max-width:1150px;margin:auto;padding:28px 20px}header,.row{display:flex;align-items:center;justify-content:space-between;gap:16px}
-header{margin-bottom:28px}.brand{font-weight:800;font-size:22px}small,.muted{color:#64748b}h1{font-size:28px;margin:0 0 8px}.sub{margin:0 0 20px;color:#64748b}
-.panel{background:#fff;border:1px solid #e0e7f0;border-radius:18px;padding:20px;margin-bottom:18px;box-shadow:0 5px 20px #1b355609}
-.controls{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}label{font-size:13px;color:#475569;font-weight:650}
-select,input,button{font:inherit;border-radius:10px;padding:11px 12px;border:1px solid #cbd5e1;background:#fff;color:#152238}
-button{cursor:pointer}button.primary{background:#254fcb;color:#fff;border-color:#254fcb}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #9ab6ff}
-.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.metric{background:#f7f9fd;border-radius:12px;padding:16px}
-.metric strong{display:block;font-size:28px}.metric span{font-size:13px;color:#64748b}.jobs{display:grid;gap:10px}
-.job{padding:16px;border:1px solid #e2e8f0;border-radius:12px}.job strong{font-size:16px}
-.tag{display:inline-block;padding:5px 9px;border-radius:99px;background:#e8eefc;color:#26469f;font-size:12px;margin:8px 7px 0 0}
-.note{padding:14px;border-radius:10px;background:#fff8e6;color:#795b19;font-size:13px}
+:root{font-family:Inter,system-ui,sans-serif;color:#e9efff;background:#0a1020}*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 80% 0%,#1a3264 0%,transparent 42%),#0a1020;min-height:100vh}.app{max-width:1200px;margin:auto;padding:30px 22px}header,.row{display:flex;align-items:center;justify-content:space-between;gap:16px}
+header{margin-bottom:36px}.brand{font-weight:850;font-size:23px;letter-spacing:-.8px;color:#fff}small,.muted{color:#a7b7d3}h1{font-size:clamp(28px,4vw,40px);letter-spacing:-1.2px;margin:0 0 10px;color:white}.sub{margin:0 0 22px;color:#a9b9d7;line-height:1.65}
+.panel{background:linear-gradient(135deg,#192842ed,#101c32f5);border:1px solid #304562;border-radius:22px;padding:26px;margin-bottom:20px;box-shadow:0 18px 40px #02061742}
+.controls{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}label{font-size:13px;color:#b6c8e7;font-weight:650}
+select,input,button{font:inherit;border-radius:10px;padding:11px 12px;border:1px solid #415574;background:#152540;color:#f3f7ff}
+button{cursor:pointer}button.primary{background:linear-gradient(120deg,#517aff,#846aff);color:#fff;border:0;font-weight:750;box-shadow:0 8px 24px #456dff45}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #9ab6ff}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.metric{background:#243651;border:1px solid #3d5172;border-radius:16px;padding:20px}
+.metric strong{display:block;font-size:28px}.metric span{font-size:13px;color:#b7c7e0}.jobs{display:grid;gap:10px}
+.job{padding:18px;border:1px solid #3b516f;border-radius:15px;background:#20314b}.job strong{font-size:16px}
+.tag{display:inline-block;padding:6px 10px;border-radius:99px;background:#263f72;color:#b9d3ff;font-size:12px;margin:10px 7px 0 0}
+.note{padding:14px;border-radius:12px;background:#493c26;color:#ffe4a4;font-size:13px}
 @media(max-width:680px){.metrics{grid-template-columns:repeat(2,1fr)}header{align-items:flex-start;flex-direction:column}.controls>*{flex:1;min-width:150px}}
 </style></head><body><main class="app">
-<header><div><div class="brand">✦ AI Job Hunter</div><small>Suas oportunidades, em um só lugar</small></div><button type="button" id="help">Como funciona?</button></header>
-<section class="panel"><h1>Encontre sua próxima oportunidade</h1><p class="sub">Escolha seu perfil e a modalidade desejada. Nenhuma candidatura é enviada automaticamente.</p>
+<header><div><div class="brand">✦ AI Job Hunter <span style="font-size:11px;color:#a3b8ff;border:1px solid #445e96;border-radius:99px;padding:4px 9px;vertical-align:middle">CAREER AI</span></div><small>Suas oportunidades, em um só lugar</small></div><button type="button" id="help">Como funciona?</button></header>
+<section class="panel"><h1>Seu próximo passo começa aqui.</h1><p class="sub">Escolha seu perfil e a modalidade desejada. Nenhuma candidatura é enviada automaticamente.</p>
 <div class="controls"><div><label for="profile">Perfil profissional</label><div><select id="profile"><option value="qa">Quality Engineering</option><option value="manufacturing">Projetos • Manufatura</option></select></div></div>
 <div><label for="mode">Modalidade</label><div><select id="mode"><option value="remote">Remoto primeiro</option><option value="hybrid">Remoto + presencial próximo</option></select></div></div>
 <div><label for="radius">Raio máximo</label><div><select id="radius"><option>30</option><option selected>50</option><option>75</option><option>100</option></select> km</div></div></div>
 <p class="muted" id="description"></p></section>
 <section class="panel"><div class="row"><h2>Visão geral</h2><small>Prévia com dados demonstrativos</small></div>
 <div class="metrics"><div class="metric"><strong>—</strong><span>Vagas reais</span></div><div class="metric"><strong>—</strong><span>Candidaturas</span></div><div class="metric"><strong>—</strong><span>Entrevistas</span></div><div class="metric"><strong>—</strong><span>Rascunhos Gmail</span></div></div></section>
-<section class="panel"><h2>Oportunidades recomendadas</h2><div class="note">Esta página é uma prévia visual. Ainda não possui login, banco de dados ou vagas conectadas. Não representa oportunidades reais.</div>
+<section class="panel"><h2>Oportunidades para você</h2><div class="note">Esta página é uma prévia visual. Ainda não possui login, banco de dados ou vagas conectadas. Não representa oportunidades reais.</div>
 <div class="jobs" id="examples"></div></section>
 <section class="panel"><h2>Próximas ações</h2><p class="muted">1. Revisar vagas → 2. Preparar candidatura → 3. Aprovar rascunho → 4. Enviar pelo Gmail</p><button class="primary" type="button" id="details">Ver critérios de seleção</button><p class="muted" id="detailsText" hidden>O sistema considerará profissão, setor, remoto, elegibilidade no Brasil e distância em linha reta a partir da localização configurada. Tempo de trajeto depende de um serviço de rotas.</p></section>
 </main><script>
