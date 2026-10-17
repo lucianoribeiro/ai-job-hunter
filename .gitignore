@@ -6,3 +6,7 @@ __pycache__/
 # Private email exports and local secrets
 *.eml
 *.msg
+
+# Local-only recruiter posts, CVs and draft content
+.local/
+*.pdf
