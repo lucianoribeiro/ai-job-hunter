@@ -20,7 +20,7 @@ export default async function ResumeStudio(){
  <div className="cards">{resumes.map(r=><article className="tile" key={r.id}>
  <h3>{r.title}</h3><p>{r.language==="pt-BR"?"Português":"English"}</p>
  <p>{r.summary.slice(0,180)}{r.summary.length>180?"…":""}</p>
- <small>Versões: {versions.filter(v=>v.resume_id===r.id).length}</small>
+ <small>Versões: {versions.filter(v=>v.resume_id===r.id).length}</small><p><a href={`/resumes/${r.id}/export?format=html`}>Baixar currículo ATS (HTML)</a> · <a href={`/resumes/${r.id}/export?format=txt`}>Texto</a></p>
  </article>)}</div></section>
  <section className="panel"><h2>Criar currículo principal</h2>
  <p>Preencha somente experiências reais. É possível copiar as informações de um PDF exportado do LinkedIn e revisar antes de salvar.</p>
@@ -41,7 +41,7 @@ export default async function ResumeStudio(){
  <button className="primary">Salvar rascunho</button></form></section>}
  {versions.length>0&&<section className="panel"><h2>Versões revisadas</h2>{versions.map(v=><article className="tile" key={v.id}>
  <h3>{v.label}</h3><p>{v.target_role} · {v.status==="approved"?"Aprovado":"Aguardando aprovação"}</p>
- <details><summary>Ler conteúdo</summary><pre style={{whiteSpace:"pre-wrap",overflowWrap:"anywhere"}}>{v.content}</pre></details>
+ {v.status==="approved"&&<p><a href={`/resumes/${v.id}/version`}>Baixar versão aprovada</a></p>}<details><summary>Ler conteúdo</summary><pre style={{whiteSpace:"pre-wrap",overflowWrap:"anywhere"}}>{v.content}</pre></details>
  {v.status!=="approved"&&<form action={approveVersion}><input type="hidden" name="version_id" value={v.id}/><button>Aprovar versão</button></form>}
  </article>)}</section>}
  <p className="note">Esta fase não importa automaticamente o LinkedIn, não gera PDF ou DOCX e não envia candidaturas.</p></main>;
