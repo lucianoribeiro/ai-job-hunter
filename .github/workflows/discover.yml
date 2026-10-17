@@ -1,12 +1,14 @@
 name: Discover QA jobs
 
 on:
+  pull_request:
+    branches: [main]
   workflow_dispatch:
   schedule:
     - cron: '17 10 * * *'
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: qa-job-discovery
@@ -14,6 +16,9 @@ concurrency:
 
 jobs:
   discover:
+    if: github.event_name != 'pull_request'
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -48,3 +53,38 @@ jobs:
             git commit -m "chore: refresh QA opportunity and review reports"
             git push
           fi
+
+  validate:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Compile Python modules
+        run: python -m compileall -q src tests
+      - name: Synthetic smoke test
+        run: |
+          mkdir -p data
+          python - <<'PY'
+          import csv
+          from src.hunter import FIELDS
+          with open('data/jobs.csv', 'w', newline='', encoding='utf-8') as fp:
+              out = csv.DictWriter(fp, fieldnames=FIELDS)
+              out.writeheader()
+              out.writerow({'score': 90, 'category': 'freelance', 'title': 'Senior QA Lead',
+                            'company': 'Synthetic Example', 'location': 'Worldwide',
+                            'salary': 'USD 60/hour', 'type': 'Contract',
+                            'remote': True, 'usd_confirmed': True,
+                            'url': 'https://example.com/synthetic-job', 'source': 'test'})
+          PY
+          python -m src.review
+          python -m src.dashboard
+          test -s data/dashboard.html
+          test -s data/applications.json
+          grep -q 'Senior QA Lead' data/dashboard.html
