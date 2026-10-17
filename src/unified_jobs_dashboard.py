@@ -492,7 +492,7 @@ matchId('matchFile').addEventListener('change',async()=>{
    window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
    const doc=await window.pdfjsLib.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise;
    if(doc.numPages>40)throw new Error('O PDF possui mais de 40 páginas.');
-   const parts=[];for(let p=1;p<=doc.numPages;p++){const page=await doc.getPage(p);const c=await page.getTextContent();parts.push(c.items.map(x=>x.str||'').join(' '));}content=parts.join('\n');
+   const parts=[];for(let p=1;p<=doc.numPages;p++){const page=await doc.getPage(p);const c=await page.getTextContent();parts.push(c.items.map(x=>x.str||'').join(' '));}content=parts.join('\\n');
   }else throw new Error('Formato inválido: utilize PDF, DOCX ou TXT.');
   if(!content.trim())throw new Error('Nenhum texto extraído. PDFs digitalizados precisam de OCR, que não está disponível nesta versão.');
   matchId('matchProfile').value=content.slice(0,40000);status.textContent='Arquivo carregado: '+file.name+' — '+content.length+' caracteres extraídos. Pronto para análise.';
