@@ -19,7 +19,7 @@ def safe_url(value):
     return str(value) if parsed.scheme == "https" and parsed.netloc else "#"
 
 
-QA_TITLE = re.compile(r"\\b(qa|quality assurance|quality engineer|quality engineering|software tester|test engineer|sdet|test automation|test lead|automation tester)\\b", re.I)
+QA_TITLE = re.compile(r"\b(qa|quality assurance|quality engineer|quality engineering|software tester|test engineer|sdet|test automation|test lead|automation tester)\b", re.I)
 
 
 def published_date(value):
@@ -31,7 +31,7 @@ def published_date(value):
             if timestamp > 1e12:
                 timestamp /= 1000
             return datetime.fromtimestamp(timestamp, timezone.utc).strftime("%d/%m/%Y")
-        if re.match(r"^\\d{4}-\\d{2}-\\d{2}", str(value)):
+        if re.match(r"^\d{4}-\d{2}-\d{2}", str(value)):
             return datetime.fromisoformat(str(value).replace("Z", "+00:00")).strftime("%d/%m/%Y")
     except (OverflowError, ValueError, OSError):
         pass
@@ -134,8 +134,8 @@ const linked=document.getElementById('linkedinInput'), add=document.getElementBy
 add.addEventListener('click',()=>{
 try {
  const u=new URL(linked.value.trim());
- const path=u.pathname, job=/^\\/jobs\\/view\\/(?:[^/?#]*\\/)?\\d{6,}\\/?$/.test(path),
- post=/^\\/posts\\/[A-Za-z0-9_-]{6,}\\/?$/.test(path)||/^\\/feed\\/update\\/urn:li:activity:\\d+\\/?$/.test(path);
+ const path=u.pathname, job=/^\\/jobs\\/view\\/(?:[^/?#]*\\/)?\d{6,}\\/?$/.test(path),
+ post=/^\\/posts\\/[A-Za-z0-9_-]{6,}\\/?$/.test(path)||/^\\/feed\\/update\\/urn:li:activity:\d+\\/?$/.test(path);
  if(u.protocol!=='https:'||!['linkedin.com','www.linkedin.com'].includes(u.hostname)||u.username||u.password||!(job||post)) throw Error('URL inválida');
  const clean='https://www.linkedin.com'+path.replace(/\\/$/,'');
  if([...document.querySelectorAll('tbody a')].some(x=>x.href.replace(/\\/$/,'')===clean)){notice.textContent='Este link já está na lista.';return;}
