@@ -55,13 +55,13 @@ def studio_job_eligible(job):
 
 def studio_seniority(title):
     title = str(title or "")
-    if re.search(r"\\b(intern|internship|estagi[aá]ri[oa]|trainee)\\b", title, re.I):
+    if re.search(r"\b(intern|internship|estagi[aá]ri[oa]|trainee)\b", title, re.I):
         return "Estágio"
-    if re.search(r"\\b(junior|jr\\.?|júnior)\\b", title, re.I):
+    if re.search(r"\b(junior|jr\.?|júnior)\b", title, re.I):
         return "Júnior"
-    if re.search(r"\\b(senior|sr\\.?|sênior|lead|head|director|diretor)\\b", title, re.I):
+    if re.search(r"\b(senior|sr\.?|sênior|lead|head|director|diretor)\b", title, re.I):
         return "Sênior/Liderança"
-    if re.search(r"\\b(mid.level|pleno)\\b", title, re.I):
+    if re.search(r"\b(mid.level|pleno)\b", title, re.I):
         return "Pleno"
     return "Não informada"
 
@@ -70,7 +70,7 @@ def studio_region(location, mode_key):
     location = str(location or "")
     if region_city(location):
         return "Região de Campinas"
-    if re.search(r"\\b(brasil|brazil|\\bBR\\b)\\b", location, re.I):
+    if re.search(r"\b(brasil|brazil|\bBR\b)\b", location, re.I):
         return "Brasil"
     if mode_key == "remote":
         return "Remoto (elegibilidade a verificar)"
