@@ -30,6 +30,14 @@ class RankingTests(unittest.TestCase):
     def test_unrelated_role_rejected(self):
         self.assertIsNone(classify(job(title="Sales Director"), CONFIG))
 
+    def test_project_manager_hybrid_allowed(self):
+        result = classify(job(title="Gerente de Projetos", location="Campinas, SP", description="Hybrid", type="Full time"), CONFIG)
+        self.assertIsNotNone(result)
+        self.assertEqual(result["profile"], "project_management")
+
+    def test_qa_still_requires_remote(self):
+        self.assertIsNone(classify(job(title="QA Engineer", location="Campinas", description="Onsite", type="Full time"), CONFIG))
+
     def test_html_cleanup(self):
         self.assertEqual(plain("<p>QA &amp; testing</p>"), "QA & testing")
 
