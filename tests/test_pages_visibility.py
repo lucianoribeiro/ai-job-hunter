@@ -58,3 +58,9 @@ class PagesVisibilityTests(unittest.TestCase):
         self.assertNotIn("二輪",table)
         self.assertIn(url,table)
         self.assertIn("Bosch Group",table)
+
+    def test_sortable_general_table(self):
+        page = render({'jobs': []}, [])
+        self.assertEqual(page.count('class="sort-column"'), 7)
+        self.assertIn('setupTableSort', page)
+        self.assertIn('aria-sort', page)
