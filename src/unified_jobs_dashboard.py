@@ -510,6 +510,42 @@ function fillJobRequirements(){
 }
 jobSelect.addEventListener('change',fillJobRequirements);
 fillJobRequirements();
+const matchApiUrl=window.AI_MATCH_API_URL||"";
+const matchConsent=document.createElement('label');
+matchConsent.style.display='block';
+matchConsent.style.margin='12px 0';
+matchConsent.innerHTML='<input type="checkbox" id="matchAIConsent"> Autorizo o envio do conteúdo do meu currículo e dos requisitos desta vaga à Cloudflare para análise por IA. Não envie dados sensíveis.';
+const aiMatchButton=document.createElement('button');
+aiMatchButton.type='button';aiMatchButton.id='matchAIAnalyze';aiMatchButton.textContent='Analisar com Cloudflare AI';
+aiMatchButton.disabled=!matchApiUrl;
+const localButton=matchId('matchAnalyze');
+localButton.insertAdjacentElement('afterend',matchConsent);
+matchConsent.insertAdjacentElement('afterend',aiMatchButton);
+if(!matchApiUrl){const note=document.createElement('p');note.className='muted';note.textContent='Cloudflare AI aguardando configuração da URL do Worker. A análise local continua disponível.';aiMatchButton.insertAdjacentElement('afterend',note);}
+aiMatchButton.addEventListener('click',async()=>{
+ const job=matchId('aiJob'),profile=matchId('matchProfile').value.trim(),description=matchId('matchDescription').value.trim(),result=matchId('matchResult');
+ if(!matchId('matchAIConsent').checked){result.textContent='Confirme a autorização de envio antes de usar a IA.';return;}
+ if(!job.value||profile.length<30||description.length<30){result.textContent='Selecione a vaga, carregue o currículo e confirme os requisitos antes de analisar.';return;}
+ aiMatchButton.disabled=true;result.textContent='Analisando com Cloudflare AI...';
+ try{
+  const control=new AbortController();const timeout=setTimeout(()=>control.abort(),22000);
+  let response;
+  try{response=await fetch(matchApiUrl.replace(/\\/$/,'')+'/match',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({title:job.selectedOptions[0]?.textContent||'',profile,description,consent:true}),signal:control.signal});}
+  finally{clearTimeout(timeout);}
+  const data=await response.json();
+  if(!response.ok)throw new Error(data.error||'API indisponível');
+  if(!Number.isInteger(data.score))throw new Error('Resposta da IA inválida');
+  result.replaceChildren();
+  const headline=document.createElement('h3');headline.textContent='Compatibilidade estimada por IA: '+data.score+'%';result.append(headline);
+  for(const [label,items] of [['Pontos fortes',data.strengths],['Lacunas',data.gaps]]){
+   const h=document.createElement('p');h.textContent=label+': '+(Array.isArray(items)?items.join('; '):'Não informado');result.append(h);
+  }
+  const p=document.createElement('p');p.textContent='Recomendação: '+String(data.recommendation||'');result.append(p);
+  const warning=document.createElement('small');warning.textContent='Estimativa automatizada, não é previsão de contratação. Confirme os requisitos na vaga original.';result.append(warning);
+ }catch(error){result.textContent='Cloudflare AI indisponível: '+error.message+' Use a análise local enquanto isso.';}
+ finally{aiMatchButton.disabled=false;}
+});
 matchId('matchAnalyze').addEventListener('click',()=>{
  const job=matchId('aiJob'),opt=job.selectedOptions[0],profile=matchId('matchProfile').value.trim(),description=matchId('matchDescription').value.trim();
  if(!job.value){matchId('matchResult').textContent='Selecione uma vaga real para calcular a compatibilidade.';job.focus();return;}if(!profile){matchId('matchReviewDetails').open=true;matchId('matchResult').textContent='Carregue o currículo e aguarde a confirmação da extração, ou cole as experiências no perfil.';return;}
