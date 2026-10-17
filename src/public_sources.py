@@ -34,7 +34,8 @@ def lever(company, board):
     data = get(f"https://api.lever.co/v0/postings/{slug(board)}?mode=json")
     return [normalized("Lever", company, j.get("id"), j.get("text"), j.get("hostedUrl"),
                        (j.get("categories") or {}).get("location"), j.get("descriptionPlain") or j.get("description"),
-                       job_type=(j.get("categories") or {}).get("commitment"),\n                       remote=str(j.get("workplaceType") or "").lower() == "remote") for j in data]
+                       job_type=(j.get("categories") or {}).get("commitment"),
+                       remote=str(j.get("workplaceType") or "").lower() == "remote") for j in data]
 
 def ashby(company, board):
     data = get(f"https://api.ashbyhq.com/posting-api/job-board/{slug(board)}?includeCompensation=true")
@@ -63,7 +64,36 @@ def workable(company, board):
                        j.get("description"), j.get("published_on") or "", job_type=j.get("employment_type"))
             for j in data.get("results", [])]
 
-ADAPTERS = {"greenhouse": greenhouse, "lever": lever, "ashby": ashby, "personio": personio, "workable": workable}
+
+def smartrecruiters(company, board):
+    """Read public published postings, with bounded pagination."""
+    jobs = []
+    for offset in range(0, 500, 100):
+        data = get(f"https://api.smartrecruiters.com/v1/companies/{slug(board)}/postings?limit=100&offset={offset}")
+        items = data.get("content", [])
+        for j in items:
+            loc = j.get("location") or {}
+            place = ", ".join(str(loc.get(k) or "") for k in ("city", "region", "country") if loc.get(k))
+            jobs.append(normalized("SmartRecruiters", company, j.get("id"), j.get("name"),
+                                   j.get("ref") or f"https://jobs.smartrecruiters.com/{slug(board)}/{quote(str(j.get('id') or ''))}",
+                                   place, j.get("jobAd", {}).get("sections", {}).get("jobDescription", {}).get("text", "") if isinstance(j.get("jobAd"), dict) else "",
+                                   j.get("releasedDate") or j.get("createdOn") or "",
+                                   job_type=j.get("typeOfEmployment", {}).get("label", "") if isinstance(j.get("typeOfEmployment"), dict) else "",
+                                   remote=bool(loc.get("remote", False))))
+        if not items or offset + len(items) >= int(data.get("totalFound", 0)):
+            break
+    return jobs
+
+def recruitee(company, board):
+    data = get(f"https://{slug(board)}.recruitee.com/api/offers/")
+    return [normalized("Recruitee", company, j.get("id"), j.get("title"),
+                       j.get("careers_url") or j.get("url") or f"https://{slug(board)}.recruitee.com/o/{quote(str(j.get('slug') or ''))}",
+                       ", ".join(str(loc.get("city") or "") for loc in j.get("locations", []) if isinstance(loc, dict)) or j.get("city", ""),
+                       j.get("description") or "", j.get("published_at") or j.get("created_at") or "",
+                       job_type=j.get("employment_type", ""), remote=bool(j.get("remote", False)))
+            for j in data.get("offers", []) if j.get("status", "published") == "published"]
+
+ADAPTERS = {"greenhouse": greenhouse, "lever": lever, "ashby": ashby, "personio": personio, "workable": workable, "smartrecruiters": smartrecruiters, "recruitee": recruitee}
 
 def collect_boards(config):
     jobs, errors = [], []
