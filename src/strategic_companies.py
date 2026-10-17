@@ -35,11 +35,11 @@ class Links(HTMLParser):
 def inferred_city(title):
     """Extract only an explicit city from the job title, never the employer HQ."""
     value = str(title or "").casefold()
-    if re.search(r"\\bsumar[eé]\\b", value):
+    if re.search(r"\bsumar[eé]\b", value):
         return "Sumaré"
-    if re.search(r"\\bpaul[ií]nia\\b", value):
+    if re.search(r"\bpaul[ií]nia\b", value):
         return "Paulínia"
-    if re.search(r"\\bamericana\\b", value):
+    if re.search(r"\bamericana\b", value):
         return "Americana"
     return ""
 
