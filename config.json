@@ -1,0 +1,36 @@
+{
+  "max_results": 100,
+  "full_time_keywords": [
+    "qa engineer",
+    "quality engineer",
+    "software tester",
+    "test automation",
+    "sdet",
+    "qa lead",
+    "quality assurance lead",
+    "qa manager",
+    "quality engineering manager",
+    "test lead"
+  ],
+  "freelance_keywords": [
+    "qa",
+    "software testing",
+    "quality assurance",
+    "test automation",
+    "manual tester",
+    "test engineer"
+  ],
+  "remote_required": true,
+  "preferred_currency": "USD",
+  "preferred_freelance_hours_per_day": 2,
+  "blocked_title_terms": [
+    "sales",
+    "recruiter",
+    "marketing",
+    "account executive"
+  ],
+  "sources": [
+    "remotive",
+    "arbeitnow"
+  ]
+}
