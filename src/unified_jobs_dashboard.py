@@ -139,6 +139,9 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
     strategic_jobs = [j for j in seen_jobs if isinstance(j, dict) and j.get("url") and j.get("title")]
     entries = []
     seen_links = set()
+    strategic_invalid = len(seen_jobs) - len(strategic_jobs)
+    strategic_duplicates = 0
+    strategic_outside = 0
     for j in regional_jobs:
         url = safe_url(j["url"])
         if url != "#" and url not in seen_links:
@@ -157,12 +160,15 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             title_location = str(j.get("title", "")).casefold()
             known_external = ("são paulo", "sao paulo", "manaus", "brasília", "brasilia", "rio de janeiro")
             if not city and any(other in title_location for other in known_external):
+                strategic_outside += 1
                 continue
             entries.append({"title": str(j["title"]), "company": company, "city": city,
                             "area": "A confirmar", "url": url, "source": str(j.get("source", "Portal oficial")),
                             "details": "Cidade da vaga não verificada" + ("; empresa cadastrada em " + company_city if company_city else "") +
                                        ". Cargo, requisitos e local devem ser confirmados no anúncio."})
             seen_links.add(url)
+        else:
+            strategic_duplicates += 1
     regional_cards = "".join(
         '<article class="regional-card" data-company="' + e(item["company"]) + '" data-city="' + e(item["city"]) +
         '" data-area="' + e(item["area"]) + '"><div class="regional-heading"><strong>' + e(item["title"]) +
@@ -184,6 +190,18 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         for item in source_status if isinstance(item, dict)
     )
     monitored_count = len([x for x in source_status if isinstance(x, dict)])
+    strategic_displayed = len(strategic_jobs) - strategic_duplicates - strategic_outside
+    assert len(seen_jobs) == strategic_displayed + strategic_duplicates + strategic_outside + strategic_invalid
+    audit_html = (
+        '<details class="regional-sources" id="regionalAudit"><summary>Conferência: fonte e interface</summary><p>'
+        'Retornados pelo coletor de empresas: ' + str(len(seen_jobs)) +
+        ' · Exibidos: ' + str(strategic_displayed) +
+        ' · Duplicados: ' + str(strategic_duplicates) +
+        ' · Localidade fora da região: ' + str(strategic_outside) +
+        ' · Registros inválidos: ' + str(strategic_invalid) +
+        '. A soma dos resultados deve coincidir com os registros coletados.</p>'
+        '<p>O total geral também inclui outras fontes de QA e Projetos. Empresas sem coleta integrada não retornam vagas.</p></details>'
+    )
     live_count = len(entries)
     city_counts = {city: sum(j["city"] == city for j in entries) for city in city_scope}
     city_counts["unverified"] = sum(not j["city"] for j in entries)
