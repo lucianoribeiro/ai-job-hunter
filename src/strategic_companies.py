@@ -9,9 +9,9 @@ from urllib.parse import urljoin, urlsplit
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
-JOB_PATH = re.compile(r"^/jobs/\\d+(?:[/?#]|$)")
+JOB_PATH = re.compile(r"^/jobs/\d+(?:[/?#]|$)")
 REGIONAL = ("sumaré", "sumare", "campinas", "paulínia", "paulinia", "nova odessa", "americana", "hortolândia", "hortolandia")
-TITLE = re.compile(r"\\b(qa|quality|qualidade|test|teste|projetos?|projects?|pmo|program manager|coordenador|gerente)\\b", re.I)
+TITLE = re.compile(r"\b(qa|quality|qualidade|test|teste|projetos?|projects?|pmo|program manager|coordenador|gerente)\b", re.I)
 
 class Links(HTMLParser):
     def __init__(self):
@@ -42,7 +42,7 @@ def extract_jobs(html_text, base_url, company):
         parts = urlsplit(link)
         if parts.scheme != "https" or parts.hostname != host or not JOB_PATH.match(parts.path):
             continue
-        match = re.search(r"/jobs/(\\d+)", parts.path)
+        match = re.search(r"/jobs/(\d+)", parts.path)
         if not match:
             continue
         url = base_url.rstrip("/") + "/jobs/" + match.group(1)
