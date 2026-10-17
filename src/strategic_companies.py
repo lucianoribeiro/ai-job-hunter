@@ -68,7 +68,7 @@ def collect(config, fetcher=fetch_page):
     for item in config["companies"]:
         url = item["url"]
         company = item["name"]
-        if item.get("monitor") != "public_links":
+        if item.get("monitor", "public_links") != "public_links":
             statuses.append({"company": company, "city": item.get("city", ""), "url": url, "state": "manual", "found": 0})
             continue
         try:
