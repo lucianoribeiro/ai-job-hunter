@@ -2,12 +2,22 @@ import unittest
 from src.unified_jobs_dashboard import render
 
 class PagesVisibilityTests(unittest.TestCase):
-    def test_ai_and_honda_above_search(self):
+    def test_main_tabs_keep_studio_and_regional_catalog(self):
         page = render({"jobs": []}, [], strategic={"sources": [{"company": "Honda Brasil", "state": "needs_connector"}], "jobs": []})
         self.assertIn("AI Career Studio", page)
         self.assertIn("Vagas regionais", page)
-        self.assertLess(page.index("AI Career Studio"), page.index("Pesquisar oportunidades"))
-        self.assertLess(page.index("Vagas regionais"), page.index("Pesquisar oportunidades"))
+        self.assertIn('id="mainPanelGeneral" class="primary-panel"', page)
+        self.assertIn('id="mainPanelRegional" class="primary-panel"', page)
+        self.assertIn('id="mainPanelAI" class="primary-panel"', page)
+        self.assertIn('id="mainTabGeneral"', page)
+        self.assertIn('id="mainTabRegional"', page)
+        self.assertIn('id="mainTabAI"', page)
+        self.assertIn('role="tablist"', page)
+        self.assertIn("activateMainTab(0)", page)
+        self.assertLess(page.index('id="mainPanelGeneral"'), page.index('id="mainPanelRegional"'))
+        self.assertLess(page.index('id="mainPanelRegional"'), page.index('id="mainPanelAI"'))
+        self.assertIn("ArrowRight", page)
+        self.assertIn("ArrowLeft", page)
         self.assertIn("needs_connector", page)
 
     def test_unsafe_honda_title_is_escaped(self):
