@@ -40,3 +40,9 @@ This repository is public. **Never commit personal CVs, email addresses, private
 ## LinkedIn alerts (opt-in)
 
 An offline importer is available for LinkedIn alert emails exported as .eml files. It extracts only direct public job links and tentative titles; no login or mailbox access is required. Run `python -m src.linkedin_alerts /path/to/alert.eml` and then `python -m src.review` and `python -m src.dashboard`. See [instructions](docs/linkedin-alerts.md). Do not commit email exports.
+
+## Opportunity advisor (top of dashboard)
+
+The advisor is generated before the offline HTML dashboard. By default it uses explainable evidence-based rules, marks employer reputation and Brazil eligibility as unverified, and avoids guessing USD compensation or two-hour availability. An optional hosted AI narrative requires a GitHub Actions secret named `OPENAI_API_KEY`, under repository Settings > Secrets and variables > Actions. The API has separate usage charges. If the secret is missing or the API is unavailable, rules-based advice still works. Never add tokens to committed files.
+
+For local CV matching, save your CV as a UTF-8 text file **outside this repository** and run `python -m src.cv_match --cv /path/to/private-cv.txt`. This feature evaluates skill keywords locally, does not upload the CV, and is not yet a browser upload workflow. Employer vetting still requires independent evidence and review. The offline dashboard does not execute an AI API call in the browser.
