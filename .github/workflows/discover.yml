@@ -24,17 +24,24 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Fetch and rank
         run: python -m src.hunter
+      - name: Build review pipeline
+        run: python -m src.review
       - name: Upload reports
         uses: actions/upload-artifact@v4
         with:
           name: qa-job-reports
-          path: data/
-      - name: Persist reports
+          path: |
+            data/jobs.csv
+            data/report.md
+            data/applications.md
+            data/history.json
+            data/applications.json
+      - name: Persist reports and review history
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/jobs.csv data/report.md
+          git add data/jobs.csv data/report.md data/applications.md data/history.json data/applications.json
           if ! git diff --cached --quiet; then
-            git commit -m "chore: refresh QA opportunity report"
+            git commit -m "chore: refresh QA opportunity and review reports"
             git push
           fi
