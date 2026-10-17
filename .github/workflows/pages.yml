@@ -1,8 +1,6 @@
 name: Publish AI Job Hunter Premium (GitHub Pages)
 
 on:
-  push:
-    branches: [feature/project-jobs-sources-poc]
   workflow_dispatch:
   schedule:
     - cron: '43 10 * * *'
