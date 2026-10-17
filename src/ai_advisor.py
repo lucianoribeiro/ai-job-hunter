@@ -56,7 +56,7 @@ def run():
             insight = llm_summary(queue, token)
         except (OSError, ValueError, KeyError, TypeError, IndexError) as error:
             print("AI unavailable, using rules:", type(error).__name__)
-    (DATA / "ai_insights.json").write_text(json.dumps(insight, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+    (DATA / "ai_insights.json").write_text(json.dumps(insight, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 if __name__ == "__main__":
     run()
