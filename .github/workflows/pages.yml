@@ -53,6 +53,18 @@ jobs:
           python -m src.regional_ats_qa --output data/regional_qa_jobs.json
           python -m src.himalayas_jobs --output data/himalayas_jobs.json
           python -m src.unified_jobs_dashboard --projects data/project_jobs_poc.json --qa data/jobs.csv --output site/index.html
+          # Public endpoint only; no API credentials are injected into HTML.
+          AI_MATCH_API_URL="${{ vars.AI_MATCH_API_URL }}" python - <<'PY'
+          import json, os, re
+          from pathlib import Path
+          url = os.getenv('AI_MATCH_API_URL', '').strip().rstrip('/')
+          if url and not re.fullmatch(r'https://[a-z0-9.-]+\\.workers\\.dev', url, re.I):
+              raise ValueError('AI_MATCH_API_URL must be an HTTPS workers.dev host')
+          path = Path('site/index.html')
+          page = path.read_text(encoding='utf-8')
+          page = page.replace('<script>', '<script>window.AI_MATCH_API_URL = '+json.dumps(url)+';</script><script>', 1)
+          path.write_text(page, encoding='utf-8')
+          PY
           test -s site/index.html
           # Verify the generated public artifact, not just the Python source.
           python - <<'PY'
