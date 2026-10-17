@@ -65,6 +65,27 @@ def render(queue: dict, generated: str = "", insights: dict | None = None) -> st
                '<ol>' + ''.join('<li><strong>' + escape(j.get("title", "")) + '</strong> — ' + escape(j.get("company", "")) +
                '<p>' + escape(j.get("reason", "")) + '</p></li>' for j in insights.get("recommendations", [])[:3]) + '</ol>'
                '<small>Modo: ' + ("IA" if insights.get("mode") == "ai" else "Regras explicáveis") + '</small></section>')
+    strategic = strategic or {}
+    strategic_jobs = strategic.get("jobs") or []
+    watch_sources = strategic.get("sources") or []
+    strategic_cards = "".join(
+        '<li><a href="' + escape(safe_url(item.get("url"))) + '" target="_blank" rel="noopener noreferrer">' +
+        escape(item.get("title", "Título indisponível")) + "</a> · " + escape(item.get("company", "")) +
+        ' <small>— Localidade e aderência a confirmar</small></li>'
+        for item in strategic_jobs[:20] if isinstance(item, dict)
+    ) or "<li>Nenhuma vaga extraída do HTML público; consulte o portal oficial.</li>"
+    statuses = "; ".join(
+        str(item.get("company", "")) + ": " + str(item.get("state", "unknown"))
+        for item in watch_sources if isinstance(item, dict)
+    )
+    strategic_html = (
+        '<section class="advisor" id="empresas"><h2>Empresas estratégicas da região</h2>'
+        '<p>Monitoramento do portal público da Honda e fontes autorizadas. '
+        'Quando o portal não disponibiliza links acessíveis, o resultado fica não verificado.</p>'
+        '<p><a href="https://honda.gupy.io/" target="_blank" rel="noopener noreferrer">Ver vagas oficiais da Honda</a></p>'
+        '<p><small>' + escape(statuses or "Coleta ainda não executada") + '</small></p>'
+        '<ul>' + strategic_cards + '</ul></section>'
+    )
     return """<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>AI Job Hunter | Dashboard</title>
@@ -113,7 +134,7 @@ footer{margin-top:25px;color:#7b879b;font-size:12px;line-height:1.8}
 <header class="hero"><span class="pill">✦ Busca inteligente de oportunidades</span><h1>Encontre sua próxima grande oportunidade.</h1>
 <p>Explore vagas de QA, liderança e contratos remotos. Compare oportunidades e revise os anúncios antes de se candidatar.</p>
 <div class="pills"><span class="pill">✓ Remoto e internacional</span><span class="pill">✓ Freelance e contratos</span><span class="pill">✓ Busca por empresa e vaga</span></div></header>
-""" + advisor + """<section class="stats">""" + stats + """</section>
+""" + advisor + strategic_html + """<section class="stats">""" + stats + """</section>
 <h2 class="section-title" id="vagas">Explore oportunidades</h2><p class="section-sub">Dados do último processamento · gerado em """ + timestamp + """</p>
 <div class="workspace"><aside class="filters" id="filtros"><h2>Filtros de busca</h2><div class="controls">
 <div><label for="query">Cargo ou empresa</label><input id="query" aria-label="Pesquisar vagas" placeholder="Ex.: QA Manager, Bosch"></div>
@@ -141,7 +162,9 @@ def run() -> None:
     DATA.mkdir(exist_ok=True)
     path = DATA / "ai_insights.json"
     insights = json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
-    OUTPUT.write_text(render(queue, insights=insights), encoding="utf-8")
+    strategic_path = DATA / "strategic_jobs.json"
+    strategic = json.loads(strategic_path.read_text(encoding="utf-8")) if strategic_path.exists() else None
+    OUTPUT.write_text(render(queue, insights=insights, strategic=strategic), encoding="utf-8")
     print(f"Dashboard written to {OUTPUT}")
 
 
