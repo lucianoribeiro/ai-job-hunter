@@ -126,7 +126,8 @@ th{background:#edf2fa}a{color:#1456aa}p,footer{color:#53627b}footer{margin-top:1
 <select id="mode" aria-label="Modalidade"><option value="">Todas as modalidades</option>
 <option value="remote">Remoto informado</option><option value="verify">Remoto citado — confirmar</option>
 <option value="unknown">Não informado</option></select>
-<select id="source" aria-label="Fonte das vagas"><option value="">Todas as fontes integradas</option>""" + source_options + """</select><select id="region" aria-label="Região"><option value="">Todas as localidades</option><option value="local">Nova Odessa e região</option><option value="remote">Remoto informado</option></select></div>
+<select id="source" aria-label="Fonte das vagas"><option value="">Todas as fontes integradas</option>""" + source_options + """</select><select id="region" aria-label="Região"><option value="">Todas as localidades</option><option value="local">Nova Odessa e região</option><option value="remote">Remoto informado</option></select>
+<select id="age" aria-label="Data da publicação"><option value="">Todas as datas</option><option value="1">Último dia</option><option value="7">Últimos 7 dias</option><option value="15">Últimos 15 dias</option><option value="30">Últimos 30 dias</option><option value="unknown">Data não informada</option></select></div>
 <p id="count" aria-live="polite"></p>
 <div class="table"><table><thead><tr><th>Cargo</th><th>Empresa</th><th>Área</th><th>Local</th>
 <th>Modalidade</th><th>Fonte</th><th>Publicação</th></tr></thead><tbody>""" + body + """</tbody></table></div>
