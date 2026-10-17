@@ -49,7 +49,7 @@ def published_iso(value):
                 timestamp /= 1000
             return datetime.fromtimestamp(timestamp, timezone.utc).date().isoformat()
         raw = str(value)
-        if re.match(r"^\\d{4}-\\d{2}-\\d{2}", raw):
+        if re.match(r"^\d{4}-\d{2}-\d{2}", raw):
             return datetime.fromisoformat(raw.replace("Z", "+00:00")).date().isoformat()
     except (OverflowError, ValueError, OSError):
         pass
