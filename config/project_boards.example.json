@@ -19,6 +19,11 @@
       "source": "ashby",
       "company": "Agent",
       "slug": "Agent"
+    },
+    {
+      "source": "lever",
+      "company": "CI&T",
+      "slug": "ciandt"
     }
   ]
 }
