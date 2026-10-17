@@ -20,7 +20,7 @@ export default async function Applications(){
  const app=apps.find(a=>a.opportunity_id===job.id);
  return <article className="tile" key={job.id}><h3>{job.title}</h3><p>{job.company} · {job.location_text??"Localização não informada"}</p>
  <small>{app?"Status: "+app.status:"Ainda não iniciada"}</small>
- <div className="controls"><a href={job.listing_url} rel="noopener noreferrer" target="_blank">Candidatar-me no site da empresa ↗</a>
+ <div className="controls"><Link href={`/applications/outreach?job=${encodeURIComponent(job.id)}`}>Preparar e-mail ao recrutador →</Link><a href={job.listing_url} rel="noopener noreferrer" target="_blank">Candidatar-me no site da empresa ↗</a>
  {!app&&<form action={queueApplication}><input type="hidden" name="opportunity_id" value={job.id}/><button>Preparar candidatura</button></form>}</div>
  <p className="note">Antes de enviar: confirme requisitos, localização, recrutador e versão do CV no <Link href="/resumes">Resume Studio</Link>.</p></article>})}</section></main>;
 }
