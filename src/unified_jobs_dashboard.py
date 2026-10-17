@@ -110,9 +110,9 @@ def normalize(project_report, qa_jobs, linkedin_jobs=None, remote_jobs=None):
         seen.add(key)
         loc = str(job.get("location") or "")
         rows.append({"area": job["area"], "title": job.get("title", ""), "company": job.get("company", ""),
-                     "location": loc, "regional_city": region_city(loc), "source": "Himalayas",
-                     "url": url, "modality": "Remoto informado — elegibilidade a confirmar",
-                     "mode_key": "remote", "published": published_date(job.get("published")),
+                     "location": loc, "regional_city": region_city(loc), "source": job.get("source") or "Himalayas",
+                     "url": url, "modality": "Remoto informado — elegibilidade a confirmar" if job.get("remote_evidence") == "explicit" else "Não informado",
+                     "mode_key": "remote" if job.get("remote_evidence") == "explicit" else "unknown", "published": published_date(job.get("published")),
                      "published_iso": published_iso(job.get("published")), "brazil": "Não verificado"})
     return rows
 
@@ -235,6 +235,7 @@ def main():
     parser.add_argument("--output", type=Path, default=Path("data/unified_jobs.html"))
     parser.add_argument("--regional-qa", type=Path, default=Path("data/regional_qa_jobs.json"))
     parser.add_argument("--remote-jobs", type=Path, default=Path("data/himalayas_jobs.json"))
+    parser.add_argument("--extra-jobs", type=Path, default=Path("data/extra_jobs.json"))
     args = parser.parse_args()
     project = json.loads(args.projects.read_text(encoding="utf-8"))
     if not args.qa.exists():
@@ -247,6 +248,9 @@ def main():
             raise ValueError("Regional QA payload must be a list")
         qa.extend(regional_qa)
     remote_report = json.loads(args.remote_jobs.read_text(encoding="utf-8")) if args.remote_jobs.exists() else {"jobs": []}
+    if args.extra_jobs.exists():
+        extra_report = json.loads(args.extra_jobs.read_text(encoding="utf-8"))
+        remote_report["jobs"].extend(extra_report.get("jobs", []))
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(render(project, qa, remote_jobs=remote_report["jobs"]), encoding="utf-8")
     print(f"Unified dashboard: {len(normalize(project, qa, remote_jobs=remote_report['jobs']))} unique real listings")
