@@ -5,6 +5,7 @@ import csv
 import html
 import json
 import re
+from src.finance_advisor import render_advisor
 from pathlib import Path
 from datetime import datetime, timezone
 from urllib.parse import urlsplit
@@ -341,6 +342,7 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 </div>
 <div id="mainPanelRegional" class="primary-panel" role="tabpanel" aria-labelledby="mainTabRegional" hidden>""" + strategic_html + """</div>
 <div id="mainPanelAI" class="primary-panel" role="tabpanel" aria-labelledby="mainTabAI" hidden>""" + studio_html + """</div>
+""" + render_advisor() + """
 <footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
 na página oficial. Fonte Himalayas: <a href="https://himalayas.app">himalayas.app</a>. Apenas datas de publicação fornecidas pelas fontes são exibidas; datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
