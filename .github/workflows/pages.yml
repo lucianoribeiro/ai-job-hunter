@@ -1,0 +1,57 @@
+name: Publish AI Job Hunter Premium (GitHub Pages)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '43 10 * * *'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ai-job-hunter-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/project-jobs-sources-poc
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify code
+        run: |
+          python -m compileall -q src tests
+          python -m unittest discover -s tests -v
+      - name: Collect only publicly listed jobs
+        run: |
+          mkdir -p data site
+          python -m src.project_jobs_poc --config config/project_boards.example.json --output data/project_jobs_poc.json
+          python -m src.hunter
+          python -m src.regional_ats_qa --output data/regional_qa_jobs.json
+          python -m src.himalayas_jobs --output data/himalayas_jobs.json
+          python -m src.unified_jobs_dashboard --projects data/project_jobs_poc.json --qa data/jobs.csv --output site/index.html
+          test -s site/index.html
+          grep -q 'AI Career Studio' site/index.html
+          grep -q 'DASHBOARD PREMIUM' site/index.html
+          test ! -e site/.env
+          touch site/.nojekyll
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload public site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
