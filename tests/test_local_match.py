@@ -35,3 +35,16 @@ class LocalMatchTests(unittest.TestCase):
         self.assertIn('Selecione uma vaga real para calcular',match_script)
         self.assertIn('aguarde a confirmação da extração',match_script)
         self.assertIn('Não foi possível iniciar a análise local',match_script)
+
+    def test_rendered_match_script_has_valid_javascript(self):
+        import re
+        import shutil
+        import subprocess
+        page=render({'jobs': []}, [])
+        scripts=re.findall(r'<script>(.*?)</script>',page,re.S)
+        self.assertGreaterEqual(len(scripts),3)
+        self.assertIn("parts.join('\\\\n')",scripts[-1])
+        if shutil.which('node'):
+            for code in scripts:
+                result=subprocess.run(['node','--check'],input=code,text=True,capture_output=True)
+                self.assertEqual(result.returncode,0,result.stderr)
