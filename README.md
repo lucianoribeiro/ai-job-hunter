@@ -1,32 +1,36 @@
 # AI Job Hunter
 
-Automated, **review-first** job discovery for international QA opportunities.
+A zero-paid-API, **review-first** QA job discovery agent.
 
-## What it does
-- Fetches public jobs from Remotive and Arbeitnow APIs.
-- Scores QA Engineer, QA Lead, QA Manager and test automation opportunities.
-- Separates full-time jobs from remote, flexible freelance/contract roles (~2 hours/day).
-- Prioritizes USD compensation where explicitly provided, without inventing salary or working hours.
-- Deduplicates job postings, produces CSV and Markdown reports.
-- Runs daily with GitHub Actions, or manually from the Actions tab.
+## Capabilities
+- Finds publicly posted remote QA jobs from Remotive and Arbeitnow.
+- Scores roles including QA Engineer, QA Lead, QA Manager and QA automation.
+- Flags potential freelance opportunities; USD salary is only indicated if explicitly present.
+- Creates a rolling job history with first/last seen dates and stable URL-based identities.
+- Creates a review queue, preserving human decisions on subsequent runs.
+- Produces `data/jobs.csv`, `data/report.md`, `data/history.json`, `data/applications.json` and `data/applications.md`.
+- Runs daily through GitHub Actions.
 
-**It does not submit applications, log into LinkedIn, or send CVs automatically.** Apply only after manual review. Public job board data may be stale; verify details at the source.
-
-## Run locally
+## Quick start
 
 ```bash
-python -m src.hunter
 python -m unittest discover -s tests -v
+python -m src.hunter
+python -m src.review
 ```
 
-Output: `data/jobs.csv` and `data/report.md`.
+Or go to [GitHub Actions](https://github.com/lucianoribeiro/ai-job-hunter/actions), select **Discover QA jobs**, and choose **Run workflow**.
 
-## Automated runs
+## Review process
 
-Go to **Actions → Discover QA jobs → Run workflow**, or wait for the scheduled daily run. Results are uploaded as workflow artifacts and committed to `data/` on `main`.
+The `data/applications.md` report is a view of roles awaiting review. The canonical queue is `data/applications.json`. Each item begins at `pending_review`. After you personally verify a posting, change its `status` to `approved`, `dismissed`, `applied`, `interview`, `rejected` or `offer`. These values and existing notes are preserved on refresh.
 
-## Configuration
-Modify `config.json` to change keywords and preferences. Ranking is heuristic, not an AI model, and does not use paid APIs.
+**No CVs are sent and no job applications are submitted automatically.** Approval in the file is a tracking state, not authorization to submit.
 
-## Privacy and safety
-Never put your CV, credentials, API keys or private contact details in this public repo. The pipeline only fetches public job ads and creates reports.
+## Reliability limitations
+
+The ranking is heuristic, not an LLM. Employer reputation is initially `unverified`: the system does not claim company trustworthiness without evidence. Remote listings can be restricted to specific countries; Brazil eligibility must be checked. Flexible/contract is **not** proof of two hours per day, and a USD preference is not a guarantee of USD compensation. The source APIs can be down or return incomplete data.
+
+## Privacy
+
+This repository is public. **Never commit personal CVs, email addresses, private application notes, credentials, interview correspondence or other confidential data.** Review status and job metadata are visible publicly. Use a private repository before tracking personal details.
