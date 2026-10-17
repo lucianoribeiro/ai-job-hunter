@@ -153,6 +153,11 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             company = str(j.get("company", ""))
             company_city = next((str(x.get("city", "")) for x in source_status if isinstance(x, dict) and x.get("company") == company), "")
             city = next((x for x in city_scope if x.casefold() in str(j.get("location", "")).casefold()), "")
+            # Do not misclassify a known external-city posting as regional.
+            title_location = str(j.get("title", "")).casefold()
+            known_external = ("são paulo", "sao paulo", "manaus", "brasília", "brasilia", "rio de janeiro")
+            if not city and any(other in title_location for other in known_external):
+                continue
             entries.append({"title": str(j["title"]), "company": company, "city": city,
                             "area": "A confirmar", "url": url, "source": str(j.get("source", "Portal oficial")),
                             "details": "Cidade da vaga não verificada" + ("; empresa cadastrada em " + company_city if company_city else "") +
@@ -186,7 +191,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         '<div class="regional-filters"><label>Empresa<select id="regionalCompany"><option value="">Todas as empresas</option>' +
         company_options + '</select></label><label>Cidade<select id="regionalCity"><option value="">Todas as cidades</option>'
         '<option value="Sumaré">Sumaré</option><option value="Paulínia">Paulínia</option>'
-        '<option value="Americana">Americana</option></select></label>'
+        '<option value="Americana">Americana</option><option value="unverified">Local não confirmado</option></select></label>'
         '<label>Área<select id="regionalArea"><option value="">Todas as áreas</option>'
         '<option value="QA">QA</option><option value="Projetos">Projetos</option>'
         '<option value="A confirmar">A confirmar</option></select></label>'
@@ -263,7 +268,7 @@ r.hidden=!show;if(show)visible++;
 [q,a,m,source,region,city,age].forEach(el=>el.addEventListener('input',apply));apply();
 
 const rc=document.getElementById('regionalCompany'),rCity=document.getElementById('regionalCity'),rArea=document.getElementById('regionalArea'),rq=document.getElementById('regionalQuery');
-if(rc&&rCity&&rArea&&rq){const cards=[...document.querySelectorAll('.regional-card')];const updateRegional=()=>{let count=0;for(const c of cards){const match=(!rc.value||c.dataset.company===rc.value)&&(!rCity.value||c.dataset.city===rCity.value)&&(!rArea.value||c.dataset.area===rArea.value)&&c.textContent.toLocaleLowerCase().includes(rq.value.trim().toLocaleLowerCase());c.hidden=!match;if(match)count++;}document.getElementById('regionalCount').textContent=count+' vaga(s) regional(is) encontrada(s)';};[rc,rCity,rArea,rq].forEach(x=>x.addEventListener('input',updateRegional));updateRegional();}
+if(rc&&rCity&&rArea&&rq){const cards=[...document.querySelectorAll('.regional-card')];const updateRegional=()=>{let count=0;for(const c of cards){const match=(!rc.value||c.dataset.company===rc.value)&&(!rCity.value||(rCity.value==='unverified'?!c.dataset.city:c.dataset.city===rCity.value))&&(!rArea.value||c.dataset.area===rArea.value)&&c.textContent.toLocaleLowerCase().includes(rq.value.trim().toLocaleLowerCase());c.hidden=!match;if(match)count++;}document.getElementById('regionalCount').textContent=count+' vaga(s) encontrada(s)'+(count===0?' para os filtros selecionados. Isso não significa que não existam vagas nos portais; a coleta é parcial.':'');};[rc,rCity,rArea,rq].forEach(x=>x.addEventListener('input',updateRegional));updateRegional();}
 const taskInfo={
 fit:['AI Job Match','Compare seu perfil com uma vaga e identifique aderência, evidências e lacunas.'],
 cv:['AI CV Studio','Produza uma versão ATS-friendly do seu currículo, sem inventar informações.'],
