@@ -530,7 +530,7 @@ aiMatchButton.addEventListener('click',async()=>{
  try{
   const control=new AbortController();const timeout=setTimeout(()=>control.abort(),22000);
   let response;
-  try{response=await fetch(matchApiUrl.replace(/\\/$/,'')+'/match',{method:'POST',headers:{'Content-Type':'application/json'},
+  try{response=await fetch(matchApiUrl+'/match',{method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({title:job.selectedOptions[0]?.textContent||'',profile,description,consent:true}),signal:control.signal});}
   finally{clearTimeout(timeout);}
   const data=await response.json();
