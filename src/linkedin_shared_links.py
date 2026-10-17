@@ -27,7 +27,10 @@ def canonical_shared_url(raw: str) -> tuple[str, str] | None:
         return None
     if value.scheme != "https" or (value.hostname or "").lower() not in ("linkedin.com", "www.linkedin.com"):
         return None
-    if value.username or value.password or value.port not in (None, 443):
+    try:
+        if value.username or value.password or value.port not in (None, 443):
+            return None
+    except ValueError:
         return None
     if POST_ID.fullmatch(value.path) or ACTIVITY_ID.fullmatch(value.path):
         return "https://www.linkedin.com" + value.path.rstrip("/"), "post"
