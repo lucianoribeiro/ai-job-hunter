@@ -58,3 +58,13 @@ class LocalMatchTests(unittest.TestCase):
         self.assertIn('id="matchDescriptionDetails"',page)
         self.assertIn('id="matchAnalyze"',page)
         self.assertIn('id="matchResult"',page)
+
+    def test_source_requirements_prefill_and_missing_description(self):
+        report={'jobs':[{'title':'Gerente de Projetos','company':'Empresa',
+            'location':'Sumaré','url':'https://example.org/job/42',
+            'description':'Gestão de cronogramas, orçamento e liderança de equipes.'}]}
+        page=render(report,[])
+        self.assertIn('data-description="Gestão de cronogramas, orçamento e liderança de equipes."',page)
+        self.assertIn("jobSelect.addEventListener('change',fillJobRequirements)",page)
+        self.assertIn('id="matchRequirementsStatus"',page)
+        self.assertIn("Esta fonte não disponibilizou a descrição completa",page)
