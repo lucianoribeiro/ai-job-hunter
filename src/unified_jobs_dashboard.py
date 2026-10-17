@@ -32,7 +32,7 @@ def normalize(project_report, qa_jobs):
             loc = str(job.get("location") or "")
             evidence = str(job.get("remote_evidence") or "")
             if area == "QA":
-                evidence = "description_only" if job.get("remote") else "unknown"
+                evidence = "description_only" if str(job.get("remote", "")).lower() == "true" else "unknown"
             modality = {"explicit": "Remoto informado", "description_only": "Remoto citado — confirmar",
                         "unknown": "Não informado"}.get(evidence, "Não informado")
             # Absence of an explicit signal is NOT proof of on-site or hybrid.
