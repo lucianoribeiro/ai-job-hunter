@@ -88,3 +88,26 @@ jobs:
           test -s data/dashboard.html
           test -s data/applications.json
           grep -q 'Senior QA Lead' data/dashboard.html
+      - name: Build project-jobs demo (synthetic, for interface validation)
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = {
+              "generated_at": "Synthetic demonstration — not a live API result",
+              "boards": {"ashby:demo": {"fetched": 1, "matched": 1}},
+              "errors": [],
+              "jobs": [{"title": "Gerente de Projetos", "company": "Empresa fictícia",
+                        "location": "Remoto (exemplo)", "source": "Ashby",
+                        "remote_evidence": "explicit",
+                        "url": "https://example.com/illustrative-vacancy"}]
+          }
+          Path('data/project_jobs_poc.json').write_text(json.dumps(report), encoding='utf-8')
+          PY
+          python -m src.project_jobs_dashboard
+          test -s data/project_jobs_poc.html
+      - name: Upload project-jobs UI demonstration
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-jobs-poc-demo
+          path: data/project_jobs_poc.html
