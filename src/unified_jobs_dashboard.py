@@ -133,25 +133,70 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
     strategic = strategic or {}
     source_status = strategic.get("sources", [])
     seen_jobs = strategic.get("jobs", [])
-    honda_rows = "".join(
-        '<li><a target="_blank" rel="noopener noreferrer" href="' + e(safe_url(j.get("url"))) + '">' + e(j.get("title", "")) + '</a> · ' + e(j.get("company", "")) + '</li>'
-        for j in seen_jobs[:12] if isinstance(j, dict)
+
+    city_scope = ("Sumaré", "Paulínia", "Americana")
+    regional_jobs = [j for j in jobs if j["regional_city"] in city_scope]
+    strategic_jobs = [j for j in seen_jobs if isinstance(j, dict) and j.get("url") and j.get("title")]
+    entries = []
+    seen_links = set()
+    for j in regional_jobs:
+        url = safe_url(j["url"])
+        if url != "#" and url not in seen_links:
+            entries.append({"title": j["title"], "company": j["company"], "city": j["regional_city"],
+                            "area": j["area"], "url": url, "source": j["source"],
+                            "details": "Modalidade: " + j["modality"] + ". Publicação: " + j["published"] +
+                                       ". Requisitos completos: consulte o anúncio oficial."})
+            seen_links.add(url)
+    for j in strategic_jobs:
+        url = safe_url(j["url"])
+        if url != "#" and url not in seen_links:
+            company = str(j.get("company", ""))
+            company_city = next((str(x.get("city", "")) for x in source_status if isinstance(x, dict) and x.get("company") == company), "")
+            city = next((x for x in city_scope if x.casefold() in str(j.get("location", "")).casefold()), "")
+            entries.append({"title": str(j["title"]), "company": company, "city": city,
+                            "area": "A confirmar", "url": url, "source": str(j.get("source", "Portal oficial")),
+                            "details": "Cidade da vaga não verificada" + ("; empresa cadastrada em " + company_city if company_city else "") +
+                                       ". Cargo, requisitos e local devem ser confirmados no anúncio."})
+            seen_links.add(url)
+    regional_cards = "".join(
+        '<article class="regional-card" data-company="' + e(item["company"]) + '" data-city="' + e(item["city"]) +
+        '" data-area="' + e(item["area"]) + '"><div class="regional-heading"><strong>' + e(item["title"]) +
+        '</strong><span class="regional-pill">' + e(item["area"]) + '</span></div><p>' +
+        e(item["company"]) + ' · ' + e(item["city"] or "Cidade não verificada") +
+        ' · ' + e(item["source"]) + '</p><details><summary>Ver informações da vaga</summary><p>' +
+        e(item["details"]) + '</p><a href="' + e(item["url"]) +
+        '" target="_blank" rel="noopener noreferrer">Ver anúncio original / candidatar-se ↗</a></details></article>'
+        for item in entries
     )
-    status_text = ", ".join(str(x.get("company", "")) + ": " + str(x.get("state", "unknown")) for x in source_status if isinstance(x, dict))
+    companies = sorted({str(x.get("company", "")) for x in source_status if isinstance(x, dict) and x.get("company")} |
+                       {x["company"] for x in entries})
+    company_options = "".join('<option value="' + e(name) + '">' + e(name) + '</option>' for name in companies)
     company_cards = "".join(
         '<li><strong>' + e(item.get("company", "")) + '</strong> · ' + e(item.get("city", "")) +
-        ' · ' + e({"manual": "Portal a integrar", "needs_connector": "Coleta incompleta (needs_connector)", "ok": "Links encontrados", "error": "Consulta indisponível"}.get(item.get("state"), "A verificar")) +
-        (' · <a href="' + e(safe_url(item.get("url"))) + '" target="_blank" rel="noopener noreferrer">Site oficial</a>' if safe_url(item.get("url")) != "#" else '') + '</li>'
+        ' · ' + e({"manual": "Fonte ainda não integrada", "needs_connector": "Coleta incompleta (needs_connector)",
+                   "ok": "Links públicos identificados", "error": "Consulta indisponível"}.get(item.get("state"), "A verificar")) +
+        (' · <a href="' + e(safe_url(item.get("url"))) + '" target="_blank" rel="noopener noreferrer">Portal</a>'
+         if safe_url(item.get("url")) != "#" else '') + '</li>'
         for item in source_status if isinstance(item, dict)
     )
     strategic_html = (
-        '<section id="empresas-estrategicas"><h2>Empresas estratégicas · Sumaré, Paulínia e Americana</h2>'
-        '<p>Empresas selecionadas por presença regional. Vagas abertas somente quando links públicos forem identificados. '
-        'Os demais portais permanecem para consulta manual.</p><ul>' + company_cards + '</ul>'
-        '<h3>Vagas públicas identificadas</h3><ul>' +
-        (honda_rows or '<li>Nenhuma vaga extraída automaticamente; consulte os portais oficiais.</li>') +
-        '</ul></section>'
+        '<section id="empresas-estrategicas" aria-labelledby="regionalTitle"><h2 id="regionalTitle">Vagas regionais · Sumaré, Paulínia e Americana</h2>'
+        '<p>Explore oportunidades em um só lugar. Apenas anúncios efetivamente obtidos das fontes aparecem como vagas; '
+        'a presença de uma empresa na lista não garante vagas abertas.</p>'
+        '<div class="regional-filters"><label>Empresa<select id="regionalCompany"><option value="">Todas as empresas</option>' +
+        company_options + '</select></label><label>Cidade<select id="regionalCity"><option value="">Todas as cidades</option>'
+        '<option value="Sumaré">Sumaré</option><option value="Paulínia">Paulínia</option>'
+        '<option value="Americana">Americana</option></select></label>'
+        '<label>Área<select id="regionalArea"><option value="">Todas as áreas</option>'
+        '<option value="QA">QA</option><option value="Projetos">Projetos</option>'
+        '<option value="A confirmar">A confirmar</option></select></label>'
+        '<label>Pesquisar<input id="regionalQuery" placeholder="Cargo, empresa..." aria-label="Pesquisar vagas regionais"></label></div>'
+        '<p id="regionalCount" role="status"></p><div id="regionalCards" class="regional-cards">' +
+        (regional_cards or '<p>Nenhum anúncio regional foi obtido nas fontes atuais. Consulte os portais das empresas abaixo.</p>') +
+        '</div><details class="regional-sources"><summary>Empresas monitoradas e cobertura das fontes</summary><ul>' +
+        company_cards + '</ul></details></section>'
     )
+
     return """<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>AI Job Hunter | Vagas reais</title>
@@ -177,6 +222,7 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 #count{color:#e7e9ea;font-weight:700}#empty{padding:20px;color:#ffd493}
 @media(max-width:650px){body{padding:12px}header,section{padding:19px;border-radius:18px}.summary{gap:8px}.summary article{padding:13px;border-radius:12px}.summary strong{font-size:27px}.filters{grid-template-columns:1fr}td,th{padding:11px}}
 .ai-tabs{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}.ai-tab,.ai-actions button{cursor:pointer;border-radius:12px;background:#2b3038;color:#e4e5e7;border:1px solid #515960;padding:12px 16px;font-weight:700}.ai-tab[aria-pressed=true]{background:#477f71;border-color:#78af9f;color:white}.ai-workspace{background:#1b2026;border:1px solid #404750;border-radius:18px;padding:20px}.ai-workspace h3{color:white}.ai-workspace label{display:block;margin-bottom:8px;color:#d6d9df}.ai-actions{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}#aiStatus{color:#d3d7da;font-size:13px}.muted{color:#aeb4bd}
+.regional-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:18px 0}.regional-filters label{font-size:13px;display:grid;gap:7px;color:#d6d9df}.regional-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:13px}.regional-card{padding:17px;border:1px solid #46505a;border-radius:15px;background:#252a31}.regional-heading{display:flex;justify-content:space-between;align-items:start;gap:12px}.regional-pill{font-size:11px;border:1px solid #638e82;border-radius:20px;padding:4px 7px;white-space:nowrap}.regional-card p{color:#bbc3cc;font-size:13px;line-height:1.5}.regional-card summary,.regional-sources summary{cursor:pointer;color:#9bd4c6;font-weight:650}.regional-card details a{display:inline-block;margin-top:12px}.regional-sources{margin-top:20px}.regional-card[hidden]{display:none}
 </style></head><body>
 <header><h1>AI Job Hunter</h1><p>Oportunidades reais, de QA e Gerência / Coordenação de Projetos, em um só lugar.</p></header>
 """ + studio_html + strategic_html + """
@@ -215,6 +261,9 @@ r.textContent.toLocaleLowerCase().includes(q.value.trim().toLocaleLowerCase());
 r.hidden=!show;if(show)visible++;
 }count.textContent=visible+' vaga(s) exibida(s)';document.getElementById('empty').hidden=visible!==0;}
 [q,a,m,source,region,city,age].forEach(el=>el.addEventListener('input',apply));apply();
+
+const rc=document.getElementById('regionalCompany'),rCity=document.getElementById('regionalCity'),rArea=document.getElementById('regionalArea'),rq=document.getElementById('regionalQuery');
+if(rc&&rCity&&rArea&&rq){const cards=[...document.querySelectorAll('.regional-card')];const updateRegional=()=>{let count=0;for(const c of cards){const match=(!rc.value||c.dataset.company===rc.value)&&(!rCity.value||c.dataset.city===rCity.value)&&(!rArea.value||c.dataset.area===rArea.value)&&c.textContent.toLocaleLowerCase().includes(rq.value.trim().toLocaleLowerCase());c.hidden=!match;if(match)count++;}document.getElementById('regionalCount').textContent=count+' vaga(s) regional(is) encontrada(s)';};[rc,rCity,rArea,rq].forEach(x=>x.addEventListener('input',updateRegional));updateRegional();}
 const taskInfo={
 fit:['AI Job Match','Compare seu perfil com uma vaga e identifique aderência, evidências e lacunas.'],
 cv:['AI CV Studio','Produza uma versão ATS-friendly do seu currículo, sem inventar informações.'],
