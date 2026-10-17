@@ -17,3 +17,11 @@ class LocalMatchTests(unittest.TestCase):
         page=render({"jobs":[{"title":"Gerente de Projetos","company":"Acme","location":"Campinas","url":"https://example.org/1"}]},[])
         self.assertIn("Total de vagas<strong>1</strong>",page)
         self.assertIn('id="aiJob"',page)
+
+    def test_compact_upload_ui_status_and_optional_details(self):
+        page=render({'jobs': []}, [])
+        self.assertIn('id="matchReviewDetails"',page)
+        self.assertIn('id="matchDescriptionDetails"',page)
+        self.assertIn('Arquivo carregado:',page)
+        self.assertIn('Iniciando leitura...',page)
+        self.assertIn('matchDescriptionDetails',page)
