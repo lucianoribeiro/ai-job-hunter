@@ -27,7 +27,7 @@ def classify(title: str, description: str = "") -> str | None:
 
 def summarize(history: dict, today: str | None = None) -> dict:
     now = datetime.fromisoformat(today).date() if today else datetime.now(timezone.utc).date()
-    months = [((now.year * 12 + now.month - 1 - offset) // 12, (now.year * 12 + now.month - 1 - offset) % 12 + 1) for offset in range(11, -1, -1)]
+    months = [((now.year * 12 + now.month - 1 - offset) // 12, (now.year * 12 + now.month - 1 - offset) % 12 + 1) for offset in range(23, -1, -1)]
     buckets = defaultdict(set)
     companies = defaultdict(set)
     sources = defaultdict(set)
