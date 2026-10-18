@@ -325,7 +325,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
     company_cards = "".join(
         '<li><strong>' + e(item.get("company", "")) + '</strong> · ' + e(item.get("city", "")) +
         ' · ' + e({"manual": "Fonte ainda não integrada", "needs_connector": "Coleta incompleta (needs_connector)",
-                   "ok": "Links públicos identificados", "error": "Consulta indisponível"}.get(item.get("state"), "A verificar")) +
+                   "ok": "Vagas identificadas", "portal_only": "Portal oficial monitorado · vagas ainda não coletadas", "no_open_registration": "Sem inscrições abertas no concurso consultado", "error": "Consulta indisponível"}.get(item.get("state"), "A verificar")) +
         (' · <a href="' + e(safe_url(item.get("url"))) + '" target="_blank" rel="noopener noreferrer">Portal</a>'
          if safe_url(item.get("url")) != "#" else '') + '</li>'
         for item in source_status if isinstance(item, dict)
