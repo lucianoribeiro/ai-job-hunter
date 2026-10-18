@@ -99,7 +99,7 @@ def run() -> dict:
         state = "disabled"
     else:
         for query in SEARCHES + MANUFACTURING_SEARCHES:
-            manufacturing_query = query in MANUFACTURING_SEARCHES
+            manufacturing_query = query in MANUFACTURING_SEARCHES or query in SEARCHES[3:]
             endpoint = "https://news.google.com/rss/search?" + urlencode({
                 "q": query + (" when:7d" if manufacturing_query else " when:1d"), "hl": "pt-BR" if manufacturing_query else "en-US", "gl": "BR" if manufacturing_query else "US", "ceid": "BR:pt-419" if manufacturing_query else "US:en"
             })
