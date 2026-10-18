@@ -55,6 +55,20 @@ LINKEDIN_EXTRA_SEARCHES = [
     'site:linkedin.com/posts/ "coordenador de projetos" "contratando"',
 ]
 
+# Discovery of publicly indexed LinkedIn posts; queries do not prove authorship.
+COMPANY_POST_SEARCHES = [
+    'site:linkedin.com/posts/ "we are hiring" "QA Engineer"',
+    'site:linkedin.com/posts/ "join our team" "Quality Assurance"',
+    'site:linkedin.com/posts/ "estamos contratando" "QA"',
+    'site:linkedin.com/posts/ "QA Manager" "careers"',
+    'site:linkedin.com/posts/ "manufacturing manager" "we are hiring"',
+    'site:linkedin.com/posts/ "coordenador de produção" "estamos contratando"',
+    'site:linkedin.com/posts/ "gerente industrial" "oportunidade"',
+    'site:linkedin.com/posts/ "gerente de projetos" "estamos contratando"',
+    'site:linkedin.com/company/ "vagas" "QA"',
+    'site:linkedin.com/company/ "vagas" "manufatura"',
+]
+
 MANUFACTURING_SEARCHES = [
     'site:linkedin.com/posts/ "gerente de produção" vaga',
     'site:linkedin.com/posts/ "coordenador de produção" contratação',
@@ -106,6 +120,26 @@ def classify(title: str) -> dict:
     return {"area": area, "modality": modality, "review_priority": "high" if area != "Outros" and explicit_hiring else "normal"}
 
 
+def post_origin(url: str, source_url: str = "") -> str:
+    """Only attest LinkedIn company/member origins from explicit URL structure.
+
+    Search phrases, company names in headlines and Google News's generic LinkedIn
+    attribution do NOT establish who authored the post.
+    """
+    from urllib.parse import urlsplit
+    for candidate in (source_url, url):
+        parsed = urlsplit(candidate)
+        host = (parsed.hostname or "").lower()
+        if host != "linkedin.com" and not host.endswith(".linkedin.com"):
+            continue
+        path = parsed.path.lower()
+        if path.startswith("/company/"):
+            return "Empresa"
+        if path.startswith("/in/"):
+            return "Recrutador" if source_url else "Não verificada"
+    return "Não verificada"
+
+
 def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_only: bool = False) -> list[dict]:
     """Keep verifiably recent public indexed posts; do not infer actual vacancy dates."""
     from urllib.parse import urlsplit
@@ -117,6 +151,8 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
         title = (item.findtext("title") or "").strip()
         url = (item.findtext("link") or "").strip()
         published = (item.findtext("pubDate") or "").strip()
+        source_node = item.find("source")
+        source_url = source_node.get("url", "") if source_node is not None else ""
         try:
             date = parsedate_to_datetime(published).astimezone(timezone.utc)
         except (TypeError, ValueError, OverflowError):
@@ -150,7 +186,7 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
                 continue
         found[url] = {
             "title": title[:500], "salary_usd": advertised_usd_salary(title), "url": url, "published_at": date.isoformat(),
-            "source": "Public web news index", "status": "needs_review", **labels,
+            "source": "Public web news index", "status": "needs_review", "post_origin": post_origin(url, source_url), **labels,
         }
     return list(found.values())
 
@@ -162,9 +198,9 @@ def run() -> dict:
     if os.environ.get("RECRUITER_MONITOR_DISABLED") == "1":
         state = "disabled"
     else:
-        for query in SEARCHES + QA_SEARCHES + LINKEDIN_EXTRA_SEARCHES + MANUFACTURING_SEARCHES:
+        for query in SEARCHES + QA_SEARCHES + LINKEDIN_EXTRA_SEARCHES + COMPANY_POST_SEARCHES + MANUFACTURING_SEARCHES:
             manufacturing_query = query in MANUFACTURING_SEARCHES or query in SEARCHES[3:]
-            qa_query = query == SEARCHES[0] or query in QA_SEARCHES or query in LINKEDIN_EXTRA_SEARCHES
+            qa_query = query == SEARCHES[0] or query in QA_SEARCHES or query in LINKEDIN_EXTRA_SEARCHES or query in COMPANY_POST_SEARCHES
             days = 30 if manufacturing_query or qa_query else 1
             endpoint = "https://news.google.com/rss/search?" + urlencode({
                 "q": query + f" when:{days}d", "hl": "pt-BR" if manufacturing_query else "en-US", "gl": "BR" if manufacturing_query else "US", "ceid": "BR:pt-419" if manufacturing_query else "US:en"
@@ -182,7 +218,7 @@ def run() -> dict:
         state = "partial" if failures else "ok"
     data = {
         "date_utc": day, "checked_at": datetime.now(timezone.utc).isoformat(),
-        "status": state, "query_count": len(SEARCHES) + len(QA_SEARCHES) + len(LINKEDIN_EXTRA_SEARCHES) + len(MANUFACTURING_SEARCHES),
+        "status": state, "query_count": len(SEARCHES) + len(QA_SEARCHES) + len(LINKEDIN_EXTRA_SEARCHES) + len(COMPANY_POST_SEARCHES) + len(MANUFACTURING_SEARCHES),
         "items": sorted(jobs.values(), key=lambda x: x["published_at"], reverse=True)[:100],
         "limitations": "Incomplete web-index coverage; RSS publication date is not guaranteed to match original LinkedIn post date. Review each link. No automatic applications.",
         "failed_queries": len(failures),
