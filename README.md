@@ -47,9 +47,9 @@ The advisor is generated before the offline HTML dashboard. By default it uses e
 
 For local CV matching, save your CV as a UTF-8 text file **outside this repository** and run `python -m src.cv_match --cv /path/to/private-cv.txt`. This feature evaluates skill keywords locally, does not upload the CV, and is not yet a browser upload workflow. Employer vetting still requires independent evidence and review. The offline dashboard does not execute an AI API call in the browser.
 
-## Empresas estratégicas — Honda Brasil
+## Empresas estratégicas regionais
 
-The daily job discovery workflow checks the official public Honda careers landing page (`https://honda.gupy.io/`) for directly exposed job links. Results are exported to `data/strategic_jobs.json` and displayed in the dashboard, separately from remote/USD opportunities. The region includes Sumaré, Campinas, Paulínia, Nova Odessa, Americana and Hortolândia. Gupy's documented integration API requires authorization; this watcher never uses employer credentials or claims official API access. If the career page loads links dynamically, the dashboard reports `needs_connector` instead of falsely showing zero openings. Employer, location, and role suitability must be verified on the official job posting. The implementation does not submit applications.
+The daily job discovery workflow checks public career pages for Honda Brasil and Villares Metals (Gupy), plus Rhodia/Solvay (SAP SuccessFactors). Results are exported to `data/strategic_jobs.json` and displayed separately from remote/USD opportunities. The strategic panel is limited to Sumaré, Paulínia and Americana and only treats a city as confirmed when it is present in the public listing. Gupy's documented integration API requires authorization; this watcher uses only public HTML and never employer credentials. If a career page does not expose job links in its HTML, the dashboard reports `needs_connector` instead of falsely showing zero openings. Employer, location, and role suitability must be verified on the official posting. The implementation does not submit applications.
 
 ## APinfo — consulta externa (sem API oficial confirmada)
 

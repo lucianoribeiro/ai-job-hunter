@@ -21,6 +21,8 @@ A plataforma exibe **somente fontes com vagas reais no resultado**, nunca 20 op�
 | Ashby | Conector integrado | Empresa precisa de board público validado |
 | SmartRecruiters | Conector integrado | Empresa precisa de board público validado |
 | Workable | Conector implementado, inativo sem empresas configuradas | Definir slugs verificados em WORKABLE_COMPANIES |
+| Gupy (páginas públicas) | Integrado para Honda e Villares Metals | Somente links públicos do portal; API oficial exige token da empresa |
+| SAP SuccessFactors (páginas públicas) | Integrado para Solvay | Somente links públicos expostos no HTML |
 | Gupy não oficial | Não integrado | Acesso não oficial: não usar sem autorização e termos compatíveis |
 | GitHub Issues | Não integrado | Repositório real de vagas precisa existir e permitir consumo |
 | Dados.gov.br / CAGED / RAIS | Não é feed de vagas | Dados históricos/estatísticos, não anúncios individuais |

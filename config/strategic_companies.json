@@ -9,7 +9,8 @@
       "name": "Honda Brasil",
       "city": "Sumaré",
       "url": "https://honda.gupy.io/",
-      "monitor": "public_links"
+      "monitor": "public_links",
+      "connector": "gupy"
     },
     {
       "name": "3M Brasil",
@@ -20,8 +21,9 @@
     {
       "name": "Villares Metals",
       "city": "Sumaré",
-      "url": "",
-      "monitor": "manual"
+      "url": "https://villaresmetals.gupy.io/",
+      "monitor": "public_links",
+      "connector": "gupy"
     },
     {
       "name": "PPG",
@@ -38,8 +40,9 @@
     {
       "name": "Rhodia / Solvay",
       "city": "Paulínia",
-      "url": "https://www.solvay.com/pt-br/brazil/carreiras",
-      "monitor": "manual"
+      "url": "https://careers.solvay.com/search/?q=&locationsearch=Paulinia",
+      "monitor": "public_links",
+      "connector": "successfactors"
     },
     {
       "name": "Braskem",
@@ -50,7 +53,7 @@
     {
       "name": "Goodyear",
       "city": "Americana",
-      "url": "",
+      "url": "https://www.goodyear.com.br/trabalhe-conosco/",
       "monitor": "manual"
     }
   ]

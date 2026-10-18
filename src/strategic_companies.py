@@ -9,7 +9,12 @@ from urllib.parse import urljoin, urlsplit
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
-JOB_PATH = re.compile(r"^/jobs/\d+(?:[/?#]|$)")
+JOB_PATHS = {
+    "gupy": re.compile(r"^/jobs/\d+(?:[/?#]|$)"),
+    # SAP SuccessFactors career sites (currently used here by Solvay) expose
+    # public job detail links in this format. No authenticated API is used.
+    "successfactors": re.compile(r"^/job/[^?#]+/\d+(?:[/?#]|$)", re.I),
+}
 REGIONAL = ("sumaré", "sumare", "paulínia", "paulinia", "americana")
 TITLE = re.compile(r"\b(qa|quality|qualidade|test|teste|projetos?|projects?|pmo|program manager|coordenador|gerente)\b", re.I)
 
@@ -44,24 +49,31 @@ def inferred_city(title):
     return ""
 
 
-def extract_jobs(html_text, base_url, company):
+def extract_jobs(html_text, base_url, company, connector="gupy"):
     parser = Links()
     parser.feed(html_text)
     result = {}
     host = urlsplit(base_url).hostname
+    job_path = JOB_PATHS.get(connector)
+    if job_path is None:
+        raise ValueError("Unsupported public careers connector")
     for href, label in parser.found:
         link = urljoin(base_url, href)
         parts = urlsplit(link)
-        if parts.scheme != "https" or parts.hostname != host or not JOB_PATH.match(parts.path):
+        if parts.scheme != "https" or parts.hostname != host or not job_path.match(parts.path):
             continue
-        match = re.search(r"/jobs/(\d+)", parts.path)
-        if not match:
-            continue
-        url = base_url.rstrip("/") + "/jobs/" + match.group(1)
+        if connector == "gupy":
+            match = re.search(r"/jobs/(\d+)", parts.path)
+            if not match:
+                continue
+            url = "https://" + host + "/jobs/" + match.group(1)
+        else:
+            url = parts._replace(query="", fragment="").geturl().rstrip("/") + "/"
+        location_text = label + " " + parts.path.replace("-", " ")
         result[url] = {"company": company, "title": label or "Título não disponível",
-                       "location": inferred_city(label) or "Não informado", "url": url,
+                       "location": inferred_city(location_text) or "Não informado", "url": url,
                        "source": "Portal oficial", "published": "",
-                       "regional": any(x in label.casefold() for x in REGIONAL),
+                       "regional": any(x in location_text.casefold() for x in REGIONAL),
                        "target_role": bool(TITLE.search(label)),
                        "verification": "Dados parciais; confirmar detalhes no anúncio"}
     return list(result.values())
@@ -87,7 +99,7 @@ def collect(config, fetcher=fetch_page):
             page = fetcher(url)
             if len(page) > 2_000_000:
                 raise ValueError("Response exceeds safety limit")
-            found = extract_jobs(page, url, company)
+            found = extract_jobs(page, url, company, item.get("connector", "gupy"))
             jobs.extend(found)
             statuses.append({"company": company, "state": "ok" if found else "needs_connector",
                              "found": len(found), "city": item.get("city", ""), "url": url})

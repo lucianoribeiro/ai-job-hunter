@@ -11,6 +11,21 @@ class StrategicWatchTests(unittest.TestCase):
         self.assertTrue(jobs[0]["regional"])
         self.assertTrue(jobs[0]["target_role"])
 
+    def test_extract_successfactors_job_and_city_from_path(self):
+        html = ('<a href="/job/Brazil-Paulinia-Operador-de-Producao-SP-13148-914/1374107157/">'
+                'Operador de Produção</a>'
+                '<a href="https://evil.test/job/Brazil-Paulinia-Fake/999/">Fake</a>')
+        jobs = extract_jobs(html, "https://careers.solvay.com/?locale=pt_BR", "Rhodia / Solvay",
+                            "successfactors")
+        self.assertEqual(len(jobs), 1)
+        self.assertEqual(jobs[0]["location"], "Paulínia")
+        self.assertTrue(jobs[0]["regional"])
+        self.assertNotIn("locale", jobs[0]["url"])
+
+    def test_reject_unknown_connector(self):
+        with self.assertRaises(ValueError):
+            extract_jobs("<html></html>", "https://example.com", "Example", "unknown")
+
     def test_dynamic_pages_marked_incomplete_not_empty(self):
         data = collect({"companies": [{"name": "Honda Brasil", "url": "https://honda.gupy.io/"}]},
                        fetcher=lambda url: "<html>Javascript required</html>")
