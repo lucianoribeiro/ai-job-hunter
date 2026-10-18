@@ -166,7 +166,7 @@ def enrich_application(item: dict) -> dict:
     import re
     from urllib.parse import urlsplit
     from urllib.request import build_opener, HTTPRedirectHandler
-    link = re.search(r"https://lnkd\.in/[a-zA-Z0-9]+", str(item.get("title", "")))
+    link = re.search(r"https://lnkd\.in/[a-zA-Z0-9]+", str(item.get("title", "")) + " " + str(item.get("indexed_excerpt", "")))
     if not link:
         return item
     class SafeRedirect(HTTPRedirectHandler):
@@ -232,6 +232,7 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
     found: dict[str, dict] = {}
     for item in root.findall(".//item"):
         title = (item.findtext("title") or "").strip()
+        indexed_excerpt = (item.findtext("description") or "").strip()
         url = (item.findtext("link") or "").strip()
         published = (item.findtext("pubDate") or "").strip()
         source_node = item.find("source")
@@ -250,7 +251,7 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
         if not (linkedin_url or (news_redirect and re.search(r"\bLinkedIn\b", title, re.I))):
             continue
         labels = classify(title)
-        facts = extract_job_facts(title)
+        facts = extract_job_facts(title + " " + indexed_excerpt)
         labels["modality"] = facts["modality"]
         hiring = bool(re.search(r"\bhiring\b|\bcontratando\b|\bvaga(?:s)?\b|\bjob opening\b|\bapply\b|\bopportunit(?:y|ies)\b|\boportunidade\b|\brecruiting\b|\bwe.re hiring\b|\bselection process\b|\bseletivo\b", title, re.I))
         if labels["area"] in ("QA", "Projetos") and not hiring:
@@ -270,7 +271,7 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
             if re.search(r"\b(?:qa|sdet|software quality|quality engineer)\b", title.casefold()):
                 continue
         found[url] = {
-            "title": title[:500], **facts, "url": url, "published_at": date.isoformat(),
+            "title": title[:500], "indexed_excerpt": indexed_excerpt[:1500], **facts, "url": url, "published_at": date.isoformat(),
             "source": "Public web news index", "status": "needs_review", "post_origin": post_origin(url, source_url), **labels,
         }
     return list(found.values())
