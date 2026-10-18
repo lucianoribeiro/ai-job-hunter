@@ -120,9 +120,21 @@ def render(queue: dict, generated: str = "", insights: dict | None = None, strat
     monitor_path = DATA / "recruiter_monitor.json"
     monitor = json.loads(monitor_path.read_text(encoding="utf-8")) if monitor_path.exists() else {}
     monitor_items = monitor.get("items", [])
+    def br_date(value: object) -> str:
+        raw = str(value or "").strip()
+        if not raw:
+            return "Data não informada"
+        match = re.match(r"^(\\d{4})-(\\d{2})-(\\d{2})(?:[T\\s].*)?$", raw)
+        if match:
+            return f"{match.group(3)}/{match.group(2)}/{match.group(1)}"
+        match = re.match(r"^(\\d{1,2})/(\\d{1,2})/(\\d{4})$", raw)
+        if match:
+            return f"{int(match.group(2)):02d}/{int(match.group(1)):02d}/{match.group(3)}"
+        return raw
+
     monitor_rows = "".join(
         '<li><a href="' + escape(safe_url(item.get("url"))) + '" target="_blank" rel="noopener noreferrer">' +
-        escape(item.get("title", "Publicação")) + '</a> · ' + escape(item.get("published_at", "")) + '</li>'
+        escape(item.get("title", "Publicação")) + '</a> <span style="display:inline-block;margin:6px 0;padding:6px 10px;border-radius:8px;background:#eef2f8;color:#17233d;font-size:1rem;font-weight:700;line-height:1.5" aria-label="Publicado em ' + escape(br_date(item.get("published_at"))) + '">Publicado em: ' + escape(br_date(item.get("published_at"))) + '</span></li>'
         for item in monitor_items[:50] if isinstance(item, dict)
     ) or "<li>Nenhuma publicação localizada no índice consultado hoje. Isso não significa ausência de vagas.</li>"
     monitor_html = (
@@ -131,7 +143,7 @@ def render(queue: dict, generated: str = "", insights: dict | None = None, strat
         '<p>Descoberta experimental por índice público de notícias, sem login nem coleta automatizada no LinkedIn. '
         'Não cobre todos os posts. A data do índice pode diferir da data original do post. '
         'Nenhum e-mail ou currículo é enviado automaticamente.</p>'
-        '<p><strong>Data UTC:</strong> ' + escape(monitor.get("date_utc", "não executado")) +
+        '<p><strong>Data da consulta (UTC):</strong> ' + escape(br_date(monitor.get("date_utc"))) +
         ' · <strong>Estado:</strong> ' + escape(monitor.get("status", "não executado")) +
         ' · <strong>Resultados:</strong> ' + str(len(monitor_items)) + '</p>'
         '<ul>' + monitor_rows + '</ul></section>'
