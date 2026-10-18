@@ -39,6 +39,8 @@ jobs:
         run: python -m src.strategic_companies
       - name: Discover today's recruiter posts (best-effort public index)
         run: python -m src.recruiter_monitor
+      - name: Calculate market intelligence
+        run: python -m src.market_intelligence
       - name: Generate dashboard
         run: python -m src.dashboard
       - name: Upload reports
@@ -50,6 +52,7 @@ jobs:
             data/report.md
             data/applications.md
             data/history.json
+            data/market_insights.json
             data/applications.json
             data/dashboard.html
             data/ai_insights.json
@@ -97,6 +100,7 @@ jobs:
           python -m src.review
           python -m src.ai_advisor
           python -m src.strategic_companies --config config/strategic_companies.test.json
+          python -m src.market_intelligence
           python -m src.dashboard
           test -s data/dashboard.html
           test -s data/applications.json
