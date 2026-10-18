@@ -54,6 +54,26 @@ MANUFACTURING_SEARCHES = [
 ]
 
 
+
+def advertised_usd_salary(text: str) -> str | None:
+    """Extract explicitly published USD amounts, never convert or infer."""
+    import re
+    value = str(text or "")
+    patterns = [
+        r"(?:US\\$|USD|U\\$)\\s*(\\d[\\d,.]*)\\s*(?:a|to|[-–])\\s*(?:US\\$|USD|U\\$)?\\s*(\\d[\\d,.]*)\\s*(?:por hora|/h|/hr|per hour|hourly)",
+        r"(?:US\\$|USD|U\\$)\\s*(\\d[\\d,.]*)\\s*(?:por hora|/h|/hr|per hour|hourly)",
+        r"(?:US\\$|USD|U\\$)\\s*(\\d[\\d,.]*)\\s*(?:por mês|/month|monthly|/mo|per month)",
+        r"(?:US\\$|USD|U\\$)\\s*(\\d[\\d,.]*)\\s*(?:por ano|/year|annually|yearly)",
+    ]
+    for idx, pattern in enumerate(patterns):
+        found = re.search(pattern, value, re.I)
+        if found:
+            numbers = [g for g in found.groups() if g]
+            suffix = "/hora" if idx <= 1 else "/mês" if idx == 2 else "/ano"
+            return "US$ " + "–".join(numbers) + " " + suffix
+    return None
+
+
 def classify(title: str) -> dict:
     """Conservative title-only tags; never infer remote/hybrid eligibility."""
     import re
@@ -100,7 +120,7 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
             if re.search(r"\b(?:qa|sdet|software quality|quality engineer)\b", title.casefold()):
                 continue
         found[url] = {
-            "title": title[:500], "url": url, "published_at": date.isoformat(),
+            "title": title[:500], "salary_usd": advertised_usd_salary(title), "url": url, "published_at": date.isoformat(),
             "source": "Public web news index", "status": "needs_review", **labels,
         }
     return list(found.values())
