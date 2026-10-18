@@ -6,6 +6,12 @@ def render_advisor() -> str:
 .fc-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
 .fc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:18px 0}
 .fc-field label{display:block}.fc-field input,.fc-field select{width:100%;font-size:16px}
+.fc-fx-actions{display:flex;align-items:center;gap:10px;margin-top:9px;flex-wrap:wrap}
+#fc-refresh-fx{width:auto;min-height:44px;padding:10px 15px;border:1px solid #69b6a9;border-radius:10px;background:#245e55;color:#fff;font:inherit;font-weight:700;cursor:pointer;white-space:nowrap}
+#fc-refresh-fx:hover{background:#317c70}
+#fc-refresh-fx:focus-visible{outline:3px solid #bcefe5;outline-offset:2px}
+#fc-fx-status{display:block;color:#bbd3df;font-size:12px;line-height:1.5;margin-top:8px;overflow-wrap:anywhere}
+@media(max-width:550px){.fc-fx-actions,#fc-refresh-fx{width:100%}}
 .fc-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:18px}
 .fc-card{border:1px solid #e1e7f0;background:#f8fafc;border-radius:14px;padding:17px;min-width:0}
 .fc-card strong{display:block;font-size:clamp(19px,2vw,25px);color:#18345f;margin:9px 0;overflow-wrap:anywhere}
@@ -18,7 +24,7 @@ def render_advisor() -> str:
 <div class="fc-field"><label for="fc-salary">Salário CLT bruto mensal (referência)</label><input id="fc-salary" type="text" inputmode="decimal" value="R$ 15.000,00" autocomplete="off"></div>
 <div class="fc-field"><label for="fc-currency">Moeda de negociação</label><select id="fc-currency"><option value="BRL">Real (BRL)</option><option value="USD">Dólar (USD)</option></select></div>
 <div class="fc-field"><label for="fc-contract">Tipo de proposta</label><select id="fc-contract"><option>CLT</option><option>PJ</option><option>B2B</option><option>Cooperativa</option></select></div>
-<div class="fc-field"><label for="fc-fx">Cotação USD/BRL (PTAX ou manual)</label><input id="fc-fx" type="number" min="0.01" step=".0001" value="5.20"><button id="fc-refresh-fx" type="button">Atualizar PTAX</button><small id="fc-fx-status" role="status" aria-live="polite">Cotação inicial ilustrativa; aguardando consulta.</small></div>
+<div class="fc-field"><label for="fc-fx">Cotação USD/BRL (PTAX ou manual)</label><input id="fc-fx" type="number" min="0.01" step=".0001" value="5.20" aria-describedby="fc-fx-status"><div class="fc-fx-actions"><button id="fc-refresh-fx" type="button">↻ Atualizar PTAX</button></div><small id="fc-fx-status" role="status" aria-live="polite">Cotação inicial ilustrativa; aguardando consulta.</small></div>
 </div>
 <details><summary style="cursor:pointer;font-weight:700">Personalizar benefícios, impostos e premissas (opcional)</summary><div class="fc-grid">
 <div class="fc-field"><label for="fc-benefits">Outros benefícios CLT mensais (R$)</label><input id="fc-benefits" type="text" inputmode="decimal" value="R$ 0,00"></div>
