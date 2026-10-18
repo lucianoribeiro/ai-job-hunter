@@ -1,0 +1,42 @@
+name: Backfill public recruiter post history
+
+on:
+  workflow_dispatch:
+    inputs:
+      months:
+        description: Months to consult
+        required: true
+        default: '24'
+        type: choice
+        options: ['6', '12', '24']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: recruiter-history-backfill
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run tests
+        run: python -m unittest discover -s tests -v
+      - name: Query public monthly index
+        run: python -m src.linkedin_backfill --months "${{ inputs.months }}"
+      - name: Rebuild market intelligence
+        run: python -m src.market_intelligence
+      - name: Persist historical sample
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/linkedin_history.json data/market_insights.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: refresh public recruiter post history"
+            git push
+          fi

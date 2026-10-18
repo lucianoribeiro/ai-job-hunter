@@ -465,7 +465,7 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 <header><div class="brand-lockup"><span class="brand-symbol" aria-hidden="true"><svg viewBox="0 0 64 64" width="48" height="48"><rect x="2" y="2" width="60" height="60" rx="16" fill="#c3a574"/><path d="M16 45V19h7v10h18V19h7v26h-7V36H23v9z" fill="#171a20"/><path d="M49 12l2.5 5.5L57 20l-5.5 2.5L49 28l-2.5-5.5L41 20l5.5-2.5z" fill="#fff5df"/></svg></span><h1>AI Job Hunter</h1></div><p>Oportunidades reais, de QA e Gerência / Coordenação de Projetos, em um só lugar.</p></header>
 <nav class="primary-tabs" aria-label="Navegação principal" role="tablist"><button type="button" class="primary-tab" id="mainTabGeneral" role="tab" aria-controls="mainPanelGeneral" aria-selected="true" tabindex="0">Oportunidades Gerais</button><button type="button" class="primary-tab" id="mainTabRegional" role="tab" aria-controls="mainPanelRegional" aria-selected="false" tabindex="-1">Oportunidades Regionais</button><button type="button" class="primary-tab" id="mainTabAI" role="tab" aria-controls="mainPanelAI" aria-selected="false" tabindex="-1">AI Career Studio</button><button type="button" class="primary-tab" id="mainTabFinance" role="tab" aria-controls="mainPanelFinance" aria-selected="false" tabindex="-1">Consultor Salarial</button><button type="button" class="primary-tab" id="mainTabRecruiter" role="tab" aria-controls="mainPanelRecruiter" aria-selected="false" tabindex="-1">Recruiter Monitor</button></nav>
 <div id="mainPanelGeneral" class="primary-panel" role="tabpanel" aria-labelledby="mainTabGeneral">
-<section class="market-intelligence" aria-labelledby="market-heading" style="margin:20px 0;padding:22px;border:1px solid #415574;border-radius:18px;background:#152540"><h2 id="market-heading">Inteligência do Mercado · Histórico de vagas</h2><p style="color:#b7c7e0">Evolução mensal das vagas encontradas por nossas fontes públicas. Os números representam a amostra coletada, não todo o mercado.</p>""" + market_chart_html(len(monitor_cards)) + """</section>
+<section class="market-intelligence" aria-labelledby="market-heading" style="margin:20px 0;padding:22px;border:1px solid #415574;border-radius:18px;background:#152540"><h2 id="market-heading">Inteligência do Mercado · Histórico de oportunidades</h2><p style="color:#b7c7e0">Evolução mensal de vagas coletadas e posts públicos indexados. Os números representam a amostra encontrada, não todo o mercado.</p>""" + market_chart_html(len(monitor_cards)) + """</section>
 <div class="summary"><article>Total de vagas<strong>""" + str(len(jobs)) + """</strong></article>
 <article>QA<strong>""" + str(qa_count) + """</strong></article>
 <article>Projetos<strong>""" + str(projects_count) + """</strong></article>
@@ -770,12 +770,15 @@ def market_chart_html(recruiter_post_count=0):
     """Interactive chart that keeps verified vacancies separate from indexed recruiter posts."""
     from src.market_intelligence import summarize
     path = Path("data/history.json")
+    linkedin_path = Path("data/linkedin_history.json")
     try:
         history = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
-        report = summarize(history)
+        linkedin_history = json.loads(linkedin_path.read_text(encoding="utf-8")) if linkedin_path.exists() else {}
+        report = summarize(history, linkedin_history=linkedin_history)
     except (OSError, ValueError, TypeError):
         return '<p role="status">Histórico indisponível no momento. Novas coletas serão exibidas aqui.</p>'
     payload = json.dumps({"months": report["months"], "categories": report["categories"],
+                          "linkedin": report["linkedin"],
                           "recruiter_current": int(recruiter_post_count),
                           "coverage": report["source_coverage"], "generated": report["generated_at"]},
                          ensure_ascii=False).replace("<", "\\u003c")
@@ -803,42 +806,53 @@ def market_chart_html(recruiter_post_count=0):
     </style>
     <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center"><strong style="color:#6be4dc;letter-spacing:.1em;font-size:12px">◈ TALENT PULSE · MARKET INTELLIGENCE</strong><span style="color:#aac2d8;font-size:12px">Amostra monitorada · sem dados simulados</span></div>
     <div class="market-controls">
+      <label for="market-metric">Indicador
+        <select id="market-metric"><option value="vacancies">Vagas coletadas</option><option value="posts">Posts públicos indexados</option></select>
+      </label>
       <label for="market-area">Área profissional
         <select id="market-area"><option value="qa">Tecnologia / QA</option><option value="manufacturing">Manufatura</option><option value="all">Comparar áreas</option></select>
       </label>
+      <label for="market-scope">Mercado
+        <select id="market-scope"><option value="all">Todos</option><option value="Brasil">Brasil</option><option value="Internacional">Internacional</option><option value="Não identificado">Não identificado</option></select>
+      </label>
       <label for="market-window">Período
-        <select id="market-window"><option value="1" selected>30 dias</option><option value="3">90 dias</option><option value="6">6 meses</option><option value="12">12 meses</option><option value="24">24 meses</option></select>
+        <select id="market-window"><option value="1">30 dias</option><option value="3">90 dias</option><option value="6">6 meses</option><option value="12">12 meses</option><option value="24" selected>24 meses</option></select>
       </label>
     </div>
     <div class="market-kpis" aria-label="Indicadores de mercado">
-      <div class="market-kpi"><small>Vagas coletadas no mês</small><strong id="market-current">—</strong><span>Anúncios de vagas · mês parcial</span></div>
+      <div class="market-kpi"><small id="market-current-label">Vagas coletadas no mês</small><strong id="market-current">—</strong><span id="market-current-note">Anúncios de vagas · mês parcial</span></div>
       <div class="market-kpi"><small>Publicações no Recruiter Monitor</small><strong id="market-recruiter-current">—</strong><span>Janela de até 30 dias · não são vagas verificadas</span></div>
       <div class="market-kpi"><small>Variação entre meses completos</small><strong id="market-change">—</strong><span id="market-change-note">Aguardando dados comparáveis</span></div>
       <div class="market-kpi"><small>Cobertura histórica</small><strong id="market-coverage">—</strong><span id="market-coverage-note">Meses com coleta identificada</span></div>
     </div>
     <div class="market-chart-frame">
-      <svg id="market-trend" viewBox="0 0 640 270" role="img" aria-label="Evolução mensal de vagas observadas, com lacunas onde não houve coleta"></svg>
+      <svg id="market-trend" viewBox="0 0 640 270" role="img" aria-label="Evolução mensal do indicador selecionado, com lacunas onde não houve coleta"></svg>
       <div id="market-detail" role="status" aria-live="polite">Toque ou selecione um ponto para ver os detalhes.</div>
       <div id="market-legend" style="display:flex;gap:16px;flex-wrap:wrap;margin:10px 0;color:#dce7ff"></div>
     </div>
     <p id="market-summary" role="status" aria-live="polite" style="color:#b7c7e0;margin:12px 0"></p>
-    <details><summary style="cursor:pointer;margin:12px 0;color:#dce7ff">Ver tabela de dados mensais</summary><div style="overflow-x:auto"><table id="market-table" style="width:100%;min-width:320px"><caption>Vagas observadas por mês e categoria</caption><thead></thead><tbody id="market-monthly-body"></tbody></table></div></details>
-    <p style="color:#b7c7e0;font-size:13px">O gráfico contabiliza anúncios de vagas coletados. “Publicações no Recruiter Monitor” é uma métrica separada de posts encontrados no índice público e não representa vagas verificadas. Sem coleta ≠ zero vagas. Aumentar a janela não recupera dados anteriores.</p>
+    <details><summary style="cursor:pointer;margin:12px 0;color:#dce7ff">Ver tabela de dados mensais</summary><div style="overflow-x:auto"><table id="market-table" style="width:100%;min-width:320px"><caption>Indicador observado por mês e categoria</caption><thead></thead><tbody id="market-monthly-body"></tbody></table></div></details>
+    <p style="color:#b7c7e0;font-size:13px">“Vagas coletadas” contabiliza anúncios nas fontes monitoradas. “Posts públicos indexados” usa resultados públicos encontrados na web e não a API oficial do LinkedIn; é uma amostra incompleta e não representa vagas verificadas. Sem coleta ≠ zero.</p>
     <script type="application/json" id="market-history-data">""" + payload + """</script>
     <script>
     (function(){
       const data=JSON.parse(document.getElementById('market-history-data').textContent);
-      const area=document.getElementById('market-area'),windowSelect=document.getElementById('market-window');
+      const metric=document.getElementById('market-metric'),area=document.getElementById('market-area'),scope=document.getElementById('market-scope'),windowSelect=document.getElementById('market-window');
       const svg=document.getElementById('market-trend'),summary=document.getElementById('market-summary');
       const table=document.getElementById('market-table'),legend=document.getElementById('market-legend');
       const detail=document.getElementById('market-detail'),NS='http://www.w3.org/2000/svg';
       function node(tag,attrs,text){const n=document.createElementNS(NS,tag);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));if(text!==undefined)n.textContent=text;svg.appendChild(n);return n;}
       function draw(){
-        const names=area.value==='qa'?['QA','QA Manager']:area.value==='manufacturing'?['Manufatura']:['QA','QA Manager','Manufatura'];
+        const isPosts=metric.value==='posts';
+        const names=isPosts?(area.value==='qa'?['QA']:area.value==='manufacturing'?['Manufatura']:['QA','Manufatura']):(area.value==='qa'?['QA','QA Manager']:area.value==='manufacturing'?['Manufatura']:['QA','QA Manager','Manufatura']);
         const palette={'QA':'#5ce1d3','QA Manager':'#a78bfa','Manufatura':'#f6bd69'};
         const count=Number(windowSelect.value),months=data.months.slice(-count),first=data.months.length-count;
-        const observed=months.map(m=>Number(data.coverage[m]||0)>0);
-        const series=names.map(name=>data.categories[name].monthly.slice(-count).map((v,i)=>observed[i]?v:null));
+        scope.disabled=!isPosts;scope.title=isPosts?'Filtrar somente quando houver evidência explícita de localização':'Disponível para posts públicos indexados';
+        const categoryData=isPosts&&scope.value!=='all'?data.linkedin.scopes[scope.value]:(isPosts?data.linkedin.categories:data.categories);
+        const series=names.map(name=>categoryData[name].monthly.slice(-count));
+        const observed=isPosts?months.map((m,i)=>names.some((name,j)=>series[j][i]!==null)):months.map(m=>Number(data.coverage[m]||0)>0);
+        if(!isPosts)series.forEach(values=>values.forEach((value,i)=>{if(!observed[i])values[i]=null;}));
+        const unit=isPosts?'posts indexados':'vagas observadas';
         const values=series.flat().filter(v=>v!==null),max=Math.max(1,...values);
         const left=48,right=615,top=22,bottom=222;
         svg.replaceChildren();legend.replaceChildren();
@@ -855,8 +869,9 @@ def market_chart_html(recruiter_post_count=0):
           series[j].forEach((v,i)=>{
             if(v===null)return;
             const x=left+(right-left)*i/Math.max(1,months.length-1),y=bottom-(bottom-top)*v/max;
-            const dot=node('circle',{cx:x,cy:y,r:5,fill:palette[name],stroke:'#0b182a','stroke-width':2,tabindex:0,role:'button','aria-label':name+', '+months[i]+': '+v+' vagas'});
-            const message=name+' · '+months[i]+' · '+v+' vagas observadas · '+data.coverage[months[i]]+' fonte(s) com registros';
+            const dot=node('circle',{cx:x,cy:y,r:5,fill:palette[name],stroke:'#0b182a','stroke-width':2,tabindex:0,role:'button','aria-label':name+', '+months[i]+': '+v+' '+unit});
+            const status=isPosts?(data.linkedin.coverage[months[i]]?.[name]||'unqueried'):(data.coverage[months[i]]+' fonte(s) com registros');
+            const message=name+' · '+months[i]+' · '+v+' '+unit+' · cobertura: '+status;
             dot.addEventListener('mouseenter',()=>detail.textContent=message);
             dot.addEventListener('focus',()=>detail.textContent=message);
             dot.addEventListener('click',()=>detail.textContent=message);
@@ -866,22 +881,24 @@ def market_chart_html(recruiter_post_count=0):
         });
         const last=series.reduce((sum,s)=>sum+(s[s.length-1]||0),0);
         const complete=series.map(s=>s.slice(-3,-1));
-        const comparable=months.length>=3&&observed[observed.length-2]&&observed[observed.length-3]&&Number(data.coverage[months[months.length-2]])===Number(data.coverage[months[months.length-3]]);
+        const comparable=months.length>=3&&observed[observed.length-2]&&observed[observed.length-3]&&(isPosts||Number(data.coverage[months[months.length-2]])===Number(data.coverage[months[months.length-3]]));
         const prev=complete.reduce((s,a)=>s+(a[0]||0),0),curr=complete.reduce((s,a)=>s+(a[1]||0),0);
+        document.getElementById('market-current-label').textContent=isPosts?'Posts indexados no mês':'Vagas coletadas no mês';
+        document.getElementById('market-current-note').textContent=isPosts?'Amostra histórica pública · mês parcial':'Anúncios de vagas · mês parcial';
         document.getElementById('market-current').textContent=observed[observed.length-1]?last.toLocaleString('pt-BR'):'—';
         document.getElementById('market-recruiter-current').textContent=Number(data.recruiter_current||0).toLocaleString('pt-BR');
         document.getElementById('market-change').textContent=comparable&&prev>0?((curr-prev)/prev*100).toLocaleString('pt-BR',{maximumFractionDigits:1})+'%':'—';
-        document.getElementById('market-change-note').textContent=comparable&&prev>0?'Comparação indicativa; fontes podem mudar':'Sem dois meses completos com cobertura comparável';
+        document.getElementById('market-change-note').textContent=comparable&&prev>0?'Comparação indicativa; cobertura pode mudar':'Sem dois meses completos com cobertura comparável';
         const covered=observed.filter(Boolean).length;
         document.getElementById('market-coverage').textContent=covered+' / '+months.length;
-        document.getElementById('market-coverage-note').textContent='Meses com registros nas fontes monitoradas';
+        document.getElementById('market-coverage-note').textContent=isPosts?'Meses consultados no índice público':'Meses com registros nas fontes monitoradas';
         summary.textContent=covered===0?'Nenhuma coleta identificada nesta janela. Não é possível inferir a tendência.':covered<3?'Histórico insuficiente para avaliar tendências com confiança.':'Tendência descritiva da amostra, não do mercado inteiro.';
         if(covered===0){node('text',{x:330,y:125,fill:'#9bdedc','font-size':16,'text-anchor':'middle'},'Aguardando histórico de coleta');}
         table.querySelector('thead').replaceChildren();table.querySelector('tbody').replaceChildren();
-        const head=document.createElement('tr');['Mês',...names,'Fontes'].forEach(x=>{const th=document.createElement('th');th.scope='col';th.textContent=x;head.appendChild(th);});table.querySelector('thead').appendChild(head);
-        months.forEach((month,i)=>{const tr=document.createElement('tr');[month,...series.map(arr=>arr[i]===null?'Sem coleta':String(arr[i])),String(data.coverage[month]||0)].forEach(x=>{const td=document.createElement('td');td.textContent=x;tr.appendChild(td);});table.querySelector('tbody').appendChild(tr);});
+        const head=document.createElement('tr');['Mês',...names,isPosts?'Cobertura':'Fontes'].forEach(x=>{const th=document.createElement('th');th.scope='col';th.textContent=x;head.appendChild(th);});table.querySelector('thead').appendChild(head);
+        months.forEach((month,i)=>{const coverage=isPosts?names.map(name=>data.linkedin.coverage[month]?.[name]||'não consultado').join(' / '):String(data.coverage[month]||0);const tr=document.createElement('tr');[month,...series.map(arr=>arr[i]===null?'Sem coleta':String(arr[i])),coverage].forEach(x=>{const td=document.createElement('td');td.textContent=x;tr.appendChild(td);});table.querySelector('tbody').appendChild(tr);});
       }
-      area.addEventListener('change',draw);windowSelect.addEventListener('change',draw);draw();
+      metric.addEventListener('change',draw);area.addEventListener('change',draw);scope.addEventListener('change',draw);windowSelect.addEventListener('change',draw);draw();
     })();
     </script>
     """

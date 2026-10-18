@@ -34,9 +34,19 @@ class MarketIntelligenceTests(unittest.TestCase):
         with patch("src.market_intelligence.summarize", return_value=report):
             chart = market_chart_html(31)
         self.assertIn('id="market-recruiter-current"', chart)
+        self.assertIn('id="market-metric"', chart)
+        self.assertIn('id="market-scope"', chart)
         self.assertIn("não são vagas verificadas", chart)
-        self.assertIn('<option value="1" selected>30 dias</option>', chart)
+        self.assertIn('<option value="24" selected>24 meses</option>', chart)
+        self.assertIn('"linkedin":', chart)
         self.assertIn('"recruiter_current": 31', chart)
+
+    def test_linkedin_month_without_successful_query_is_not_zero(self):
+        result = summarize({}, "2026-10-18", {
+            "_coverage": {"2026-09": {"QA": "ok", "Manufatura": "error:TimeoutError"}}
+        })
+        self.assertEqual(result["linkedin"]["categories"]["QA"]["monthly"][-2], 0)
+        self.assertIsNone(result["linkedin"]["categories"]["Manufatura"]["monthly"][-2])
 
 
 if __name__ == "__main__":

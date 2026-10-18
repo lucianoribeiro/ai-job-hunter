@@ -65,7 +65,9 @@ def summarize(history: dict, today: str | None = None, linkedin_history: dict | 
             "change_last_complete_month_pct": change,
         }
     linkedin_buckets = defaultdict(set)
+    linkedin_scope_buckets = defaultdict(set)
     linkedin_observed = set()
+    linkedin_coverage = (linkedin_history or {}).get("_coverage") or {}
     for identity, post in (linkedin_history or {}).items():
         if not isinstance(post, dict) or post.get("area") not in ("QA", "Manufatura"):
             continue
@@ -76,6 +78,8 @@ def summarize(history: dict, today: str | None = None, linkedin_history: dict | 
         if date > now or (date.year, date.month) not in months:
             continue
         linkedin_buckets[(date.year, date.month, post["area"])].add(identity)
+        scope = post.get("market_scope") if post.get("market_scope") in ("Brasil", "Internacional", "Não identificado") else "Não identificado"
+        linkedin_scope_buckets[(date.year, date.month, post["area"], scope)].add(identity)
         linkedin_observed.add((date.year, date.month))
     linkedin = {
         "source": "LinkedIn public web index (not official LinkedIn API)",
@@ -83,10 +87,31 @@ def summarize(history: dict, today: str | None = None, linkedin_history: dict | 
         "observed_months": len(linkedin_observed),
         "categories": {
             category: {"monthly": [
-                len(linkedin_buckets[(year, month, category)]) if (year, month) in linkedin_observed else None
+                len(linkedin_buckets[(year, month, category)])
+                if linkedin_coverage.get(f"{year:04d}-{month:02d}", {}).get(category) == "ok" or (year, month) in linkedin_observed
+                else None
                 for year, month in months
             ]}
             for category in ("QA", "Manufatura")
+        },
+        "scopes": {
+            scope: {
+                category: {"monthly": [
+                    len(linkedin_scope_buckets[(year, month, category, scope)])
+                    if linkedin_coverage.get(f"{year:04d}-{month:02d}", {}).get(category) == "ok" or (year, month) in linkedin_observed
+                    else None
+                    for year, month in months
+                ]}
+                for category in ("QA", "Manufatura")
+            }
+            for scope in ("Brasil", "Internacional", "Não identificado")
+        },
+        "coverage": {
+            f"{month:02d}/{year}": {
+                category: linkedin_coverage.get(f"{year:04d}-{month:02d}", {}).get(category, "unqueried")
+                for category in ("QA", "Manufatura")
+            }
+            for year, month in months
         },
     }
     years = {year for year, month in observed}

@@ -1,0 +1,488 @@
+{
+  "generated_at": "2026-10-18",
+  "months": [
+    "11/2024",
+    "12/2024",
+    "01/2025",
+    "02/2025",
+    "03/2025",
+    "04/2025",
+    "05/2025",
+    "06/2025",
+    "07/2025",
+    "08/2025",
+    "09/2025",
+    "10/2025",
+    "11/2025",
+    "12/2025",
+    "01/2026",
+    "02/2026",
+    "03/2026",
+    "04/2026",
+    "05/2026",
+    "06/2026",
+    "07/2026",
+    "08/2026",
+    "09/2026",
+    "10/2026"
+  ],
+  "observed_months": 1,
+  "seasonality_ready": false,
+  "best_month_to_search": null,
+  "source_coverage": {
+    "11/2024": 0,
+    "12/2024": 0,
+    "01/2025": 0,
+    "02/2025": 0,
+    "03/2025": 0,
+    "04/2025": 0,
+    "05/2025": 0,
+    "06/2025": 0,
+    "07/2025": 0,
+    "08/2025": 0,
+    "09/2025": 0,
+    "10/2025": 0,
+    "11/2025": 0,
+    "12/2025": 0,
+    "01/2026": 0,
+    "02/2026": 0,
+    "03/2026": 0,
+    "04/2026": 0,
+    "05/2026": 0,
+    "06/2026": 0,
+    "07/2026": 0,
+    "08/2026": 0,
+    "09/2026": 0,
+    "10/2026": 4
+  },
+  "categories": {
+    "QA": {
+      "monthly": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        12
+      ],
+      "companies_last_complete_month": 0,
+      "change_last_complete_month_pct": null
+    },
+    "QA Manager": {
+      "monthly": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "companies_last_complete_month": 0,
+      "change_last_complete_month_pct": null
+    },
+    "Manufatura": {
+      "monthly": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "companies_last_complete_month": 0,
+      "change_last_complete_month_pct": null
+    }
+  },
+  "linkedin": {
+    "source": "LinkedIn public web index (not official LinkedIn API)",
+    "metric": "indexed_recruiter_posts_not_verified_vacancies",
+    "observed_months": 14,
+    "categories": {
+      "QA": {
+        "monthly": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          2,
+          6,
+          7
+        ]
+      },
+      "Manufatura": {
+        "monthly": [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          2,
+          1,
+          1,
+          1,
+          0,
+          0,
+          1,
+          3,
+          0,
+          2,
+          2,
+          2,
+          0,
+          0,
+          1,
+          1,
+          2
+        ]
+      }
+    },
+    "scopes": {
+      "Brasil": {
+        "QA": {
+          "monthly": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            4
+          ]
+        },
+        "Manufatura": {
+          "monthly": [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            3,
+            0,
+            1,
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            2
+          ]
+        }
+      },
+      "Internacional": {
+        "QA": {
+          "monthly": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "Manufatura": {
+          "monthly": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "Não identificado": {
+        "QA": {
+          "monthly": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            2,
+            4,
+            3
+          ]
+        },
+        "Manufatura": {
+          "monthly": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "coverage": {
+      "11/2024": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "12/2024": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "01/2025": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "02/2025": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "03/2025": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "04/2025": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "05/2025": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "06/2025": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "07/2025": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "08/2025": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "09/2025": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "10/2025": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "11/2025": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "12/2025": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "01/2026": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "02/2026": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "03/2026": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "04/2026": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "05/2026": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "06/2026": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "07/2026": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "08/2026": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "09/2026": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      },
+      "10/2026": {
+        "QA": "ok",
+        "Manufatura": "ok"
+      }
+    }
+  },
+  "disclaimer": "Amostra de vagas coletadas; variações de cobertura das fontes afetam as tendências. Não representa todas as contratações."
+}
