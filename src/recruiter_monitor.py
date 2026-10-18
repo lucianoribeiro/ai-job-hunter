@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 import os
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from urllib.parse import urlencode
@@ -27,6 +27,21 @@ SEARCHES = [
     'site:linkedin.com/posts/ ("manufatura" OR "produção industrial") ("híbrido" OR "remoto" OR "vaga")',
 ]
 
+MANUFACTURING_SEARCHES = [
+    'site:linkedin.com/posts/ "gerente de produção" vaga',
+    'site:linkedin.com/posts/ "coordenador de produção" contratação',
+    'site:linkedin.com/posts/ "supervisor de produção" oportunidade',
+    'site:linkedin.com/posts/ "gerente industrial" vaga',
+    'site:linkedin.com/posts/ "coordenador de manufatura"',
+    'site:linkedin.com/posts/ "gestor de operações industriais"',
+    'site:linkedin.com/posts/ "manufacturing manager" hiring',
+    'site:linkedin.com/posts/ "production manager" hiring',
+    'site:linkedin.com/posts/ "production supervisor" hiring',
+    'site:linkedin.com/posts/ "plant manager" hiring',
+    'site:linkedin.com/posts/ "industrial operations manager" hiring',
+    'site:linkedin.com/posts/ ("manufatura" OR "produção") ("Sumaré" OR "Campinas" OR "Paulínia" OR "Americana")',
+]
+
 
 def classify(title: str) -> dict:
     """Conservative title-only tags; never infer remote/hybrid eligibility."""
@@ -43,9 +58,10 @@ def classify(title: str) -> dict:
     return {"area": area, "modality": modality, "review_priority": "high" if area != "Outros" and explicit_hiring else "normal"}
 
 
-def parse_feed(xml_text: str, day: str) -> list[dict]:
-    """Keep only entries with a verifiable RSS publication date on UTC day."""
+def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_only: bool = False) -> list[dict]:
+    """Keep verifiably recent public indexed posts; do not infer actual vacancy dates."""
     root = ElementTree.fromstring(xml_text)
+    cutoff = datetime.fromisoformat(day).replace(tzinfo=timezone.utc) - timedelta(days=max_age_days - 1)
     found: dict[str, dict] = {}
     for item in root.findall(".//item"):
         title = (item.findtext("title") or "").strip()
@@ -55,9 +71,19 @@ def parse_feed(xml_text: str, day: str) -> list[dict]:
             date = parsedate_to_datetime(published).astimezone(timezone.utc)
         except (TypeError, ValueError, OverflowError):
             continue
-        if date.date().isoformat() != day or not url.startswith("https://"):
+        if not (cutoff <= date < cutoff + timedelta(days=max_age_days)) or not url.startswith("https://"):
             continue
         labels = classify(title)
+        if manufacturing_only:
+            if labels["area"] != "Manufatura":
+                continue
+            import re
+            leadership = r"gerente|coordenador|supervisor|diretor|gestor|lideran[cç]a|l[ií]der|manager|supervisor|director|lead|plant manager"
+            if not re.search(leadership, title.casefold()):
+                continue
+            # Manufacturing listings should not be broad engineering/QA job advertisements.
+            if re.search(r"\b(?:qa|sdet|software quality|quality engineer)\b", title.casefold()):
+                continue
         found[url] = {
             "title": title[:240], "url": url, "published_at": date.isoformat(),
             "source": "Public web news index", "status": "needs_review", **labels,
@@ -72,9 +98,10 @@ def run() -> dict:
     if os.environ.get("RECRUITER_MONITOR_DISABLED") == "1":
         state = "disabled"
     else:
-        for query in SEARCHES:
+        for query in SEARCHES + MANUFACTURING_SEARCHES:
+            manufacturing_query = query in MANUFACTURING_SEARCHES
             endpoint = "https://news.google.com/rss/search?" + urlencode({
-                "q": query + " when:1d", "hl": "en-US", "gl": "US", "ceid": "US:en"
+                "q": query + (" when:7d" if manufacturing_query else " when:1d"), "hl": "pt-BR" if manufacturing_query else "en-US", "gl": "BR" if manufacturing_query else "US", "ceid": "BR:pt-419" if manufacturing_query else "US:en"
             })
             try:
                 req = Request(endpoint, headers={"User-Agent": "AIJobHunter/1.0 (public RSS reader)"})
@@ -82,14 +109,14 @@ def run() -> dict:
                     xml = response.read(1_000_001)
                 if len(xml) > 1_000_000:
                     raise ValueError("Feed too large")
-                for result in parse_feed(xml.decode("utf-8"), day):
+                for result in parse_feed(xml.decode("utf-8"), day, max_age_days=7 if manufacturing_query else 1, manufacturing_only=manufacturing_query):
                     jobs[result["url"]] = result
             except Exception as exc:
                 failures.append(type(exc).__name__)
         state = "partial" if failures else "ok"
     data = {
         "date_utc": day, "checked_at": datetime.now(timezone.utc).isoformat(),
-        "status": state, "query_count": len(SEARCHES),
+        "status": state, "query_count": len(SEARCHES) + len(MANUFACTURING_SEARCHES),
         "items": sorted(jobs.values(), key=lambda x: x["published_at"], reverse=True)[:100],
         "limitations": "Incomplete web-index coverage; RSS publication date is not guaranteed to match original LinkedIn post date. Review each link. No automatic applications.",
         "failed_queries": len(failures),
