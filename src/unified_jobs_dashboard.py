@@ -311,18 +311,72 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         company_cards + '</ul></details></section>'
     )
 
+    # Manufacturing-only extraction from public post titles; all labels are tentative.
+    import re as _re
+    def manufacturing_details(title):
+        text = str(title or "")
+        roles = [
+            ("Gerente industrial", r"gerente industrial|industrial manager|plant manager"),
+            ("Gerente de produção", r"gerente de produ[cç][aã]o|production manager"),
+            ("Coordenador de produção", r"coordenador(?:a)? de produ[cç][aã]o|production coordinator"),
+            ("Supervisor de produção", r"supervisor(?:a)? de produ[cç][aã]o|production supervisor"),
+            ("Coordenador de manufatura", r"coordenador(?:a)? de manufatura|manufacturing coordinator"),
+            ("Gerente de operações", r"gerente de opera[cç][oõ]es|operations manager"),
+        ]
+        role = next((name for name, pattern in roles if _re.search(pattern, text, _re.I)), "Liderança industrial")
+        location_match = _re.search(r"(?:Local:|Localidade:|em|–|-)\\s*([A-Za-zÀ-ÿ ]{3,35})(?:/|\\s*-\\s*)SP\\b", text, _re.I)
+        location = (location_match.group(1).strip() + "/SP") if location_match else ""
+        cities = ["Sumaré", "Campinas", "Paulínia", "Americana", "Nova Odessa", "Hortolândia", "Santa Bárbara", "Jundiaí", "Monte Mor", "Valinhos", "Vinhedo"]
+        priority = any(city.casefold() in text.casefold() for city in cities)
+        employer_match = _re.search(r"\\bEmpresa:\\s*([^|:]{2,65}?)(?=\\s+Local:|\\s+Prazo|\\s+Cadastre|$)", text, _re.I)
+        employer = employer_match.group(1).strip() if employer_match else ""
+        deadline = _re.search(r"prazo de candidatura:\\s*(\\d{1,2}) de ([a-zç]+) de (\\d{4})", text, _re.I)
+        expired = False
+        if deadline:
+            months = {"janeiro": 1, "fevereiro": 2, "março": 3, "abril": 4, "maio": 5, "junho": 6, "julho": 7, "agosto": 8, "setembro": 9, "outubro": 10, "novembro": 11, "dezembro": 12}
+            try:
+                from datetime import date as _date
+                expired = _date(int(deadline.group(3)), months[deadline.group(2).casefold()], int(deadline.group(1))) < _date.today()
+            except (ValueError, KeyError):
+                pass
+        return {"role": role, "location": location, "employer": employer, "priority": priority, "expired": expired}
+
     monitor_file = Path("data/recruiter_monitor.json")
     monitor = json.loads(monitor_file.read_text(encoding="utf-8")) if monitor_file.exists() else {}
     monitor_items = monitor.get("items", [])
     monitor_cards = []
-    for item in monitor_items[:100]:
+    # Deduplicate manufacturing posts with the same inferred role, company and city.
+    seen_manufacturing = set()
+    ordered_items = sorted(
+        monitor_items[:100], key=lambda i: (
+            i.get("area") != "Manufatura",
+            not manufacturing_details(i.get("title", ""))["priority"] if i.get("area") == "Manufatura" else False,
+            manufacturing_details(i.get("title", ""))["expired"] if i.get("area") == "Manufatura" else False,
+        )
+    )
+    for item in ordered_items:
         if not isinstance(item, dict):
             continue
         category = e(item.get("area", "Não classificado"))
         modality = e(item.get("modality", "Não informada"))
         published = e(item.get("published_at", ""))
-        title = e(item.get("title", "Publicação"))
+        raw_title = item.get("title", "Publicação")
+        title = e(raw_title)
         url = e(safe_url(item.get("url")))
+        extra = ""
+        if category == "Manufatura":
+            details = manufacturing_details(raw_title)
+            key = (details["role"].casefold(), details["employer"].casefold(), details["location"].casefold())
+            if details["employer"] and details["location"] and key in seen_manufacturing:
+                continue
+            if details["employer"] and details["location"]:
+                seen_manufacturing.add(key)
+            title = e(details["role"] + (" · " + details["employer"] if details["employer"] else "") + (" · " + details["location"] if details["location"] else ""))
+            if details["priority"]:
+                extra += '<span class="recruiter-tag">Região prioritária</span>'
+            if details["expired"]:
+                extra += '<span class="recruiter-tag">Prazo informado vencido — verificar</span>'
+            extra += '<details class="recruiter-original"><summary>Ver publicação original</summary><p>' + e(raw_title) + '</p></details>'
         monitor_cards.append(
             '<article class="recruiter-card" data-area="' + category + '" data-mode="' + modality + '" '
             'style="background:#252b34;border:1px solid #414956;border-radius:12px;padding:16px;min-width:0">'
@@ -330,6 +384,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             '<span style="background:#314f4a;color:#a9f1dc;padding:4px 9px;border-radius:99px;font-size:12px">' + category + '</span>'
             '<span style="background:#363d49;color:#d8e2f0;padding:4px 9px;border-radius:99px;font-size:12px">' + modality + '</span></div>'
             '<a target="_blank" rel="noopener noreferrer" href="' + url + '" style="font-weight:700;overflow-wrap:anywhere">' + title + '</a>'
+            '<div class="recruiter-extra">' + extra + '</div>'
             '<div style="font-size:12px;opacity:.7;margin-top:10px">Índice: ' + published + '</div></article>'
         )
     monitor_html = (
