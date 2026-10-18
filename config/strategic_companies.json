@@ -36,8 +36,9 @@
     {
       "name": "Petrobras / Replan",
       "city": "Paulínia",
-      "url": "https://petrobras.com.br/quem-somos/refinaria-de-paulinia",
-      "monitor": "manual"
+      "url": "https://petrobras.com.br/quem-somos/concursos",
+      "monitor": "public_links",
+      "connector": "petrobras_concursos"
     },
     {
       "name": "Rhodia / Solvay",
@@ -49,14 +50,16 @@
     {
       "name": "Braskem",
       "city": "Paulínia",
-      "url": "https://www.braskem.com.br/braskemsaopaulo-homolog",
-      "monitor": "manual"
+      "url": "https://www.braskem.com.br/carreira",
+      "monitor": "public_links",
+      "connector": "braskem_careers"
     },
     {
       "name": "Goodyear",
       "city": "Americana",
       "url": "https://www.goodyear.com.br/trabalhe-conosco/",
-      "monitor": "manual"
+      "monitor": "public_links",
+      "connector": "goodyear_careers"
     }
   ]
 }
