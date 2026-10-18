@@ -168,6 +168,12 @@ def render(queue: dict, generated: str = "", insights: dict | None = None, strat
     market_path = DATA / "history.json"
     market_history = json.loads(market_path.read_text(encoding="utf-8")) if market_path.exists() else {}
     market_entries = list(market_history.values()) if isinstance(market_history, dict) else entries
+    from src.market_intelligence import summarize
+    market_report = summarize(market_history if isinstance(market_history, dict) else {})
+    market_guidance = ('<p class="market-note"><strong>Leitura estratégica:</strong> ' +
+        ('Histórico ainda insuficiente para identificar a melhor época do ano. ' if not market_report["seasonality_ready"] else 'Histórico plurianual disponível; avaliar sazonalidade e cobertura antes de concluir. ') +
+        'Meses observados: ' + str(market_report["observed_months"]) +
+        '. Comparações devem considerar mudanças nas fontes consultadas.</p>')
     strategic = strategic or {}
     strategic_jobs = strategic.get("jobs") or []
     watch_sources = strategic.get("sources") or []
@@ -281,7 +287,7 @@ footer{margin-top:25px;color:#7b879b;font-size:12px;line-height:1.8}
 <header class="hero"><span class="pill">✦ Busca inteligente de oportunidades</span><h1>Encontre sua próxima grande oportunidade.</h1>
 <p>Explore vagas de QA, liderança e contratos remotos. Compare oportunidades e revise os anúncios antes de se candidatar.</p>
 <div class="pills"><span class="pill">✓ Remoto e internacional</span><span class="pill">✓ Freelance e contratos</span><span class="pill">✓ Busca por empresa e vaga</span></div></header>
-""" + market_intelligence(market_entries) + advisor + '<div class="salary-tab" id="salary-tab">' + render_advisor() + '</div>' + strategic_html + monitor_html + apinfo_html + """<section class="stats">""" + stats + """</section>
+""" + market_intelligence(market_entries).replace('</section><script type="application/json" id="market-data">', market_guidance + '</section><script type="application/json" id="market-data">') + advisor + '<div class="salary-tab" id="salary-tab">' + render_advisor() + '</div>' + strategic_html + monitor_html + apinfo_html + """<section class="stats">""" + stats + """</section>
 <h2 class="section-title" id="vagas">Explore oportunidades</h2><p class="section-sub">Dados do último processamento · gerado em """ + timestamp + """</p>
 <div class="workspace"><aside class="filters" id="filtros"><h2>Filtros de busca</h2><div class="controls">
 <div><label for="query">Cargo ou empresa</label><input id="query" aria-label="Pesquisar vagas" placeholder="Ex.: QA Manager, Bosch"></div>
