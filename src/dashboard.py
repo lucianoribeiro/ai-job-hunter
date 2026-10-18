@@ -57,9 +57,10 @@ def market_intelligence(entries: list[dict]) -> str:
     from datetime import timedelta
     from urllib.parse import urlsplit
     now = datetime.now(timezone.utc)
-    months = [(now.year * 12 + now.month - 1 - i) for i in range(11, -1, -1)]
+    months = [(now.year * 12 + now.month - 1 - i) for i in range(23, -1, -1)]
     counts = defaultdict(lambda: defaultdict(int))
     seen = set()
+    observed_months = set()
     for job in entries:
         title = str(job.get("title") or "").lower()
         description = str(job.get("description") or "").lower()
@@ -100,21 +101,22 @@ def market_intelligence(entries: list[dict]) -> str:
             continue
         seen.add(key)
         counts[month][category] += 1
+        observed_months.add(month)
     labels = [f"{m % 12 + 1:02d}/{m // 12}" for m in months]
-    series = {name: [counts[m][name] for m in months] for name in ("QA", "QA Manager", "Manufatura")}
-    payload = json.dumps({"labels": labels, "series": series}, ensure_ascii=False).replace("<", "\\u003c")
+    series = {name: [counts[m][name] if m in observed_months else None for m in months] for name in ("QA", "QA Manager", "Manufatura")}
+    payload = json.dumps({"labels": labels, "series": series, "coverage": [m in observed_months for m in months]}, ensure_ascii=False).replace("<", "\\u003c")
     return (
         '<section id="mercado" class="market" aria-labelledby="market-title">'
         '<div class="market-head"><div><h2 id="market-title">Inteligência de Mercado</h2>'
         '<p>Vagas publicadas identificadas pelas fontes integradas · amostra observada, não o mercado inteiro.</p></div>'
         '<label for="market-period">Período <select id="market-period"><option value="3">3 meses</option>'
-        '<option value="6" selected>6 meses</option><option value="12">12 meses</option></select></label></div>'
+        '<option value="6" selected>6 meses</option><option value="12">12 meses</option><option value="24">24 meses</option></select></label></div>'
         '<div class="market-cards" id="market-cards" aria-live="polite"></div>'
         '<div class="market-chart"><svg id="market-chart" viewBox="0 0 700 230" role="img" '
         'aria-label="Gráfico de vagas mensais de QA, QA Manager e Manufatura"></svg>'
         '<div class="market-legend"><span>● QA</span><span>● QA Manager</span><span>● Manufatura</span></div></div>'
         '<p class="market-note">Contagens por data de publicação, com deduplicação por anúncio. '
-        'Meses sem registros podem indicar cobertura incompleta das fontes. O mês atual está em andamento.</p>'
+        'Meses sem registros históricos são exibidos como sem coleta, nunca como zero vagas. O mês atual está em andamento.</p>'
         '</section><script type="application/json" id="market-data">' + payload + '</script>'
     )
 
@@ -306,13 +308,13 @@ const market=JSON.parse(document.querySelector('#market-data').textContent);
 function drawMarket(){
  const n=Number(document.querySelector('#market-period').value),labels=market.labels.slice(-n);
  const names=['QA','QA Manager','Manufatura'],colors=['#0f8f8a','#7957c2','#b77a23'];
- const values=names.map(name=>market.series[name].slice(-n)),max=Math.max(1,...values.flat());
- document.querySelector('#market-cards').innerHTML=names.map((name,i)=>'<div class="market-card"><span>'+name+'</span><strong>'+values[i].reduce((a,b)=>a+b,0).toLocaleString('pt-BR')+'</strong><span>vagas no período</span></div>').join('');
+ const values=names.map(name=>market.series[name].slice(-n)),max=Math.max(1,...values.flat().filter(v=>v!==null));
+ document.querySelector('#market-cards').innerHTML=names.map((name,i)=>'<div class="market-card"><span>'+name+'</span><strong>'+values[i].reduce((a,b)=>a+(b??0),0).toLocaleString('pt-BR')+'</strong><span>vagas no período</span></div>').join('');
  const svg=document.querySelector('#market-chart'),ns='http://www.w3.org/2000/svg';svg.replaceChildren();
  function add(tag,attrs,txt){const e=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(txt!==undefined)e.textContent=txt;svg.appendChild(e)}
  for(let j=0;j<4;j++){const y=185-j*48;add('line',{x1:42,y1:y,x2:680,y2:y,stroke:'#dbe3ed'});add('text',{x:36,y:y+4,'text-anchor':'end',fill:'#64748b','font-size':11},String(Math.round(max*j/3)))}
  labels.forEach((m,i)=>add('text',{x:48+i*625/Math.max(1,n-1),y:212,'text-anchor':'middle',fill:'#64748b','font-size':11},m));
- values.forEach((series,i)=>{const pts=series.map((v,j)=>(48+j*625/Math.max(1,n-1))+','+(185-v/max*144)).join(' ');add('polyline',{points:pts,fill:'none',stroke:colors[i],'stroke-width':3,'stroke-linejoin':'round','stroke-linecap':'round'})});
+ values.forEach((series,i)=>{let segment=[];const flush=()=>{if(segment.length){add('polyline',{points:segment.join(' '),fill:'none',stroke:colors[i],'stroke-width':3,'stroke-linejoin':'round','stroke-linecap':'round'});segment=[]}};series.forEach((v,j)=>{if(v===null){flush();return}segment.push((48+j*625/Math.max(1,n-1))+','+(185-v/max*144))});flush()});
 }
 document.querySelector('#market-period').addEventListener('change',drawMarket);drawMarket();
 const navConsultor=document.querySelector('#nav-consultor');
