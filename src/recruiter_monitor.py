@@ -128,10 +128,10 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
         host = (urlsplit(url).hostname or "").lower()
         linkedin_url = host == "linkedin.com" or host.endswith(".linkedin.com")
         news_redirect = host in ("news.google.com", "news.googleusercontent.com")
-        if not (linkedin_url or (news_redirect and re.search(r"\\bLinkedIn\\b", title, re.I))):
+        if not (linkedin_url or (news_redirect and re.search(r"\bLinkedIn\b", title, re.I))):
             continue
         labels = classify(title)
-        hiring = bool(re.search(r"\\bhiring\\b|\\bcontratando\\b|\\bvaga(?:s)?\\b|\\bjob opening\\b|\\bapply\\b|\\bopportunit(?:y|ies)\\b|\\boportunidade\\b|\\brecruiting\\b|\\bwe.re hiring\\b|\\bselection process\\b|\\bseletivo\\b", title, re.I))
+        hiring = bool(re.search(r"\bhiring\b|\bcontratando\b|\bvaga(?:s)?\b|\bjob opening\b|\bapply\b|\bopportunit(?:y|ies)\b|\boportunidade\b|\brecruiting\b|\bwe.re hiring\b|\bselection process\b|\bseletivo\b", title, re.I))
         if labels["area"] in ("QA", "Projetos") and not hiring:
             continue
         if manufacturing_only:
