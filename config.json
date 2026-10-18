@@ -37,6 +37,30 @@
     "arbeitnow",
     "jobicy",
     "himalayas",
-    "remoteok"
+    "remoteok",
+    "greenhouse",
+    "lever",
+    "ashby",
+    "adzuna",
+    "jooble",
+    "reed",
+    "usajobs"
+  ],
+  "company_boards": [
+    {
+      "provider": "greenhouse",
+      "slug": "gitlab",
+      "company": "GitLab"
+    },
+    {
+      "provider": "lever",
+      "slug": "netflix",
+      "company": "Netflix"
+    },
+    {
+      "provider": "ashby",
+      "slug": "ramp",
+      "company": "Ramp"
+    }
   ]
 }
