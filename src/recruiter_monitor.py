@@ -105,6 +105,41 @@ def advertised_usd_salary(text: str) -> str | None:
     return None
 
 
+def extract_job_facts(text: str) -> dict:
+    """Extract only explicitly indexed facts; retain short source evidence."""
+    import re
+    value = str(text or "")
+    signals = (
+        ("Híbrido confirmado", r"\bhybrid\b|\bh[ií]brid[oa]\b"),
+        ("Remoto confirmado", r"\bremote\b|\bremot[oa]\b|\bhome[\s-]?office\b|\bwork from home\b"),
+        ("Presencial confirmado", r"\bonsite\b|\bon[\s-]?site\b|\bpresencial\b|\bno escrit[oó]rio\b"),
+    )
+    hits = [(label, re.search(pattern, value, re.I)) for label, pattern in signals]
+    hits = [(label, match) for label, match in hits if match]
+    modality = hits[0][0] if len(hits) == 1 else "Não informada"
+    modality_evidence = hits[0][1].group(0) if len(hits) == 1 else ""
+    contract = "Não informado"
+    contract_evidence = ""
+    for label, pattern in (
+        ("B2B", r"\bB2B\b"),
+        ("PJ", r"\bPJ\b|\bpessoa jur[ií]dica\b"),
+        ("CLT", r"\bCLT\b"),
+        ("Cooperativa", r"\bcooperativ[ao]\b"),
+    ):
+        match = re.search(pattern, value, re.I)
+        if match:
+            contract, contract_evidence = label, match.group(0)
+            break
+    salary = advertised_usd_salary(value)
+    salary_evidence = ""
+    if salary:
+        match = re.search(r"(?:US\$|USD|U\$)\s*[\d,.]+(?:\s*(?:a|to|[-–])\s*(?:US\$|USD|U\$)?\s*[\d,.]+)?\s*(?:por hora|/h|/hr|per hour|hourly|por mês|/month|monthly|/mo|per month|por ano|/year|annually|yearly)", value, re.I)
+        salary_evidence = match.group(0)[:140] if match else ""
+    return {"modality": modality, "modality_evidence": modality_evidence,
+            "contract_type": contract, "contract_evidence": contract_evidence,
+            "salary_usd": salary, "salary_evidence": salary_evidence}
+
+
 def classify(title: str) -> dict:
     """Conservative title-only tags; never infer remote/hybrid eligibility."""
     import re
@@ -167,6 +202,8 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
         if not (linkedin_url or (news_redirect and re.search(r"\bLinkedIn\b", title, re.I))):
             continue
         labels = classify(title)
+        facts = extract_job_facts(title)
+        labels["modality"] = facts["modality"]
         hiring = bool(re.search(r"\bhiring\b|\bcontratando\b|\bvaga(?:s)?\b|\bjob opening\b|\bapply\b|\bopportunit(?:y|ies)\b|\boportunidade\b|\brecruiting\b|\bwe.re hiring\b|\bselection process\b|\bseletivo\b", title, re.I))
         if labels["area"] in ("QA", "Projetos") and not hiring:
             continue
@@ -185,7 +222,7 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
             if re.search(r"\b(?:qa|sdet|software quality|quality engineer)\b", title.casefold()):
                 continue
         found[url] = {
-            "title": title[:500], "salary_usd": advertised_usd_salary(title), "url": url, "published_at": date.isoformat(),
+            "title": title[:500], **facts, "url": url, "published_at": date.isoformat(),
             "source": "Public web news index", "status": "needs_review", "post_origin": post_origin(url, source_url), **labels,
         }
     return list(found.values())
