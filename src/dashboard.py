@@ -80,7 +80,11 @@ def render(queue: dict, generated: str = "", insights: dict | None = None, strat
                escape(checks.get("salary_currency", "unspecified")),
                escape(checks.get("two_hours_per_day", "unverified")),
                escape(reputation.get("status", "unverified"))]
-        rows.append('<tr data-status="' + escape(status) + '" data-type="' + escape(job.get("category")) + '">' +
+        monthly = monthly_usd_salary(job)
+        usd_confirmed = monthly is not None
+        rows.append('<tr data-salary-usd-monthly="' + (str(monthly) if monthly is not None else '') +
+                    '" data-usd-confirmed="' + ('true' if usd_confirmed else 'false') +
+                    '" data-status="' + escape(status) + '" data-type="' + escape(job.get("category")) + '">' +
                     "".join(f"<td>{cell}</td>" for cell in row) + "</tr>")
     timestamp = escape(generated or datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"))
     insights = insights or {}
@@ -179,19 +183,19 @@ footer{margin-top:25px;color:#7b879b;font-size:12px;line-height:1.8}
 <div><label for="status">Etapa da candidatura</label><select id="status" aria-label="Filtrar status"><option value="">Todos os status</option>""" + "".join(
         f'<option value="{escape(s)}">{escape(s.replace("_", " ").title())}</option>' for s in sorted(ALLOWED)) + """</select></div>
 <div><label for="type">Modalidade</label><select id="type" aria-label="Filtrar tipo"><option value="">Todas as modalidades</option><option value="freelance">Freelance</option><option value="full-time/unspecified">Integral / não especificado</option></select></div>
-<div><label for="salary-min">Salário mínimo (USD/mês)</label><input id="salary-min" type="number" min="0" step="100" value="5000" aria-label="Salário mínimo em dólar por mês"></div>
-<div><label><input id="salary-unknown" type="checkbox" style="width:auto;margin-right:8px">Incluir salários não divulgados</label></div>
+<div><label for="salary-min">🇺🇸 Salário mínimo (USD/mês)</label><input id="salary-min" type="number" min="0" step="100" value="5000" aria-label="Salário mínimo em dólar por mês"></div>
+<div><label><input id="usd-only" type="checkbox" checked style="width:auto;margin-right:8px">🇺🇸 Somente vagas remuneradas em USD</label></div>\n<div><label><input id="salary-unknown" type="checkbox" style="width:auto;margin-right:8px">Incluir salários não divulgados</label></div>
 </div></aside><section class="results"><div class="results-head"><h2>Vagas encontradas</h2><p>Resultados disponíveis no arquivo gerado</p></div>
 <div class="table"><table id="jobs"><thead><tr><th>Vaga</th><th>Empresa</th><th>Categoria</th><th>Score</th>
 <th>Status</th><th>Moeda</th><th>2h/dia</th><th>Reputação</th></tr></thead><tbody>""" + "".join(rows) + """</tbody></table></div></section></div>
 <footer>Empresas, elegibilidade no Brasil, disponibilidade de 2h/dia e pagamento devem ser verificados diretamente.
 O status do painel não envia candidatura. Não armazene CV ou informações pessoais neste repositório público.</footer></main></div>
 <script>
-const q=document.querySelector('#query'),s=document.querySelector('#status'),t=document.querySelector('#type'),min=document.querySelector('#salary-min'),unknown=document.querySelector('#salary-unknown');
+const q=document.querySelector('#query'),s=document.querySelector('#status'),t=document.querySelector('#type'),min=document.querySelector('#salary-min'),unknown=document.querySelector('#salary-unknown'),usdOnly=document.querySelector('#usd-only');
 function filter(){const search=q.value.toLocaleLowerCase();for(const row of document.querySelectorAll('#jobs tbody tr')){
-const salary=row.dataset.salaryUsdMonthly;const threshold=Number(min.value||0);const salaryMatch=salary===''?unknown.checked:Number(salary)>=threshold;
-row.hidden=!(salaryMatch&&row.textContent.toLocaleLowerCase().includes(search)&&(!s.value||row.dataset.status===s.value)&&(!t.value||row.dataset.type===t.value));}}
-[q,s,t,min,unknown].forEach(x=>x.addEventListener('input',filter));filter();
+const salary=row.dataset.salaryUsdMonthly;const threshold=Number(min.value||0);const salaryMatch=salary===''?unknown.checked&&!usdOnly.checked:Number(salary)>=threshold;const currencyMatch=!usdOnly.checked||row.dataset.usdConfirmed==='true';
+row.hidden=!(salaryMatch&&currencyMatch&&row.textContent.toLocaleLowerCase().includes(search)&&(!s.value||row.dataset.status===s.value)&&(!t.value||row.dataset.type===t.value));}}
+[q,s,t,min,unknown,usdOnly].forEach(x=>x.addEventListener('input',filter));filter();
 </script></body></html>"""
 
 
