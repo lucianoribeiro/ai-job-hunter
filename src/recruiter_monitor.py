@@ -60,10 +60,10 @@ def advertised_usd_salary(text: str) -> str | None:
     import re
     value = str(text or "")
     patterns = [
-        r"(?:US\\$|USD|U\\$)\\s*(\\d[\\d,.]*)\\s*(?:a|to|[-–])\\s*(?:US\\$|USD|U\\$)?\\s*(\\d[\\d,.]*)\\s*(?:por hora|/h|/hr|per hour|hourly)",
-        r"(?:US\\$|USD|U\\$)\\s*(\\d[\\d,.]*)\\s*(?:por hora|/h|/hr|per hour|hourly)",
-        r"(?:US\\$|USD|U\\$)\\s*(\\d[\\d,.]*)\\s*(?:por mês|/month|monthly|/mo|per month)",
-        r"(?:US\\$|USD|U\\$)\\s*(\\d[\\d,.]*)\\s*(?:por ano|/year|annually|yearly)",
+        r"(?:US\$|USD|U\$)\s*(\d[\d,.]*)\s*(?:a|to|[-–])\s*(?:US\$|USD|U\$)?\s*(\d[\d,.]*)\s*(?:por hora|/h|/hr|per hour|hourly)",
+        r"(?:US\$|USD|U\$)\s*(\d[\d,.]*)\s*(?:por hora|/h|/hr|per hour|hourly)",
+        r"(?:US\$|USD|U\$)\s*(\d[\d,.]*)\s*(?:por mês|/month|monthly|/mo|per month)",
+        r"(?:US\$|USD|U\$)\s*(\d[\d,.]*)\s*(?:por ano|/year|annually|yearly)",
     ]
     for idx, pattern in enumerate(patterns):
         found = re.search(pattern, value, re.I)
