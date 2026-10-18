@@ -795,7 +795,7 @@ def market_chart_html():
       <div id="market-legend" style="display:flex;gap:16px;flex-wrap:wrap;margin:10px 0;color:#dce7ff"></div>
     </div>
     <p id="market-summary" role="status" aria-live="polite" style="color:#b7c7e0;margin:12px 0"></p>
-    <details><summary style="cursor:pointer;margin:12px 0;color:#dce7ff">Ver tabela de dados mensais</summary><div style="overflow-x:auto"><table id="market-table" style="width:100%;min-width:320px"><caption>Vagas observadas por mês e categoria</caption><thead></thead><tbody></tbody></table></div></details>
+    <details><summary style="cursor:pointer;margin:12px 0;color:#dce7ff">Ver tabela de dados mensais</summary><div style="overflow-x:auto"><table id="market-table" style="width:100%;min-width:320px"><caption>Vagas observadas por mês e categoria</caption><thead></thead><tbody id="market-monthly-body"></tbody></table></div></details>
     <p style="color:#b7c7e0;font-size:13px">Fonte: histórico de vagas públicas monitoradas (não é API oficial do LinkedIn). Sem coleta ≠ zero vagas. Aumentar a janela não recupera dados anteriores. O mês atual é parcial e mudanças na cobertura das fontes podem distorcer comparações.</p>
     <script type="application/json" id="market-history-data">""" + payload + """</script>
     <script>
