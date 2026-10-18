@@ -30,6 +30,14 @@ class RecruiterOutreachGmailTests(unittest.TestCase):
         self.assertIn("professionalResumePdf", action)
         self.assertIn('status:"drafted"', action)
 
+    def test_composite_foreign_keys_have_unique_parent_indexes(self):
+        foundation = Path("db/001_saas_foundation.sql").read_text(encoding="utf-8")
+        resumes = Path("db/002_resume_studio.sql").read_text(encoding="utf-8")
+        self.assertIn("opportunities_id_user_id_uidx", foundation)
+        self.assertIn("on public.opportunities(id, user_id)", foundation)
+        self.assertIn("resume_versions_id_user_id_uidx", resumes)
+        self.assertIn("on public.resume_versions(id,user_id)", resumes)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -27,6 +27,10 @@ create table if not exists public.resume_versions (
 );
 create index if not exists resumes_owner_idx on public.resumes(user_id);
 create index if not exists resume_versions_owner_idx on public.resume_versions(user_id);
+-- Required by the composite foreign key in recruiter_drafts. The idempotent
+-- index also repairs databases where this migration was previously run.
+create unique index if not exists resume_versions_id_user_id_uidx
+ on public.resume_versions(id,user_id);
 alter table public.resumes enable row level security;
 alter table public.resume_versions enable row level security;
 drop policy if exists resumes_owner on public.resumes;
