@@ -432,6 +432,11 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             extra += '<p class="recruiter-evidence">Trecho da modalidade: ' + e(item["modality_evidence"]) + '</p>'
         if item.get("contract_evidence"):
             extra += '<p class="recruiter-evidence">Trecho da contratação: ' + e(item["contract_evidence"]) + '</p>'
+        if item.get("contract_source") and contract != "Não informado":
+            extra += '<p class="recruiter-evidence">Contrato confirmado em: ' + e(item["contract_source"]) + '</p>'
+        application_url = safe_url(item.get("application_url"))
+        if application_url != "#":
+            extra += '<p><a href="' + e(application_url) + '" target="_blank" rel="noopener noreferrer">Ver anúncio de candidatura ↗</a></p>'
         contact = recruiter_email(raw_title)
         if category == "Manufatura":
             details = manufacturing_details(raw_title)
