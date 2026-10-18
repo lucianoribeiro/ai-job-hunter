@@ -38,6 +38,23 @@ QA_SEARCHES = [
     'site:linkedin.com/posts/ ("QA Engineer" OR "Test Engineer") ("USD" OR "US$" OR "dollar")',
 ]
 
+# Additional discovery remains restricted to publicly indexed LinkedIn posts.
+LINKEDIN_EXTRA_SEARCHES = [
+    'site:linkedin.com/posts/ "QA Engineer" "we are hiring"',
+    'site:linkedin.com/posts/ "Senior QA Engineer" "apply"',
+    'site:linkedin.com/posts/ "QA Lead" "opportunity"',
+    'site:linkedin.com/posts/ "QA Manager" "job opening"',
+    'site:linkedin.com/posts/ "Tech Lead QA" "vaga"',
+    'site:linkedin.com/posts/ "SDET" "remote" "apply"',
+    'site:linkedin.com/posts/ "Automation Test Engineer" "hiring"',
+    'site:linkedin.com/posts/ "engenheiro de qualidade de software" "vaga"',
+    'site:linkedin.com/posts/ "analista de testes" "contratando"',
+    'site:linkedin.com/posts/ "gerente de qualidade" "software" "vaga"',
+    'site:linkedin.com/posts/ "project manager" "we are hiring"',
+    'site:linkedin.com/posts/ "gerente de projetos" "vaga"',
+    'site:linkedin.com/posts/ "coordenador de projetos" "contratando"',
+]
+
 MANUFACTURING_SEARCHES = [
     'site:linkedin.com/posts/ "gerente de produção" vaga',
     'site:linkedin.com/posts/ "coordenador de produção" contratação',
@@ -91,6 +108,8 @@ def classify(title: str) -> dict:
 
 def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_only: bool = False) -> list[dict]:
     """Keep verifiably recent public indexed posts; do not infer actual vacancy dates."""
+    from urllib.parse import urlsplit
+    import re
     root = ElementTree.fromstring(xml_text)
     cutoff = datetime.fromisoformat(day).replace(tzinfo=timezone.utc) - timedelta(days=max_age_days - 1)
     found: dict[str, dict] = {}
@@ -104,7 +123,17 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
             continue
         if not (cutoff <= date < cutoff + timedelta(days=max_age_days)) or not url.startswith("https://"):
             continue
+        # Google News may provide a google.com RSS redirect URL for a LinkedIn-indexed
+        # post. Accept those only when the result is explicitly attributed to LinkedIn.
+        host = (urlsplit(url).hostname or "").lower()
+        linkedin_url = host == "linkedin.com" or host.endswith(".linkedin.com")
+        news_redirect = host in ("news.google.com", "news.googleusercontent.com")
+        if not (linkedin_url or (news_redirect and re.search(r"\\bLinkedIn\\b", title, re.I))):
+            continue
         labels = classify(title)
+        hiring = bool(re.search(r"\\bhiring\\b|\\bcontratando\\b|\\bvaga(?:s)?\\b|\\bjob opening\\b|\\bapply\\b|\\bopportunit(?:y|ies)\\b|\\boportunidade\\b|\\brecruiting\\b|\\bwe.re hiring\\b|\\bselection process\\b|\\bseletivo\\b", title, re.I))
+        if labels["area"] in ("QA", "Projetos") and not hiring:
+            continue
         if manufacturing_only:
             if labels["area"] != "Manufatura":
                 continue
@@ -133,9 +162,9 @@ def run() -> dict:
     if os.environ.get("RECRUITER_MONITOR_DISABLED") == "1":
         state = "disabled"
     else:
-        for query in SEARCHES + QA_SEARCHES + MANUFACTURING_SEARCHES:
+        for query in SEARCHES + QA_SEARCHES + LINKEDIN_EXTRA_SEARCHES + MANUFACTURING_SEARCHES:
             manufacturing_query = query in MANUFACTURING_SEARCHES or query in SEARCHES[3:]
-            qa_query = query == SEARCHES[0] or query in QA_SEARCHES
+            qa_query = query == SEARCHES[0] or query in QA_SEARCHES or query in LINKEDIN_EXTRA_SEARCHES
             days = 30 if manufacturing_query or qa_query else 1
             endpoint = "https://news.google.com/rss/search?" + urlencode({
                 "q": query + f" when:{days}d", "hl": "pt-BR" if manufacturing_query else "en-US", "gl": "BR" if manufacturing_query else "US", "ceid": "BR:pt-419" if manufacturing_query else "US:en"
@@ -153,7 +182,7 @@ def run() -> dict:
         state = "partial" if failures else "ok"
     data = {
         "date_utc": day, "checked_at": datetime.now(timezone.utc).isoformat(),
-        "status": state, "query_count": len(SEARCHES) + len(QA_SEARCHES) + len(MANUFACTURING_SEARCHES),
+        "status": state, "query_count": len(SEARCHES) + len(QA_SEARCHES) + len(LINKEDIN_EXTRA_SEARCHES) + len(MANUFACTURING_SEARCHES),
         "items": sorted(jobs.values(), key=lambda x: x["published_at"], reverse=True)[:100],
         "limitations": "Incomplete web-index coverage; RSS publication date is not guaranteed to match original LinkedIn post date. Review each link. No automatic applications.",
         "failed_queries": len(failures),
