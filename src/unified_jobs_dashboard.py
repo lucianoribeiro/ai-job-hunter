@@ -314,18 +314,41 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
     monitor_file = Path("data/recruiter_monitor.json")
     monitor = json.loads(monitor_file.read_text(encoding="utf-8")) if monitor_file.exists() else {}
     monitor_items = monitor.get("items", [])
-    monitor_links = "".join(
-        '<li><a target="_blank" rel="noopener noreferrer" href="' + e(safe_url(item.get("url"))) + '">' +
-        e(item.get("title", "Publicação")) + '</a> · ' + e(item.get("published_at", "")) + '</li>'
-        for item in monitor_items[:50] if isinstance(item, dict)
-    ) or '<li>Nenhuma publicação localizada hoje no índice público consultado.</li>'
+    monitor_cards = []
+    for item in monitor_items[:100]:
+        if not isinstance(item, dict):
+            continue
+        category = e(item.get("area", "Não classificado"))
+        modality = e(item.get("modality", "Não informada"))
+        published = e(item.get("published_at", ""))
+        title = e(item.get("title", "Publicação"))
+        url = e(safe_url(item.get("url")))
+        monitor_cards.append(
+            '<article class="recruiter-card" data-area="' + category + '" data-mode="' + modality + '" '
+            'style="background:#252b34;border:1px solid #414956;border-radius:12px;padding:16px;min-width:0">'
+            '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">'
+            '<span style="background:#314f4a;color:#a9f1dc;padding:4px 9px;border-radius:99px;font-size:12px">' + category + '</span>'
+            '<span style="background:#363d49;color:#d8e2f0;padding:4px 9px;border-radius:99px;font-size:12px">' + modality + '</span></div>'
+            '<a target="_blank" rel="noopener noreferrer" href="' + url + '" style="font-weight:700;overflow-wrap:anywhere">' + title + '</a>'
+            '<div style="font-size:12px;opacity:.7;margin-top:10px">Índice: ' + published + '</div></article>'
+        )
     monitor_html = (
-        '<section class="card" style="padding:24px;margin:16px 0"><h2>Recruiter Monitor · Publicações recentes</h2>'
-        '<p>Resultados experimentais de índice público; não cobre todos os posts do LinkedIn. '
-        'A data indexada pode não ser a data original da publicação. Nenhum e-mail é enviado.</p>'
+        '<section id="recruiter-results" style="padding:20px 0"><h2>Recruiter Monitor · Vagas e publicações</h2>'
+        '<p>O monitor apresenta todas as publicações descobertas no índice público. '
+        'Áreas e modalidades são classificadas com base no título e precisam ser verificadas no anúncio original.</p>'
         '<p>Data UTC: ' + e(monitor.get("date_utc", "não executado")) +
         ' · Status: ' + e(monitor.get("status", "não executado")) +
-        ' · Resultados: ' + str(len(monitor_items)) + '</p><ul>' + monitor_links + '</ul></section>'
+        ' · Publicações: <strong id="recruiter-count">' + str(len(monitor_cards)) + '</strong></p>'
+        '<div style="display:flex;gap:12px;flex-wrap:wrap;margin:18px 0">'
+        '<label>Área <select id="recruiter-area"><option value="">Todas as áreas</option>'
+        '<option>Manufatura</option><option>QA</option><option>Projetos</option><option>Outros</option></select></label>'
+        '<label>Modalidade <select id="recruiter-mode"><option value="">Todas</option>'
+        '<option value="Remoto">Remoto mencionado</option><option value="Híbrido">Híbrido mencionado</option>'
+        '<option value="Não informada">Não informada</option></select></label></div>'
+        '<div id="recruiter-list" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px">'
+        + "".join(monitor_cards) + '</div>'
+        '<p style="font-size:12px;opacity:.7">A data do índice pode diferir da data do post. '
+        'Nenhuma candidatura é enviada automaticamente.</p></section>'
     )
     return """<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -381,6 +404,9 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 <footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
 na página oficial. Fonte Himalayas: <a href="https://himalayas.app">himalayas.app</a>. Apenas datas de publicação fornecidas pelas fontes são exibidas; datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
+const recruiterArea=document.getElementById('recruiter-area'),recruiterMode=document.getElementById('recruiter-mode');
+function filterRecruiter(){if(!recruiterArea||!recruiterMode)return;let visible=0;document.querySelectorAll('.recruiter-card').forEach(card=>{const area=!recruiterArea.value||card.dataset.area===recruiterArea.value;const mode=!recruiterMode.value||card.dataset.mode.startsWith(recruiterMode.value);card.hidden=!(area&&mode);if(!card.hidden)visible++;});const count=document.getElementById('recruiter-count');if(count)count.textContent=String(visible);}
+if(recruiterArea&&recruiterMode){recruiterArea.addEventListener('change',filterRecruiter);recruiterMode.addEventListener('change',filterRecruiter);}
 const mainTabPairs=[['mainTabGeneral','mainPanelGeneral'],['mainTabRegional','mainPanelRegional'],['mainTabAI','mainPanelAI'],['mainTabFinance','mainPanelFinance'],['mainTabRecruiter','mainPanelRecruiter']];
 function activateMainTab(index,focus=false){mainTabPairs.forEach(([tid,pid],i)=>{const active=i===index,tab=document.getElementById(tid),panel=document.getElementById(pid);tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;panel.hidden=!active;});if(focus)document.getElementById(mainTabPairs[index][0]).focus();}
 mainTabPairs.forEach(([tid],i)=>{const tab=document.getElementById(tid);tab.addEventListener('click',()=>activateMainTab(i));tab.addEventListener('keydown',evt=>{if(!['ArrowRight','ArrowLeft','Home','End'].includes(evt.key))return;evt.preventDefault();const next=evt.key==='Home'?0:evt.key==='End'?mainTabPairs.length-1:(i+(evt.key==='ArrowRight'?1:-1)+mainTabPairs.length)%mainTabPairs.length;activateMainTab(next,true);});});
