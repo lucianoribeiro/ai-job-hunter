@@ -47,7 +47,7 @@ def classify(title: str) -> dict:
     """Conservative title-only tags; never infer remote/hybrid eligibility."""
     import re
     t = title.casefold()
-    manufacturing = bool(re.search(r"manufatur|manufactur|produ[cç][aã]o|production|industrial|opera[cç][oõ]es|operations|supply chain|lean manufacturing|plant manager|gerente de planta|gestor de f[aá]brica", t))
+    manufacturing = bool(re.search(r"manufatur|manufactur|produ[cç][aã]o|production|industrial|lean manufacturing|plant manager|gerente de planta|gestor de f[aá]brica", t))
     qa = bool(re.search(r"\bqa\b|quality engineer|quality assurance|sdet|test engineer|software test", t))
     projects = bool(re.search(r"project manager|gerente de projetos|coordenador de projetos|project coordinator|pmo", t))
     remote = bool(re.search(r"\bremote\b|\bremoto\b|home.office", t))
@@ -81,7 +81,7 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
             leadership = r"gerente|coordenador|supervisor|diretor|gestor|lideran[cç]a|l[ií]der|manager|supervisor|director|lead|plant manager"
             if not re.search(leadership, title.casefold()):
                 continue
-            # Manufacturing listings should not be broad engineering/QA job advertisements.
+            # Require the advertised role, not just incidental text, to be industrial leadership.\n            role = title.casefold().split(" - linkedin")[0]\n            if not re.search(r"(?:gerente|coordenador|supervisor|diretor|gestor|manager|director|lead|l[ií]der).{0,65}(?:produ[cç][aã]o|production|manufatur|manufactur|industrial|f[aá]brica|plant)|(?:produ[cç][aã]o|production|manufatur|manufactur|industrial|plant).{0,65}(?:gerente|coordenador|supervisor|manager|director|lead)", role):\n                continue\n            # Manufacturing listings should not be broad engineering/QA job advertisements.
             if re.search(r"\b(?:qa|sdet|software quality|quality engineer)\b", title.casefold()):
                 continue
         found[url] = {
