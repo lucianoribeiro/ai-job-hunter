@@ -19,6 +19,9 @@ class MarketIntelligenceTests(unittest.TestCase):
         result = summarize(history, "2026-10-18")
         self.assertEqual(result["categories"]["QA Manager"]["monthly"][-2], 2)
         self.assertEqual(result["categories"]["Manufatura"]["monthly"][-1], 1)
+        self.assertEqual(len(result["months"]), 24)
+        self.assertEqual(result["months"][0], "11/2024")
+        self.assertEqual(result["months"][-1], "10/2026")
         self.assertFalse(result["seasonality_ready"])
         self.assertIsNone(result["best_month_to_search"])
 
