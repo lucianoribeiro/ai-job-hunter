@@ -65,13 +65,13 @@ def market_intelligence(entries: list[dict]) -> str:
         description = str(job.get("description") or "").lower()
         if not title:
             continue
-        if re.search(r"\\b(?:qa manager|quality assurance manager|gerente de qa|gerente de qualidade de software|test manager)\\b", title):
+        if re.search(r"\b(?:qa manager|quality assurance manager|gerente de qa|gerente de qualidade de software|test manager)\b", title):
             category = "QA Manager"
-        elif re.search(r"\\b(?:qa|quality assurance|quality engineer|software test|test automation|sdet|quality lead|test lead)\\b", title):
+        elif re.search(r"\b(?:qa|quality assurance|quality engineer|software test|test automation|sdet|quality lead|test lead)\b", title):
             category = "QA"
-        elif re.search(r"\\b(?:manufatura|manufacturing|production manager|production coordinator|gerente de produção|coordenador de produção)\\b", title) or (
-            re.search(r"\\b(?:project manager|gerente de projetos|coordenador de projetos)\\b", title)
-            and re.search(r"\\b(?:manufacturing|manufatura|industrial|fábrica|factory|produção)\\b", description)
+        elif re.search(r"\b(?:manufatura|manufacturing|production manager|production coordinator|gerente de produção|coordenador de produção)\b", title) or (
+            re.search(r"\b(?:project manager|gerente de projetos|coordenador de projetos)\b", title)
+            and re.search(r"\b(?:manufacturing|manufatura|industrial|fábrica|factory|produção)\b", description)
         ):
             category = "Manufatura"
         else:
