@@ -53,6 +53,7 @@ jobs:
           python -m src.regional_ats_qa --output data/regional_qa_jobs.json
           python -m src.himalayas_jobs --output data/himalayas_jobs.json
           python -m src.recruiter_monitor
+          python -m src.linkedin_history
           python -m src.unified_jobs_dashboard --projects data/project_jobs_poc.json --qa data/jobs.csv --output site/index.html
           # Public endpoint only; no API credentials are injected into HTML.
           AI_MATCH_API_URL="${{ vars.AI_MATCH_API_URL }}" python - <<'PY'
@@ -87,6 +88,7 @@ jobs:
           grep -q 'id="regionalCompany"' site/index.html
           grep -q 'id="regionalCards"' site/index.html
           grep -q 'id="manufacturingLeadershipAlert"' site/index.html
+          grep -q 'id="market-recruiter-current"' site/index.html
           grep -q 'id="mainTabFinance"' site/index.html
           grep -q 'id="mainPanelFinance"' site/index.html
           grep -q 'id="mainTabRecruiter"' site/index.html

@@ -310,16 +310,6 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
     monitored_count = len([x for x in source_status if isinstance(x, dict)])
     strategic_displayed = len(strategic_jobs) - strategic_duplicates - strategic_outside
     assert len(seen_jobs) == strategic_displayed + strategic_duplicates + strategic_outside + strategic_invalid
-    audit_html = (
-        '<details class="regional-sources" id="regionalAudit"><summary>Conferência: fonte e interface</summary><p>'
-        'Retornados pelo coletor de empresas: ' + str(len(seen_jobs)) +
-        ' · Exibidos: ' + str(strategic_displayed) +
-        ' · Duplicados: ' + str(strategic_duplicates) +
-        ' · Localidade fora da região: ' + str(strategic_outside) +
-        ' · Registros inválidos: ' + str(strategic_invalid) +
-        '. A soma dos resultados deve coincidir com os registros coletados.</p>'
-        '<p>O total geral também inclui outras fontes de QA e Projetos. Empresas sem coleta integrada não retornam vagas.</p></details>'
-    )
     live_count = len(entries)
     city_counts = {city: sum(j["city"] == city for j in entries) for city in city_scope}
     city_counts["unverified"] = sum(not j["city"] for j in entries)
@@ -340,7 +330,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         '<label>Pesquisar<input id="regionalQuery" placeholder="Cargo, empresa..." aria-label="Pesquisar vagas regionais"></label></div>'
         '<p id="regionalCount" role="status"></p><div id="regionalCards" class="regional-cards">' +
         (regional_cards or '<p>Nenhum anúncio regional foi obtido nas fontes atuais. Consulte os portais das empresas abaixo.</p>') +
-        '</div>' + "<div class=\"page-controls\" aria-label=\"Paginação de resultados\"><label>Mostrar<select class=\"page-size\"><option value=\"10\">10 por página</option><option value=\"all\">Todos</option></select></label><span class=\"page-summary\" role=\"status\"></span><button type=\"button\" class=\"page-prev\">Anterior</button><span class=\"page-index\"></span><button type=\"button\" class=\"page-next\">Próxima</button></div>" + audit_html + '<details class="regional-sources"><summary>Empresas acompanhadas (inclusive sem integração)</summary>'
+        '</div>' + "<div class=\"page-controls\" aria-label=\"Paginação de resultados\"><label>Mostrar<select class=\"page-size\"><option value=\"10\">10 por página</option><option value=\"all\">Todos</option></select></label><span class=\"page-summary\" role=\"status\"></span><button type=\"button\" class=\"page-prev\">Anterior</button><span class=\"page-index\"></span><button type=\"button\" class=\"page-next\">Próxima</button></div>" + '<details class="regional-sources" open><summary>Empresas acompanhadas (inclusive sem integração)</summary>'
         '<p>Essas empresas não necessariamente possuem vagas coletadas. Consulte as fontes oficiais para cobertura adicional.</p><ul>' +
         company_cards + '</ul></details></section>'
     )
@@ -475,7 +465,7 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 <header><div class="brand-lockup"><span class="brand-symbol" aria-hidden="true"><svg viewBox="0 0 64 64" width="48" height="48"><rect x="2" y="2" width="60" height="60" rx="16" fill="#c3a574"/><path d="M16 45V19h7v10h18V19h7v26h-7V36H23v9z" fill="#171a20"/><path d="M49 12l2.5 5.5L57 20l-5.5 2.5L49 28l-2.5-5.5L41 20l5.5-2.5z" fill="#fff5df"/></svg></span><h1>AI Job Hunter</h1></div><p>Oportunidades reais, de QA e Gerência / Coordenação de Projetos, em um só lugar.</p></header>
 <nav class="primary-tabs" aria-label="Navegação principal" role="tablist"><button type="button" class="primary-tab" id="mainTabGeneral" role="tab" aria-controls="mainPanelGeneral" aria-selected="true" tabindex="0">Oportunidades Gerais</button><button type="button" class="primary-tab" id="mainTabRegional" role="tab" aria-controls="mainPanelRegional" aria-selected="false" tabindex="-1">Oportunidades Regionais</button><button type="button" class="primary-tab" id="mainTabAI" role="tab" aria-controls="mainPanelAI" aria-selected="false" tabindex="-1">AI Career Studio</button><button type="button" class="primary-tab" id="mainTabFinance" role="tab" aria-controls="mainPanelFinance" aria-selected="false" tabindex="-1">Consultor Salarial</button><button type="button" class="primary-tab" id="mainTabRecruiter" role="tab" aria-controls="mainPanelRecruiter" aria-selected="false" tabindex="-1">Recruiter Monitor</button></nav>
 <div id="mainPanelGeneral" class="primary-panel" role="tabpanel" aria-labelledby="mainTabGeneral">
-<section class="market-intelligence" aria-labelledby="market-heading" style="margin:20px 0;padding:22px;border:1px solid #415574;border-radius:18px;background:#152540"><h2 id="market-heading">Inteligência do Mercado · Histórico de vagas</h2><p style="color:#b7c7e0">Evolução mensal das vagas encontradas por nossas fontes públicas. Os números representam a amostra coletada, não todo o mercado.</p>""" + market_chart_html() + """</section>
+<section class="market-intelligence" aria-labelledby="market-heading" style="margin:20px 0;padding:22px;border:1px solid #415574;border-radius:18px;background:#152540"><h2 id="market-heading">Inteligência do Mercado · Histórico de vagas</h2><p style="color:#b7c7e0">Evolução mensal das vagas encontradas por nossas fontes públicas. Os números representam a amostra coletada, não todo o mercado.</p>""" + market_chart_html(len(monitor_cards)) + """</section>
 <div class="summary"><article>Total de vagas<strong>""" + str(len(jobs)) + """</strong></article>
 <article>QA<strong>""" + str(qa_count) + """</strong></article>
 <article>Projetos<strong>""" + str(projects_count) + """</strong></article>
@@ -776,8 +766,8 @@ matchId('matchAnalyze').addEventListener('click',()=>{
 
 
 
-def market_chart_html():
-    """Interactive, accessible SVG trend chart using only retained job history."""
+def market_chart_html(recruiter_post_count=0):
+    """Interactive chart that keeps verified vacancies separate from indexed recruiter posts."""
     from src.market_intelligence import summarize
     path = Path("data/history.json")
     try:
@@ -786,6 +776,7 @@ def market_chart_html():
     except (OSError, ValueError, TypeError):
         return '<p role="status">Histórico indisponível no momento. Novas coletas serão exibidas aqui.</p>'
     payload = json.dumps({"months": report["months"], "categories": report["categories"],
+                          "recruiter_current": int(recruiter_post_count),
                           "coverage": report["source_coverage"], "generated": report["generated_at"]},
                          ensure_ascii=False).replace("<", "\\u003c")
     return """
@@ -796,7 +787,7 @@ def market_chart_html():
     .market-controls{display:flex;flex-wrap:wrap;gap:14px;margin:18px 0}
     .market-controls label{display:grid;gap:6px;color:#c5d8ec;font-weight:600;font-size:13px}
     .market-controls select{background:#101e32;color:#f2f8ff;border:1px solid #43627c;border-radius:10px;padding:10px 14px;min-height:44px}
-    .market-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}
+    .market-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0}
     .market-kpi{background:#152a42;border:1px solid #34526a;border-radius:14px;padding:15px;min-width:0}
     .market-kpi small{display:block;color:#a9c1d8;font-size:12px}
     .market-kpi strong{display:block;color:#f4fbff;font-size:clamp(20px,3vw,29px);margin:6px 0;font-variant-numeric:tabular-nums}
@@ -816,11 +807,12 @@ def market_chart_html():
         <select id="market-area"><option value="qa">Tecnologia / QA</option><option value="manufacturing">Manufatura</option><option value="all">Comparar áreas</option></select>
       </label>
       <label for="market-window">Período
-        <select id="market-window"><option value="1">30 dias</option><option value="3">90 dias</option><option value="6">6 meses</option><option value="12">12 meses</option><option value="24" selected>24 meses</option></select>
+        <select id="market-window"><option value="1" selected>30 dias</option><option value="3">90 dias</option><option value="6">6 meses</option><option value="12">12 meses</option><option value="24">24 meses</option></select>
       </label>
     </div>
     <div class="market-kpis" aria-label="Indicadores de mercado">
-      <div class="market-kpi"><small>Vagas no mês atual</small><strong id="market-current">—</strong><span>Parcial · fontes monitoradas</span></div>
+      <div class="market-kpi"><small>Vagas coletadas no mês</small><strong id="market-current">—</strong><span>Anúncios de vagas · mês parcial</span></div>
+      <div class="market-kpi"><small>Publicações no Recruiter Monitor</small><strong id="market-recruiter-current">—</strong><span>Janela de até 30 dias · não são vagas verificadas</span></div>
       <div class="market-kpi"><small>Variação entre meses completos</small><strong id="market-change">—</strong><span id="market-change-note">Aguardando dados comparáveis</span></div>
       <div class="market-kpi"><small>Cobertura histórica</small><strong id="market-coverage">—</strong><span id="market-coverage-note">Meses com coleta identificada</span></div>
     </div>
@@ -831,7 +823,7 @@ def market_chart_html():
     </div>
     <p id="market-summary" role="status" aria-live="polite" style="color:#b7c7e0;margin:12px 0"></p>
     <details><summary style="cursor:pointer;margin:12px 0;color:#dce7ff">Ver tabela de dados mensais</summary><div style="overflow-x:auto"><table id="market-table" style="width:100%;min-width:320px"><caption>Vagas observadas por mês e categoria</caption><thead></thead><tbody id="market-monthly-body"></tbody></table></div></details>
-    <p style="color:#b7c7e0;font-size:13px">Fonte: histórico de vagas públicas monitoradas (não é API oficial do LinkedIn). Sem coleta ≠ zero vagas. Aumentar a janela não recupera dados anteriores. O mês atual é parcial e mudanças na cobertura das fontes podem distorcer comparações.</p>
+    <p style="color:#b7c7e0;font-size:13px">O gráfico contabiliza anúncios de vagas coletados. “Publicações no Recruiter Monitor” é uma métrica separada de posts encontrados no índice público e não representa vagas verificadas. Sem coleta ≠ zero vagas. Aumentar a janela não recupera dados anteriores.</p>
     <script type="application/json" id="market-history-data">""" + payload + """</script>
     <script>
     (function(){
@@ -877,6 +869,7 @@ def market_chart_html():
         const comparable=months.length>=3&&observed[observed.length-2]&&observed[observed.length-3]&&Number(data.coverage[months[months.length-2]])===Number(data.coverage[months[months.length-3]]);
         const prev=complete.reduce((s,a)=>s+(a[0]||0),0),curr=complete.reduce((s,a)=>s+(a[1]||0),0);
         document.getElementById('market-current').textContent=observed[observed.length-1]?last.toLocaleString('pt-BR'):'—';
+        document.getElementById('market-recruiter-current').textContent=Number(data.recruiter_current||0).toLocaleString('pt-BR');
         document.getElementById('market-change').textContent=comparable&&prev>0?((curr-prev)/prev*100).toLocaleString('pt-BR',{maximumFractionDigits:1})+'%':'—';
         document.getElementById('market-change-note').textContent=comparable&&prev>0?'Comparação indicativa; fontes podem mudar':'Sem dois meses completos com cobertura comparável';
         const covered=observed.filter(Boolean).length;

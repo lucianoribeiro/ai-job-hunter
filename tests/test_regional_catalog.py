@@ -69,3 +69,8 @@ class RegionalCatalogTests(unittest.TestCase):
         self.assertTrue(manufacturing_leadership_alert("Manufacturing Operations Manager"))
         self.assertFalse(manufacturing_leadership_alert("Gerente de Projetos"))
         self.assertFalse(manufacturing_leadership_alert("Engenheiro de Manufatura"))
+
+    def test_internal_audit_removed_and_company_directory_open(self):
+        page = render({"jobs": []}, [], strategic={"sources": [], "jobs": []})
+        self.assertNotIn("Conferência: fonte e interface", page)
+        self.assertIn('<details class="regional-sources" open>', page)

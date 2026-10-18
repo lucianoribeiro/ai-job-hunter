@@ -10,9 +10,6 @@ class JobReconciliationTests(unittest.TestCase):
              {"company":"Honda Brasil","title":"Analista sem URL","location":"Sumaré","url":""},
              {"company":"Honda Brasil","title":"Analista Sumaré","location":"Sumaré","url":"https://honda.gupy.io/jobs/100"}]}
         page=render({"jobs":[]},[],strategic=data)
-        self.assertIn("Retornados pelo coletor de empresas: 4",page)
-        self.assertIn("Exibidos: 1",page)
-        self.assertIn("Duplicados: 1",page)
-        self.assertIn("Localidade fora da região: 1",page)
-        self.assertIn("Registros inválidos: 1",page)
+        self.assertNotIn("Conferência: fonte e interface", page)
+        self.assertIn("Vagas coletadas: 1", page)
         self.assertEqual(page.count('class="regional-card"'),1)

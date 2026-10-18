@@ -1,6 +1,8 @@
 """Regression checks for historical market intelligence."""
 import unittest
+from unittest.mock import patch
 from src.market_intelligence import classify, summarize
+from src.unified_jobs_dashboard import market_chart_html
 
 
 class MarketIntelligenceTests(unittest.TestCase):
@@ -24,6 +26,17 @@ class MarketIntelligenceTests(unittest.TestCase):
         self.assertEqual(result["months"][-1], "10/2026")
         self.assertFalse(result["seasonality_ready"])
         self.assertIsNone(result["best_month_to_search"])
+
+    def test_dashboard_separates_vacancies_from_recruiter_posts(self):
+        report = summarize({}, "2026-10-18", {
+            "post-1": {"area": "QA", "published_at": "2026-10-18T10:00:00+00:00"}
+        })
+        with patch("src.market_intelligence.summarize", return_value=report):
+            chart = market_chart_html(31)
+        self.assertIn('id="market-recruiter-current"', chart)
+        self.assertIn("não são vagas verificadas", chart)
+        self.assertIn('<option value="1" selected>30 dias</option>', chart)
+        self.assertIn('"recruiter_current": 31', chart)
 
 
 if __name__ == "__main__":
