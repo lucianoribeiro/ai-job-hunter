@@ -87,6 +87,60 @@ def fetch_page(url):
             raise ValueError("Cross-host redirect rejected")
         return response.read(2_000_001).decode("utf-8", "replace")
 
+def workday_3m_jobs(company, endpoint="https://3m.wd1.myworkdayjobs.com/wday/cxs/3m/Search/jobs"):
+    """Public Workday search, without authentication or private member endpoints."""
+    found = {}
+    for offset in (0, 20, 40, 60, 80):
+        body = json.dumps({"appliedFacets": {}, "limit": 20, "offset": offset, "searchText": "Sumare"}).encode("utf-8")
+        request = Request(endpoint, data=body, method="POST", headers={
+            "Content-Type": "application/json", "Accept": "application/json",
+            "User-Agent": "AIJobHunter/1.0",
+        })
+        with urlopen(request, timeout=20) as response:
+            payload = json.load(response)
+        postings = payload.get("jobPostings", [])
+        if not isinstance(postings, list):
+            raise ValueError("Unexpected Workday response")
+        for post in postings:
+            if not isinstance(post, dict):
+                continue
+            path = str(post.get("externalPath") or "")
+            title = str(post.get("title") or "").strip()
+            location = str(post.get("locationsText") or "")
+            if not title or not path.startswith("/job/") or not re.search(r"sumar[eé]|sumare|paul[ií]nia|americana", title+" "+location, re.I):
+                continue
+            url = urljoin("https://3m.wd1.myworkdayjobs.com/en-US/Search/", path.lstrip("/"))
+            city = inferred_city(title+" "+location)
+            found[url] = {"company": company, "title": title, "location": city or "Não informado",
+                          "url": url, "source": "Workday público", "published": "",
+                          "regional": bool(city), "target_role": bool(TITLE.search(title)),
+                          "verification": "Confirmar abertura e detalhes no portal oficial"}
+        if len(postings) < 20:
+            break
+    return list(found.values())
+
+
+def ppg_public_jobs(html_text, base_url, company):
+    """Recognize actual official PPG job links, never fabricate vacancies."""
+    parser = Links()
+    parser.feed(html_text)
+    found = {}
+    for href, label in parser.found:
+        url = urljoin(base_url, href)
+        parsed = urlsplit(url)
+        if parsed.hostname != "careers.ppg.com" or not re.search(r"/(?:br/pt|global/en)/job/", parsed.path, re.I):
+            continue
+        text = (label or "").strip()
+        if not text or not re.search(r"sumar[eé]|sumare|paul[ií]nia|americana", text+" "+parsed.path, re.I):
+            continue
+        city = inferred_city(text+" "+parsed.path.replace("-", " "))
+        found[url] = {"company": company, "title": text, "location": city or "Não informado",
+                      "url": url, "source": "Portal oficial PPG", "published": "",
+                      "regional": bool(city), "target_role": bool(TITLE.search(text)),
+                      "verification": "Confirmar vaga ativa no portal oficial"}
+    return list(found.values())
+
+
 def collect(config, fetcher=fetch_page):
     jobs, statuses = [], []
     for item in config["companies"]:
@@ -96,10 +150,14 @@ def collect(config, fetcher=fetch_page):
             statuses.append({"company": company, "city": item.get("city", ""), "url": url, "state": "manual", "found": 0})
             continue
         try:
-            page = fetcher(url)
-            if len(page) > 2_000_000:
-                raise ValueError("Response exceeds safety limit")
-            found = extract_jobs(page, url, company, item.get("connector", "gupy"))
+            connector = item.get("connector", "gupy")
+            if connector == "workday_3m":
+                found = workday_3m_jobs(company)
+            else:
+                page = fetcher(url)
+                if len(page) > 2_000_000:
+                    raise ValueError("Response exceeds safety limit")
+                found = ppg_public_jobs(page, url, company) if connector == "ppg_public" else extract_jobs(page, url, company, connector)
             jobs.extend(found)
             statuses.append({"company": company, "state": "ok" if found else "needs_connector",
                              "found": len(found), "city": item.get("city", ""), "url": url})
