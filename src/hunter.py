@@ -18,7 +18,7 @@ DATA = ROOT / "data"
 USER_AGENT = "AIJobHunter/1.0 (public job listing aggregator)"
 
 
-def fetch_json(url: str) -> dict:
+def fetch_json(url: str) -> dict | list:
     request = Request(url, headers={"User-Agent": USER_AGENT, "Accept": "application/json"})
     with urlopen(request, timeout=25) as response:
         return json.load(response)
@@ -71,7 +71,7 @@ def jobicy() -> list[dict]:
 def himalayas() -> list[dict]:
     jobs = []
     for keyword in ("quality assurance", "project manager", "qa engineer"):
-        data = fetch_json("https://himalayas.app/jobs/api/search?q=" + quote(keyword) + "&sort=recent")
+        data = fetch_json("https://himalayas.app/jobs/api/search?q=" + quote(keyword) + "&sort=recent&page=1")
         for j in data.get("jobs", []):
             if not isinstance(j, dict):
                 continue
@@ -83,7 +83,7 @@ def himalayas() -> list[dict]:
                 "id": "himalayas:" + str(j.get("guid") or j.get("id") or ""),
                 "title": plain(j.get("title")), "company": plain(j.get("companyName")),
                 "url": str(j.get("applicationLink") or j.get("url") or ""),
-                "location": plain(j.get("location") or j.get("locationRestrictions") or "Remote"),
+                "location": plain(", ".join(j.get("locationRestrictions") or []) or j.get("location") or "Remote"),
                 "salary": salary, "type": plain(j.get("employmentType")),
                 "description": plain(j.get("description")),
                 "source": "Himalayas", "published": str(j.get("pubDate") or j.get("publishedAt") or ""),
@@ -141,11 +141,16 @@ def classify(job: dict, config: dict) -> dict | None:
 
 def collect(config: dict) -> tuple[list[dict], list[str]]:
     raw, errors = [], []
+    source_counts = {}
     for name, fn in (("remotive", remotive), ("arbeitnow", arbeitnow), ("jobicy", jobicy), ("himalayas", himalayas), ("remoteok", remoteok)):
         if name not in config["sources"]:
             continue
         try:
-            raw.extend(fn())
+            fetched = fn()
+            if not isinstance(fetched, list):
+                raise ValueError("Unexpected source response: expected list")
+            source_counts[name] = len(fetched)
+            raw.extend(fetched)
         except (OSError, ValueError, KeyError, TypeError) as error:
             errors.append(f"{name}: {error}")
     seen, ranked = set(), []
@@ -159,6 +164,7 @@ def collect(config: dict) -> tuple[list[dict], list[str]]:
         if match:
             ranked.append(match)
     ranked.sort(key=lambda x: (-x["score"], x["company"].lower(), x["title"].lower()))
+    print("Source results: " + ", ".join(f"{name}={count}" for name, count in source_counts.items()))
     return ranked[: config.get("max_results", 100)], errors
 
 
