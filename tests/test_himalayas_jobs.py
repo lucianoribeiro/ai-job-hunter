@@ -8,7 +8,7 @@ class HimalayasTests(unittest.TestCase):
         def getter(url):
             return {"jobs": [
                 {"title": "QA Engineer", "companyName": "Example", "url": "https://himalayas.app/jobs/1",
-                 "pubDate": "2026-10-15", "locationRestrictions": ["Brazil"]},
+                 "pubDate": "2026-10-15", "locationRestrictions": ["Brazil"], "description": "Automated testing, API QA and CI/CD experience required."},
                 {"title": "Sales Executive", "companyName": "Example", "url": "https://himalayas.app/jobs/2"}]}
         data = collect(getter)
         self.assertEqual(len(data["jobs"]), 1)
@@ -16,6 +16,10 @@ class HimalayasTests(unittest.TestCase):
         rows = normalize({"jobs": []}, [], remote_jobs=data["jobs"])
         self.assertEqual(rows[0]["published_iso"], "2026-10-15")
         self.assertEqual(rows[0]["area"], "QA")
+        self.assertIn("Automated testing", rows[0]["description"])
+        from src.unified_jobs_dashboard import render
+        page = render({"jobs": []}, [], remote_jobs=data["jobs"])
+        self.assertIn('data-description="Automated testing, API QA and CI/CD experience required."', page)
 
 if __name__ == "__main__":
     unittest.main()
