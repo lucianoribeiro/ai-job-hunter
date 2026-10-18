@@ -108,16 +108,58 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # Preserve the freshly collected rows independently from the checkout.
+          mkdir -p /tmp/ai-job-hunter-history
+          cp data/history.json /tmp/ai-job-hunter-history/history.json
+          cp data/linkedin_history.json /tmp/ai-job-hunter-history/linkedin_history.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- data/history.json data/linkedin_history.json
-          if git diff --cached --quiet; then
-            echo "History unchanged; nothing to save."
-          else
+          # Another workflow or a user can push to main during collection.
+          # Always start from the latest remote main and MERGE histories by identity.
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            python - <<'PY'
+          import json
+          from pathlib import Path
+          for name in ("history.json", "linkedin_history.json"):
+              latest_path = Path("data") / name
+              collected_path = Path("/tmp/ai-job-hunter-history") / name
+              latest = json.loads(latest_path.read_text(encoding="utf-8")) if latest_path.exists() else {}
+              collected = json.loads(collected_path.read_text(encoding="utf-8"))
+              merged = dict(latest)
+              for key, record in collected.items():
+                  if not isinstance(record, dict):
+                      continue
+                  previous = merged.get(key, {})
+                  if not isinstance(previous, dict):
+                      previous = {}
+                  combined = {**previous, **record}
+                  if previous.get("first_seen") and record.get("first_seen"):
+                      combined["first_seen"] = min(previous["first_seen"], record["first_seen"])
+                  if previous.get("last_seen") and record.get("last_seen"):
+                      combined["last_seen"] = max(previous["last_seen"], record["last_seen"])
+                  merged[key] = combined
+              latest_path.parent.mkdir(parents=True, exist_ok=True)
+              latest_path.write_text(json.dumps(merged, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+              print(f"{name}: retained {len(merged)} records")
+          PY
+            git add -- data/history.json data/linkedin_history.json
+            if git diff --cached --quiet; then
+              echo "Histories already up-to-date on main."
+              break
+            fi
             git commit -m "data: retain collected job and LinkedIn history [skip ci]"
-            git push origin HEAD:main
-            echo "Historical JSON files saved to main."
-          fi
+            if git push origin HEAD:main; then
+              echo "Historical JSON files saved to main."
+              break
+            fi
+            if [ "$attempt" -eq 5 ]; then
+              echo "::error::Could not persist history after 5 synchronization attempts"
+              exit 1
+            fi
+            echo "main moved during push; retrying after merging latest history."
+          done
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload public site
