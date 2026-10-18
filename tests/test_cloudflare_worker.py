@@ -9,6 +9,7 @@ class CloudflareWorkerTests(unittest.TestCase):
         cls.source = Path("cloudflare/match-worker/index.js").read_text(encoding="utf-8")
 
     def test_cv_route_is_implemented_for_dashboard_contract(self):
+        self.assertIn('@cf/meta/llama-3.3-70b-instruct-fp8-fast', self.source)
         self.assertIn('["/match","/cv"]', self.source)
         self.assertIn('if(pathname==="/cv")', self.source)
         self.assertIn('return json({cv,method:', self.source)

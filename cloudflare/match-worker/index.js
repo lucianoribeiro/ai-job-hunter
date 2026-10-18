@@ -1,7 +1,7 @@
 // Public, narrowly scoped AI proxy. Never return credentials or persist resumes.
 // Request bodies are deliberately bounded; browser must request explicit consent.
 const ORIGIN = "https://lucianoribeiro.github.io";
-const MODEL = "@cf/meta/llama-3.1-8b-instruct";
+const MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
 const CV_INSTRUCTION = `Você é um especialista sênior em recrutamento internacional, redação executiva e currículos compatíveis com ATS.
 Sua tarefa é transformar o conteúdo fornecido em um currículo profissional para o cargo-alvo, no idioma solicitado.
 
