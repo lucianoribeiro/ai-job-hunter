@@ -22,7 +22,7 @@ class MunicipalSourcesTests(unittest.TestCase):
 
     def test_inject_portal_access_without_fabricating_jobs(self):
         report = {"sources": [{**SOURCE, "jobs": [], "status": "browse_only"}], "jobs": []}
-        html = inject_dashboard("<main><h1>Premium</h1></main>", report)
+        html = inject_dashboard('<main><div id="mainPanelRegional" class="primary-panel"><h1>Regional</h1></div></main>', report)
         self.assertIn('id="municipal-jobs"', html)
         self.assertIn("Consultar vagas no portal oficial", html)
         self.assertNotIn("Verificar anúncio original", html)
@@ -44,9 +44,24 @@ class MunicipalSourcesTests(unittest.TestCase):
         self.assertLess(result.index('id="municipal-jobs"'), result.index("</body>"))
         self.assertEqual(result.count('id="municipal-jobs"'), 1)
 
+    def test_municipal_section_is_inside_regional_panel_only(self):
+        report = {"sources": [{**SOURCE, "jobs": [], "status": "browse_only"}], "jobs": []}
+        page = ('<div id="mainPanelGeneral" class="primary-panel">General</div>'
+                '<div id="mainPanelRegional" class="primary-panel">Regional</div>'
+                '<div id="mainPanelAI" class="primary-panel">AI</div>')
+        result = inject_dashboard(page, report)
+        self.assertLess(result.index('id="mainPanelRegional"'), result.index('id="municipal-jobs"'))
+        self.assertLess(result.index('id="municipal-jobs"'), result.index('id="mainPanelAI"'))
+        self.assertNotIn('id="municipal-jobs"', result.split('id="mainPanelRegional"')[0])
+
+    def test_missing_regional_panel_is_rejected(self):
+        report = {"sources": [{**SOURCE, "jobs": [], "status": "browse_only"}], "jobs": []}
+        with self.assertRaisesRegex(ValueError, "missing Regional"):
+            inject_dashboard('<body><div id="mainPanelGeneral">General</div></body>', report)
+
     def test_no_duplicate_municipal_section(self):
         report = {"sources": [{**SOURCE, "jobs": [], "status": "browse_only"}], "jobs": []}
-        once = inject_dashboard("<body><p>App</p></body>", report)
+        once = inject_dashboard('<body><div id="mainPanelRegional" class="primary-panel"><p>Regional</p></div></body>', report)
         with self.assertRaisesRegex(ValueError, "already present"):
             inject_dashboard(once, report)
 
