@@ -421,8 +421,17 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         if origin not in ("Empresa", "Recrutador"):
             origin = "Não verificada"
         salary = item.get('salary_usd')
-        if category == 'QA' and isinstance(salary, str) and salary.startswith('US$ '):
-            extra += '<p class="recruiter-salary">Remuneração anunciada: ' + e(salary) + '</p>'
+        contract = item.get("contract_type", "Não informado")
+        if contract not in ("CLT", "PJ", "B2B", "Cooperativa"):
+            contract = "Não informado"
+        if isinstance(salary, str) and salary.startswith('US$ '):
+            extra += '<p class="recruiter-salary"><strong>Remuneração em USD:</strong> ' + e(salary) + '</p>'
+        if item.get("salary_evidence"):
+            extra += '<p class="recruiter-evidence">Trecho da remuneração: ' + e(item["salary_evidence"]) + '</p>'
+        if item.get("modality_evidence"):
+            extra += '<p class="recruiter-evidence">Trecho da modalidade: ' + e(item["modality_evidence"]) + '</p>'
+        if item.get("contract_evidence"):
+            extra += '<p class="recruiter-evidence">Trecho da contratação: ' + e(item["contract_evidence"]) + '</p>'
         contact = recruiter_email(raw_title)
         if category == "Manufatura":
             details = manufacturing_details(raw_title)
@@ -447,11 +456,12 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         accessible_date = e("Data do índice público: " + published_accessible + ", horário de Brasília") if published_accessible else e(published)
         monitor_cards.append(
             '<article class="recruiter-card" data-area="' + category + '" data-mode="' + modality + '" '
-            'data-origin="' + e(origin) + '" data-usd="' + ('yes' if category == 'QA' and isinstance(salary, str) and salary.startswith('US$ ') else 'no') + '">'
+            'data-origin="' + e(origin) + '" data-contract="' + e(contract) + '" data-usd="' + ('yes' if isinstance(salary, str) and salary.startswith('US$ ') else 'no') + '">'
             '<div class="recruiter-badges">'
             '<span class="recruiter-pill recruiter-pill-area">' + category + '</span>'
             '<span class="recruiter-pill">' + modality + '</span>'
-            '<span class="recruiter-pill recruiter-pill-origin">Origem: ' + e(origin) + '</span></div>'
+            '<span class="recruiter-pill recruiter-pill-origin">Origem: ' + e(origin) + '</span>'
+            '<span class="recruiter-pill">Contrato: ' + e(contract) + '</span></div>'
             '<h3 class="recruiter-title">' + title + '</h3>'
             '<p class="recruiter-employer">Empresa: não identificada no índice</p>'
             '<div class="recruiter-extra">' + extra + '</div>'
@@ -475,6 +485,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         '<option value="Remoto">Remoto mencionado</option><option value="Híbrido">Híbrido mencionado</option>'
         '<option value="Não informada">Não informada</option></select></label>'
         '<label>Salário <select id="recruiter-usd"><option value="">Todos os salários</option><option value="yes">Somente vagas com salário em USD</option></select></label>'
+        '<label>Contrato <select id="recruiter-contract"><option value="">Todos</option><option>CLT</option><option>PJ</option><option>B2B</option><option>Cooperativa</option><option value="Não informado">Não informado</option></select></label>'
         '<label>Origem <select id="recruiter-origin"><option value="">Todas as origens</option><option value="Empresa">Empresa (verificada)</option><option value="Recrutador">Recrutador (identificado)</option><option value="Não verificada">Origem não verificada</option></select></label></div>'
         '<style>.recruiter-card{background:#202832;border:1px solid #465363;border-radius:16px;padding:18px;min-width:0;display:flex;flex-direction:column;gap:12px;color:#e8eef5}.recruiter-badges{display:flex;gap:7px;flex-wrap:wrap}.recruiter-pill{background:#363d49;color:#e0e9f3;border-radius:99px;padding:5px 10px;font-size:12px;font-weight:600}.recruiter-pill-area{background:#314f4a;color:#bcffe9}.recruiter-pill-origin{background:#39374d;color:#eee2ff}.recruiter-title{font-size:18px;line-height:1.4;color:#f1f5f9;margin:0;overflow-wrap:anywhere}.recruiter-employer{font-size:13px;color:#d0dae5;margin:0}.recruiter-index-date{border-top:1px solid #465363;padding-top:12px;color:#e3edf7;font-size:14px}.recruiter-index-note{display:block;color:#b2c5d7;font-size:12px;margin-top:4px}.recruiter-open{display:block;margin-top:auto;text-align:center;padding:12px 14px;border-radius:10px;background:#347d6d;color:white!important;font-weight:700;text-decoration:none;min-height:44px}.recruiter-open:hover,.recruiter-open:focus-visible{background:#409582;outline-offset:3px}.recruiter-extra{overflow-wrap:anywhere}</style>'
         '<div id="recruiter-list" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px">'
@@ -543,23 +554,24 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 <footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
 na página oficial. Fonte Himalayas: <a href="https://himalayas.app">himalayas.app</a>. Apenas datas de publicação fornecidas pelas fontes são exibidas; datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
-const recruiterArea=document.getElementById('recruiter-area'),recruiterMode=document.getElementById('recruiter-mode'),recruiterUsd=document.getElementById('recruiter-usd'),recruiterOrigin=document.getElementById('recruiter-origin');
+const recruiterArea=document.getElementById('recruiter-area'),recruiterMode=document.getElementById('recruiter-mode'),recruiterUsd=document.getElementById('recruiter-usd'),recruiterOrigin=document.getElementById('recruiter-origin'),recruiterContract=document.getElementById('recruiter-contract');
 function filterRecruiter(){
- if(!recruiterArea||!recruiterMode||!recruiterUsd||!recruiterOrigin)return;
+ if(!recruiterArea||!recruiterMode||!recruiterUsd||!recruiterOrigin||!recruiterContract)return;
  let visible=0;
  document.querySelectorAll('.recruiter-card').forEach(card=>{
   const area=!recruiterArea.value||card.dataset.area===recruiterArea.value;
   const mode=!recruiterMode.value||card.dataset.mode.startsWith(recruiterMode.value);
   const usd=!recruiterUsd.value||card.dataset.usd===recruiterUsd.value;
   const origin=!recruiterOrigin.value||card.dataset.origin===recruiterOrigin.value;
-  card.hidden=!(area&&mode&&usd&&origin);
+  const contract=!recruiterContract.value||card.dataset.contract===recruiterContract.value;
+  card.hidden=!(area&&mode&&usd&&origin&&contract);
   if(!card.hidden)visible++;
  });
  const count=document.getElementById('recruiter-count');
  if(count)count.textContent=String(visible);
 }
-if(recruiterArea&&recruiterMode&&recruiterUsd&&recruiterOrigin){
- for(const select of [recruiterArea,recruiterMode,recruiterUsd,recruiterOrigin])select.addEventListener('change',filterRecruiter);
+if(recruiterArea&&recruiterMode&&recruiterUsd&&recruiterOrigin&&recruiterContract){
+ for(const select of [recruiterArea,recruiterMode,recruiterUsd,recruiterOrigin,recruiterContract])select.addEventListener('change',filterRecruiter);
 }
 document.querySelector('.ai-tab[data-task="cv"]')?.click();
 const cvStudio=document.getElementById('studioCvPanel');
