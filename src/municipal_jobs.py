@@ -84,7 +84,7 @@ def collect(fetcher=fetch):
             "sources": sources, "jobs": [job for s in sources for job in s["jobs"]]}
 
 def inject_dashboard(page, report):
-    if re.search(r\x27<[^>]+\\bid=["\\\x27]municipal-jobs["\\\x27]\x27, page):
+    if 'id="municipal-jobs"' in page or "id='municipal-jobs'" in page:
         raise ValueError("Municipal section already present")
     cards = []
     for source in report["sources"]:
