@@ -758,7 +758,7 @@ def market_chart_html():
         <select id="market-area"><option value="qa">Tecnologia / QA</option><option value="manufacturing">Manufatura</option></select>
       </label>
       <label for="market-window">Período
-        <select id="market-window"><option value="6">6 meses</option><option value="12" selected>12 meses</option></select>
+        <select id="market-window"><option value="6">6 meses</option><option value="12">12 meses</option><option value="24" selected>24 meses</option></select>
       </label>
     </div>
     <div id="market-summary" role="status" aria-live="polite" style="color:#b7c7e0;margin:12px 0"></div>
