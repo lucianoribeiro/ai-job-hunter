@@ -9,7 +9,7 @@ def render_advisor() -> str:
 .fc-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:18px}
 .fc-card{border:1px solid #e1e7f0;background:#f8fafc;border-radius:14px;padding:17px;min-width:0}
 .fc-card strong{display:block;font-size:clamp(19px,2vw,25px);color:#18345f;margin:9px 0;overflow-wrap:anywhere}
-.fc-card small{color:#64748b;line-height:1.5}.fc-card.best{border-color:#0d9488;background:#f0fdfa}
+.fc-card small{color:#64748b;line-height:1.5}.fc-card-caption{color:#294e64;font-size:14px;font-weight:700;margin:8px 0 2px}.fc-card-name{color:#334155;font-weight:650}.fc-card.best{border-color:#0d9488;background:#f0fdfa}
 .fc-note{font-size:12px;color:#64748b;line-height:1.6}
 .fc-summary{padding:15px 17px;border-radius:12px;background:#f1f5f9;margin-top:15px;line-height:1.6}
 </style>
@@ -87,9 +87,9 @@ function update(){
  const pj=required(effectiveTax,cost+personalCost),coop=required(coopFee+coopTax,0);
  const spread=Math.min(.3,number('fx-spread')/100),international=required(effectiveTax+(1-effectiveTax)*spread,cost+personalCost);
  const scenarios=[
-  {name:'PJ · '+(regime==='simples'?'Simples Nacional':'Lucro Presumido'),amount:pj,rate:effectiveTax,detail:'Tributos efetivos assumidos + custos administrativos'},
-  {name:'B2B internacional',amount:international,rate:effectiveTax,detail:'Considera spread cambial configurável, sem apurar IOF e tributação de exportação'},
-  {name:'Cooperativa',amount:coop,rate:coopFee+coopTax,detail:'Taxa administrativa e encargos editáveis; sem custos PJ'},
+  {name:'PJ · '+(regime==='simples'?'Simples Nacional':'Lucro Presumido'),amount:pj,rate:effectiveTax,detail:'Valor de nota fiscal mensal para prestar serviços como empresa no Brasil. Inclui impostos e custos estimados; não é salário líquido.',heading:'Quanto pedir como PJ nacional'},
+  {name:'B2B internacional',amount:international,rate:effectiveTax,detail:'Valor mensal para negociar com empresa estrangeira, geralmente em USD. Inclui spread estimado; não representa o líquido recebido.',heading:'Quanto pedir em B2B internacional'},
+  {name:'Cooperativa',amount:coop,rate:coopFee+coopTax,detail:'Valor mensal de contrato por intermédio de cooperativa, antes de taxas e encargos. Confira as regras de repasse e o estatuto.',heading:'Quanto pedir via cooperativa'},
  ];
  const factorNote=regime==='simples'&&el('activity').value==='subject'?
   (factor===null?'RBT12 não informada; alíquota manual utilizada.':'Fator R estimado: '+(factor*100).toFixed(1)+'%; Anexo '+annex+' considerado. Alíquota efetiva aproximada: '+(effectiveTax*100).toFixed(2)+'%.'):
@@ -98,9 +98,9 @@ function update(){
   const isB2B=x.name==='B2B internacional',showUsd=isB2B||currency==='USD';
   const negotiated=x.amount===null?'Inviável com as taxas atuais':money(showUsd?x.amount/Math.max(fx,.01):x.amount,showUsd?'USD':'BRL')+'/mês';
   const converted=x.amount===null?'':'<br>Equivalente em '+(showUsd?'BRL: '+money(x.amount):'USD: '+money(x.amount/Math.max(fx,.01),'USD'));
-  return '<article class="fc-card"><span>'+x.name+'</span><strong>'+negotiated+'</strong><small>Retenções estimadas: '+(x.rate*100).toFixed(1)+'%<br>'+x.detail+converted+'</small></article>';
+  return '<article class="fc-card"><span class="fc-card-name">'+x.name+'</span><p class="fc-card-caption">'+x.heading+'</p><strong>'+negotiated+'</strong><small><b>Faturamento/valor bruto mensal sugerido — não é salário líquido.</b><br>Alíquota/encargos percentuais estimados: '+(x.rate*100).toFixed(1)+'%<br>'+x.detail+converted+'</small></article>';
  }).join('');
- result.innerHTML='<div class="fc-summary"><strong>Referência CLT anual (valor econômico bruto)</strong><div>'+money(clt)+' · '+money(clt/12)+'/mês</div><small>Inclui provisões de 13º, férias + 1/3, FGTS estimado, benefícios e PLR. Margem desejada: '+(margin*100).toFixed(0)+'%.</small></div><div class="fc-cards">'+cards+'</div><div class="fc-summary"><strong>Como interpretar</strong><p>Os cenários tributários dependem de CNAE, município e enquadramento confirmado. Reserva pessoal sobre pró-labore informada separadamente. Esses valores representam faturamento mensal-alvo durante '+months+' meses faturados, não salário líquido nem imposto apurado. Compare também segurança contratual, férias não remuneradas, seguro, riscos de rescisão, tributação e encargos pessoais.</p></div>';
+ result.innerHTML='<div class="fc-summary"><strong>Sua referência: CLT bruto + benefícios anuais</strong><div>'+money(clt)+' · '+money(clt/12)+'/mês</div><small>Inclui provisões de 13º, férias + 1/3, FGTS estimado, benefícios e PLR. Margem desejada: '+(margin*100).toFixed(0)+'%.</small></div><div class="fc-cards">'+cards+'</div><div class="fc-summary"><strong>Como interpretar</strong><p>Os cenários tributários dependem de CNAE, município e enquadramento confirmado. Reserva pessoal sobre pró-labore informada separadamente. Esses valores representam faturamento mensal-alvo durante '+months+' meses faturados, não salário líquido nem imposto apurado. Compare também segurança contratual, férias não remuneradas, seguro, riscos de rescisão, tributação e encargos pessoais.</p></div>';
 }
 
 fields.forEach(k=>{el(k).addEventListener('blur',()=>format(k));el(k).addEventListener('focus',()=>el(k).select())});
