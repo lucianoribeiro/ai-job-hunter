@@ -442,7 +442,8 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         '<option>Manufatura</option><option>QA</option><option>Projetos</option><option>Outros</option></select></label>'
         '<label>Modalidade <select id="recruiter-mode"><option value="">Todas</option>'
         '<option value="Remoto">Remoto mencionado</option><option value="Híbrido">Híbrido mencionado</option>'
-        '<option value="Não informada">Não informada</option></select></label></div>'
+        '<option value="Não informada">Não informada</option></select></label>'
+        '<label>Salário <select id="recruiter-usd"><option value="">Todos os salários</option><option value="yes">Somente vagas com salário em USD</option></select></label></div>'
         '<div id="recruiter-list" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px">'
         + "".join(monitor_cards) + '</div>'
         '<p style="font-size:12px;opacity:.7">A data do índice pode diferir da data do post. '
@@ -509,9 +510,23 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 <footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
 na página oficial. Fonte Himalayas: <a href="https://himalayas.app">himalayas.app</a>. Apenas datas de publicação fornecidas pelas fontes são exibidas; datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
-const recruiterArea=document.getElementById('recruiter-area'),recruiterMode=document.getElementById('recruiter-mode');
-function filterRecruiter(){if(!recruiterArea||!recruiterMode)return;let visible=0;document.querySelectorAll('.recruiter-card').forEach(card=>{const area=!recruiterArea.value||card.dataset.area===recruiterArea.value;const mode=!recruiterMode.value||card.dataset.mode.startsWith(recruiterMode.value);card.hidden=!(area&&mode);if(!card.hidden)visible++;});const count=document.getElementById('recruiter-count');if(count)count.textContent=String(visible);}
-if(recruiterArea&&recruiterMode){recruiterArea.addEventListener('change',filterRecruiter);recruiterMode.addEventListener('change',filterRecruiter);}
+const recruiterArea=document.getElementById('recruiter-area'),recruiterMode=document.getElementById('recruiter-mode'),recruiterUsd=document.getElementById('recruiter-usd');
+function filterRecruiter(){
+ if(!recruiterArea||!recruiterMode||!recruiterUsd)return;
+ let visible=0;
+ document.querySelectorAll('.recruiter-card').forEach(card=>{
+  const area=!recruiterArea.value||card.dataset.area===recruiterArea.value;
+  const mode=!recruiterMode.value||card.dataset.mode.startsWith(recruiterMode.value);
+  const usd=!recruiterUsd.value||card.dataset.usd===recruiterUsd.value;
+  card.hidden=!(area&&mode&&usd);
+  if(!card.hidden)visible++;
+ });
+ const count=document.getElementById('recruiter-count');
+ if(count)count.textContent=String(visible);
+}
+if(recruiterArea&&recruiterMode&&recruiterUsd){
+ for(const select of [recruiterArea,recruiterMode,recruiterUsd])select.addEventListener('change',filterRecruiter);
+}
 document.querySelector('.ai-tab[data-task="cv"]')?.click();
 const cvStudio=document.getElementById('studioCvPanel');
 if(cvStudio){const workspace=cvStudio.parentElement;for(const child of [...workspace.children]){if(child!==cvStudio && child.id!=='studioFitPanel' && child.id!=='studioApplicationPanel' && child.id!=='studioCareerPanel' && child.id!=='aiTaskTitle' && child.id!=='aiTaskHelp' && child.matches('p.muted'))child.hidden=true;}const title=document.getElementById('aiTaskTitle');if(title)title.hidden=true;const hint=document.getElementById('aiTaskHelp');if(hint)hint.hidden=true;}
