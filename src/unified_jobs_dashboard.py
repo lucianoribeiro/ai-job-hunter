@@ -125,6 +125,25 @@ def region_city(location):
     return ""
 
 
+
+def usd_monthly_floor(job):
+    """Only explicitly USD-denominated advertised salaries; no inferred amounts."""
+    raw = str(job.get("salary") or job.get("salary_range") or "").strip()
+    currency = str(job.get("salary_currency") or "").upper()
+    if not raw or not (currency == "USD" or re.search(r"USD|US\\$|\\$", raw, re.I)):
+        return None
+    numbers = [float(x.replace(",", "")) for x in re.findall(r"(?<![\\w])(?:USD\\s*|US\\$\\s*|\\$\\s*)?(\\d{1,3}(?:,\\d{3})+(?:\\.\\d+)?|\\d{4,7}(?:\\.\\d+)?)", raw, re.I)]
+    if not numbers:
+        return None
+    floor = min(numbers)
+    if re.search(r"\\b(?:year|yearly|annual|annually|ano|anual|/yr|/year)\\b", raw, re.I):
+        floor /= 12
+    elif re.search(r"\\b(?:hour|hourly|hora|/hr|/hour)\\b", raw, re.I):
+        floor *= 160
+    elif not re.search(r"\\b(?:month|monthly|mensal|mês|/mo|/month)\\b", raw, re.I):
+        return None
+    return round(floor, 2)
+
 def normalize(project_report, qa_jobs, linkedin_jobs=None, remote_jobs=None):
     rows, seen = [], set()
     for area, jobs in (("Projetos", project_report.get("jobs", [])), ("QA", qa_jobs)):
@@ -151,7 +170,7 @@ def normalize(project_report, qa_jobs, linkedin_jobs=None, remote_jobs=None):
                 "modality": modality, "mode_key": "remote" if evidence == "explicit" else (
                     "verify" if evidence == "description_only" else "unknown"),
                 "published": published_date(job.get("published")),
-                "published_iso": published_iso(job.get("published")),
+                "published_iso": published_iso(job.get("published")), "usd_monthly": usd_monthly_floor(job),
                 "brazil": job.get("brazil_eligible") or "Não verificado", "description": str(job.get("description") or job.get("job_description") or job.get("requirements") or "")[:12000]
             })
     for job in (remote_jobs or []):
@@ -169,7 +188,7 @@ def normalize(project_report, qa_jobs, linkedin_jobs=None, remote_jobs=None):
                      "location": loc, "regional_city": region_city(loc), "source": job.get("source") or "Himalayas",
                      "url": url, "modality": "Remoto informado — elegibilidade a confirmar" if job.get("remote_evidence") == "explicit" else "Não informado",
                      "mode_key": "remote" if job.get("remote_evidence") == "explicit" else "unknown", "published": published_date(job.get("published")),
-                     "published_iso": published_iso(job.get("published")), "brazil": "Não verificado", "description": str(job.get("description") or job.get("job_description") or job.get("requirements") or "")[:12000]})
+                     "published_iso": published_iso(job.get("published")), "usd_monthly": usd_monthly_floor(job), "brazil": "Não verificado", "description": str(job.get("description") or job.get("job_description") or job.get("requirements") or "")[:12000]})
     return rows
 
 
@@ -178,9 +197,9 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
     qa_count = sum(x["area"] == "QA" for x in jobs)
     projects_count = sum(x["area"] == "Projetos" for x in jobs)
     body = "".join(
-        '<tr data-area="' + e(j["area"]) + '" data-mode="' + e(j["mode_key"]) + '" data-source="' + e(j["source"]) + '" data-location="' + e(j["location"]) + '" data-city="' + e(j["regional_city"]) + '" data-published="' + e(j["published_iso"]) + '">' +
+        '<tr data-usd-monthly="' + e(j.get("usd_monthly") or "") + '" data-area="' + e(j["area"]) + '" data-mode="' + e(j["mode_key"]) + '" data-source="' + e(j["source"]) + '" data-location="' + e(j["location"]) + '" data-city="' + e(j["regional_city"]) + '" data-published="' + e(j["published_iso"]) + '">' +
         '<td><a href="' + e(j["url"]) + '" target="_blank" rel="noopener noreferrer">' + e(studio_job_label(j["title"])) + '</a></td>' +
-        "<td>" + e(j["company"]) + "</td><td>" + e(j["area"]) + "</td><td>" + e(j["location"]) +
+        "<td>" + e(j["company"]) + (" 🇺🇸" if j.get("usd_monthly") else "") + "</td><td>" + e(j["area"]) + "</td><td>" + e(j["location"]) +
         "</td><td>" + e(j["modality"]) + "</td><td>" + e(j["source"]) + "</td><td>" +
         e(j["published"]) + "</td></tr>" for j in jobs
     )
@@ -320,7 +339,7 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 .regional-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:18px 0}.regional-filters label{font-size:13px;display:grid;gap:7px;color:#d6d9df}.regional-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:13px}.regional-card{padding:17px;border:1px solid #46505a;border-radius:15px;background:#252a31}.regional-heading{display:flex;justify-content:space-between;align-items:start;gap:12px}.regional-pill{font-size:11px;border:1px solid #638e82;border-radius:20px;padding:4px 7px;white-space:nowrap}.regional-card p{color:#bbc3cc;font-size:13px;line-height:1.5}.regional-card summary,.regional-sources summary{cursor:pointer;color:#9bd4c6;font-weight:650}.regional-card details a{display:inline-block;margin-top:12px}.regional-sources{margin-top:20px}.regional-card[hidden]{display:none}
 .primary-tabs{position:sticky;top:0;z-index:20;background:#171b21;border:1px solid #46505a;border-radius:16px;display:flex;gap:8px;padding:9px;margin:14px 0}.primary-tab{flex:1;min-height:48px;padding:12px;border:1px solid #515960;border-radius:10px;background:#292f37;color:#f5f5f4;font:inherit;font-weight:700;cursor:pointer}.primary-tab[aria-selected="true"]{background:#477f71;border-color:#9bd4c6;color:white}.primary-panel[hidden]{display:none!important}.primary-tab:focus-visible{outline:3px solid #e8bd78;outline-offset:2px}@media(max-width:650px){.primary-tabs{gap:5px}.primary-tab{font-size:12px;padding:10px 6px}}.page-controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:18px;padding:12px;border:1px solid #414b55;border-radius:12px;background:#222830}.page-controls label{display:flex;gap:8px;align-items:center;font-size:14px}.page-controls select{width:auto;min-width:130px}.page-controls button{background:#323a43;color:#fff;border:1px solid #5b6976;border-radius:9px;padding:10px 14px;cursor:pointer;min-height:42px}.page-controls button:disabled{opacity:.45;cursor:not-allowed}.page-summary,.page-index{font-size:14px;color:#e6eeec}.page-controls button:focus-visible{outline:3px solid #e8bd78}@media(max-width:650px){.page-controls{gap:8px}.page-controls label,.page-summary{width:100%}}.sort-column{background:transparent;border:0;color:inherit;font:inherit;font-weight:700;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:5px;padding:8px 3px;min-height:40px}.sort-column span[aria-hidden]{font-size:21px;line-height:1;min-width:22px;text-align:center;font-weight:900;color:#e8bd78}.brand-lockup{display:flex;align-items:center;gap:15px}.brand-symbol{display:inline-flex;flex:0 0 auto}.sort-column:hover{text-decoration:underline}.sort-column:focus-visible{outline:3px solid #e8bd78;outline-offset:2px}</style></head><body>
 <header><div class="brand-lockup"><span class="brand-symbol" aria-hidden="true"><svg viewBox="0 0 64 64" width="48" height="48"><rect x="2" y="2" width="60" height="60" rx="16" fill="#c3a574"/><path d="M16 45V19h7v10h18V19h7v26h-7V36H23v9z" fill="#171a20"/><path d="M49 12l2.5 5.5L57 20l-5.5 2.5L49 28l-2.5-5.5L41 20l5.5-2.5z" fill="#fff5df"/></svg></span><h1>AI Job Hunter</h1></div><p>Oportunidades reais, de QA e Gerência / Coordenação de Projetos, em um só lugar.</p></header>
-<nav class="primary-tabs" aria-label="Navegação principal" role="tablist"><button type="button" class="primary-tab" id="mainTabGeneral" role="tab" aria-controls="mainPanelGeneral" aria-selected="true" tabindex="0">Oportunidades Gerais</button><button type="button" class="primary-tab" id="mainTabRegional" role="tab" aria-controls="mainPanelRegional" aria-selected="false" tabindex="-1">Oportunidades Regionais</button><button type="button" class="primary-tab" id="mainTabAI" role="tab" aria-controls="mainPanelAI" aria-selected="false" tabindex="-1">AI Career Studio</button></nav>
+<nav class="primary-tabs" aria-label="Navegação principal" role="tablist"><button type="button" class="primary-tab" id="mainTabGeneral" role="tab" aria-controls="mainPanelGeneral" aria-selected="true" tabindex="0">Oportunidades Gerais</button><button type="button" class="primary-tab" id="mainTabRegional" role="tab" aria-controls="mainPanelRegional" aria-selected="false" tabindex="-1">Oportunidades Regionais</button><button type="button" class="primary-tab" id="mainTabAI" role="tab" aria-controls="mainPanelAI" aria-selected="false" tabindex="-1">AI Career Studio</button><button type="button" class="primary-tab" id="mainTabFinance" role="tab" aria-controls="mainPanelFinance" aria-selected="false" tabindex="-1">Consultor Salarial</button></nav>
 <div id="mainPanelGeneral" class="primary-panel" role="tabpanel" aria-labelledby="mainTabGeneral">
 <div class="summary"><article>Total de vagas<strong>""" + str(len(jobs)) + """</strong></article>
 <article>QA<strong>""" + str(qa_count) + """</strong></article>
@@ -332,7 +351,7 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 <select id="mode" aria-label="Modalidade"><option value="">Todas as modalidades</option>
 <option value="remote">Remoto informado</option><option value="verify">Remoto citado — confirmar</option>
 <option value="unknown">Não informado</option></select>
-<select id="source" aria-label="Fonte das vagas"><option value="">Todas as fontes integradas</option>""" + source_options + """</select><select id="region" aria-label="Filtro regional"><option value="">Todas as localidades</option><option value="local">Vagas nas cidades da região</option><option value="remote">Remoto informado — conferir elegibilidade</option><option value="brazil">Brasil (localização genérica)</option><option value="unknown">Localização sem cidade regional identificada</option></select>
+<select id="usdFilter" aria-label="Salário em dólar"><option value="">Todas as moedas</option><option value="usd">🇺🇸 Salário USD divulgado</option><option value="5000">🇺🇸 USD 5.000+/mês (salário divulgado)</option></select><select id="source" aria-label="Fonte das vagas"><option value="">Todas as fontes integradas</option>""" + source_options + """</select><select id="region" aria-label="Filtro regional"><option value="">Todas as localidades</option><option value="local">Vagas nas cidades da região</option><option value="remote">Remoto informado — conferir elegibilidade</option><option value="brazil">Brasil (localização genérica)</option><option value="unknown">Localização sem cidade regional identificada</option></select>
 <select id="city" aria-label="Cidade regional"><option value="">Todas as cidades</option><option>Nova Odessa</option><option>Americana</option><option>Sumaré</option><option>Santa Bárbara d'Oeste</option><option>Hortolândia</option><option>Campinas</option></select>
 <select id="age" aria-label="Data da publicação"><option value="">Todas as datas</option><option value="1">Último dia</option><option value="7">Últimos 7 dias</option><option value="15">Últimos 15 dias</option><option value="30">Últimos 30 dias</option><option value="unknown">Data não informada</option></select></div>
 <p>Filtro regional baseado na cidade informada no anúncio; não calcula distância ou comprova elegibilidade para trabalho remoto.</p><p id="count" aria-live="polite"></p>
@@ -342,7 +361,7 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 </div>
 <div id="mainPanelRegional" class="primary-panel" role="tabpanel" aria-labelledby="mainTabRegional" hidden>""" + strategic_html + """</div>
 <div id="mainPanelAI" class="primary-panel" role="tabpanel" aria-labelledby="mainTabAI" hidden>""" + studio_html + """</div>
-""" + render_advisor() + """
+<div id="mainPanelFinance" class="primary-panel" role="tabpanel" aria-labelledby="mainTabFinance" hidden>""" + render_advisor() + """</div>
 <footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
 na página oficial. Fonte Himalayas: <a href="https://himalayas.app">himalayas.app</a>. Apenas datas de publicação fornecidas pelas fontes são exibidas; datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
@@ -350,7 +369,7 @@ const mainTabPairs=[['mainTabGeneral','mainPanelGeneral'],['mainTabRegional','ma
 function activateMainTab(index,focus=false){mainTabPairs.forEach(([tid,pid],i)=>{const active=i===index,tab=document.getElementById(tid),panel=document.getElementById(pid);tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;panel.hidden=!active;});if(focus)document.getElementById(mainTabPairs[index][0]).focus();}
 mainTabPairs.forEach(([tid],i)=>{const tab=document.getElementById(tid);tab.addEventListener('click',()=>activateMainTab(i));tab.addEventListener('keydown',evt=>{if(!['ArrowRight','ArrowLeft','Home','End'].includes(evt.key))return;evt.preventDefault();const next=evt.key==='Home'?0:evt.key==='End'?mainTabPairs.length-1:(i+(evt.key==='ArrowRight'?1:-1)+mainTabPairs.length)%mainTabPairs.length;activateMainTab(next,true);});});
 activateMainTab(0);
-const q=document.getElementById('q'),a=document.getElementById('area'),m=document.getElementById('mode'),source=document.getElementById('source'),region=document.getElementById('region'),city=document.getElementById('city'),age=document.getElementById('age');
+const q=document.getElementById('q'),a=document.getElementById('area'),m=document.getElementById('mode'),source=document.getElementById('source'),region=document.getElementById('region'),city=document.getElementById('city'),age=document.getElementById('age'),usdFilter=document.getElementById('usdFilter');
 const rows=[...document.querySelectorAll('tbody tr')],count=document.getElementById('count');
 function apply(){let visible=0;for(const r of rows){
 const local=Boolean(r.dataset.city),location=(r.dataset.location||'').toLocaleLowerCase();
@@ -359,11 +378,11 @@ const cityOK=!city.value||r.dataset.city===city.value;
 const published=r.dataset.published;
 let dateOK=!age.value||(age.value==='unknown'?!published:false);
 if(age.value&&age.value!=='unknown'&&published){const date=Date.parse(published+'T00:00:00Z');const now=Date.now();const elapsed=(now-date)/86400000;dateOK=elapsed>=0&&elapsed<=Number(age.value);}
-const show=dateOK&&locOK&&cityOK&&(!a.value||r.dataset.area===a.value)&&(!m.value||r.dataset.mode===m.value)&&(!source.value||r.dataset.source===source.value)&&
+const usd=Number(r.dataset.usdMonthly||0),usdOK=!usdFilter.value||(usdFilter.value==='usd'?usd>0:usd>=5000);const show=usdOK&&dateOK&&locOK&&cityOK&&(!a.value||r.dataset.area===a.value)&&(!m.value||r.dataset.mode===m.value)&&(!source.value||r.dataset.source===source.value)&&
 r.textContent.toLocaleLowerCase().includes(q.value.trim().toLocaleLowerCase());
 r.hidden=!show;r.dataset.filterPass=String(show);if(show)visible++;
 }count.textContent=visible+' vaga(s) exibida(s)';document.getElementById('empty').hidden=visible!==0;}
-[q,a,m,source,region,city,age].forEach(el=>el.addEventListener('input',apply));apply();
+[q,a,m,source,region,city,age,usdFilter].forEach(el=>el.addEventListener('input',apply));apply();
 
 const rc=document.getElementById('regionalCompany'),rCity=document.getElementById('regionalCity'),rArea=document.getElementById('regionalArea'),rq=document.getElementById('regionalQuery');
 if(rc&&rCity&&rArea&&rq){const cards=[...document.querySelectorAll('.regional-card')];const updateRegional=()=>{let count=0;for(const c of cards){const match=(!rc.value||c.dataset.company===rc.value)&&(!rCity.value||(rCity.value==='unverified'?!c.dataset.city:c.dataset.city===rCity.value))&&(!rArea.value||c.dataset.area===rArea.value)&&c.textContent.toLocaleLowerCase().includes(rq.value.trim().toLocaleLowerCase());c.hidden=!match;c.dataset.filterPass=String(match);if(match)count++;}document.getElementById('regionalCount').textContent=count+' vaga(s) encontrada(s)'+(count===0?' para os filtros selecionados. Isso não significa que não existam vagas nos portais; a coleta é parcial.':'');};[rc,rCity,rArea,rq].forEach(x=>x.addEventListener('input',updateRegional));updateRegional();}
