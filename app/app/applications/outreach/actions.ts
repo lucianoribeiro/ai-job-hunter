@@ -6,10 +6,17 @@ async function auth(){const supabase=await getSupabase();const {data:{user}}=awa
 export async function createOutreachDraft(form:FormData){
  const {supabase,user}=await auth();
  const opportunityId=str(form,"opportunity_id",40),recipient=str(form,"recipient",254).toLowerCase(),
- subject=str(form,"subject",250),body=str(form,"body",12000),resumeId=str(form,"resume_version_id",40);
- if(!/^[a-f0-9-]{36}$/i.test(opportunityId)||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipient)||!subject||!body)
+ subject=str(form,"subject",250),body=str(form,"body",12000),resumeId=str(form,"resume_version_id",40),
+ listingUrl=str(form,"listing_url",2000),listingTitle=str(form,"listing_title",240);
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipient)||!subject||!body)
    throw new Error("Confira os dados da candidatura");
- const {data:job}=await supabase.from("opportunities").select("id").eq("id",opportunityId).eq("user_id",user.id).single();
+ let job:{id:string}|null=null;
+ if(/^[a-f0-9-]{36}$/i.test(opportunityId))({data:job}=await supabase.from("opportunities").select("id").eq("id",opportunityId).eq("user_id",user.id).single());
+ else if(opportunityId==="import"&&listingTitle&&/^https:\/\//i.test(listingUrl)){
+  const {data:profile}=await supabase.from("career_profiles").select("id").eq("user_id",user.id).order("created_at").limit(1).single();
+  if(!profile)throw new Error("Crie um perfil profissional antes de importar a publicação");
+  const result=await supabase.from("opportunities").upsert({user_id:user.id,profile_id:profile.id,title:listingTitle,company:"A confirmar",listing_url:listingUrl,source:"Recruiter Monitor",work_mode:"unknown"},{onConflict:"user_id,listing_url"}).select("id").single();job=result.data;
+ }
  if(!job)throw new Error("Vaga não encontrada");
  let version:string|null=null;
  if(resumeId){

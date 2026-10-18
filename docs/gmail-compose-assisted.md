@@ -1,11 +1,13 @@
-# Gmail assisted compose — no OAuth, attachment or send
+# Gmail assisted compose — OAuth draft with PDF attachment
 
 This step supports a user-approved recruiter message with a verified recipient supplied by the applicant.
 
-Flow: save opportunity → prepare recruiter email → approve content → open Gmail compose screen → manually attach CV → user manually sends.
+Flow: identify an explicitly published recruiter email → prepare and approve the message → select an approved CV → authorize the restricted Gmail scope → create a Gmail draft with the professional PDF attached → user reviews and manually sends.
 
-- The compose URL carries the recipient, subject and message in its query string; opening it may expose that content to browser history, extensions and link processing. Do **not** put secrets, IDs, personal passwords, or unnecessary sensitive data in the message. A proper API-based Gmail draft flow will avoid this limitation.
-- Gmail may choose a default account other than the applicant's; check sender account before sending.
-- A human-approved resume version is downloadable as TXT. PDF or DOCX attachment must be created/selected by the user.
-- A compose URL is **not** a saved Gmail draft. There is no Gmail OAuth, attachment or email sending in this implementation.
-- Every compose page is protected by Supabase auth, user ownership and approved status.
+- The requested Google scope is `https://www.googleapis.com/auth/gmail.compose`. The application creates drafts; it has no automatic-send feature.
+- OAuth provider tokens stay in the authenticated server session and are never written to application tables or the repository.
+- Only an approved, user-owned resume version can be attached. The same professional ATS PDF is available for download.
+- Every draft lookup is constrained by the authenticated user and protected by Supabase RLS.
+- Apply `db/004_gmail_drafts.sql` after the prior migrations.
+- In Google Cloud/Supabase, enable Gmail API, configure the OAuth consent screen and add the Supabase callback URI. Re-consent is required for users who logged in before the Gmail scope was added.
+- Set the GitHub Actions variable `CAREER_APP_URL` to the deployed authenticated Next.js application URL so Recruiter Monitor cards can open this flow.

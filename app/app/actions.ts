@@ -14,6 +14,17 @@ export async function signIn() {
   redirect(data.url);
 }
 
+export async function connectGmail(form:FormData) {
+  const supabase=await getSupabase(),siteUrl=process.env.NEXT_PUBLIC_SITE_URL;
+  if(!siteUrl)throw new Error("Set NEXT_PUBLIC_SITE_URL to your deployed origin");
+  const next=String(form.get("next")||"/applications/outreach");
+  const safeNext=/^\/applications\/outreach(?:\/[a-f0-9-]+\/compose)?$/i.test(next)?next:"/applications/outreach";
+  const callback=new URL("/auth/callback",siteUrl);callback.searchParams.set("next",safeNext);
+  const {data,error}=await supabase.auth.signInWithOAuth({provider:"google",options:{redirectTo:callback.toString(),scopes:"https://www.googleapis.com/auth/gmail.compose",queryParams:{access_type:"offline",prompt:"consent",include_granted_scopes:"true"}}});
+  if(error||!data.url)throw new Error("Unable to initiate Gmail authorization");
+  redirect(data.url);
+}
+
 export async function signOut() {
   const supabase = await getSupabase();
   await supabase.auth.signOut();

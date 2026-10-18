@@ -2,6 +2,9 @@ __pycache__/
 *.pyc
 .env
 .venv/
+app/node_modules/
+app/.next/
+app/tsconfig.tsbuildinfo
 
 # Private email exports and local secrets
 *.eml

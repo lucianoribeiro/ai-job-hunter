@@ -45,6 +45,8 @@ jobs:
           path: diagnostics/
           if-no-files-found: ignore
       - name: Collect only publicly listed jobs
+        env:
+          CAREER_APP_URL: ${{ vars.CAREER_APP_URL }}
         run: |
           mkdir -p data site
           python -m src.project_jobs_poc --config config/project_boards.example.json --output data/project_jobs_poc.json

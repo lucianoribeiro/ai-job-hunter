@@ -4,11 +4,12 @@ import argparse
 import csv
 import html
 import json
+import os
 import re
 from src.finance_advisor import render_advisor
 from pathlib import Path
 from datetime import datetime, timezone
-from urllib.parse import urlsplit
+from urllib.parse import urlencode, urlsplit
 
 
 def e(value):
@@ -18,6 +19,12 @@ def e(value):
 def safe_url(value):
     parsed = urlsplit(str(value or ""))
     return str(value) if parsed.scheme == "https" and parsed.netloc else "#"
+
+
+def recruiter_email(value):
+    """Return only an explicitly published email address from public post text."""
+    match = re.search(r"(?<![\w.+-])([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})(?![\w.-])", str(value or ""), re.I)
+    return match.group(1).lower() if match else ""
 
 
 QA_TITLE = re.compile(r"\b(qa|quality assurance|quality engineer|quality engineering|software tester|test engineer|sdet|test automation|test lead|automation tester)\b", re.I)
@@ -368,6 +375,9 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
     monitor_file = Path("data/recruiter_monitor.json")
     monitor = json.loads(monitor_file.read_text(encoding="utf-8")) if monitor_file.exists() else {}
     monitor_items = monitor.get("items", [])
+    app_base = os.environ.get("CAREER_APP_URL", "").rstrip("/")
+    if app_base and safe_url(app_base) == "#":
+        app_base = ""
     monitor_cards = []
     # Deduplicate manufacturing posts with the same inferred role, company and city.
     seen_manufacturing = set()
@@ -388,6 +398,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         title = e(raw_title)
         url = e(safe_url(item.get("url")))
         extra = ""
+        contact = recruiter_email(raw_title)
         if category == "Manufatura":
             details = manufacturing_details(raw_title)
             fingerprint = _re.sub(r"[^a-z0-9]+", " ", raw_title.casefold().replace("linkedin", "")).strip()
@@ -401,6 +412,11 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             if details["expired"]:
                 extra += '<span class="recruiter-tag">Prazo informado vencido — verificar</span>'
             extra += '<details class="recruiter-original"><summary>Ver publicação original</summary><p>' + e(raw_title) + '</p></details>'
+        if contact:
+            extra += '<span class="recruiter-tag">E-mail profissional identificado</span>'
+            if app_base:
+                outreach = app_base + "/applications/outreach?" + urlencode({"recipient": contact, "title": raw_title[:160], "source": item.get("url", "")})
+                extra += '<p><a class="recruiter-outreach" href="' + e(outreach) + '">Preparar rascunho com CV no Gmail →</a></p>'
         monitor_cards.append(
             '<article class="recruiter-card" data-area="' + category + '" data-mode="' + modality + '" '
             'style="background:#252b34;border:1px solid #414956;border-radius:12px;padding:16px;min-width:0">'
