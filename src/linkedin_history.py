@@ -30,7 +30,13 @@ def retain(existing, feed):
                 "title": title, "url": url, "published_at": published,
                 "area": item["area"], "source": "LinkedIn public web index",
                 "evidence": "indexed_recruiter_post", "first_seen": feed.get("date_utc"),
+                "last_seen": feed.get("date_utc"),
+                "post_origin": item.get("post_origin", "Não verificada"),
             }
+        else:
+            records[identity]["last_seen"] = feed.get("date_utc")
+            if item.get("post_origin") in ("Empresa", "Recrutador"):
+                records[identity]["post_origin"] = item["post_origin"]
     return records
 
 def run():
