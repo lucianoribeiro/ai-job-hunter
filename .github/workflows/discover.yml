@@ -39,6 +39,8 @@ jobs:
         run: python -m src.strategic_companies
       - name: Discover today's recruiter posts (best-effort public index)
         run: python -m src.recruiter_monitor
+      - name: Retain LinkedIn-indexed recruiter history
+        run: python -m src.linkedin_history
       - name: Calculate market intelligence
         run: python -m src.market_intelligence
       - name: Generate dashboard
@@ -53,6 +55,7 @@ jobs:
             data/applications.md
             data/history.json
             data/market_insights.json
+            data/linkedin_history.json
             data/applications.json
             data/dashboard.html
             data/ai_insights.json
@@ -62,7 +65,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/jobs.csv data/report.md data/applications.md data/history.json data/applications.json data/dashboard.html data/ai_insights.json data/strategic_jobs.json data/recruiter_monitor.json
+          git add data/jobs.csv data/report.md data/applications.md data/history.json data/applications.json data/dashboard.html data/ai_insights.json data/strategic_jobs.json data/recruiter_monitor.json data/linkedin_history.json data/market_insights.json
           if ! git diff --cached --quiet; then
             git commit -m "chore: refresh QA opportunity and review reports"
             git push
