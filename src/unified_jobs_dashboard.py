@@ -764,7 +764,7 @@ def market_chart_html():
     <div id="market-summary" role="status" aria-live="polite" style="color:#b7c7e0;margin:12px 0"></div>
     <div style="overflow-x:auto"><svg id="market-trend" viewBox="0 0 640 260" style="width:100%;min-width:300px;max-height:310px" role="img" aria-label="Gráfico de evolução mensal das vagas monitoradas"></svg></div>
     <div id="market-legend" style="display:flex;gap:16px;flex-wrap:wrap;margin:8px 0;color:#dce7ff"></div>
-    <details><summary style="cursor:pointer;margin:12px 0">Ver tabela de dados mensais</summary><div style="overflow-x:auto"><table id="market-table" style="width:100%;min-width:320px"><caption>Vagas por mês e categoria</caption><thead></thead><tbody></tbody></table></div></details>
+    <details><summary style="cursor:pointer;margin:12px 0">Ver tabela de dados mensais</summary><div style="overflow-x:auto"><table id="market-table" style="width:100%;min-width:320px"><caption>Vagas por mês e categoria</caption><thead></thead><tbody id="market-monthly-body"></tbody></table></div></details>
     <p style="color:#b7c7e0;font-size:13px">Meses anteriores ao início da coleta não representam zero vagas. O histórico corresponde apenas às fontes monitoradas; o mês atual está incompleto.</p>
     <script type="application/json" id="market-history-data">""" + payload + """</script>
     <script>
