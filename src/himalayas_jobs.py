@@ -39,6 +39,7 @@ def collect(getter=load_json):
                     "location": location or "Remoto — elegibilidade não verificada", "url": link,
                     "source": "Himalayas", "remote_evidence": "explicit",
                     "published": item.get("pubDate") or item.get("publishedAt"),
+                    "description": str(item.get("description") or item.get("jobDescription") or item.get("requirements") or "")[:12000],
                     "brazil_eligible": "unverified"})
         except (OSError, ValueError, KeyError, TypeError) as exc:
             errors.append({"query": term, "error": type(exc).__name__})
