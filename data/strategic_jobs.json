@@ -1,0 +1,174 @@
+{
+  "generated_at": "2026-10-18T14:02:53.190510+00:00",
+  "jobs": [
+    {
+      "company": "Honda Brasil",
+      "title": "Analista Compliance Pleno São Paulo - SP e Híbrido Efetivo",
+      "location": "Não informado",
+      "url": "https://honda.gupy.io/jobs/12198670",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": false,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Honda Brasil",
+      "title": "Analista Dados PL | Foco em Planejamento Comercial São Paulo - SP e Híbrido Efetivo",
+      "location": "Não informado",
+      "url": "https://honda.gupy.io/jobs/12706328",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": false,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Honda Brasil",
+      "title": "Analista Desenvolvimento Rede SR (Automóveis)  Sumaré - SP e Híbrido Efetivo",
+      "location": "Sumaré",
+      "url": "https://honda.gupy.io/jobs/12418033",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Honda Brasil",
+      "title": "Analista Gestão Riscos Financeiros JR São Paulo - SP e Híbrido Efetivo",
+      "location": "Não informado",
+      "url": "https://honda.gupy.io/jobs/12576255",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": false,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Honda Brasil",
+      "title": "Analista Gestão Riscos Financeiros PL São Paulo - SP e Híbrido Efetivo",
+      "location": "Não informado",
+      "url": "https://honda.gupy.io/jobs/12576947",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": false,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Honda Brasil",
+      "title": "Analista Inteligência Mercado SR - Foco em Planejamento Comercial São Paulo - SP e Híbrido Efetivo",
+      "location": "Não informado",
+      "url": "https://honda.gupy.io/jobs/12705223",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": false,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Honda Brasil",
+      "title": "Analista Planejamento Financeiro SR São Paulo - SP Efetivo",
+      "location": "Não informado",
+      "url": "https://honda.gupy.io/jobs/12453316",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": false,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Honda Brasil",
+      "title": "ANALISTA PROCESSOS CONTROLADORIA - CONTROLADORIA Manaus - AM Temporário",
+      "location": "Não informado",
+      "url": "https://honda.gupy.io/jobs/12482522",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": false,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Honda Brasil",
+      "title": "Analista Talent Acquisition PL Sumaré - SP e Híbrido Efetivo",
+      "location": "Sumaré",
+      "url": "https://honda.gupy.io/jobs/12663551",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Honda Brasil",
+      "title": "ASSISTENTE CONTABIL São Paulo - SP Efetivo",
+      "location": "Não informado",
+      "url": "https://honda.gupy.io/jobs/12440261",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": false,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    }
+  ],
+  "sources": [
+    {
+      "company": "Honda Brasil",
+      "state": "ok",
+      "found": 10,
+      "city": "Sumaré",
+      "url": "https://honda.gupy.io/"
+    },
+    {
+      "company": "3M Brasil",
+      "city": "Sumaré",
+      "url": "",
+      "state": "manual",
+      "found": 0
+    },
+    {
+      "company": "Villares Metals",
+      "city": "Sumaré",
+      "url": "",
+      "state": "manual",
+      "found": 0
+    },
+    {
+      "company": "PPG",
+      "city": "Sumaré",
+      "url": "",
+      "state": "manual",
+      "found": 0
+    },
+    {
+      "company": "Petrobras / Replan",
+      "city": "Paulínia",
+      "url": "https://petrobras.com.br/quem-somos/refinaria-de-paulinia",
+      "state": "manual",
+      "found": 0
+    },
+    {
+      "company": "Rhodia / Solvay",
+      "city": "Paulínia",
+      "url": "https://www.solvay.com/pt-br/brazil/carreiras",
+      "state": "manual",
+      "found": 0
+    },
+    {
+      "company": "Braskem",
+      "city": "Paulínia",
+      "url": "https://www.braskem.com.br/braskemsaopaulo-homolog",
+      "state": "manual",
+      "found": 0
+    },
+    {
+      "company": "Goodyear",
+      "city": "Americana",
+      "url": "",
+      "state": "manual",
+      "found": 0
+    }
+  ],
+  "note": "Only publicly exposed links; zero results do not prove no openings. ATS APIs may require authentication."
+}

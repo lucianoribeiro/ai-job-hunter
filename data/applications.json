@@ -1,0 +1,893 @@
+{
+  "1718efd19ea573c1": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "GitLab",
+    "created_at": "2026-10-18",
+    "job_id": "1718efd19ea573c1",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Staff Program Manager, CCO Programs",
+    "url": "https://job-boards.greenhouse.io/gitlab/jobs/8822279002"
+  },
+  "1a88a5cb0d97ef1f": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Oddball",
+    "created_at": "2026-10-18",
+    "job_id": "1a88a5cb0d97ef1f",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Program Manager",
+    "url": "https://jobicy.com/jobs/155577-program-manager-2"
+  },
+  "1b87960d76ba9e6f": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Tellent",
+    "created_at": "2026-10-18",
+    "job_id": "1b87960d76ba9e6f",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Senior Quality Engineer - Tellent Intelligence (AI)",
+    "url": "https://www.arbeitnow.nl/jobs/companies/tellent/remote-senior-quality-engineer-tellent-intelligence-ai-amsterdam-295070"
+  },
+  "2a4d54ac15ae0f95": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "GitLab",
+    "created_at": "2026-10-18",
+    "job_id": "2a4d54ac15ae0f95",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Senior Program Manager, Enterprise Technology and AI",
+    "url": "https://job-boards.greenhouse.io/gitlab/jobs/8687246002"
+  },
+  "2b67ba279391e88e": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Rochester Regional Health",
+    "created_at": "2026-10-18",
+    "job_id": "2b67ba279391e88e",
+    "notes": "",
+    "score": 80,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Clinical Trials Associate Project Manager",
+    "url": "https://himalayas.app/companies/rochester-regional-health/jobs/clinical-trials-associate-project-manager"
+  },
+  "385235c67aa34bc6": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Smart Tech Contracting",
+    "created_at": "2026-10-18",
+    "job_id": "385235c67aa34bc6",
+    "notes": "",
+    "score": 70,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Senior Building Automation Systems Project Manager",
+    "url": "https://himalayas.app/companies/smart-tech-contracting/jobs/senior-building-automation-systems-project-manager"
+  },
+  "3948f62b33881ad4": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "hermeneutic Investments",
+    "created_at": "2026-10-18",
+    "job_id": "3948f62b33881ad4",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Senior SDET (Software Development Engineer in Test) - Asian Timezones",
+    "url": "https://himalayas.app/companies/hermeneutic-investments/jobs/senior-sdet-software-development-engineer-in-test-asian-timezones"
+  },
+  "4645f9c54b25792a": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Beecruit Pte Ltd",
+    "created_at": "2026-10-18",
+    "job_id": "4645f9c54b25792a",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Project Manager",
+    "url": "https://himalayas.app/companies/beecruit-pte-ltd/jobs/project-manager"
+  },
+  "4bd23371cdd3fd94": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA leadership target",
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "HealthEdge",
+    "created_at": "2026-10-18",
+    "job_id": "4bd23371cdd3fd94",
+    "notes": "",
+    "score": 70,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Test Lead II - Healthcare Payer Testing",
+    "url": "https://himalayas.app/companies/healthedge/jobs/test-lead-ii-healthcare-payer-testing"
+  },
+  "4d26b6e1b1c8e998": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "NearSource Technologies",
+    "created_at": "2026-10-18",
+    "job_id": "4d26b6e1b1c8e998",
+    "notes": "",
+    "score": 65,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Senior Program Manager – Change Management (CAD Domain)",
+    "url": "https://himalayas.app/companies/nearsource-technologies/jobs/senior-program-manager-change-management-cad-domain"
+  },
+  "5e29ede0b7e1a7ed": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA leadership target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Knotch",
+    "created_at": "2026-10-18",
+    "job_id": "5e29ede0b7e1a7ed",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "QA Manager",
+    "url": "https://himalayas.app/companies/knotch/jobs/qa-manager"
+  },
+  "6ed310e1424f9bb1": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Mano Lani LLC",
+    "created_at": "2026-10-18",
+    "job_id": "6ed310e1424f9bb1",
+    "notes": "",
+    "score": 50,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "GIS Software Quality Assurance Engineer",
+    "url": "https://himalayas.app/companies/mano-lani-llc/jobs/gis-software-quality-assurance-engineer"
+  },
+  "778611a004251cd4": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Ace IT Careers",
+    "created_at": "2026-10-18",
+    "job_id": "778611a004251cd4",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "QA Tester Entry Level",
+    "url": "https://remoteOK.com/remote-jobs/remote-qa-tester-entry-level-ace-it-careers-1136701"
+  },
+  "7787fa84b34c3b18": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Pavago",
+    "created_at": "2026-10-18",
+    "job_id": "7787fa84b34c3b18",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "QA Automation Engineer",
+    "url": "https://himalayas.app/companies/pavago/jobs/qa-automation-engineer"
+  },
+  "7e4b32244607d65b": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Bright Vision Technologies",
+    "created_at": "2026-10-18",
+    "job_id": "7e4b32244607d65b",
+    "notes": "",
+    "score": 50,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "SDET Engineer",
+    "url": "https://himalayas.app/companies/bright-vision-technologies/jobs/sdet-engineer-47719070"
+  },
+  "888000b8be6fb629": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Contract/freelance terms detected; confirm daily hours"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "freelance",
+    "company": "NANOSOFT CONSULTING TALENT PAGE",
+    "created_at": "2026-10-18",
+    "job_id": "888000b8be6fb629",
+    "notes": "",
+    "score": 75,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Senior Technical Project Manager",
+    "url": "https://himalayas.app/companies/nanosoft-consulting-talent-page/jobs/senior-technical-project-manager"
+  },
+  "9f5d7fcbc28da966": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Ramp",
+    "created_at": "2026-10-18",
+    "job_id": "9f5d7fcbc28da966",
+    "notes": "",
+    "score": 70,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Senior Technical Program Manager",
+    "url": "https://jobs.ashbyhq.com/ramp/8be55ffc-d512-4ef3-a14d-3a4cb29a60d4"
+  },
+  "a143b2fca0c64e00": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Pavago",
+    "created_at": "2026-10-18",
+    "job_id": "a143b2fca0c64e00",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Project Coordinator",
+    "url": "https://himalayas.app/companies/pavago/jobs/project-coordinator-1177994446"
+  },
+  "a72f4df9827fe4b1": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Munich Ventures",
+    "created_at": "2026-10-18",
+    "job_id": "a72f4df9827fe4b1",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Senior QA Automation Engineer",
+    "url": "https://himalayas.app/companies/munich-ventures/jobs/senior-qa-automation-engineer"
+  },
+  "aff65ca66a99643f": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Bright Vision Technologies",
+    "created_at": "2026-10-18",
+    "job_id": "aff65ca66a99643f",
+    "notes": "",
+    "score": 50,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Test Automation Engineer",
+    "url": "https://himalayas.app/companies/bright-vision-technologies/jobs/test-automation-engineer-3645864695"
+  },
+  "b571800a58969d1a": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Arizona Department of Economic Security",
+    "created_at": "2026-10-18",
+    "job_id": "b571800a58969d1a",
+    "notes": "",
+    "score": 70,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Forest Legacy Program Manager",
+    "url": "https://himalayas.app/companies/arizona-department-of-economic-security/jobs/forest-legacy-program-manager"
+  },
+  "c643ca1ab0148a83": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "GitLab",
+    "created_at": "2026-10-18",
+    "job_id": "c643ca1ab0148a83",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Principal Technical Program Manager",
+    "url": "https://job-boards.greenhouse.io/gitlab/jobs/8693068002"
+  },
+  "dc4a5f6bb2b57e5e": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "Contract/freelance terms detected; confirm daily hours"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "freelance",
+    "company": "Utility",
+    "created_at": "2026-10-18",
+    "job_id": "dc4a5f6bb2b57e5e",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "QA Analyst",
+    "url": "https://himalayas.app/companies/utility/jobs/qa-analyst"
+  },
+  "dcd6ffe9084b09b5": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "Location text may include Brazil; confirm eligibility",
+        "Contract/freelance terms detected; confirm daily hours"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "freelance",
+    "company": "Upgrade",
+    "created_at": "2026-10-18",
+    "job_id": "dcd6ffe9084b09b5",
+    "notes": "",
+    "score": 75,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Senior QA Automation Engineer - Product (LATAM)",
+    "url": "https://jobicy.com/jobs/153469-senior-qa-automation-engineer-product-latam"
+  },
+  "e30b940e5ddebde1": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Bixal",
+    "created_at": "2026-10-18",
+    "job_id": "e30b940e5ddebde1",
+    "notes": "",
+    "score": 70,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Project Manager",
+    "url": "https://himalayas.app/companies/bixal/jobs/project-manager"
+  },
+  "e81e9e9a16e5b84a": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Docplanner",
+    "created_at": "2026-10-18",
+    "job_id": "e81e9e9a16e5b84a",
+    "notes": "",
+    "score": 65,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Global Web Growth Project Manager",
+    "url": "https://jobicy.com/jobs/153492-global-web-growth-project-manager"
+  },
+  "ef8d0060e080d7c0": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Location text may include Brazil; confirm eligibility"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Spiralyze",
+    "created_at": "2026-10-18",
+    "job_id": "ef8d0060e080d7c0",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Project Manager",
+    "url": "https://remoteOK.com/remote-jobs/remote-project-manager-spiralyze-1137466"
+  },
+  "f0b534bd9089ab7c": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA leadership target",
+        "USD compensation indicated in the listing",
+        "Contract/freelance terms detected; confirm daily hours"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "freelance",
+    "company": "Dhaka Technologies Limited Company",
+    "created_at": "2026-10-18",
+    "job_id": "f0b534bd9089ab7c",
+    "notes": "",
+    "score": 90,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "SNAP EBT Test Lead",
+    "url": "https://himalayas.app/companies/dhaka-technologies-limited-company/jobs/snap-ebt-test-lead"
+  },
+  "f3c77200f08092a7": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Grafana Labs",
+    "created_at": "2026-10-18",
+    "job_id": "f3c77200f08092a7",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Demand Generation Program Manager | Canada | Remote",
+    "url": "https://jobicy.com/jobs/153420-demand-generation-program-manager-canada-remote"
+  },
+  "fb5c6db9c542fe5d": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Cisco",
+    "created_at": "2026-10-18",
+    "job_id": "fb5c6db9c542fe5d",
+    "notes": "",
+    "score": 70,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-18",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-18",
+    "title": "Go to Market Program Manager - Platform and Assurance",
+    "url": "https://himalayas.app/companies/cisco/jobs/go-to-market-program-manager-platform-and-assurance"
+  }
+}
