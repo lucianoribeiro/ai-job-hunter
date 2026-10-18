@@ -346,7 +346,7 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 <footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
 na página oficial. Fonte Himalayas: <a href="https://himalayas.app">himalayas.app</a>. Apenas datas de publicação fornecidas pelas fontes são exibidas; datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
-const mainTabPairs=[['mainTabGeneral','mainPanelGeneral'],['mainTabRegional','mainPanelRegional'],['mainTabAI','mainPanelAI']];
+const mainTabPairs=[['mainTabGeneral','mainPanelGeneral'],['mainTabRegional','mainPanelRegional'],['mainTabAI','mainPanelAI'],['mainTabFinance','mainPanelFinance']];
 function activateMainTab(index,focus=false){mainTabPairs.forEach(([tid,pid],i)=>{const active=i===index,tab=document.getElementById(tid),panel=document.getElementById(pid);tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;panel.hidden=!active;});if(focus)document.getElementById(mainTabPairs[index][0]).focus();}
 mainTabPairs.forEach(([tid],i)=>{const tab=document.getElementById(tid);tab.addEventListener('click',()=>activateMainTab(i));tab.addEventListener('keydown',evt=>{if(!['ArrowRight','ArrowLeft','Home','End'].includes(evt.key))return;evt.preventDefault();const next=evt.key==='Home'?0:evt.key==='End'?mainTabPairs.length-1:(i+(evt.key==='ArrowRight'?1:-1)+mainTabPairs.length)%mainTabPairs.length;activateMainTab(next,true);});});
 activateMainTab(0);
@@ -423,7 +423,7 @@ catch(_){status.textContent='Abra a vaga diretamente na lista acima para copiar 
 });
 </script><script>
 (()=>{'use strict';
-const tabs=[['mainTabGeneral','mainPanelGeneral'],['mainTabRegional','mainPanelRegional'],['mainTabAI','mainPanelAI']];
+const tabs=[['mainTabGeneral','mainPanelGeneral'],['mainTabRegional','mainPanelRegional'],['mainTabAI','mainPanelAI'],['mainTabFinance','mainPanelFinance']];
 function selectTab(index,focus){tabs.forEach(([tabId,panelId],i)=>{const tab=document.getElementById(tabId),panel=document.getElementById(panelId),active=i===index;if(!tab||!panel)return;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;panel.hidden=!active;panel.style.display=active?'':'none';});if(focus)document.getElementById(tabs[index][0]).focus();}
 tabs.forEach(([tabId],i)=>{const tab=document.getElementById(tabId);if(!tab)return;tab.addEventListener('click',()=>selectTab(i,false));tab.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const next=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;selectTab(next,true);});});
 selectTab(0,false);
