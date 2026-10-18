@@ -63,7 +63,8 @@ jobs:
           path = Path('site/index.html')
           page = path.read_text(encoding='utf-8')
           page = page.replace('<script>', '<script>window.AI_MATCH_API_URL = '+json.dumps(url)+';</script><script>', 1)
-          assert 'window.AI_MATCH_API_URL = '+json.dumps(url)+';' in page\n          path.write_text(page, encoding='utf-8')
+          assert 'window.AI_MATCH_API_URL = '+json.dumps(url)+';' in page
+          path.write_text(page, encoding='utf-8')
           PY
           test -s site/index.html
           # Verify the generated public artifact, not just the Python source.
