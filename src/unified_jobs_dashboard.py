@@ -311,6 +311,22 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         company_cards + '</ul></details></section>'
     )
 
+    monitor_file = Path("data/recruiter_monitor.json")
+    monitor = json.loads(monitor_file.read_text(encoding="utf-8")) if monitor_file.exists() else {}
+    monitor_items = monitor.get("items", [])
+    monitor_links = "".join(
+        '<li><a target="_blank" rel="noopener noreferrer" href="' + e(safe_url(item.get("url"))) + '">' +
+        e(item.get("title", "Publicação")) + '</a> · ' + e(item.get("published_at", "")) + '</li>'
+        for item in monitor_items[:50] if isinstance(item, dict)
+    ) or '<li>Nenhuma publicação localizada hoje no índice público consultado.</li>'
+    monitor_html = (
+        '<section class="card" style="padding:24px;margin:16px 0"><h2>Recruiter Monitor · Publicações recentes</h2>'
+        '<p>Resultados experimentais de índice público; não cobre todos os posts do LinkedIn. '
+        'A data indexada pode não ser a data original da publicação. Nenhum e-mail é enviado.</p>'
+        '<p>Data UTC: ' + e(monitor.get("date_utc", "não executado")) +
+        ' · Status: ' + e(monitor.get("status", "não executado")) +
+        ' · Resultados: ' + str(len(monitor_items)) + '</p><ul>' + monitor_links + '</ul></section>'
+    )
     return """<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>AI Job Hunter | Vagas reais</title>
@@ -339,7 +355,7 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 .regional-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:18px 0}.regional-filters label{font-size:13px;display:grid;gap:7px;color:#d6d9df}.regional-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:13px}.regional-card{padding:17px;border:1px solid #46505a;border-radius:15px;background:#252a31}.regional-heading{display:flex;justify-content:space-between;align-items:start;gap:12px}.regional-pill{font-size:11px;border:1px solid #638e82;border-radius:20px;padding:4px 7px;white-space:nowrap}.regional-card p{color:#bbc3cc;font-size:13px;line-height:1.5}.regional-card summary,.regional-sources summary{cursor:pointer;color:#9bd4c6;font-weight:650}.regional-card details a{display:inline-block;margin-top:12px}.regional-sources{margin-top:20px}.regional-card[hidden]{display:none}
 .primary-tabs{position:sticky;top:0;z-index:20;background:#171b21;border:1px solid #46505a;border-radius:16px;display:flex;gap:8px;padding:9px;margin:14px 0}.primary-tab{flex:1;min-height:48px;padding:12px;border:1px solid #515960;border-radius:10px;background:#292f37;color:#f5f5f4;font:inherit;font-weight:700;cursor:pointer}.primary-tab[aria-selected="true"]{background:#477f71;border-color:#9bd4c6;color:white}.primary-panel[hidden]{display:none!important}.primary-tab:focus-visible{outline:3px solid #e8bd78;outline-offset:2px}@media(max-width:650px){.primary-tabs{gap:5px}.primary-tab{font-size:12px;padding:10px 6px}}.page-controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:18px;padding:12px;border:1px solid #414b55;border-radius:12px;background:#222830}.page-controls label{display:flex;gap:8px;align-items:center;font-size:14px}.page-controls select{width:auto;min-width:130px}.page-controls button{background:#323a43;color:#fff;border:1px solid #5b6976;border-radius:9px;padding:10px 14px;cursor:pointer;min-height:42px}.page-controls button:disabled{opacity:.45;cursor:not-allowed}.page-summary,.page-index{font-size:14px;color:#e6eeec}.page-controls button:focus-visible{outline:3px solid #e8bd78}@media(max-width:650px){.page-controls{gap:8px}.page-controls label,.page-summary{width:100%}}.sort-column{background:transparent;border:0;color:inherit;font:inherit;font-weight:700;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:5px;padding:8px 3px;min-height:40px}.sort-column span[aria-hidden]{font-size:21px;line-height:1;min-width:22px;text-align:center;font-weight:900;color:#e8bd78}.brand-lockup{display:flex;align-items:center;gap:15px}.brand-symbol{display:inline-flex;flex:0 0 auto}.sort-column:hover{text-decoration:underline}.sort-column:focus-visible{outline:3px solid #e8bd78;outline-offset:2px}</style></head><body>
 <header><div class="brand-lockup"><span class="brand-symbol" aria-hidden="true"><svg viewBox="0 0 64 64" width="48" height="48"><rect x="2" y="2" width="60" height="60" rx="16" fill="#c3a574"/><path d="M16 45V19h7v10h18V19h7v26h-7V36H23v9z" fill="#171a20"/><path d="M49 12l2.5 5.5L57 20l-5.5 2.5L49 28l-2.5-5.5L41 20l5.5-2.5z" fill="#fff5df"/></svg></span><h1>AI Job Hunter</h1></div><p>Oportunidades reais, de QA e Gerência / Coordenação de Projetos, em um só lugar.</p></header>
-<nav class="primary-tabs" aria-label="Navegação principal" role="tablist"><button type="button" class="primary-tab" id="mainTabGeneral" role="tab" aria-controls="mainPanelGeneral" aria-selected="true" tabindex="0">Oportunidades Gerais</button><button type="button" class="primary-tab" id="mainTabRegional" role="tab" aria-controls="mainPanelRegional" aria-selected="false" tabindex="-1">Oportunidades Regionais</button><button type="button" class="primary-tab" id="mainTabAI" role="tab" aria-controls="mainPanelAI" aria-selected="false" tabindex="-1">AI Career Studio</button><button type="button" class="primary-tab" id="mainTabFinance" role="tab" aria-controls="mainPanelFinance" aria-selected="false" tabindex="-1">Consultor Salarial</button></nav>
+<nav class="primary-tabs" aria-label="Navegação principal" role="tablist"><button type="button" class="primary-tab" id="mainTabGeneral" role="tab" aria-controls="mainPanelGeneral" aria-selected="true" tabindex="0">Oportunidades Gerais</button><button type="button" class="primary-tab" id="mainTabRegional" role="tab" aria-controls="mainPanelRegional" aria-selected="false" tabindex="-1">Oportunidades Regionais</button><button type="button" class="primary-tab" id="mainTabAI" role="tab" aria-controls="mainPanelAI" aria-selected="false" tabindex="-1">AI Career Studio</button><button type="button" class="primary-tab" id="mainTabFinance" role="tab" aria-controls="mainPanelFinance" aria-selected="false" tabindex="-1">Consultor Salarial</button><button type="button" class="primary-tab" id="mainTabRecruiter" role="tab" aria-controls="mainPanelRecruiter" aria-selected="false" tabindex="-1">Recruiter Monitor</button></nav>
 <div id="mainPanelGeneral" class="primary-panel" role="tabpanel" aria-labelledby="mainTabGeneral">
 <div class="summary"><article>Total de vagas<strong>""" + str(len(jobs)) + """</strong></article>
 <article>QA<strong>""" + str(qa_count) + """</strong></article>
@@ -361,11 +377,11 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 </div>
 <div id="mainPanelRegional" class="primary-panel" role="tabpanel" aria-labelledby="mainTabRegional" hidden>""" + strategic_html + """</div>
 <div id="mainPanelAI" class="primary-panel" role="tabpanel" aria-labelledby="mainTabAI" hidden>""" + studio_html + """</div>
-<div id="mainPanelFinance" class="primary-panel" role="tabpanel" aria-labelledby="mainTabFinance" hidden>""" + render_advisor() + """</div>
+<div id="mainPanelFinance" class="primary-panel" role="tabpanel" aria-labelledby="mainTabFinance" hidden>""" + render_advisor() + """</div><div id="mainPanelRecruiter" class="primary-panel" role="tabpanel" aria-labelledby="mainTabRecruiter" hidden>""" + monitor_html + """</div>
 <footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
 na página oficial. Fonte Himalayas: <a href="https://himalayas.app">himalayas.app</a>. Apenas datas de publicação fornecidas pelas fontes são exibidas; datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
-const mainTabPairs=[['mainTabGeneral','mainPanelGeneral'],['mainTabRegional','mainPanelRegional'],['mainTabAI','mainPanelAI'],['mainTabFinance','mainPanelFinance']];
+const mainTabPairs=[['mainTabGeneral','mainPanelGeneral'],['mainTabRegional','mainPanelRegional'],['mainTabAI','mainPanelAI'],['mainTabFinance','mainPanelFinance'],['mainTabRecruiter','mainPanelRecruiter']];
 function activateMainTab(index,focus=false){mainTabPairs.forEach(([tid,pid],i)=>{const active=i===index,tab=document.getElementById(tid),panel=document.getElementById(pid);tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;panel.hidden=!active;});if(focus)document.getElementById(mainTabPairs[index][0]).focus();}
 mainTabPairs.forEach(([tid],i)=>{const tab=document.getElementById(tid);tab.addEventListener('click',()=>activateMainTab(i));tab.addEventListener('keydown',evt=>{if(!['ArrowRight','ArrowLeft','Home','End'].includes(evt.key))return;evt.preventDefault();const next=evt.key==='Home'?0:evt.key==='End'?mainTabPairs.length-1:(i+(evt.key==='ArrowRight'?1:-1)+mainTabPairs.length)%mainTabPairs.length;activateMainTab(next,true);});});
 activateMainTab(0);
@@ -442,7 +458,7 @@ catch(_){status.textContent='Abra a vaga diretamente na lista acima para copiar 
 });
 </script><script>
 (()=>{'use strict';
-const tabs=[['mainTabGeneral','mainPanelGeneral'],['mainTabRegional','mainPanelRegional'],['mainTabAI','mainPanelAI'],['mainTabFinance','mainPanelFinance']];
+const tabs=[['mainTabGeneral','mainPanelGeneral'],['mainTabRegional','mainPanelRegional'],['mainTabAI','mainPanelAI'],['mainTabFinance','mainPanelFinance'],['mainTabRecruiter','mainPanelRecruiter']];
 function selectTab(index,focus){tabs.forEach(([tabId,panelId],i)=>{const tab=document.getElementById(tabId),panel=document.getElementById(panelId),active=i===index;if(!tab||!panel)return;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;panel.hidden=!active;panel.style.display=active?'':'none';});if(focus)document.getElementById(tabs[index][0]).focus();}
 tabs.forEach(([tabId],i)=>{const tab=document.getElementById(tabId);if(!tab)return;tab.addEventListener('click',()=>selectTab(i,false));tab.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const next=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;selectTab(next,true);});});
 selectTab(0,false);
