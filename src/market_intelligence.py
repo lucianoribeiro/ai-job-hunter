@@ -98,7 +98,8 @@ def summarize(history: dict, today: str | None = None, linkedin_history: dict | 
         "seasonality_ready": seasonal_ready,
         "best_month_to_search": None,
         "source_coverage": {f"{month:02d}/{year}": len(sources[(year, month)]) for year, month in months},
-        "categories": series,\n        "linkedin": linkedin,
+        "categories": series,
+        "linkedin": linkedin,
         "disclaimer": "Amostra de vagas coletadas; variações de cobertura das fontes afetam as tendências. Não representa todas as contratações.",
     }
 
@@ -107,6 +108,8 @@ def run() -> None:
     path = DATA / "history.json"
     history = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
     DATA.mkdir(parents=True, exist_ok=True)
+    linkedin_path = DATA / "linkedin_history.json"
+    linkedin_history = json.loads(linkedin_path.read_text(encoding="utf-8")) if linkedin_path.exists() else {}
     OUTPUT.write_text(json.dumps(summarize(history, linkedin_history=linkedin_history), ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Market intelligence written to {OUTPUT}")
 
