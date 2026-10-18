@@ -20,6 +20,8 @@ class CloudflareWorkerTests(unittest.TestCase):
         required = (
             "compatíveis com ATS", "Não invente empresas", "ordem cronológica inversa",
             "Resumo profissional", "características protegidas", "Retorne apenas o currículo final",
+            'Nunca escreva "não informado"', "Uma competência mencionada não prova uma realização",
+            "Write 100% in professional international English",
         )
         for phrase in required:
             self.assertIn(phrase, self.source)

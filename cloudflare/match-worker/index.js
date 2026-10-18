@@ -14,6 +14,9 @@ REGRAS OBRIGATÓRIAS:
 6. Use verbos de ação, linguagem objetiva e palavras-chave relevantes somente quando sustentadas pelo conteúdo original.
 7. Priorize as experiências e competências mais aderentes ao cargo-alvo, mantendo cronologia e senioridade reais.
 8. Retorne apenas o currículo final, sem comentários sobre o processo, sem notas ao candidato e sem informações fictícias.
+9. Nunca escreva "não informado", "not provided", placeholders ou seções vazias. Omita totalmente qualquer seção sem evidência.
+10. Uma competência mencionada não prova uma realização. Não transforme ferramentas ou habilidades em resultados, liderança, implantação ou responsabilidade sem evidência textual explícita.
+11. Todo o texto, inclusive títulos das seções, deve estar exclusivamente no idioma solicitado.
 
 ESTRUTURA:
 - Nome e contatos profissionais, se presentes
@@ -54,8 +57,9 @@ export default {
    if(typeof profile!=="string"||profile.trim().length<50||profile.length>30000||
       typeof role!=="string"||role.length>160||!["pt","en"].includes(language))return json({error:"Invalid input size"},400,cors);
    try{
+    const languageRule=language==="pt"?"Escreva 100% em português do Brasil, inclusive todos os títulos.":"Write 100% in professional international English, including every section heading.";
     const result=await env.AI.run(MODEL,{messages:[
-     {role:"system",content:CV_INSTRUCTION},
+     {role:"system",content:CV_INSTRUCTION+"\n\n"+languageRule},
      {role:"user",content:JSON.stringify({target_role:role||"Não definido",output_language:language==="pt"?"Português do Brasil":"English",source_resume:profile})}
     ],max_tokens:2200,temperature:0.15});
     const cv=String(result?.response||"").trim();
