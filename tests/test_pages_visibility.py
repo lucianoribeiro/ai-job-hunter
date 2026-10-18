@@ -42,7 +42,10 @@ class PagesVisibilityTests(unittest.TestCase):
         self.assertEqual(page.count('class="page-controls"'),2)
         self.assertIn('option value="10"',page)
         self.assertIn('option value="all"',page)
-        self.assertIn("setupPager('mainPanelGeneral','tbody tr')",page)
+        self.assertIn('id="jobs-table"',page)
+        self.assertIn("setupPager('mainPanelGeneral','#jobs-table tbody tr')",page)
+        self.assertIn("document.querySelectorAll('#jobs-table tbody tr')",page)
+        self.assertNotIn("document.querySelectorAll('tbody tr')",page)
         self.assertIn("setupPager('mainPanelRegional','.regional-card')",page)
         self.assertIn("selectTab(0,false)",page)
         self.assertIn("panel.style.display=active?'':'none'",page)
@@ -62,5 +65,5 @@ class PagesVisibilityTests(unittest.TestCase):
     def test_sortable_general_table(self):
         page = render({'jobs': []}, [])
         self.assertEqual(page.count('class="sort-column"'), 7)
-        self.assertIn('setupTableSort', page)
+        self.assertIn("setupTableSort('mainPanelGeneral','#jobs-table')", page)
         self.assertIn('aria-sort', page)

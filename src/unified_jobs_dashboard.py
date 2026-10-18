@@ -480,7 +480,7 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 <select id="city" aria-label="Cidade regional"><option value="">Todas as cidades</option><option>Nova Odessa</option><option>Americana</option><option>Sumaré</option><option>Santa Bárbara d'Oeste</option><option>Hortolândia</option><option>Campinas</option></select>
 <select id="age" aria-label="Data da publicação"><option value="">Todas as datas</option><option value="1">Último dia</option><option value="7">Últimos 7 dias</option><option value="15">Últimos 15 dias</option><option value="30">Últimos 30 dias</option><option value="unknown">Data não informada</option></select></div>
 <p>Filtro regional baseado na cidade informada no anúncio; não calcula distância ou comprova elegibilidade para trabalho remoto.</p><p id="count" aria-live="polite"></p>
-<div class="table"><table><thead><tr><th scope="col" aria-sort="none"><button type="button" class="sort-column" data-column="0" aria-label="Ordenar por Cargo">Cargo <span aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-column" data-column="1" aria-label="Ordenar por Empresa">Empresa <span aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-column" data-column="2" aria-label="Ordenar por Área">Área <span aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-column" data-column="3" aria-label="Ordenar por Local">Local <span aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-column" data-column="4" aria-label="Ordenar por Modalidade">Modalidade <span aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-column" data-column="5" aria-label="Ordenar por Fonte">Fonte <span aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-column" data-column="6" aria-label="Ordenar por Publicação">Publicação <span aria-hidden="true">↕</span></button></th></tr></thead><tbody>""" + body + """</tbody></table></div>
+<div class="table"><table id="jobs-table"><thead><tr><th scope="col" aria-sort="none"><button type="button" class="sort-column" data-column="0" aria-label="Ordenar por Cargo">Cargo <span aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-column" data-column="1" aria-label="Ordenar por Empresa">Empresa <span aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-column" data-column="2" aria-label="Ordenar por Área">Área <span aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-column" data-column="3" aria-label="Ordenar por Local">Local <span aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-column" data-column="4" aria-label="Ordenar por Modalidade">Modalidade <span aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-column" data-column="5" aria-label="Ordenar por Fonte">Fonte <span aria-hidden="true">↕</span></button></th><th scope="col" aria-sort="none"><button type="button" class="sort-column" data-column="6" aria-label="Ordenar por Publicação">Publicação <span aria-hidden="true">↕</span></button></th></tr></thead><tbody>""" + body + """</tbody></table></div>
 <div class="page-controls" aria-label="Paginação de resultados"><label>Mostrar<select class="page-size"><option value="10">10 por página</option><option value="all">Todos</option></select></label><span class="page-summary" role="status"></span><button type="button" class="page-prev">Anterior</button><span class="page-index"></span><button type="button" class="page-next">Próxima</button></div><p id="empty" hidden>Nenhuma vaga corresponde aos filtros.</p>
 </section>
 </div>
@@ -502,7 +502,7 @@ function activateMainTab(index,focus=false){mainTabPairs.forEach(([tid,pid],i)=>
 mainTabPairs.forEach(([tid],i)=>{const tab=document.getElementById(tid);tab.addEventListener('click',()=>activateMainTab(i));tab.addEventListener('keydown',evt=>{if(!['ArrowRight','ArrowLeft','Home','End'].includes(evt.key))return;evt.preventDefault();const next=evt.key==='Home'?0:evt.key==='End'?mainTabPairs.length-1:(i+(evt.key==='ArrowRight'?1:-1)+mainTabPairs.length)%mainTabPairs.length;activateMainTab(next,true);});});
 activateMainTab(0);
 const q=document.getElementById('q'),a=document.getElementById('area'),m=document.getElementById('mode'),source=document.getElementById('source'),region=document.getElementById('region'),city=document.getElementById('city'),age=document.getElementById('age'),usdFilter=document.getElementById('usdFilter');
-const rows=[...document.querySelectorAll('tbody tr')],count=document.getElementById('count');
+const rows=[...document.querySelectorAll('#jobs-table tbody tr')],count=document.getElementById('count');
 function apply(){let visible=0;for(const r of rows){
 const local=Boolean(r.dataset.city),location=(r.dataset.location||'').toLocaleLowerCase();
 const locOK=!region.value||(region.value==='local'?local:region.value==='remote'?r.dataset.mode==='remote':region.value==='brazil'?(!local&&/brasil|brazil/.test(location)):!local);
@@ -598,7 +598,7 @@ document.getElementById('studioCvAI').addEventListener('click',async()=>{
  btn.disabled=true;status.textContent='Solicitando revisão profissional à IA...';
  try{
   const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),25000);let response;
-  try{response=await fetch(endpoint+'/cv',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({profile,role:document.getElementById('cvTargetRole').value,language:document.getElementById('cvLanguage').value,consent:true}),signal:controller.signal});}finally{clearTimeout(timeout);}
+  try{response=await fetch(endpoint+'/cv',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({profile:profile.slice(0,30000),role:document.getElementById('cvTargetRole').value,language:document.getElementById('cvLanguage').value,consent:true}),signal:controller.signal});}finally{clearTimeout(timeout);}
   let data=await response.json();if(!response.ok)throw new Error(data.error||'Endpoint de geração indisponível');
   const output=String(data.cv||data.resume||'').trim();if(output.length<80)throw new Error('O serviço não retornou um currículo válido');
   cvResult(output);status.textContent='Rascunho gerado por IA. Revise cada afirmação antes de enviar.';
@@ -631,9 +631,9 @@ const tabs=[['mainTabGeneral','mainPanelGeneral'],['mainTabRegional','mainPanelR
 function selectTab(index,focus){tabs.forEach(([tabId,panelId],i)=>{const tab=document.getElementById(tabId),panel=document.getElementById(panelId),active=i===index;if(!tab||!panel)return;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;panel.hidden=!active;panel.style.display=active?'':'none';});if(focus)document.getElementById(tabs[index][0]).focus();}
 tabs.forEach(([tabId],i)=>{const tab=document.getElementById(tabId);if(!tab)return;tab.addEventListener('click',()=>selectTab(i,false));tab.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const next=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;selectTab(next,true);});});
 selectTab(0,false);
-function setupTableSort(panelId){const panel=document.getElementById(panelId);if(!panel)return;const table=panel.querySelector('table'),tbody=table?.tBodies[0];if(!tbody)return;const buttons=[...table.querySelectorAll('.sort-column')];const collator=new Intl.Collator('pt-BR',{numeric:true,sensitivity:'base'});let col=-1,asc=true;
+function setupTableSort(panelId,tableSelector){const panel=document.getElementById(panelId);if(!panel)return;const table=panel.querySelector(tableSelector),tbody=table?.tBodies[0];if(!tbody)return;const buttons=[...table.querySelectorAll('.sort-column')];const collator=new Intl.Collator('pt-BR',{numeric:true,sensitivity:'base'});let col=-1,asc=true;
 buttons.forEach(btn=>btn.addEventListener('click',()=>{const selected=Number(btn.dataset.column);asc=col===selected?!asc:selected!==6;col=selected;const rows=[...tbody.rows];rows.sort((a,b)=>{const av=col===6?a.dataset.published||'':a.cells[col].textContent.trim(),bv=col===6?b.dataset.published||'':b.cells[col].textContent.trim();if(!av&&!bv)return 0;if(!av)return 1;if(!bv)return -1;const cmp=collator.compare(av,bv);return asc?cmp:-cmp;});tbody.replaceChildren(...rows);buttons.forEach(b=>{const active=b===btn;b.closest('th').setAttribute('aria-sort',active?(asc?'ascending':'descending'):'none');b.querySelector('span').textContent=active?(asc?'↑':'↓'):'↕';});panel.dispatchEvent(new Event('table-sorted'));}));}
-setupTableSort('mainPanelGeneral');
+setupTableSort('mainPanelGeneral','#jobs-table');
 // Initial view is always newest published first; undated rows remain last.
 const newestButton=document.querySelector('#mainPanelGeneral .sort-column[data-column="6"]');if(newestButton)newestButton.click();
 function setupPager(panelId,selector){const panel=document.getElementById(panelId);if(!panel)return;const ctl=panel.querySelector('.page-controls');if(!ctl)return;let items=[...panel.querySelectorAll(selector)],size=ctl.querySelector('.page-size'),prev=ctl.querySelector('.page-prev'),next=ctl.querySelector('.page-next'),summary=ctl.querySelector('.page-summary'),index=ctl.querySelector('.page-index');let page=1;
@@ -642,7 +642,7 @@ panel.addEventListener('table-sorted',()=>{page=1;render();});size.addEventListe
 const filterIds=panelId==='mainPanelGeneral'?['q','area','mode','source','region','city','age']:['regionalCompany','regionalCity','regionalArea','regionalQuery'];for(const id of filterIds){const el=document.getElementById(id);if(el)el.addEventListener('input',()=>{page=1;render();});}
 render();
 }
-setupPager('mainPanelGeneral','tbody tr');
+setupPager('mainPanelGeneral','#jobs-table tbody tr');
 setupPager('mainPanelRegional','.regional-card');
 })();
 </script><script>
@@ -800,11 +800,15 @@ def market_chart_html(recruiter_post_count=0):
     #market-trend circle{cursor:crosshair;outline-offset:3px}
     #market-trend circle:focus{outline:2px solid #fff}
     #market-detail{color:#c6e6ef;min-height:22px;font-size:13px;margin-top:8px}
-    #market-table th,#market-table td{padding:9px;text-align:left;border-bottom:1px solid #34516a;color:#dceaf7}
+    .market-definitions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}.market-definition{position:relative;background:#102139;border:1px solid #34526a;border-radius:10px;padding:11px;color:#c5d8ec;font-size:13px}.info-tip{display:inline-grid;place-items:center;position:relative;width:18px;height:18px;margin-left:5px;border:1px solid #6ba8b4;border-radius:50%;color:#80e4dc;cursor:help}.info-tip [role="tooltip"]{display:none;position:absolute;z-index:10;left:0;top:25px;width:min(300px,75vw);padding:10px;border-radius:8px;background:#061321;border:1px solid #5a8298;color:#eef8ff;box-shadow:0 8px 24px #0008}.info-tip:hover [role="tooltip"],.info-tip:focus [role="tooltip"]{display:block}.market-floating-tooltip{position:fixed;z-index:9999;pointer-events:none;display:none;padding:8px 10px;border-radius:8px;background:#061321;border:1px solid #6be4dc;color:#f4fbff;box-shadow:0 8px 24px #0009;font-size:12px;white-space:nowrap}
     @media(max-width:540px){.market-kpis{grid-template-columns:1fr}.market-intelligence{padding:15px!important}.market-controls label{flex:1;min-width:125px}}
     @media(prefers-reduced-motion:no-preference){.market-kpi{transition:border-color .2s,transform .2s}.market-kpi:hover{border-color:#4dd8cc;transform:translateY(-2px)}}
     </style>
     <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center"><strong style="color:#6be4dc;letter-spacing:.1em;font-size:12px">◈ TALENT PULSE · MARKET INTELLIGENCE</strong><span style="color:#aac2d8;font-size:12px">Amostra monitorada · sem dados simulados</span></div>
+    <div class="market-definitions">
+      <div class="market-definition"><strong>Posts públicos indexados</strong><span class="info-tip" tabindex="0" aria-label="Ajuda sobre posts públicos indexados">i<span role="tooltip">Publicações de recrutamento encontradas por mecanismos públicos de busca. Podem indicar movimento do mercado, mas não são vagas confirmadas nem representam todo o LinkedIn.</span></span><br>Termômetro da atividade de recrutamento encontrada na web.</div>
+      <div class="market-definition"><strong>Vagas coletadas</strong><span class="info-tip" tabindex="0" aria-label="Ajuda sobre vagas coletadas">i<span role="tooltip">Anúncios individuais obtidos nas fontes de vagas integradas ao sistema, deduplicados quando possível. A cobertura depende das fontes e do início da coleta.</span></span><br>Anúncios de emprego encontrados nas fontes monitoradas.</div>
+    </div>
     <div class="market-controls">
       <label for="market-metric">Indicador
         <select id="market-metric"><option value="posts" selected>Posts públicos indexados</option><option value="vacancies">Vagas coletadas</option></select>
@@ -830,8 +834,8 @@ def market_chart_html(recruiter_post_count=0):
       <div id="market-detail" role="status" aria-live="polite">Toque ou selecione um ponto para ver os detalhes.</div>
       <div id="market-legend" style="display:flex;gap:16px;flex-wrap:wrap;margin:10px 0;color:#dce7ff"></div>
     </div>
+    <div id="market-tooltip" class="market-floating-tooltip" role="tooltip"></div>
     <p id="market-summary" role="status" aria-live="polite" style="color:#b7c7e0;margin:12px 0"></p>
-    <details><summary style="cursor:pointer;margin:12px 0;color:#dce7ff">Ver tabela de dados mensais</summary><div style="overflow-x:auto"><table id="market-table" style="width:100%;min-width:320px"><caption>Indicador observado por mês e categoria</caption><thead></thead><tbody id="market-monthly-body"></tbody></table></div></details>
     <p style="color:#b7c7e0;font-size:13px">“Vagas coletadas” contabiliza anúncios nas fontes monitoradas. “Posts públicos indexados” usa resultados públicos encontrados na web e não a API oficial do LinkedIn; é uma amostra incompleta e não representa vagas verificadas. Sem coleta ≠ zero.</p>
     <script type="application/json" id="market-history-data">""" + payload + """</script>
     <script>
@@ -839,8 +843,10 @@ def market_chart_html(recruiter_post_count=0):
       const data=JSON.parse(document.getElementById('market-history-data').textContent);
       const metric=document.getElementById('market-metric'),area=document.getElementById('market-area'),scope=document.getElementById('market-scope'),windowSelect=document.getElementById('market-window');
       const svg=document.getElementById('market-trend'),summary=document.getElementById('market-summary');
-      const table=document.getElementById('market-table'),legend=document.getElementById('market-legend');
+      const legend=document.getElementById('market-legend'),tooltip=document.getElementById('market-tooltip');
       const detail=document.getElementById('market-detail'),NS='http://www.w3.org/2000/svg';
+      function showTooltip(event,message){tooltip.textContent=message;tooltip.style.display='block';const x=Math.min(window.innerWidth-tooltip.offsetWidth-12,event.clientX+12),y=Math.max(8,event.clientY-tooltip.offsetHeight-12);tooltip.style.left=x+'px';tooltip.style.top=y+'px';}
+      function hideTooltip(){tooltip.style.display='none';}
       function node(tag,attrs,text){const n=document.createElementNS(NS,tag);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));if(text!==undefined)n.textContent=text;svg.appendChild(n);return n;}
       function draw(){
         const isPosts=metric.value==='posts';
@@ -872,8 +878,12 @@ def market_chart_html(recruiter_post_count=0):
             const dot=node('circle',{cx:x,cy:y,r:5,fill:palette[name],stroke:'#0b182a','stroke-width':2,tabindex:0,role:'button','aria-label':name+', '+months[i]+': '+v+' '+unit});
             const status=isPosts?(data.linkedin.coverage[months[i]]?.[name]||'unqueried'):(data.coverage[months[i]]+' fonte(s) com registros');
             const message=name+' · '+months[i]+' · '+v+' '+unit+' · cobertura: '+status;
-            dot.addEventListener('mouseenter',()=>detail.textContent=message);
+            const title=document.createElementNS(NS,'title');title.textContent=message;dot.appendChild(title);
+            dot.addEventListener('mouseenter',event=>{detail.textContent=message;showTooltip(event,message);});
+            dot.addEventListener('mousemove',event=>showTooltip(event,message));
+            dot.addEventListener('mouseleave',hideTooltip);
             dot.addEventListener('focus',()=>detail.textContent=message);
+            dot.addEventListener('blur',hideTooltip);
             dot.addEventListener('click',()=>detail.textContent=message);
             dot.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();detail.textContent=message;}});
           });
@@ -894,9 +904,6 @@ def market_chart_html(recruiter_post_count=0):
         document.getElementById('market-coverage-note').textContent=isPosts?'Meses consultados no índice público':'Meses com registros nas fontes monitoradas';
         summary.textContent=covered===0?'Nenhuma coleta identificada nesta janela. Não é possível inferir a tendência.':covered<3?'Histórico insuficiente para avaliar tendências com confiança.':isPosts?'Histórico público disponível para leitura descritiva dos períodos; a amostra não representa todo o LinkedIn.':'Tendência descritiva da amostra, não do mercado inteiro.';
         if(covered===0){node('text',{x:330,y:125,fill:'#9bdedc','font-size':16,'text-anchor':'middle'},'Aguardando histórico de coleta');}
-        table.querySelector('thead').replaceChildren();table.querySelector('tbody').replaceChildren();
-        const head=document.createElement('tr');['Mês',...names,isPosts?'Cobertura':'Fontes'].forEach(x=>{const th=document.createElement('th');th.scope='col';th.textContent=x;head.appendChild(th);});table.querySelector('thead').appendChild(head);
-        months.forEach((month,i)=>{const coverage=isPosts?names.map(name=>data.linkedin.coverage[month]?.[name]||'não consultado').join(' / '):String(data.coverage[month]||0);const tr=document.createElement('tr');[month,...series.map(arr=>arr[i]===null?'Sem coleta':String(arr[i])),coverage].forEach(x=>{const td=document.createElement('td');td.textContent=x;tr.appendChild(td);});table.querySelector('tbody').appendChild(tr);});
       }
       metric.addEventListener('change',draw);area.addEventListener('change',draw);scope.addEventListener('change',draw);windowSelect.addEventListener('change',draw);draw();
     })();

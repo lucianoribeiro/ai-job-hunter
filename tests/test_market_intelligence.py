@@ -41,6 +41,11 @@ class MarketIntelligenceTests(unittest.TestCase):
         self.assertIn('<option value="24" selected>24 meses</option>', chart)
         self.assertIn('"linkedin":', chart)
         self.assertIn('"recruiter_current": 31', chart)
+        self.assertIn('id="market-tooltip"', chart)
+        self.assertIn("showTooltip(event,message)", chart)
+        self.assertIn("Posts públicos indexados</strong>", chart)
+        self.assertIn("Vagas coletadas</strong>", chart)
+        self.assertNotIn('id="market-table"', chart)
 
     def test_linkedin_month_without_successful_query_is_not_zero(self):
         result = summarize({}, "2026-10-18", {
