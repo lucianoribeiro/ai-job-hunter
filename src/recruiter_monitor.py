@@ -40,7 +40,7 @@ def classify(title: str) -> dict:
     explicit_hiring = bool(re.search(r"hiring|contratando|estamos contratando|we.re hiring|vaga|opportunit|oportunidade|open position|job opening", t))
     area = "Manufatura" if manufacturing else "QA" if qa else "Projetos" if projects else "Outros"
     modality = "Remoto (citado)" if remote else "Híbrido (citado)" if hybrid else "Não informada"
-    return {"area": area, "modality": modality, "review_priority": "high" if area != "Outros" and explicit_hiring else "low"}
+    return {"area": area, "modality": modality, "review_priority": "high" if area != "Outros" and explicit_hiring else "normal"}
 
 
 def parse_feed(xml_text: str, day: str) -> list[dict]:
@@ -58,8 +58,6 @@ def parse_feed(xml_text: str, day: str) -> list[dict]:
         if date.date().isoformat() != day or not url.startswith("https://"):
             continue
         labels = classify(title)
-        if labels["review_priority"] != "high":
-            continue
         found[url] = {
             "title": title[:240], "url": url, "published_at": date.isoformat(),
             "source": "Public web news index", "status": "needs_review", **labels,
