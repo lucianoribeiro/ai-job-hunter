@@ -100,8 +100,10 @@ def run() -> dict:
     else:
         for query in SEARCHES + MANUFACTURING_SEARCHES:
             manufacturing_query = query in MANUFACTURING_SEARCHES or query in SEARCHES[3:]
+            qa_query = query == SEARCHES[0]
+            days = 7 if manufacturing_query else 30 if qa_query else 1
             endpoint = "https://news.google.com/rss/search?" + urlencode({
-                "q": query + (" when:7d" if manufacturing_query else " when:1d"), "hl": "pt-BR" if manufacturing_query else "en-US", "gl": "BR" if manufacturing_query else "US", "ceid": "BR:pt-419" if manufacturing_query else "US:en"
+                "q": query + f" when:{days}d", "hl": "pt-BR" if manufacturing_query else "en-US", "gl": "BR" if manufacturing_query else "US", "ceid": "BR:pt-419" if manufacturing_query else "US:en"
             })
             try:
                 req = Request(endpoint, headers={"User-Agent": "AIJobHunter/1.0 (public RSS reader)"})
@@ -109,7 +111,7 @@ def run() -> dict:
                     xml = response.read(1_000_001)
                 if len(xml) > 1_000_000:
                     raise ValueError("Feed too large")
-                for result in parse_feed(xml.decode("utf-8"), day, max_age_days=7 if manufacturing_query else 1, manufacturing_only=manufacturing_query):
+                for result in parse_feed(xml.decode("utf-8"), day, max_age_days=days, manufacturing_only=manufacturing_query):
                     jobs[result["url"]] = result
             except Exception as exc:
                 failures.append(type(exc).__name__)
