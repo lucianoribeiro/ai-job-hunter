@@ -413,6 +413,9 @@ const recruiterArea=document.getElementById('recruiter-area'),recruiterMode=docu
 function filterRecruiter(){if(!recruiterArea||!recruiterMode)return;let visible=0;document.querySelectorAll('.recruiter-card').forEach(card=>{const area=!recruiterArea.value||card.dataset.area===recruiterArea.value;const mode=!recruiterMode.value||card.dataset.mode.startsWith(recruiterMode.value);card.hidden=!(area&&mode);if(!card.hidden)visible++;});const count=document.getElementById('recruiter-count');if(count)count.textContent=String(visible);}
 if(recruiterArea&&recruiterMode){recruiterArea.addEventListener('change',filterRecruiter);recruiterMode.addEventListener('change',filterRecruiter);}
 document.querySelector('.ai-tab[data-task="cv"]')?.click();
+const cvStudio=document.getElementById('studioCvPanel');
+if(cvStudio){const workspace=cvStudio.parentElement;for(const child of [...workspace.children]){if(child!==cvStudio && child.id!=='studioFitPanel' && child.id!=='studioApplicationPanel' && child.id!=='studioCareerPanel' && child.id!=='aiTaskTitle' && child.id!=='aiTaskHelp' && child.matches('p.muted'))child.hidden=true;}const title=document.getElementById('aiTaskTitle');if(title)title.hidden=true;const hint=document.getElementById('aiTaskHelp');if(hint)hint.hidden=true;}
+
 const mainTabPairs=[['mainTabGeneral','mainPanelGeneral'],['mainTabRegional','mainPanelRegional'],['mainTabAI','mainPanelAI'],['mainTabFinance','mainPanelFinance'],['mainTabRecruiter','mainPanelRecruiter']];
 function activateMainTab(index,focus=false){mainTabPairs.forEach(([tid,pid],i)=>{const active=i===index,tab=document.getElementById(tid),panel=document.getElementById(pid);tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;panel.hidden=!active;});if(focus)document.getElementById(mainTabPairs[index][0]).focus();}
 mainTabPairs.forEach(([tid],i)=>{const tab=document.getElementById(tid);tab.addEventListener('click',()=>activateMainTab(i));tab.addEventListener('keydown',evt=>{if(!['ArrowRight','ArrowLeft','Home','End'].includes(evt.key))return;evt.preventDefault();const next=evt.key==='Home'?0:evt.key==='End'?mainTabPairs.length-1:(i+(evt.key==='ArrowRight'?1:-1)+mainTabPairs.length)%mainTabPairs.length;activateMainTab(next,true);});});
@@ -469,6 +472,9 @@ for(const [key,id] of Object.entries({fit:'studioFitPanel',cv:'studioCvPanel',ap
 
 function studioText(id){return document.getElementById(id).value.trim();}
 function studioOutput(id,value){document.getElementById(id).textContent=value;}
+function cvLoadScript(url){
+ return new Promise((resolve,reject)=>{const script=document.createElement('script');script.src=url;script.onload=resolve;script.onerror=()=>reject(new Error('Não foi possível carregar o leitor de documentos.'));document.head.append(script);});
+}
 const cvFile=document.getElementById('cvSourceFile'),cvSource=document.getElementById('studioCvText'),cvStatus=document.getElementById('cvFileStatus');
 cvFile.addEventListener('change',async()=>{
  const file=cvFile.files[0];if(!file)return;
@@ -478,10 +484,10 @@ cvFile.addEventListener('change',async()=>{
   let content='';const name=file.name.toLowerCase();
   if(name.endsWith('.txt')||name.endsWith('.md'))content=await file.text();
   else if(name.endsWith('.docx')){
-   if(!window.mammoth)await matchLoadScript('https://cdn.jsdelivr.net/npm/mammoth@1.9.1/mammoth.browser.min.js');
+   if(!window.mammoth)await cvLoadScript('https://cdn.jsdelivr.net/npm/mammoth@1.9.1/mammoth.browser.min.js');
    content=(await window.mammoth.extractRawText({arrayBuffer:await file.arrayBuffer()})).value;
   }else if(name.endsWith('.pdf')){
-   if(!window.pdfjsLib)await matchLoadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
+   if(!window.pdfjsLib)await cvLoadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
    window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
    const pdf=await window.pdfjsLib.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise;
    if(pdf.numPages>40)throw new Error('Limite de 40 páginas');
