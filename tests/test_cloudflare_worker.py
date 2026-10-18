@@ -30,6 +30,8 @@ class CloudflareWorkerTests(unittest.TestCase):
         self.assertIn('payload?.consent!==true', self.source)
         self.assertIn('profile.length>30000', self.source)
         self.assertIn('["pt","en"].includes(language)', self.source)
+        self.assertIn("const cleanCv", self.source)
+        self.assertIn("temperature:0", self.source)
 
 
 if __name__ == "__main__":

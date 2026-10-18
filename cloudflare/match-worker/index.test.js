@@ -31,6 +31,17 @@ test("rejects CV generation without explicit consent", async () => {
   assert.equal(response.status, 400);
 });
 
+test("removes unsupported empty placeholders from model output", async () => {
+  const generated = "Name: Not Available\n\nProfessional Summary:\n" + "Documented QA experience. ".repeat(6) + "\n\nEducation:\nNot Provided";
+  const response = await worker.fetch(post("/cv", {
+    profile: "Documented QA experience at Example Company with API testing evidence.",
+    role: "QA Lead", language: "en", consent: true,
+  }), env(generated));
+  const body = await response.json();
+  assert.equal(response.status, 200);
+  assert.doesNotMatch(body.cv, /Not Available|Not Provided|Education:/i);
+});
+
 test("keeps the existing match endpoint contract", async () => {
   const response = await worker.fetch(post("/match", {
     profile: "Senior QA engineer with Playwright and API testing experience.",

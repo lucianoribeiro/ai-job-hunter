@@ -32,6 +32,19 @@ Omita seções sem dados. Para inglês, use padrão profissional internacional; 
 const json = (body, status=200, cors={}) => new Response(JSON.stringify(body), {
   status, headers: {"content-type":"application/json; charset=utf-8","cache-control":"no-store",...cors}
 });
+const cleanCv = value => {
+ const lines=String(value||"").replace(/^```(?:text)?|```$/gim,"").split("\n");
+ const missing=/^(?:not (?:available|provided|informed)|não informad[oa]|não disponível)\.?$/i;
+ const kept=[];
+ for(let i=0;i<lines.length;i++){
+  const line=lines[i].trim(),inline=line.match(/^([^:]{1,50}):\s*(.+)$/);
+  if((inline&&missing.test(inline[2]))||missing.test(line))continue;
+  let next=i+1;while(next<lines.length&&!lines[next].trim())next++;
+  if(/^[^:]{1,50}:\s*$/.test(line)&&next<lines.length&&missing.test(lines[next].trim())){i=next;continue;}
+  kept.push(lines[i].replace(/[ \t]+$/,""));
+ }
+ return kept.join("\n").replace(/\n{3,}/g,"\n\n").trim();
+};
 export default {
  async fetch(request, env) {
   const origin = request.headers.get("origin");
@@ -61,8 +74,8 @@ export default {
     const result=await env.AI.run(MODEL,{messages:[
      {role:"system",content:CV_INSTRUCTION+"\n\n"+languageRule},
      {role:"user",content:JSON.stringify({target_role:role||"Não definido",output_language:language==="pt"?"Português do Brasil":"English",source_resume:profile})}
-    ],max_tokens:2200,temperature:0.15});
-    const cv=String(result?.response||"").trim();
+    ],max_tokens:2200,temperature:0});
+    const cv=cleanCv(result?.response);
     if(cv.length<120)throw new Error("Model returned insufficient content");
     return json({cv,method:"cloudflare-workers-ai",model:MODEL},200,cors);
    }catch{return json({error:"Geração de currículo por IA indisponível no momento."},503,cors);}
