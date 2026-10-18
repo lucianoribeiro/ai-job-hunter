@@ -140,6 +140,54 @@ def extract_job_facts(text: str) -> dict:
             "salary_usd": salary, "salary_evidence": salary_evidence}
 
 
+def extract_application_contract(html_text: str, application_url: str) -> dict:
+    """Only explicit contract information from a public Vagas.com application."""
+    from html.parser import HTMLParser
+    from urllib.parse import urlsplit
+    import re
+    if (urlsplit(application_url).hostname or "").lower() not in ("vagas.com.br", "www.vagas.com.br"):
+        return {}
+    class VisibleText(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.parts = []
+        def handle_data(self, data):
+            self.parts.append(data)
+    parser = VisibleText()
+    parser.feed(html_text[:500000])
+    content = re.sub(r"\s+", " ", " ".join(parser.parts))
+    match = re.search(r"\bRegime\s+(CLT|PJ|B2B)\b", content, re.I)
+    return {"contract_type": match.group(1).upper(), "contract_evidence": match.group(0),
+            "contract_source": "Anúncio de candidatura", "application_url": application_url} if match else {}
+
+
+def enrich_application(item: dict) -> dict:
+    """Follow an explicitly indexed lnkd.in application link to allowlisted Vagas.com only."""
+    import re
+    from urllib.parse import urlsplit
+    from urllib.request import build_opener, HTTPRedirectHandler
+    link = re.search(r"https://lnkd\.in/[a-zA-Z0-9]+", str(item.get("title", "")))
+    if not link:
+        return item
+    class SafeRedirect(HTTPRedirectHandler):
+        def redirect_request(self, req, fp, code, msg, headers, newurl):
+            if (urlsplit(newurl).hostname or "").lower() not in ("vagas.com.br", "www.vagas.com.br"):
+                raise ValueError("Unsupported redirect destination")
+            return super().redirect_request(req, fp, code, msg, headers, newurl)
+    try:
+        opener = build_opener(SafeRedirect())
+        with opener.open(Request(link.group(0), headers={"User-Agent": "AIJobHunter/1.0"}), timeout=6) as response:
+            final_url = response.geturl()
+            if (urlsplit(final_url).hostname or "").lower() not in ("vagas.com.br", "www.vagas.com.br"):
+                return item
+            raw = response.read(500001)
+        if len(raw) > 500000:
+            return item
+        return {**item, **extract_application_contract(raw.decode("utf-8", "replace"), final_url)}
+    except (OSError, ValueError):
+        return item
+
+
 def classify(title: str) -> dict:
     """Conservative title-only tags; never infer remote/hybrid eligibility."""
     import re
@@ -249,7 +297,7 @@ def run() -> dict:
                 if len(xml) > 1_000_000:
                     raise ValueError("Feed too large")
                 for result in parse_feed(xml.decode("utf-8"), day, max_age_days=days, manufacturing_only=manufacturing_query):
-                    jobs[result["url"]] = result
+                    jobs[result["url"]] = enrich_application(result)
             except Exception as exc:
                 failures.append(type(exc).__name__)
         state = "partial" if failures else "ok"
