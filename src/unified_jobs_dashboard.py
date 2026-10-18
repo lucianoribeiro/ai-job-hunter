@@ -757,7 +757,7 @@ def market_chart_html():
     parts = ['<div style="overflow-x:auto"><table style="width:100%;min-width:540px;border-collapse:collapse"><caption style="text-align:left;padding:8px 0;color:#b7c7e0">Vagas por mês e categoria</caption><thead><tr><th scope="col">Mês</th>']
     names = ("QA", "QA Manager", "Manufatura")
     parts.extend(f'<th scope="col">{e(name)}</th>' for name in names)
-    parts.append('</tr></thead><tbody>')
+    parts.append('</tr></thead>')
     for i, month in enumerate(months):
         parts.append(f'<tr><th scope="row" style="padding:9px;text-align:left">{e(month)}</th>')
         for name in names:
@@ -765,7 +765,7 @@ def market_chart_html():
             width = round(value / maximum * 100) if maximum else 0
             parts.append(f'<td style="padding:9px;min-width:120px"><div aria-label="{e(name)}: {value} vagas" style="display:flex;align-items:center;gap:8px"><span style="display:inline-block;height:12px;width:{width}%;background:#83a7ff;border-radius:4px"></span><span>{value}</span></div></td>')
         parts.append('</tr>')
-    parts.append('</tbody></table></div>')
+    parts.append('</table></div>')
     parts.append(f'<p style="color:#b7c7e0">Meses com registros: {report["observed_months"]}. Ainda não há histórico suficiente para identificar a melhor época para buscar emprego.</p>')
     return ''.join(parts)
 
