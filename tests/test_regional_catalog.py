@@ -1,5 +1,5 @@
 import unittest
-from src.unified_jobs_dashboard import render
+from src.unified_jobs_dashboard import manufacturing_leadership_alert, render
 
 class RegionalCatalogTests(unittest.TestCase):
     def test_filters_and_inline_vacancy(self):
@@ -47,3 +47,25 @@ class RegionalCatalogTests(unittest.TestCase):
         self.assertIn("PPG", page)
         self.assertIn("Vagas coletadas: 1", page)
         self.assertIn("Sumaré (1)", page)
+
+    def test_manufacturing_leadership_alert_for_strategic_company(self):
+        report = {
+            "jobs": [
+                {"title": "Coordenador de Manufatura Sumaré - SP", "company": "Villares Metals",
+                 "url": "https://villaresmetals.gupy.io/jobs/999", "location": "Sumaré"},
+                {"title": "Analista de Produção Sumaré - SP", "company": "Villares Metals",
+                 "url": "https://villaresmetals.gupy.io/jobs/998", "location": "Sumaré"},
+            ],
+            "sources": [{"company": "Villares Metals", "city": "Sumaré", "state": "ok"}],
+        }
+        page = render({"jobs": []}, [], strategic=report)
+        alert = page.split('id="manufacturingLeadershipAlert"', 1)[1].split('</aside>', 1)[0]
+        self.assertIn("1 alerta(s) ativo(s)", alert)
+        self.assertIn("Coordenador de Manufatura", alert)
+        self.assertNotIn("Analista de Produção", alert)
+
+    def test_manufacturing_alert_title_criteria(self):
+        self.assertTrue(manufacturing_leadership_alert("Gerente de Produção"))
+        self.assertTrue(manufacturing_leadership_alert("Manufacturing Operations Manager"))
+        self.assertFalse(manufacturing_leadership_alert("Gerente de Projetos"))
+        self.assertFalse(manufacturing_leadership_alert("Engenheiro de Manufatura"))

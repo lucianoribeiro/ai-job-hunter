@@ -86,6 +86,7 @@ jobs:
           grep -q 'DASHBOARD PREMIUM' site/index.html
           grep -q 'id="regionalCompany"' site/index.html
           grep -q 'id="regionalCards"' site/index.html
+          grep -q 'id="manufacturingLeadershipAlert"' site/index.html
           grep -q 'id="mainTabFinance"' site/index.html
           grep -q 'id="mainPanelFinance"' site/index.html
           grep -q 'id="mainTabRecruiter"' site/index.html

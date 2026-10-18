@@ -125,6 +125,17 @@ def region_city(location):
     return ""
 
 
+def manufacturing_leadership_alert(title):
+    """Match leadership roles whose advertised title is explicitly manufacturing-related."""
+    value = re.sub(r"\s+", " ", str(title or "")).strip()
+    leadership = r"(?:coordenador(?:a)?|gerente|manager|coordinator)"
+    manufacturing = r"(?:manufatura|manufacturing|produ[cç][aã]o|production|opera[cç][oõ]es industriais|industrial operations|industrial|planta|plant)"
+    return bool(re.search(
+        rf"\b(?:{leadership}\b.{{0,70}}\b{manufacturing}|{manufacturing}\b.{{0,70}}\b{leadership})\b",
+        value, re.I,
+    ))
+
+
 
 def usd_monthly_floor(job):
     """Only explicitly USD-denominated advertised salaries; no inferred amounts."""
@@ -266,6 +277,28 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
     )
     companies = sorted({x["company"] for x in entries if x.get("company")})
     company_options = "".join('<option value="' + e(name) + '">' + e(name) + '</option>' for name in companies)
+    monitored_companies = {str(x.get("company", "")) for x in source_status if isinstance(x, dict)}
+    manufacturing_alerts = [
+        item for item in entries
+        if item.get("company") in monitored_companies and manufacturing_leadership_alert(item.get("title"))
+    ]
+    alert_cards = "".join(
+        '<li><a href="' + e(item["url"]) + '" target="_blank" rel="noopener noreferrer">' +
+        e(item["title"]) + '</a><span>' + e(item["company"]) + ' · ' +
+        e(item["city"] or "Cidade não verificada") + '</span></li>'
+        for item in manufacturing_alerts
+    )
+    alert_html = (
+        '<aside id="manufacturingLeadershipAlert" class="job-alert" aria-labelledby="manufacturingAlertTitle">'
+        '<div><p class="alert-kicker">ALERTA AUTOMÁTICO</p><h3 id="manufacturingAlertTitle">'
+        'Coordenação e Gerência de Manufatura</h3><p>Monitoramento diário nas empresas estratégicas para '
+        'liderança em manufatura, produção e operações industriais.</p></div>'
+        '<strong class="alert-count">' + str(len(manufacturing_alerts)) + ' alerta(s) ativo(s)</strong>' +
+        ('<ul>' + alert_cards + '</ul>' if alert_cards else
+         '<p class="alert-empty">Nenhuma vaga correspondente foi encontrada na coleta atual.</p>') +
+        '<small>A cobertura depende dos portais integrados; fontes manuais não são tratadas como ausência de vagas.</small>'
+        '</aside>'
+    )
     company_cards = "".join(
         '<li><strong>' + e(item.get("company", "")) + '</strong> · ' + e(item.get("city", "")) +
         ' · ' + e({"manual": "Fonte ainda não integrada", "needs_connector": "Coleta incompleta (needs_connector)",
@@ -294,6 +327,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         '<section id="empresas-estrategicas" aria-labelledby="regionalTitle"><h2 id="regionalTitle">Vagas regionais · Sumaré, Paulínia e Americana</h2>'
         '<p>Vagas coletadas: ' + str(live_count) + '. Empresas acompanhadas: ' + str(monitored_count) +
         '. Cidades são as informadas nos anúncios, nunca deduzidas pela sede da empresa.</p>'
+        + alert_html +
         '<div class="regional-filters"><label>Empresa<select id="regionalCompany"><option value="">Todas as empresas com vagas</option>' +
         company_options + '</select></label><label>Cidade<select id="regionalCity"><option value="">Todas as cidades</option>'
         '<option value="Sumaré">Sumaré (' + str(city_counts["Sumaré"]) + ')</option>'
@@ -431,6 +465,7 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 @media(max-width:650px){body{padding:12px}header,section{padding:19px;border-radius:18px}.summary{gap:8px}.summary article{padding:13px;border-radius:12px}.summary strong{font-size:27px}.filters{grid-template-columns:1fr}td,th{padding:11px}}
 .match-profile{margin-top:18px;padding:16px;border:1px solid #4b5760;border-radius:13px}.studio-advanced{border:1px solid #43515b;border-radius:10px;padding:10px 14px;margin-bottom:16px}.studio-advanced summary{cursor:pointer;font-weight:650}.studio-advanced .studio-filters{margin-top:12px}.studio-advanced #studioCount{font-weight:500;font-size:12px;color:#a2d4c5;margin-left:8px}.match-method{margin-top:14px}.match-profile details{margin:12px 0;border:1px solid #46535b;border-radius:9px;padding:12px}.match-profile summary{cursor:pointer;font-weight:650}.match-profile label{display:block;margin:15px 0 6px}.match-profile textarea{font:inherit;width:100%;background:#1b1f25;border:1px solid #626b78;border-radius:9px;padding:12px;color:#eee;resize:vertical}.match-profile input[type=file]{font:inherit}.match-profile button{cursor:pointer;background:#356e5e;color:white;border:1px solid #9ad2ba;padding:12px 16px;border-radius:10px;font-weight:700}#matchResult{margin-top:18px;line-height:1.6}#matchResult ul{padding-left:22px}.studio-panel[hidden]{display:none}.studio-panel label{display:block;margin:14px 0 6px}.studio-panel textarea{font:inherit;width:100%;background:#1b1f25;color:#f5f5f4;border:1px solid #626b78;border-radius:11px;padding:13px;resize:vertical}.studio-panel button{cursor:pointer;background:#356e5e;color:#fff;border:1px solid #8dc3ad;border-radius:10px;padding:12px 16px;margin-top:14px;font-weight:700}.studio-output{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;font-size:14px;line-height:1.6;color:#e9edf0}.studio-results{font-size:16px!important;color:#e7f4ef!important;font-weight:750;margin:12px 0 8px}#studioQuery{margin:10px 0 4px;font-size:16px;min-height:48px}#aiJob{font-size:16px;min-height:48px}.studio-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:14px 0}.studio-filters label{display:grid;gap:6px;color:#d6d9df;font-size:13px}#studioCount{color:#9bd4c6;font-size:12px}.ai-tabs{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}.ai-tab,.ai-actions button{cursor:pointer;border-radius:12px;background:#2b3038;color:#e4e5e7;border:1px solid #515960;padding:12px 16px;font-weight:700}.ai-tab[aria-pressed=true]{background:#477f71;border-color:#78af9f;color:white}.ai-workspace{background:#1b2026;border:1px solid #404750;border-radius:18px;padding:20px}.ai-workspace h3{color:white}.ai-workspace label{display:block;margin-bottom:8px;color:#d6d9df}.ai-actions{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}#aiStatus{color:#d3d7da;font-size:13px}.muted{color:#aeb4bd}
 .regional-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:18px 0}.regional-filters label{font-size:13px;display:grid;gap:7px;color:#d6d9df}.regional-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:13px}.regional-card{padding:17px;border:1px solid #46505a;border-radius:15px;background:#252a31}.regional-heading{display:flex;justify-content:space-between;align-items:start;gap:12px}.regional-pill{font-size:11px;border:1px solid #638e82;border-radius:20px;padding:4px 7px;white-space:nowrap}.regional-card p{color:#bbc3cc;font-size:13px;line-height:1.5}.regional-card summary,.regional-sources summary{cursor:pointer;color:#9bd4c6;font-weight:650}.regional-card details a{display:inline-block;margin-top:12px}.regional-sources{margin-top:20px}.regional-card[hidden]{display:none}
+.job-alert{margin:18px 0;padding:18px;border:1px solid #b9914f;border-left:5px solid #e8bd78;border-radius:14px;background:#2a261f}.job-alert h3{margin:2px 0 5px;color:#fff}.job-alert p{margin:4px 0}.alert-kicker{color:#e8bd78!important;font-size:11px;font-weight:800;letter-spacing:1.5px}.alert-count{display:inline-block;margin:12px 0;color:#ffe1a8}.job-alert ul{display:grid;gap:9px;padding-left:20px}.job-alert li span{display:block;color:#bbc3cc;font-size:12px;margin-top:3px}.job-alert small{display:block;color:#aeb4bd;margin-top:12px}.alert-empty{color:#d7dbe0!important}
 .primary-tabs{position:sticky;top:0;z-index:20;background:#171b21;border:1px solid #46505a;border-radius:16px;display:flex;gap:8px;padding:9px;margin:14px 0}.primary-tab{flex:1;min-height:48px;padding:12px;border:1px solid #515960;border-radius:10px;background:#292f37;color:#f5f5f4;font:inherit;font-weight:700;cursor:pointer}.primary-tab[aria-selected="true"]{background:#477f71;border-color:#9bd4c6;color:white}.primary-panel[hidden]{display:none!important}.primary-tab:focus-visible{outline:3px solid #e8bd78;outline-offset:2px}@media(max-width:650px){.primary-tabs{gap:5px}.primary-tab{font-size:12px;padding:10px 6px}}.page-controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:18px;padding:12px;border:1px solid #414b55;border-radius:12px;background:#222830}.page-controls label{display:flex;gap:8px;align-items:center;font-size:14px}.page-controls select{width:auto;min-width:130px}.page-controls button{background:#323a43;color:#fff;border:1px solid #5b6976;border-radius:9px;padding:10px 14px;cursor:pointer;min-height:42px}.page-controls button:disabled{opacity:.45;cursor:not-allowed}.page-summary,.page-index{font-size:14px;color:#e6eeec}.page-controls button:focus-visible{outline:3px solid #e8bd78}@media(max-width:650px){.page-controls{gap:8px}.page-controls label,.page-summary{width:100%}}.sort-column{background:transparent;border:0;color:inherit;font:inherit;font-weight:700;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:5px;padding:8px 3px;min-height:40px}.sort-column span[aria-hidden]{font-size:21px;line-height:1;min-width:22px;text-align:center;font-weight:900;color:#e8bd78}.brand-lockup{display:flex;align-items:center;gap:15px}.brand-symbol{display:inline-flex;flex:0 0 auto}.sort-column:hover{text-decoration:underline}.sort-column:focus-visible{outline:3px solid #e8bd78;outline-offset:2px}#ai-career-studio .ai-tabs,#ai-career-studio #studioFitPanel,#ai-career-studio #studioApplicationPanel,#ai-career-studio #studioCareerPanel{display:none!important}
 #ai-career-studio #studioCvPanel{display:block!important}
 #ai-career-studio #studioCvPrepare,#ai-career-studio #studioCvDownload{display:none!important}
