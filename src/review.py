@@ -81,6 +81,11 @@ def reconcile(jobs: list[dict], history: dict, queue: dict, today: str) -> tuple
             "url": url,
             "source": job.get("source", ""),
             "score": int(job.get("score", 0)),
+            "published": job.get("published", ""),
+            "location": job.get("location", ""),
+            "salary": job.get("salary", ""),
+            "job_type": job.get("type", ""),
+            "description": str(job.get("description", ""))[:1200],
         })
         if job_id not in queue:
             queue[job_id] = {"status": "pending_review", "created_at": today, "notes": ""}
