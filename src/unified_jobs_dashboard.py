@@ -440,6 +440,7 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 <header><div class="brand-lockup"><span class="brand-symbol" aria-hidden="true"><svg viewBox="0 0 64 64" width="48" height="48"><rect x="2" y="2" width="60" height="60" rx="16" fill="#c3a574"/><path d="M16 45V19h7v10h18V19h7v26h-7V36H23v9z" fill="#171a20"/><path d="M49 12l2.5 5.5L57 20l-5.5 2.5L49 28l-2.5-5.5L41 20l5.5-2.5z" fill="#fff5df"/></svg></span><h1>AI Job Hunter</h1></div><p>Oportunidades reais, de QA e Gerência / Coordenação de Projetos, em um só lugar.</p></header>
 <nav class="primary-tabs" aria-label="Navegação principal" role="tablist"><button type="button" class="primary-tab" id="mainTabGeneral" role="tab" aria-controls="mainPanelGeneral" aria-selected="true" tabindex="0">Oportunidades Gerais</button><button type="button" class="primary-tab" id="mainTabRegional" role="tab" aria-controls="mainPanelRegional" aria-selected="false" tabindex="-1">Oportunidades Regionais</button><button type="button" class="primary-tab" id="mainTabAI" role="tab" aria-controls="mainPanelAI" aria-selected="false" tabindex="-1">AI Career Studio</button><button type="button" class="primary-tab" id="mainTabFinance" role="tab" aria-controls="mainPanelFinance" aria-selected="false" tabindex="-1">Consultor Salarial</button><button type="button" class="primary-tab" id="mainTabRecruiter" role="tab" aria-controls="mainPanelRecruiter" aria-selected="false" tabindex="-1">Recruiter Monitor</button></nav>
 <div id="mainPanelGeneral" class="primary-panel" role="tabpanel" aria-labelledby="mainTabGeneral">
+<section class="market-intelligence" aria-labelledby="market-heading" style="margin:20px 0;padding:22px;border:1px solid #415574;border-radius:18px;background:#152540"><h2 id="market-heading">Inteligência do Mercado · Histórico de vagas</h2><p style="color:#b7c7e0">Evolução mensal das vagas encontradas por nossas fontes públicas. Os números representam a amostra coletada, não todo o mercado.</p>""" + market_chart_html() + """</section>
 <div class="summary"><article>Total de vagas<strong>""" + str(len(jobs)) + """</strong></article>
 <article>QA<strong>""" + str(qa_count) + """</strong></article>
 <article>Projetos<strong>""" + str(projects_count) + """</strong></article>
@@ -738,6 +739,35 @@ matchId('matchAnalyze').addEventListener('click',()=>{
 })();
 </script></body></html>"""
 
+
+
+def market_chart_html():
+    from src.market_intelligence import summarize
+    path = Path("data/history.json")
+    try:
+        history = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+        report = summarize(history)
+    except (OSError, ValueError, TypeError):
+        return '<p role="status">Histórico indisponível no momento. Novas coletas serão exibidas aqui.</p>'
+    months = report["months"]
+    categories = report["categories"]
+    maximum = max((value for group in categories.values() for value in group["monthly"]), default=0)
+    if not maximum:
+        return '<p role="status">Coletando histórico de vagas. O gráfico será preenchido conforme novas vagas forem registradas.</p>'
+    parts = ['<div style="overflow-x:auto"><table style="width:100%;min-width:540px;border-collapse:collapse"><caption style="text-align:left;padding:8px 0;color:#b7c7e0">Vagas por mês e categoria</caption><thead><tr><th scope="col">Mês</th>']
+    names = ("QA", "QA Manager", "Manufatura")
+    parts.extend(f'<th scope="col">{e(name)}</th>' for name in names)
+    parts.append('</tr></thead><tbody>')
+    for i, month in enumerate(months):
+        parts.append(f'<tr><th scope="row" style="padding:9px;text-align:left">{e(month)}</th>')
+        for name in names:
+            value = categories[name]["monthly"][i]
+            width = round(value / maximum * 100) if maximum else 0
+            parts.append(f'<td style="padding:9px;min-width:120px"><div aria-label="{e(name)}: {value} vagas" style="display:flex;align-items:center;gap:8px"><span style="display:inline-block;height:12px;width:{width}%;background:#83a7ff;border-radius:4px"></span><span>{value}</span></div></td>')
+        parts.append('</tr>')
+    parts.append('</tbody></table></div>')
+    parts.append(f'<p style="color:#b7c7e0">Meses com registros: {report["observed_months"]}. Ainda não há histórico suficiente para identificar a melhor época para buscar emprego.</p>')
+    return ''.join(parts)
 
 def main():
     parser = argparse.ArgumentParser()
