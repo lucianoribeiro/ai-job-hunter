@@ -104,10 +104,7 @@ def inject_dashboard(page, report):
                "".join(listings) + '</div></section>')
     # Keep municipal sources strictly within the Regional Opportunities tab.
     # Inserting before </body> placed them outside every tab panel.
-    regional_panel = re.search(
-        r'<div\\b(?=[^>]*\\bid=["\\']mainPanelRegional["\\'])(?=[^>]*\\bclass=["\\'][^"\\']*\\bprimary-panel\\b[^"\\']*["\\'])[^>]*>',
-        page,
-    )
+    regional_panel = re.search(r'<div[^>]*id="mainPanelRegional"[^>]*>', page)
     if regional_panel is None:
         raise ValueError("Dashboard missing Regional Opportunities panel")
     return page[:regional_panel.end()] + section + page[regional_panel.end():]
