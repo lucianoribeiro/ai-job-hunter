@@ -50,6 +50,75 @@ def monthly_usd_salary(job: dict) -> float | None:
     return None
 
 
+
+def market_intelligence(entries: list[dict]) -> str:
+    """Count unique, dated listings in the local dataset, never invent market totals."""
+    from collections import defaultdict
+    from datetime import timedelta
+    from urllib.parse import urlsplit
+    now = datetime.now(timezone.utc)
+    months = [(now.year * 12 + now.month - 1 - i) for i in range(11, -1, -1)]
+    counts = defaultdict(lambda: defaultdict(int))
+    seen = set()
+    for job in entries:
+        title = str(job.get("title") or "").lower()
+        description = str(job.get("description") or "").lower()
+        if not title:
+            continue
+        if re.search(r"\\b(?:qa manager|quality assurance manager|gerente de qa|gerente de qualidade de software|test manager)\\b", title):
+            category = "QA Manager"
+        elif re.search(r"\\b(?:qa|quality assurance|quality engineer|software test|test automation|sdet|quality lead|test lead)\\b", title):
+            category = "QA"
+        elif re.search(r"\\b(?:manufatura|manufacturing|production manager|production coordinator|gerente de produção|coordenador de produção)\\b", title) or (
+            re.search(r"\\b(?:project manager|gerente de projetos|coordenador de projetos)\\b", title)
+            and re.search(r"\\b(?:manufacturing|manufatura|industrial|fábrica|factory|produção)\\b", description)
+        ):
+            category = "Manufatura"
+        else:
+            continue
+        raw = str(job.get("published") or job.get("published_at") or job.get("publication_date") or "")
+        try:
+            if raw.isdigit():
+                dt = datetime.fromtimestamp(int(raw), timezone.utc)
+            else:
+                dt = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=timezone.utc)
+        except (ValueError, OverflowError, OSError):
+            continue
+        if dt > now + timedelta(days=1):
+            continue
+        month = dt.year * 12 + dt.month - 1
+        if month not in months:
+            continue
+        url = str(job.get("url") or "")
+        identity = urlsplit(url)._replace(query="", fragment="").geturl().rstrip("/") if url else str(job.get("id") or "")
+        if not identity:
+            identity = "|".join((title, str(job.get("company") or "").lower(), str(month)))
+        key = (identity, category)
+        if key in seen:
+            continue
+        seen.add(key)
+        counts[month][category] += 1
+    labels = [f"{m % 12 + 1:02d}/{m // 12}" for m in months]
+    series = {name: [counts[m][name] for m in months] for name in ("QA", "QA Manager", "Manufatura")}
+    payload = json.dumps({"labels": labels, "series": series}, ensure_ascii=False).replace("<", "\\u003c")
+    return (
+        '<section id="mercado" class="market" aria-labelledby="market-title">'
+        '<div class="market-head"><div><h2 id="market-title">Inteligência de Mercado</h2>'
+        '<p>Vagas publicadas identificadas pelas fontes integradas · amostra observada, não o mercado inteiro.</p></div>'
+        '<label for="market-period">Período <select id="market-period"><option value="3">3 meses</option>'
+        '<option value="6" selected>6 meses</option><option value="12">12 meses</option></select></label></div>'
+        '<div class="market-cards" id="market-cards" aria-live="polite"></div>'
+        '<div class="market-chart"><svg id="market-chart" viewBox="0 0 700 230" role="img" '
+        'aria-label="Gráfico de vagas mensais de QA, QA Manager e Manufatura"></svg>'
+        '<div class="market-legend"><span>● QA</span><span>● QA Manager</span><span>● Manufatura</span></div></div>'
+        '<p class="market-note">Contagens por data de publicação, com deduplicação por anúncio. '
+        'Meses sem registros podem indicar cobertura incompleta das fontes. O mês atual está em andamento.</p>'
+        '</section><script type="application/json" id="market-data">' + payload + '</script>'
+    )
+
+
 def render(queue: dict, generated: str = "", insights: dict | None = None, strategic: dict | None = None) -> str:
     entries = [j for j in queue.values() if isinstance(j, dict)]
     counts = Counter(str(j.get("status", "")) for j in entries)
@@ -166,7 +235,7 @@ def render(queue: dict, generated: str = "", insights: dict | None = None, strat
 <style>
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif;color:#17233d;background:#f5f7fc}
 *{box-sizing:border-box}body{margin:0;min-height:100vh}a{color:#225ce7;text-decoration:none}a:hover{text-decoration:underline}
-.salary-tab{display:none}.salary-tab.active{display:block}.nav a{cursor:pointer}.nav a.active{font-weight:800}
+.market{background:white;border:1px solid #e5eaf3;border-radius:18px;padding:24px;margin:22px 0}.market-head{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.market-head h2{margin:0 0 6px}.market-head p,.market-note{font-size:12px;color:#64748b;line-height:1.6}.market-head select{min-width:120px}.market-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}.market-card{border:1px solid #e5eaf3;border-radius:12px;padding:14px}.market-card strong{display:block;font-size:25px;margin-top:6px}.market-card span{font-size:12px;color:#64748b}.market-chart{overflow-x:auto}.market-chart svg{width:100%;min-width:310px;height:auto}.market-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px}.market-legend span:nth-child(1){color:#0f8f8a}.market-legend span:nth-child(2){color:#7957c2}.market-legend span:nth-child(3){color:#b77a23}@media(max-width:500px){.market{padding:16px}.market-cards{gap:6px}.market-card{padding:9px}.market-card strong{font-size:20px}}.salary-tab{display:none}.salary-tab.active{display:block}.nav a{cursor:pointer}.nav a.active{font-weight:800}
 .shell{display:grid;grid-template-columns:238px minmax(0,1fr);min-height:100vh}
 .sidebar{background:white;border-right:1px solid #e5eaf3;padding:28px 17px;position:sticky;top:0;height:100vh}
 .brand{font-weight:800;font-size:19px;letter-spacing:-.6px;color:#12234a;margin:0 0 34px 8px}
@@ -203,13 +272,13 @@ footer{margin-top:25px;color:#7b879b;font-size:12px;line-height:1.8}
 @media(max-width:760px){.shell{display:block}.sidebar{height:auto;position:static;padding:16px;border-right:0;border-bottom:1px solid #e5eaf3}.brand{margin:0}.nav,.sidebar-note{display:none}.main{padding:18px 14px}.hero{padding:24px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.workspace{grid-template-columns:1fr}.filters{padding:16px}.controls{grid-template-columns:repeat(2,minmax(0,1fr))}.results{padding:16px}.topbar{margin-bottom:14px}}
 @media(max-width:420px){.controls{grid-template-columns:1fr}.stats{gap:8px}.stat{padding:13px}.stat strong{font-size:23px}}
 </style></head><body><div class="shell"><aside class="sidebar"><div class="brand">AI Job Hunter</div>
-<nav class="nav" aria-label="Navegação principal"><a class="active" href="#inicio">⌂ &nbsp; Visão geral</a><a href="#vagas">▤ &nbsp; Explorar vagas</a><a href="#vagas">◷ &nbsp; Candidaturas</a><a href="#filtros">⚙ &nbsp; Filtros</a><a href="#recruiter-monitor">◎ &nbsp; Recruiter Monitor</a><a href="#consultor" id="nav-consultor">＄ &nbsp; Consultor Salarial</a></nav>
+<nav class="nav" aria-label="Navegação principal"><a class="active" href="#inicio">⌂ &nbsp; Visão geral</a><a href="#vagas">▤ &nbsp; Explorar vagas</a><a href="#vagas">◷ &nbsp; Candidaturas</a><a href="#filtros">⚙ &nbsp; Filtros</a><a href="#mercado">↗ &nbsp; Mercado</a><a href="#recruiter-monitor">◎ &nbsp; Recruiter Monitor</a><a href="#consultor" id="nav-consultor">＄ &nbsp; Consultor Salarial</a></nav>
 <p class="sidebar-note">Painel de descoberta e revisão de vagas. Nenhuma candidatura é enviada automaticamente.</p></aside>
 <main class="main" id="inicio"><div class="topbar"><span class="eyebrow">Seu painel de oportunidades</span><strong>AI Job Hunter · Dashboard</strong></div>
 <header class="hero"><span class="pill">✦ Busca inteligente de oportunidades</span><h1>Encontre sua próxima grande oportunidade.</h1>
 <p>Explore vagas de QA, liderança e contratos remotos. Compare oportunidades e revise os anúncios antes de se candidatar.</p>
 <div class="pills"><span class="pill">✓ Remoto e internacional</span><span class="pill">✓ Freelance e contratos</span><span class="pill">✓ Busca por empresa e vaga</span></div></header>
-""" + advisor + '<div class="salary-tab" id="salary-tab">' + render_advisor() + '</div>' + strategic_html + monitor_html + apinfo_html + """<section class="stats">""" + stats + """</section>
+""" + market_intelligence(entries) + advisor + '<div class="salary-tab" id="salary-tab">' + render_advisor() + '</div>' + strategic_html + monitor_html + apinfo_html + """<section class="stats">""" + stats + """</section>
 <h2 class="section-title" id="vagas">Explore oportunidades</h2><p class="section-sub">Dados do último processamento · gerado em """ + timestamp + """</p>
 <div class="workspace"><aside class="filters" id="filtros"><h2>Filtros de busca</h2><div class="controls">
 <div><label for="query">Cargo ou empresa</label><input id="query" aria-label="Pesquisar vagas" placeholder="Ex.: QA Manager, Bosch"></div>
@@ -224,6 +293,19 @@ footer{margin-top:25px;color:#7b879b;font-size:12px;line-height:1.8}
 <footer>Empresas, elegibilidade no Brasil, disponibilidade de 2h/dia e pagamento devem ser verificados diretamente.
 O status do painel não envia candidatura. Não armazene CV ou informações pessoais neste repositório público.</footer></main></div>
 <script>
+const market=JSON.parse(document.querySelector('#market-data').textContent);
+function drawMarket(){
+ const n=Number(document.querySelector('#market-period').value),labels=market.labels.slice(-n);
+ const names=['QA','QA Manager','Manufatura'],colors=['#0f8f8a','#7957c2','#b77a23'];
+ const values=names.map(name=>market.series[name].slice(-n)),max=Math.max(1,...values.flat());
+ document.querySelector('#market-cards').innerHTML=names.map((name,i)=>'<div class="market-card"><span>'+name+'</span><strong>'+values[i].reduce((a,b)=>a+b,0).toLocaleString('pt-BR')+'</strong><span>vagas no período</span></div>').join('');
+ const svg=document.querySelector('#market-chart'),ns='http://www.w3.org/2000/svg';svg.replaceChildren();
+ function add(tag,attrs,txt){const e=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(txt!==undefined)e.textContent=txt;svg.appendChild(e)}
+ for(let j=0;j<4;j++){const y=185-j*48;add('line',{x1:42,y1:y,x2:680,y2:y,stroke:'#dbe3ed'});add('text',{x:36,y:y+4,'text-anchor':'end',fill:'#64748b','font-size':11},String(Math.round(max*j/3)))}
+ labels.forEach((m,i)=>add('text',{x:48+i*625/Math.max(1,n-1),y:212,'text-anchor':'middle',fill:'#64748b','font-size':11},m));
+ values.forEach((series,i)=>{const pts=series.map((v,j)=>(48+j*625/Math.max(1,n-1))+','+(185-v/max*144)).join(' ');add('polyline',{points:pts,fill:'none',stroke:colors[i],'stroke-width':3,'stroke-linejoin':'round','stroke-linecap':'round'})});
+}
+document.querySelector('#market-period').addEventListener('change',drawMarket);drawMarket();
 const navConsultor=document.querySelector('#nav-consultor');
 function showTab(){const active=location.hash==='#consultor';document.querySelector('#salary-tab').classList.toggle('active',active);document.querySelectorAll('.main > :not(.salary-tab)').forEach(el=>{if(el.classList.contains('topbar'))return;el.style.display=active?'none':''});document.querySelectorAll('.nav a').forEach(el=>el.classList.toggle('active',active?el===navConsultor:el!==navConsultor&&el.getAttribute('href')==='#inicio'));}
 window.addEventListener('hashchange',showTab);showTab();
