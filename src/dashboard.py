@@ -112,7 +112,7 @@ def market_intelligence(entries: list[dict]) -> str:
         '<label for="market-period">Período <select id="market-period"><option value="3">3 meses</option>'
         '<option value="6" selected>6 meses</option><option value="12">12 meses</option><option value="24">24 meses</option></select></label></div>'
         '<div class="market-cards" id="market-cards" aria-live="polite"></div>'
-        '<div class="market-chart"><svg id="market-chart" viewBox="0 0 700 230" role="img" '
+        '<div class="market-chart"><div id="market-tooltip" class="market-tooltip" role="status" hidden></div><svg id="market-chart" viewBox="0 0 700 230" role="img" '
         'aria-label="Gráfico de vagas mensais de QA, QA Manager e Manufatura"></svg>'
         '<div class="market-legend"><span>● QA</span><span>● QA Manager</span><span>● Manufatura</span></div></div>'
         '<p class="market-note">Contagens por data de publicação, com deduplicação por anúncio. '
@@ -246,7 +246,7 @@ def render(queue: dict, generated: str = "", insights: dict | None = None, strat
 <style>
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif;color:#17233d;background:#f5f7fc}
 *{box-sizing:border-box}body{margin:0;min-height:100vh}a{color:#225ce7;text-decoration:none}a:hover{text-decoration:underline}
-.market{background:white;border:1px solid #e5eaf3;border-radius:18px;padding:24px;margin:22px 0}.market-head{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.market-head h2{margin:0 0 6px}.market-head p,.market-note{font-size:12px;color:#64748b;line-height:1.6}.market-head select{min-width:120px}.market-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}.market-card{border:1px solid #e5eaf3;border-radius:12px;padding:14px}.market-card strong{display:block;font-size:25px;margin-top:6px}.market-card span{font-size:12px;color:#64748b}.market-chart{overflow-x:auto}.market-chart svg{width:100%;min-width:310px;height:auto}.market-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px}.market-legend span:nth-child(1){color:#0f8f8a}.market-legend span:nth-child(2){color:#7957c2}.market-legend span:nth-child(3){color:#b77a23}@media(max-width:500px){.market{padding:16px}.market-cards{gap:6px}.market-card{padding:9px}.market-card strong{font-size:20px}}.salary-tab{display:none}.salary-tab.active{display:block}.nav a{cursor:pointer}.nav a.active{font-weight:800}
+.market{background:linear-gradient(145deg,#0b1830,#101f3a 65%,#142b43);color:#f1f7ff;border:1px solid #294363;border-radius:22px;padding:clamp(16px,2.5vw,28px);margin:22px 0;box-shadow:0 18px 45px #08172d30;position:relative;overflow:hidden}.market:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 0%,#27d6d018,transparent 42%);pointer-events:none}.market>*{position:relative}.market-head{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.market-head h2{margin:0 0 6px;color:#f4faff;letter-spacing:-.6px}.market-head p,.market-note{font-size:12px;color:#b6c9df;line-height:1.7}.market-head label{color:#c9dcf1}.market-head select{min-width:125px;background:#162a46;color:#fff;border:1px solid #44617e}.market-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.market-card{background:linear-gradient(140deg,#182e4d,#12233c);border:1px solid #365271;border-radius:15px;padding:16px;box-shadow:inset 0 1px #ffffff10}.market-card strong{display:block;font-size:clamp(20px,2.5vw,30px);margin-top:7px;color:#f6fbff;font-variant-numeric:tabular-nums}.market-card span{font-size:12px;color:#b9cbe1}.market-card:nth-child(1){border-top:3px solid #3de1d2}.market-card:nth-child(2){border-top:3px solid #ad94ff}.market-card:nth-child(3){border-top:3px solid #ffc477}.market-chart{position:relative;overflow-x:auto;background:#0a172c99;border:1px solid #294461;border-radius:16px;padding:10px 8px 0}.market-chart svg{width:100%;min-width:310px;height:auto;display:block}.market-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;margin:12px 2px 14px}.market-legend span:nth-child(1){color:#3de1d2}.market-legend span:nth-child(2){color:#ad94ff}.market-legend span:nth-child(3){color:#ffc477}.market-tooltip{position:absolute;z-index:2;pointer-events:none;background:#1a3152;color:#fff;border:1px solid #567493;border-radius:10px;padding:9px 12px;font-size:12px;box-shadow:0 10px 30px #0008;max-width:220px}.market-tooltip[hidden]{display:none}.market-note strong{color:#e0f3ff}@media(max-width:500px){.market{padding:16px}.market-cards{gap:7px}.market-card{padding:11px}.market-card strong{font-size:22px}.market-legend{gap:10px}}.salary-tab{display:none}.salary-tab.active{display:block}.nav a{cursor:pointer}.nav a.active{font-weight:800}
 .shell{display:grid;grid-template-columns:238px minmax(0,1fr);min-height:100vh}
 .sidebar{background:white;border-right:1px solid #e5eaf3;padding:28px 17px;position:sticky;top:0;height:100vh}
 .brand{font-weight:800;font-size:19px;letter-spacing:-.6px;color:#12234a;margin:0 0 34px 8px}
@@ -307,14 +307,27 @@ O status do painel não envia candidatura. Não armazene CV ou informações pes
 const market=JSON.parse(document.querySelector('#market-data').textContent);
 function drawMarket(){
  const n=Number(document.querySelector('#market-period').value),labels=market.labels.slice(-n);
- const names=['QA','QA Manager','Manufatura'],colors=['#0f8f8a','#7957c2','#b77a23'];
- const values=names.map(name=>market.series[name].slice(-n)),max=Math.max(1,...values.flat().filter(v=>v!==null));
- document.querySelector('#market-cards').innerHTML=names.map((name,i)=>'<div class="market-card"><span>'+name+'</span><strong>'+values[i].reduce((a,b)=>a+(b??0),0).toLocaleString('pt-BR')+'</strong><span>vagas no período</span></div>').join('');
- const svg=document.querySelector('#market-chart'),ns='http://www.w3.org/2000/svg';svg.replaceChildren();
- function add(tag,attrs,txt){const e=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(txt!==undefined)e.textContent=txt;svg.appendChild(e)}
- for(let j=0;j<4;j++){const y=185-j*48;add('line',{x1:42,y1:y,x2:680,y2:y,stroke:'#dbe3ed'});add('text',{x:36,y:y+4,'text-anchor':'end',fill:'#64748b','font-size':11},String(Math.round(max*j/3)))}
- labels.forEach((m,i)=>add('text',{x:48+i*625/Math.max(1,n-1),y:212,'text-anchor':'middle',fill:'#64748b','font-size':11},m));
- values.forEach((series,i)=>{let segment=[];const flush=()=>{if(segment.length){add('polyline',{points:segment.join(' '),fill:'none',stroke:colors[i],'stroke-width':3,'stroke-linejoin':'round','stroke-linecap':'round'});segment=[]}};series.forEach((v,j)=>{if(v===null){flush();return}segment.push((48+j*625/Math.max(1,n-1))+','+(185-v/max*144))});flush()});
+ const names=['QA','QA Manager','Manufatura'],colors=['#3de1d2','#ad94ff','#ffc477'];
+ const values=names.map(name=>market.series[name].slice(-n));
+ const all=values.flat().filter(v=>Number.isFinite(v)),max=Math.max(1,...all);
+ const cards=document.querySelector('#market-cards');
+ cards.replaceChildren();
+ names.forEach((name,i)=>{const card=document.createElement('div');card.className='market-card';
+ const label=document.createElement('span');label.textContent=name;const count=document.createElement('strong');
+ const observed=values[i].filter(v=>Number.isFinite(v));count.textContent=observed.length?observed.reduce((a,b)=>a+b,0).toLocaleString('pt-BR'):'—';
+ const foot=document.createElement('span');foot.textContent=observed.length?'Registros identificados · '+observed.length+' meses com dados':'Sem coleta no período';
+ card.append(label,count,foot);cards.appendChild(card)});
+ const svg=document.querySelector('#market-chart'),tip=document.querySelector('#market-tooltip'),ns='http://www.w3.org/2000/svg';svg.replaceChildren();tip.hidden=true;
+ const add=(tag,attrs,txt)=>{const e=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(txt!==undefined)e.textContent=txt;svg.appendChild(e);return e};
+ const defs=add('defs',{});colors.forEach((c,i)=>{const g=document.createElementNS(ns,'linearGradient');g.setAttribute('id','market-glow-'+i);g.setAttribute('x1','0');g.setAttribute('y1','0');g.setAttribute('x2','0');g.setAttribute('y2','1');const a=document.createElementNS(ns,'stop');a.setAttribute('offset','0%');a.setAttribute('stop-color',c);a.setAttribute('stop-opacity','.23');const b=document.createElementNS(ns,'stop');b.setAttribute('offset','100%');b.setAttribute('stop-color',c);b.setAttribute('stop-opacity','0');g.append(a,b);defs.appendChild(g)});
+ for(let j=0;j<4;j++){const y=185-j*48;add('line',{x1:45,y1:y,x2:675,y2:y,stroke:'#36516d','stroke-dasharray':'3 6'});add('text',{x:37,y:y+4,'text-anchor':'end',fill:'#adc5de','font-size':11},String(Math.round(max*j/3)))}
+ const x=j=>48+j*622/Math.max(1,n-1),y=v=>185-v/max*144;
+ labels.forEach((m,i)=>{if(n>12&&i%Math.ceil(n/8)!==0&&i!==n-1)return;add('text',{x:x(i),y:216,'text-anchor':'middle',fill:'#c1d2e7','font-size':11},m)});
+ values.forEach((series,i)=>{let segment=[];const flush=()=>{if(!segment.length)return;const coords=segment.map(p=>x(p[0])+','+y(p[1])).join(' ');if(segment.length>1){const first=segment[0],last=segment[segment.length-1];add('polygon',{points:x(first[0])+',185 '+coords+' '+x(last[0])+',185',fill:'url(#market-glow-'+i+')'});add('polyline',{points:coords,fill:'none',stroke:colors[i],'stroke-width':3,'stroke-linejoin':'round','stroke-linecap':'round'})}segment=[]};
+ series.forEach((v,j)=>{if(!Number.isFinite(v)){flush();return}segment.push([j,v])});flush();
+ series.forEach((v,j)=>{if(!Number.isFinite(v))return;const dot=add('circle',{cx:x(j),cy:y(v),r:4,fill:colors[i],stroke:'#0b1830','stroke-width':2,tabindex:0,role:'img','aria-label':nameLabel(i,j,v)});const show=()=>{tip.textContent=nameLabel(i,j,v);tip.hidden=false;tip.style.left=Math.min(75,Math.max(3,x(j)/7))+'%';tip.style.top='12px'};dot.addEventListener('mouseenter',show);dot.addEventListener('focus',show);dot.addEventListener('mouseleave',()=>tip.hidden=true);dot.addEventListener('blur',()=>tip.hidden=true)})
+ });
+ function nameLabel(i,j,v){return names[i]+' · '+labels[j]+' · '+v.toLocaleString('pt-BR')+' registros da amostra'}
 }
 document.querySelector('#market-period').addEventListener('change',drawMarket);drawMarket();
 const navConsultor=document.querySelector('#nav-consultor');
