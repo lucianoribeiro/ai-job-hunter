@@ -742,6 +742,7 @@ matchId('matchAnalyze').addEventListener('click',()=>{
 
 
 def market_chart_html():
+    """Interactive, accessible SVG trend chart using only retained job history."""
     from src.market_intelligence import summarize
     path = Path("data/history.json")
     try:
@@ -749,25 +750,57 @@ def market_chart_html():
         report = summarize(history)
     except (OSError, ValueError, TypeError):
         return '<p role="status">Histórico indisponível no momento. Novas coletas serão exibidas aqui.</p>'
-    months = report["months"]
-    categories = report["categories"]
-    maximum = max((value for group in categories.values() for value in group["monthly"]), default=0)
-    if not maximum:
-        return '<p role="status">Coletando histórico de vagas. O gráfico será preenchido conforme novas vagas forem registradas.</p>'
-    parts = ['<div style="overflow-x:auto"><table style="width:100%;min-width:540px;border-collapse:collapse"><caption style="text-align:left;padding:8px 0;color:#b7c7e0">Vagas por mês e categoria</caption><thead><tr><th scope="col">Mês</th>']
-    names = ("QA", "QA Manager", "Manufatura")
-    parts.extend(f'<th scope="col">{e(name)}</th>' for name in names)
-    parts.append('</tr></thead>')
-    for i, month in enumerate(months):
-        parts.append(f'<tr><th scope="row" style="padding:9px;text-align:left">{e(month)}</th>')
-        for name in names:
-            value = categories[name]["monthly"][i]
-            width = round(value / maximum * 100) if maximum else 0
-            parts.append(f'<td style="padding:9px;min-width:120px"><div aria-label="{e(name)}: {value} vagas" style="display:flex;align-items:center;gap:8px"><span style="display:inline-block;height:12px;width:{width}%;background:#83a7ff;border-radius:4px"></span><span>{value}</span></div></td>')
-        parts.append('</tr>')
-    parts.append('</table></div>')
-    parts.append(f'<p style="color:#b7c7e0">Meses com registros: {report["observed_months"]}. Ainda não há histórico suficiente para identificar a melhor época para buscar emprego.</p>')
-    return ''.join(parts)
+    payload = json.dumps({"months": report["months"], "categories": report["categories"],
+                          "observed": report["observed_months"]}, ensure_ascii=False).replace("<", "\\u003c")
+    return """
+    <div class="market-controls" style="display:flex;gap:12px;flex-wrap:wrap;margin:16px 0">
+      <label for="market-area">Área profissional
+        <select id="market-area"><option value="qa">Tecnologia / QA</option><option value="manufacturing">Manufatura</option></select>
+      </label>
+      <label for="market-window">Período
+        <select id="market-window"><option value="6">6 meses</option><option value="12" selected>12 meses</option></select>
+      </label>
+    </div>
+    <div id="market-summary" role="status" aria-live="polite" style="color:#b7c7e0;margin:12px 0"></div>
+    <div style="overflow-x:auto"><svg id="market-trend" viewBox="0 0 640 260" style="width:100%;min-width:300px;max-height:310px" role="img" aria-label="Gráfico de evolução mensal das vagas monitoradas"></svg></div>
+    <div id="market-legend" style="display:flex;gap:16px;flex-wrap:wrap;margin:8px 0;color:#dce7ff"></div>
+    <details><summary style="cursor:pointer;margin:12px 0">Ver tabela de dados mensais</summary><div style="overflow-x:auto"><table id="market-table" style="width:100%;min-width:320px"><caption>Vagas por mês e categoria</caption><thead></thead><tbody></tbody></table></div></details>
+    <p style="color:#b7c7e0;font-size:13px">Meses anteriores ao início da coleta não representam zero vagas. O histórico corresponde apenas às fontes monitoradas; o mês atual está incompleto.</p>
+    <script type="application/json" id="market-history-data">""" + payload + """</script>
+    <script>
+    (function(){
+      const data=JSON.parse(document.getElementById('market-history-data').textContent);
+      const area=document.getElementById('market-area'),windowSelect=document.getElementById('market-window');
+      const svg=document.getElementById('market-trend'),summary=document.getElementById('market-summary');
+      const table=document.getElementById('market-table'),legend=document.getElementById('market-legend');
+      const NS='http://www.w3.org/2000/svg';
+      function node(tag,attrs,text){const n=document.createElementNS(NS,tag);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));if(text!==undefined)n.textContent=text;svg.appendChild(n);return n;}
+      function draw(){
+        const names=area.value==='qa'?['QA','QA Manager']:['Manufatura'];
+        const colors=['#67d6c1','#c4a0ff'];const count=Number(windowSelect.value);
+        const months=data.months.slice(-count),first=data.months.length-count;
+        const series=names.map(name=>data.categories[name].monthly.slice(-count));
+        const values=series.flat(),max=Math.max(1,...values);
+        const firstObserved=data.months.length-Math.max(0,data.observed);
+        svg.replaceChildren();legend.replaceChildren();
+        const left=44,right=615,top=20,bottom=215;
+        for(let tick=0;tick<=4;tick++){const y=bottom-(bottom-top)*tick/4;node('line',{x1:left,y1:y,x2:right,y2:y,stroke:'#42536d','stroke-width':1});node('text',{x:36,y:y+4,fill:'#cbd5e1','font-size':12,'text-anchor':'end'},String(Math.round(max*tick/4)));}
+        months.forEach((month,i)=>{if(i%Math.max(1,Math.ceil(count/6))===0||i===months.length-1){node('text',{x:left+(right-left)*i/Math.max(1,count-1),y:238,fill:'#cbd5e1','font-size':11,'text-anchor':'middle'},month);}});
+        names.forEach((name,j)=>{
+          const points=series[j].map((v,i)=>({x:left+(right-left)*i/Math.max(1,count-1),y:bottom-(bottom-top)*v/max,v,i})).filter(p=>first+p.i>=firstObserved);
+          if(points.length){node('polyline',{points:points.map(p=>p.x+','+p.y).join(' '),fill:'none',stroke:colors[j],'stroke-width':3,'stroke-linecap':'round','stroke-linejoin':'round'});points.forEach(p=>{const dot=node('circle',{cx:p.x,cy:p.y,r:4,fill:colors[j]});const title=document.createElementNS(NS,'title');title.textContent=name+': '+p.v+' vagas em '+months[p.i];dot.appendChild(title);});}
+          const label=document.createElement('span');label.textContent='● '+name;label.style.color=colors[j];legend.appendChild(label);
+        });
+        const latest=series.reduce((sum,arr)=>sum+arr[arr.length-1],0);
+        summary.textContent='Vagas no mês atual: '+latest+' · Meses com registros: '+data.observed+(data.observed<2?' · Ainda não há histórico suficiente para avaliar tendências.':' · Comparações dependem da cobertura das fontes.');
+        table.querySelector('thead').replaceChildren();table.querySelector('tbody').replaceChildren();
+        const head=document.createElement('tr');['Mês',...names].forEach(x=>{const th=document.createElement('th');th.scope='col';th.textContent=x;head.appendChild(th);});table.querySelector('thead').appendChild(head);
+        months.forEach((month,i)=>{const tr=document.createElement('tr');[month,...series.map(arr=>first+i<firstObserved?'Sem coleta':String(arr[i]))].forEach(x=>{const td=document.createElement('td');td.textContent=x;td.style.padding='8px';tr.appendChild(td);});table.querySelector('tbody').appendChild(tr);});
+      }
+      area.addEventListener('change',draw);windowSelect.addEventListener('change',draw);draw();
+    })();
+    </script>
+    """
 
 def main():
     parser = argparse.ArgumentParser()
