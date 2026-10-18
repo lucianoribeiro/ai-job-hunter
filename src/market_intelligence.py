@@ -25,7 +25,7 @@ def classify(title: str, description: str = "") -> str | None:
     return None
 
 
-def summarize(history: dict, today: str | None = None) -> dict:
+def summarize(history: dict, today: str | None = None, linkedin_history: dict | None = None) -> dict:
     now = datetime.fromisoformat(today).date() if today else datetime.now(timezone.utc).date()
     months = [((now.year * 12 + now.month - 1 - offset) // 12, (now.year * 12 + now.month - 1 - offset) % 12 + 1) for offset in range(23, -1, -1)]
     buckets = defaultdict(set)
@@ -64,6 +64,31 @@ def summarize(history: dict, today: str | None = None) -> dict:
             "companies_last_complete_month": len(companies[(months[-2][0], months[-2][1], category)]),
             "change_last_complete_month_pct": change,
         }
+    linkedin_buckets = defaultdict(set)
+    linkedin_observed = set()
+    for identity, post in (linkedin_history or {}).items():
+        if not isinstance(post, dict) or post.get("area") not in ("QA", "Manufatura"):
+            continue
+        try:
+            date = datetime.fromisoformat(str(post.get("published_at", "")).replace("Z", "+00:00")).date()
+        except ValueError:
+            continue
+        if date > now or (date.year, date.month) not in months:
+            continue
+        linkedin_buckets[(date.year, date.month, post["area"])].add(identity)
+        linkedin_observed.add((date.year, date.month))
+    linkedin = {
+        "source": "LinkedIn public web index (not official LinkedIn API)",
+        "metric": "indexed_recruiter_posts_not_verified_vacancies",
+        "observed_months": len(linkedin_observed),
+        "categories": {
+            category: {"monthly": [
+                len(linkedin_buckets[(year, month, category)]) if (year, month) in linkedin_observed else None
+                for year, month in months
+            ]}
+            for category in ("QA", "Manufatura")
+        },
+    }
     years = {year for year, month in observed}
     seasonal_ready = len(years) >= 2 and len(observed) >= 18
     return {
@@ -73,7 +98,7 @@ def summarize(history: dict, today: str | None = None) -> dict:
         "seasonality_ready": seasonal_ready,
         "best_month_to_search": None,
         "source_coverage": {f"{month:02d}/{year}": len(sources[(year, month)]) for year, month in months},
-        "categories": series,
+        "categories": series,\n        "linkedin": linkedin,
         "disclaimer": "Amostra de vagas coletadas; variações de cobertura das fontes afetam as tendências. Não representa todas as contratações.",
     }
 
@@ -82,7 +107,7 @@ def run() -> None:
     path = DATA / "history.json"
     history = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
     DATA.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text(json.dumps(summarize(history), ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    OUTPUT.write_text(json.dumps(summarize(history, linkedin_history=linkedin_history), ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Market intelligence written to {OUTPUT}")
 
 
