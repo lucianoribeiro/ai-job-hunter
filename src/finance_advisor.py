@@ -38,12 +38,18 @@ def render_advisor() -> str:
 </div></details>
 <div class="fc-grid">
 <div class="fc-field"><label for="fc-pj-regime">Tributação PJ</label><select id="fc-pj-regime"><option value="simples">Simples Nacional (estimativa)</option><option value="presumido">Lucro Presumido (estimativa)</option></select></div>
+<div class="fc-field"><label for="fc-activity">Atividade para Fator R</label><select id="fc-activity"><option value="subject">Serviços sujeitos ao Fator R (simulação)</option><option value="other">Outra atividade — consultar CNAE</option></select></div>
+<div class="fc-field"><label for="fc-rbt">Receita bruta acumulada em 12 meses (R$)</label><input id="fc-rbt" type="number" min="0" step="1000" value="240000"></div>
+<div class="fc-field"><label for="fc-payroll">Folha acumulada 12 meses incluindo encargos (R$)</label><input id="fc-payroll" type="number" min="0" step="1000" value="0"></div>
+<div class="fc-field"><label for="fc-prolabore">Pró-labore mensal planejado (R$)</label><input id="fc-prolabore" type="number" min="0" step="100" value="0"></div>
+<div class="fc-field"><label for="fc-personal-tax">Reserva para INSS/IRPF pessoal e encargos (%)</label><input id="fc-personal-tax" type="number" min="0" max="70" step=".5" value="10"></div>
+<div class="fc-field"><label for="fc-iss">ISS presumido Lucro Presumido (%)</label><input id="fc-iss" type="number" min="2" max="5" step=".5" value="3"></div>
 <div class="fc-field"><label for="fc-coop-fee">Taxa administrativa de cooperativa (%)</label><input id="fc-coop-fee" type="number" min="0" max="99" step=".1" value="15"></div>
 <div class="fc-field"><label for="fc-coop-tax">Retenções / encargos cooperativa (%)</label><input id="fc-coop-tax" type="number" min="0" max="99" step=".1" value="11"></div>
 </div>
 <button type="button" id="fc-calculate" style="background:#357d6c;color:white;padding:12px 22px;border-radius:10px;font-weight:700;cursor:pointer">Calcular equivalência CLT → PJ / B2B / Cooperativa</button>
 <div id="fc-results" role="status" aria-live="polite"></div>
-<p class="fc-note">Estimativas para negociação, não cálculo tributário definitivo. A referência CLT considera salário bruto, 13º, férias, FGTS e benefícios; não calcula o líquido após IRRF/INSS. As alíquotas PJ são cenários configuráveis, não substituem enquadramento CNAE, anexos do Simples, Fator R, ISS municipal, pró-labore, INSS/IRPF, contabilidade, retenções e regime de exportação. Cooperativa exige verificar estatuto, contrato, encargos sobre a retirada e direitos reais. Verifique tudo com contador e assessoria jurídica.</p>
+<p class="fc-note">Estimativas para negociação, não cálculo tributário definitivo. A referência CLT considera salário bruto, 13º, férias, FGTS e benefícios; não calcula o líquido após IRRF/INSS. Para serviços sujeitos ao Fator R, a projeção usa as tabelas de Anexo III/V e folha/RBT12 informadas, sujeitas a validação com contador e regras vigentes. A referência de Lucro Presumido é simplificada (11,33% federais + ISS informado) e não apura adicional de IRPJ, retenções nem transição tributária. INSS/IRPF pessoal é apenas uma reserva editável, não cálculo de folha. Cooperativa exige verificar estatuto, contrato, encargos sobre a retirada e direitos reais. Verifique tudo com contador e assessoria jurídica.</p>
 </section>
 <script>
 (function(){
@@ -60,7 +66,15 @@ function update(){
  const benefits=Math.max(0,parse(el('benefits').value)+number('health')+number('dental')+number('meal')+number('food')+number('insurance')+number('pension')-number('health-discount')-number('dental-discount'));
  const cost=parse(el('cost').value),months=Math.min(12,Math.max(1,number('months'))),margin=number('margin')/100;
  const regime=el('pj-regime').value;
- const effectiveTax=regime==='simples'?Math.min(0.99,number('tax')/100):0.165;
+ const rbt=number('rbt'),payroll=number('payroll')+number('prolabore')*12;
+ const factor=rbt>0?payroll/rbt:null;
+ const annex=factor!==null&&factor>=.28?'III':'V';
+ const brackets=annex==='III'?[[180000,.06,0],[360000,.112,9360],[720000,.135,17640],[1800000,.16,35640],[3600000,.21,125640],[4800000,.33,648000]]:[[180000,.155,0],[360000,.18,4500],[720000,.195,9900],[1800000,.205,17100],[3600000,.23,62100],[4800000,.305,540000]];
+ const bracket=brackets.find(b=>rbt<=b[0]);
+ const effectiveSimples=bracket&&rbt>0?(rbt*bracket[1]-bracket[2])/rbt:null;
+ const effectiveTax=regime==='simples'?(el('activity').value==='subject'&&effectiveSimples!==null?effectiveSimples:Math.min(.99,number('tax')/100)):(.1133+number('iss')/100);
+ const personalReserve=Math.min(.7,number('personal-tax')/100);
+ const personalCost=number('prolabore')*personalReserve;
  const coopFee=Math.min(0.99,number('coop-fee')/100),coopTax=Math.min(0.99,number('coop-tax')/100);
  // Approximate economic gross compensation; not CLT net take-home pay.
  const clt=brl*(13+1/3)*1.08+benefits*12+number('plr');
@@ -69,14 +83,17 @@ function update(){
    const retained=1-rate;
    return retained>0?(annualTarget+monthlyCost*months)/(months*retained):null;
  }
- const pj=required(effectiveTax,cost),coop=required(coopFee+coopTax,0);
+ const pj=required(effectiveTax,cost+personalCost),coop=required(coopFee+coopTax,0);
  const scenarios=[
   {name:'PJ · '+(regime==='simples'?'Simples Nacional':'Lucro Presumido'),amount:pj,rate:effectiveTax,detail:'Tributos efetivos assumidos + custos administrativos'},
   {name:'B2B internacional',amount:pj,rate:effectiveTax,detail:'Mesma premissa PJ, antes de câmbio efetivo, IOF e regras de exportação'},
   {name:'Cooperativa',amount:coop,rate:coopFee+coopTax,detail:'Taxa administrativa e encargos editáveis; sem custos PJ'},
  ];
+ const factorNote=regime==='simples'&&el('activity').value==='subject'?
+  (factor===null?'RBT12 não informada; alíquota manual utilizada.':'Fator R estimado: '+(factor*100).toFixed(1)+'%; Anexo '+annex+' considerado. Alíquota efetiva aproximada: '+(effectiveTax*100).toFixed(2)+'%.'):
+  'Atividade/regime não validado; aplicada premissa tributária configurável.';
  const cards=scenarios.map(x=>'<article class="fc-card"><span>'+x.name+'</span><strong>'+(x.amount===null?'Inviável com as taxas atuais':money(x.amount)+'/mês')+'</strong><small>Retenções assumidas: '+(x.rate*100).toFixed(1)+'%<br>'+x.detail+'<br>'+(x.amount!==null?'Equivalente USD pela cotação informada: '+money(x.amount/Math.max(fx,.01),'USD'):'')+'</small></article>').join('');
- result.innerHTML='<div class="fc-summary"><strong>Referência CLT anual (valor econômico bruto)</strong><div>'+money(clt)+' · '+money(clt/12)+'/mês</div><small>Inclui provisões de 13º, férias + 1/3, FGTS estimado, benefícios e PLR. Margem desejada: '+(margin*100).toFixed(0)+'%.</small></div><div class="fc-cards">'+cards+'</div><div class="fc-summary"><strong>Como interpretar</strong><p>Esses valores representam faturamento mensal-alvo durante '+months+' meses faturados, não salário líquido nem imposto apurado. Compare também segurança contratual, férias não remuneradas, seguro, riscos de rescisão, tributação e encargos pessoais.</p></div>';
+ result.innerHTML='<div class="fc-summary"><strong>Referência CLT anual (valor econômico bruto)</strong><div>'+money(clt)+' · '+money(clt/12)+'/mês</div><small>Inclui provisões de 13º, férias + 1/3, FGTS estimado, benefícios e PLR. Margem desejada: '+(margin*100).toFixed(0)+'%.</small></div><div class="fc-cards">'+cards+'</div><div class="fc-summary"><strong>Como interpretar</strong><p>Os cenários tributários dependem de CNAE, município e enquadramento confirmado. Reserva pessoal sobre pró-labore informada separadamente. Esses valores representam faturamento mensal-alvo durante '+months+' meses faturados, não salário líquido nem imposto apurado. Compare também segurança contratual, férias não remuneradas, seguro, riscos de rescisão, tributação e encargos pessoais.</p></div>';
 }
 
 fields.forEach(k=>{el(k).addEventListener('blur',()=>format(k));el(k).addEventListener('focus',()=>el(k).select())});
