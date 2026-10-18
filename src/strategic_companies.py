@@ -141,6 +141,31 @@ def ppg_public_jobs(html_text, base_url, company):
     return list(found.values())
 
 
+def inspect_official_portal(html_text, base_url, connector):
+    """Discover official career destinations without counting portal links as vacancies."""
+    parser = Links()
+    parser.feed(html_text)
+    allowed = {
+        "goodyear_careers": ("goodyear.com", "goodyear.com.br", "jobs.goodyear.com"),
+        "braskem_careers": ("braskem.com.br", "epiw.fa.la1.oraclecloud.com"),
+    }[connector]
+    destinations = []
+    for href, label in parser.found:
+        url = urljoin(base_url, href)
+        parts = urlsplit(url)
+        host = (parts.hostname or "").lower()
+        if parts.scheme != "https" or not any(host == d or host.endswith("." + d) for d in allowed):
+            continue
+        if re.search(r"oportunidades|vagas|carreir|career|job|corporativo|operacional|estagio|estágio", label + " " + parts.path, re.I):
+            if url not in destinations:
+                destinations.append(url)
+    return destinations
+
+
+def inspect_petrobras_concursos(html_text):
+    """Read official open-registration indicator, not historical edital listings."""
+    return bool(re.search(r"não temos inscrições abertas para concursos no momento", html_text, re.I))
+
 def collect(config, fetcher=fetch_page):
     jobs, statuses = [], []
     for item in config["companies"]:
@@ -151,16 +176,27 @@ def collect(config, fetcher=fetch_page):
             continue
         try:
             connector = item.get("connector", "gupy")
+            destinations = []
+            closed_registration = False
             if connector == "workday_3m":
                 found = workday_3m_jobs(company)
             else:
                 page = fetcher(url)
                 if len(page) > 2_000_000:
                     raise ValueError("Response exceeds safety limit")
-                found = ppg_public_jobs(page, url, company) if connector == "ppg_public" else extract_jobs(page, url, company, connector)
+                if connector in ("goodyear_careers", "braskem_careers"):
+                    destinations = inspect_official_portal(page, url, connector)
+                    found = []
+                elif connector == "petrobras_concursos":
+                    closed_registration = inspect_petrobras_concursos(page)
+                    found = []
+                else:
+                    found = ppg_public_jobs(page, url, company) if connector == "ppg_public" else extract_jobs(page, url, company, connector)
             jobs.extend(found)
-            statuses.append({"company": company, "state": "ok" if found else "needs_connector",
-                             "found": len(found), "city": item.get("city", ""), "url": url})
+            state = "ok" if found else ("no_open_registration" if closed_registration else "portal_only" if connector in ("goodyear_careers", "braskem_careers", "petrobras_concursos") else "needs_connector")
+            statuses.append({"company": company, "state": state, "found": len(found),
+                             "city": item.get("city", ""), "url": url,
+                             "career_links": destinations[:15]})
         except (OSError, ValueError, UnicodeError) as exc:
             statuses.append({"company": company, "state": "error", "error": type(exc).__name__, "found": 0, "city": item.get("city", ""), "url": url})
     return {"generated_at": datetime.now(timezone.utc).isoformat(),
