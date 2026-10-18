@@ -22,7 +22,25 @@ SEARCHES = [
     'site:linkedin.com/posts/ ("hiring" OR "we are hiring") ("QA" OR "quality engineer")',
     'site:linkedin.com/posts/ ("hiring" OR "vaga") ("project manager" OR "gerente de projetos")',
     'site:linkedin.com/posts/ ("recruiter" OR "recrutador") ("remote" OR "remoto")',
+    'site:linkedin.com/posts/ ("coordenador de manufatura" OR "coordenador de produção" OR "manufacturing coordinator") hiring',
+    'site:linkedin.com/posts/ ("manufacturing manager" OR "production supervisor" OR "industrial operations manager") (remote OR hybrid)',
+    'site:linkedin.com/posts/ ("manufatura" OR "produção industrial") ("híbrido" OR "remoto" OR "vaga")',
 ]
+
+
+def classify(title: str) -> dict:
+    """Conservative title-only tags; never infer remote/hybrid eligibility."""
+    import re
+    t = title.casefold()
+    manufacturing = bool(re.search(r"manufatur|manufactur|produ[cç][aã]o|production|industrial|opera[cç][oõ]es|operations|supply chain|lean manufacturing", t))
+    qa = bool(re.search(r"\bqa\b|quality engineer|quality assurance|sdet|test engineer|software test", t))
+    projects = bool(re.search(r"project manager|gerente de projetos|coordenador de projetos|project coordinator|pmo", t))
+    remote = bool(re.search(r"\bremote\b|\bremoto\b|home.office", t))
+    hybrid = bool(re.search(r"\bhybrid\b|\bh[ií]brid[oa]\b", t))
+    explicit_hiring = bool(re.search(r"hiring|contratando|estamos contratando|we.re hiring|vaga|opportunit|oportunidade|open position|job opening", t))
+    area = "Manufatura" if manufacturing else "QA" if qa else "Projetos" if projects else "Outros"
+    modality = "Remoto (citado)" if remote else "Híbrido (citado)" if hybrid else "Não informada"
+    return {"area": area, "modality": modality, "review_priority": "high" if area != "Outros" and explicit_hiring else "low"}
 
 
 def parse_feed(xml_text: str, day: str) -> list[dict]:
@@ -39,9 +57,12 @@ def parse_feed(xml_text: str, day: str) -> list[dict]:
             continue
         if date.date().isoformat() != day or not url.startswith("https://"):
             continue
+        labels = classify(title)
+        if labels["review_priority"] != "high":
+            continue
         found[url] = {
             "title": title[:240], "url": url, "published_at": date.isoformat(),
-            "source": "Public web news index", "status": "needs_review",
+            "source": "Public web news index", "status": "needs_review", **labels,
         }
     return list(found.values())
 
