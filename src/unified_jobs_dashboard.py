@@ -398,6 +398,9 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         title = e(raw_title)
         url = e(safe_url(item.get("url")))
         extra = ""
+        origin = item.get("post_origin", "Não verificada")
+        if origin not in ("Empresa", "Recrutador"):
+            origin = "Não verificada"
         salary = item.get('salary_usd')
         if category == 'QA' and isinstance(salary, str) and salary.startswith('US$ '):
             extra += '<p class="recruiter-salary">Remuneração anunciada: ' + e(salary) + '</p>'
@@ -422,10 +425,12 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
                 extra += '<p><a class="recruiter-outreach" href="' + e(outreach) + '">Preparar rascunho com CV no Gmail →</a></p>'
         monitor_cards.append(
             '<article class="recruiter-card" data-area="' + category + '" data-mode="' + modality + '" '
+            'data-origin="' + e(origin) + '" data-usd="' + ('yes' if category == 'QA' and isinstance(salary, str) and salary.startswith('US$ ') else 'no') + '" '
             'style="background:#252b34;border:1px solid #414956;border-radius:12px;padding:16px;min-width:0">'
             '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">'
             '<span style="background:#314f4a;color:#a9f1dc;padding:4px 9px;border-radius:99px;font-size:12px">' + category + '</span>'
-            '<span style="background:#363d49;color:#d8e2f0;padding:4px 9px;border-radius:99px;font-size:12px">' + modality + '</span></div>'
+            '<span style="background:#363d49;color:#d8e2f0;padding:4px 9px;border-radius:99px;font-size:12px">' + modality + '</span>'
+            '<span style="background:#39374d;color:#eee2ff;padding:4px 9px;border-radius:99px;font-size:12px">Origem: ' + e(origin) + '</span></div>'
             '<a target="_blank" rel="noopener noreferrer" href="' + url + '" style="font-weight:700;overflow-wrap:anywhere">' + title + '</a>'
             '<div class="recruiter-extra">' + extra + '</div>'
             '<div style="font-size:12px;opacity:.7;margin-top:10px">Índice: ' + published + '</div></article>'
@@ -443,7 +448,8 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         '<label>Modalidade <select id="recruiter-mode"><option value="">Todas</option>'
         '<option value="Remoto">Remoto mencionado</option><option value="Híbrido">Híbrido mencionado</option>'
         '<option value="Não informada">Não informada</option></select></label>'
-        '<label>Salário <select id="recruiter-usd"><option value="">Todos os salários</option><option value="yes">Somente vagas com salário em USD</option></select></label></div>'
+        '<label>Salário <select id="recruiter-usd"><option value="">Todos os salários</option><option value="yes">Somente vagas com salário em USD</option></select></label>'
+        '<label>Origem <select id="recruiter-origin"><option value="">Todas as origens</option><option value="Empresa">Empresa (verificada)</option><option value="Recrutador">Recrutador (identificado)</option><option value="Não verificada">Origem não verificada</option></select></label></div>'
         '<div id="recruiter-list" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px">'
         + "".join(monitor_cards) + '</div>'
         '<p style="font-size:12px;opacity:.7">A data do índice pode diferir da data do post. '
@@ -510,22 +516,23 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 <footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
 na página oficial. Fonte Himalayas: <a href="https://himalayas.app">himalayas.app</a>. Apenas datas de publicação fornecidas pelas fontes são exibidas; datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
-const recruiterArea=document.getElementById('recruiter-area'),recruiterMode=document.getElementById('recruiter-mode'),recruiterUsd=document.getElementById('recruiter-usd');
+const recruiterArea=document.getElementById('recruiter-area'),recruiterMode=document.getElementById('recruiter-mode'),recruiterUsd=document.getElementById('recruiter-usd'),recruiterOrigin=document.getElementById('recruiter-origin');
 function filterRecruiter(){
- if(!recruiterArea||!recruiterMode||!recruiterUsd)return;
+ if(!recruiterArea||!recruiterMode||!recruiterUsd||!recruiterOrigin)return;
  let visible=0;
  document.querySelectorAll('.recruiter-card').forEach(card=>{
   const area=!recruiterArea.value||card.dataset.area===recruiterArea.value;
   const mode=!recruiterMode.value||card.dataset.mode.startsWith(recruiterMode.value);
   const usd=!recruiterUsd.value||card.dataset.usd===recruiterUsd.value;
-  card.hidden=!(area&&mode&&usd);
+  const origin=!recruiterOrigin.value||card.dataset.origin===recruiterOrigin.value;
+  card.hidden=!(area&&mode&&usd&&origin);
   if(!card.hidden)visible++;
  });
  const count=document.getElementById('recruiter-count');
  if(count)count.textContent=String(visible);
 }
-if(recruiterArea&&recruiterMode&&recruiterUsd){
- for(const select of [recruiterArea,recruiterMode,recruiterUsd])select.addEventListener('change',filterRecruiter);
+if(recruiterArea&&recruiterMode&&recruiterUsd&&recruiterOrigin){
+ for(const select of [recruiterArea,recruiterMode,recruiterUsd,recruiterOrigin])select.addEventListener('change',filterRecruiter);
 }
 document.querySelector('.ai-tab[data-task="cv"]')?.click();
 const cvStudio=document.getElementById('studioCvPanel');
