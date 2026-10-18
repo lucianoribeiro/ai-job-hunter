@@ -751,21 +751,52 @@ def market_chart_html():
     except (OSError, ValueError, TypeError):
         return '<p role="status">Histórico indisponível no momento. Novas coletas serão exibidas aqui.</p>'
     payload = json.dumps({"months": report["months"], "categories": report["categories"],
-                          "observed": report["observed_months"]}, ensure_ascii=False).replace("<", "\\u003c")
+                          "coverage": report["source_coverage"], "generated": report["generated_at"]},
+                         ensure_ascii=False).replace("<", "\\u003c")
     return """
-    <div class="market-controls" style="display:flex;gap:12px;flex-wrap:wrap;margin:16px 0">
+    <style>
+    .market-intelligence{position:relative;overflow:hidden;background:linear-gradient(140deg,#0b1325,#13253c 65%,#10182d)!important;border:1px solid #31516a!important;box-shadow:0 16px 42px #050e204d}
+    .market-intelligence:before{content:"";position:absolute;right:-130px;top:-180px;width:420px;height:420px;background:radial-gradient(circle,#14b8a633,transparent 70%);pointer-events:none}
+    .market-intelligence h2{color:#f2f8ff;letter-spacing:.025em}
+    .market-controls{display:flex;flex-wrap:wrap;gap:14px;margin:18px 0}
+    .market-controls label{display:grid;gap:6px;color:#c5d8ec;font-weight:600;font-size:13px}
+    .market-controls select{background:#101e32;color:#f2f8ff;border:1px solid #43627c;border-radius:10px;padding:10px 14px;min-height:44px}
+    .market-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}
+    .market-kpi{background:#152a42;border:1px solid #34526a;border-radius:14px;padding:15px;min-width:0}
+    .market-kpi small{display:block;color:#a9c1d8;font-size:12px}
+    .market-kpi strong{display:block;color:#f4fbff;font-size:clamp(20px,3vw,29px);margin:6px 0;font-variant-numeric:tabular-nums}
+    .market-kpi span{color:#90e9df;font-size:12px}
+    .market-chart-frame{background:#0b182a;border:1px solid #2d4b62;border-radius:16px;padding:14px;overflow-x:auto}
+    #market-trend{width:100%;min-width:290px;max-height:330px}
+    #market-trend circle{cursor:crosshair;outline-offset:3px}
+    #market-trend circle:focus{outline:2px solid #fff}
+    #market-detail{color:#c6e6ef;min-height:22px;font-size:13px;margin-top:8px}
+    #market-table th,#market-table td{padding:9px;text-align:left;border-bottom:1px solid #34516a;color:#dceaf7}
+    @media(max-width:540px){.market-kpis{grid-template-columns:1fr}.market-intelligence{padding:15px!important}.market-controls label{flex:1;min-width:125px}}
+    @media(prefers-reduced-motion:no-preference){.market-kpi{transition:border-color .2s,transform .2s}.market-kpi:hover{border-color:#4dd8cc;transform:translateY(-2px)}}
+    </style>
+    <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center"><strong style="color:#6be4dc;letter-spacing:.1em;font-size:12px">◈ TALENT PULSE · MARKET INTELLIGENCE</strong><span style="color:#aac2d8;font-size:12px">Amostra monitorada · sem dados simulados</span></div>
+    <div class="market-controls">
       <label for="market-area">Área profissional
-        <select id="market-area"><option value="qa">Tecnologia / QA</option><option value="manufacturing">Manufatura</option></select>
+        <select id="market-area"><option value="qa">Tecnologia / QA</option><option value="manufacturing">Manufatura</option><option value="all">Comparar áreas</option></select>
       </label>
       <label for="market-window">Período
-        <select id="market-window"><option value="6">6 meses</option><option value="12">12 meses</option><option value="24" selected>24 meses</option></select>
+        <select id="market-window"><option value="1">30 dias</option><option value="3">90 dias</option><option value="6">6 meses</option><option value="12">12 meses</option><option value="24" selected>24 meses</option></select>
       </label>
     </div>
-    <div id="market-summary" role="status" aria-live="polite" style="color:#b7c7e0;margin:12px 0"></div>
-    <div style="overflow-x:auto"><svg id="market-trend" viewBox="0 0 640 260" style="width:100%;min-width:300px;max-height:310px" role="img" aria-label="Gráfico de evolução mensal das vagas monitoradas"></svg></div>
-    <div id="market-legend" style="display:flex;gap:16px;flex-wrap:wrap;margin:8px 0;color:#dce7ff"></div>
-    <details><summary style="cursor:pointer;margin:12px 0">Ver tabela de dados mensais</summary><div style="overflow-x:auto"><table id="market-table" style="width:100%;min-width:320px"><caption>Vagas por mês e categoria</caption><thead></thead><tbody id="market-monthly-body"></tbody></table></div></details>
-    <p style="color:#b7c7e0;font-size:13px">Meses anteriores ao início da coleta não representam zero vagas. O histórico corresponde apenas às fontes monitoradas; o mês atual está incompleto.</p>
+    <div class="market-kpis" aria-label="Indicadores de mercado">
+      <div class="market-kpi"><small>Vagas no mês atual</small><strong id="market-current">—</strong><span>Parcial · fontes monitoradas</span></div>
+      <div class="market-kpi"><small>Variação entre meses completos</small><strong id="market-change">—</strong><span id="market-change-note">Aguardando dados comparáveis</span></div>
+      <div class="market-kpi"><small>Cobertura histórica</small><strong id="market-coverage">—</strong><span id="market-coverage-note">Meses com coleta identificada</span></div>
+    </div>
+    <div class="market-chart-frame">
+      <svg id="market-trend" viewBox="0 0 640 270" role="img" aria-label="Evolução mensal de vagas observadas, com lacunas onde não houve coleta"></svg>
+      <div id="market-detail" role="status" aria-live="polite">Toque ou selecione um ponto para ver os detalhes.</div>
+      <div id="market-legend" style="display:flex;gap:16px;flex-wrap:wrap;margin:10px 0;color:#dce7ff"></div>
+    </div>
+    <p id="market-summary" role="status" aria-live="polite" style="color:#b7c7e0;margin:12px 0"></p>
+    <details><summary style="cursor:pointer;margin:12px 0;color:#dce7ff">Ver tabela de dados mensais</summary><div style="overflow-x:auto"><table id="market-table" style="width:100%;min-width:320px"><caption>Vagas observadas por mês e categoria</caption><thead></thead><tbody></tbody></table></div></details>
+    <p style="color:#b7c7e0;font-size:13px">Fonte: histórico de vagas públicas monitoradas (não é API oficial do LinkedIn). Sem coleta ≠ zero vagas. Aumentar a janela não recupera dados anteriores. O mês atual é parcial e mudanças na cobertura das fontes podem distorcer comparações.</p>
     <script type="application/json" id="market-history-data">""" + payload + """</script>
     <script>
     (function(){
@@ -773,29 +804,54 @@ def market_chart_html():
       const area=document.getElementById('market-area'),windowSelect=document.getElementById('market-window');
       const svg=document.getElementById('market-trend'),summary=document.getElementById('market-summary');
       const table=document.getElementById('market-table'),legend=document.getElementById('market-legend');
-      const NS='http://www.w3.org/2000/svg';
+      const detail=document.getElementById('market-detail'),NS='http://www.w3.org/2000/svg';
       function node(tag,attrs,text){const n=document.createElementNS(NS,tag);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));if(text!==undefined)n.textContent=text;svg.appendChild(n);return n;}
       function draw(){
-        const names=area.value==='qa'?['QA','QA Manager']:['Manufatura'];
-        const colors=['#67d6c1','#c4a0ff'];const count=Number(windowSelect.value);
-        const months=data.months.slice(-count),first=data.months.length-count;
-        const series=names.map(name=>data.categories[name].monthly.slice(-count));
-        const values=series.flat(),max=Math.max(1,...values);
-        const firstObserved=data.months.length-Math.max(0,data.observed);
+        const names=area.value==='qa'?['QA','QA Manager']:area.value==='manufacturing'?['Manufatura']:['QA','QA Manager','Manufatura'];
+        const palette={'QA':'#5ce1d3','QA Manager':'#a78bfa','Manufatura':'#f6bd69'};
+        const count=Number(windowSelect.value),months=data.months.slice(-count),first=data.months.length-count;
+        const observed=months.map(m=>Number(data.coverage[m]||0)>0);
+        const series=names.map(name=>data.categories[name].monthly.slice(-count).map((v,i)=>observed[i]?v:null));
+        const values=series.flat().filter(v=>v!==null),max=Math.max(1,...values);
+        const left=48,right=615,top=22,bottom=222;
         svg.replaceChildren();legend.replaceChildren();
-        const left=44,right=615,top=20,bottom=215;
-        for(let tick=0;tick<=4;tick++){const y=bottom-(bottom-top)*tick/4;node('line',{x1:left,y1:y,x2:right,y2:y,stroke:'#42536d','stroke-width':1});node('text',{x:36,y:y+4,fill:'#cbd5e1','font-size':12,'text-anchor':'end'},String(Math.round(max*tick/4)));}
-        months.forEach((month,i)=>{if(i%Math.max(1,Math.ceil(count/6))===0||i===months.length-1){node('text',{x:left+(right-left)*i/Math.max(1,count-1),y:238,fill:'#cbd5e1','font-size':11,'text-anchor':'middle'},month);}});
+        for(let tick=0;tick<=4;tick++){const y=bottom-(bottom-top)*tick/4;node('line',{x1:left,y1:y,x2:right,y2:y,stroke:'#344d63','stroke-width':1,'stroke-dasharray':'3 5'});node('text',{x:39,y:y+4,fill:'#b9d1e3','font-size':12,'text-anchor':'end'},String(Math.round(max*tick/4)));}
+        months.forEach((month,i)=>{if(i%Math.max(1,Math.ceil(months.length/6))===0||i===months.length-1){node('text',{x:left+(right-left)*i/Math.max(1,months.length-1),y:247,fill:'#b9d1e3','font-size':11,'text-anchor':'middle'},month);}});
         names.forEach((name,j)=>{
-          const points=series[j].map((v,i)=>({x:left+(right-left)*i/Math.max(1,count-1),y:bottom-(bottom-top)*v/max,v,i})).filter(p=>first+p.i>=firstObserved);
-          if(points.length){node('polyline',{points:points.map(p=>p.x+','+p.y).join(' '),fill:'none',stroke:colors[j],'stroke-width':3,'stroke-linecap':'round','stroke-linejoin':'round'});points.forEach(p=>{const dot=node('circle',{cx:p.x,cy:p.y,r:4,fill:colors[j]});const title=document.createElementNS(NS,'title');title.textContent=name+': '+p.v+' vagas em '+months[p.i];dot.appendChild(title);});}
-          const label=document.createElement('span');label.textContent='● '+name;label.style.color=colors[j];legend.appendChild(label);
+          let segment=[];
+          function flush(){if(segment.length>1)node('polyline',{points:segment.map(p=>p.x+','+p.y).join(' '),fill:'none',stroke:palette[name],'stroke-width':3,'stroke-linecap':'round','stroke-linejoin':'round'});segment=[];}
+          series[j].forEach((v,i)=>{
+            if(v===null){flush();return;}
+            const p={x:left+(right-left)*i/Math.max(1,months.length-1),y:bottom-(bottom-top)*v/max};
+            segment.push(p);
+          });flush();
+          series[j].forEach((v,i)=>{
+            if(v===null)return;
+            const x=left+(right-left)*i/Math.max(1,months.length-1),y=bottom-(bottom-top)*v/max;
+            const dot=node('circle',{cx:x,cy:y,r:5,fill:palette[name],stroke:'#0b182a','stroke-width':2,tabindex:0,role:'button','aria-label':name+', '+months[i]+': '+v+' vagas'});
+            const message=name+' · '+months[i]+' · '+v+' vagas observadas · '+data.coverage[months[i]]+' fonte(s) com registros';
+            dot.addEventListener('mouseenter',()=>detail.textContent=message);
+            dot.addEventListener('focus',()=>detail.textContent=message);
+            dot.addEventListener('click',()=>detail.textContent=message);
+            dot.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();detail.textContent=message;}});
+          });
+          const label=document.createElement('span');label.textContent='● '+name;label.style.color=palette[name];legend.appendChild(label);
         });
-        const latest=series.reduce((sum,arr)=>sum+arr[arr.length-1],0);
-        summary.textContent='Vagas no mês atual: '+latest+' · Meses com registros: '+data.observed+(data.observed<2?' · Ainda não há histórico suficiente para avaliar tendências.':' · Comparações dependem da cobertura das fontes.');
+        const last=series.reduce((sum,s)=>sum+(s[s.length-1]||0),0);
+        const complete=series.map(s=>s.slice(-3,-1));
+        const comparable=months.length>=3&&observed[observed.length-2]&&observed[observed.length-3]&&Number(data.coverage[months[months.length-2]])===Number(data.coverage[months[months.length-3]]);
+        const prev=complete.reduce((s,a)=>s+(a[0]||0),0),curr=complete.reduce((s,a)=>s+(a[1]||0),0);
+        document.getElementById('market-current').textContent=observed[observed.length-1]?last.toLocaleString('pt-BR'):'—';
+        document.getElementById('market-change').textContent=comparable&&prev>0?((curr-prev)/prev*100).toLocaleString('pt-BR',{maximumFractionDigits:1})+'%':'—';
+        document.getElementById('market-change-note').textContent=comparable&&prev>0?'Comparação indicativa; fontes podem mudar':'Sem dois meses completos com cobertura comparável';
+        const covered=observed.filter(Boolean).length;
+        document.getElementById('market-coverage').textContent=covered+' / '+months.length;
+        document.getElementById('market-coverage-note').textContent='Meses com registros nas fontes monitoradas';
+        summary.textContent=covered===0?'Nenhuma coleta identificada nesta janela. Não é possível inferir a tendência.':covered<3?'Histórico insuficiente para avaliar tendências com confiança.':'Tendência descritiva da amostra, não do mercado inteiro.';
+        if(covered===0){node('text',{x:330,y:125,fill:'#9bdedc','font-size':16,'text-anchor':'middle'},'Aguardando histórico de coleta');}
         table.querySelector('thead').replaceChildren();table.querySelector('tbody').replaceChildren();
-        const head=document.createElement('tr');['Mês',...names].forEach(x=>{const th=document.createElement('th');th.scope='col';th.textContent=x;head.appendChild(th);});table.querySelector('thead').appendChild(head);
-        months.forEach((month,i)=>{const tr=document.createElement('tr');[month,...series.map(arr=>first+i<firstObserved?'Sem coleta':String(arr[i]))].forEach(x=>{const td=document.createElement('td');td.textContent=x;td.style.padding='8px';tr.appendChild(td);});table.querySelector('tbody').appendChild(tr);});
+        const head=document.createElement('tr');['Mês',...names,'Fontes'].forEach(x=>{const th=document.createElement('th');th.scope='col';th.textContent=x;head.appendChild(th);});table.querySelector('thead').appendChild(head);
+        months.forEach((month,i)=>{const tr=document.createElement('tr');[month,...series.map(arr=>arr[i]===null?'Sem coleta':String(arr[i])),String(data.coverage[month]||0)].forEach(x=>{const td=document.createElement('td');td.textContent=x;tr.appendChild(td);});table.querySelector('tbody').appendChild(tr);});
       }
       area.addEventListener('change',draw);windowSelect.addEventListener('change',draw);draw();
     })();
