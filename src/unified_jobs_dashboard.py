@@ -339,7 +339,10 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
     strategic_html = (
         '<section id="empresas-estrategicas" aria-labelledby="regionalTitle"><h2 id="regionalTitle">Vagas regionais · Sumaré, Paulínia e Americana</h2>'
         '<p>Vagas coletadas: ' + str(live_count) + '. Empresas acompanhadas: ' + str(monitored_count) +
+        '. Empresas com vagas coletadas: ' + str(len(companies)) +
         '. Cidades são as informadas nos anúncios, nunca deduzidas pela sede da empresa.</p>'
+        '<p class="regional-filter-note">O filtro Empresa mostra somente empresas com vagas encontradas na coleta atual. '
+        'A lista Empresas acompanhadas inclui também empresas sem resultados ou com fontes ainda não integradas.</p>'
         + alert_html +
         '<div class="regional-filters"><label>Empresa<select id="regionalCompany"><option value="">Todas as empresas com vagas</option>' +
         company_options + '</select></label><label>Cidade<select id="regionalCity"><option value="">Todas as cidades</option>'
@@ -353,8 +356,8 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         '<label>Pesquisar<input id="regionalQuery" placeholder="Cargo, empresa..." aria-label="Pesquisar vagas regionais"></label></div>'
         '<p id="regionalCount" role="status"></p><div id="regionalCards" class="regional-cards">' +
         (regional_cards or '<p>Nenhum anúncio regional foi obtido nas fontes atuais. Consulte os portais das empresas abaixo.</p>') +
-        '</div>' + "<div class=\"page-controls\" aria-label=\"Paginação de resultados\"><label>Mostrar<select class=\"page-size\"><option value=\"10\">10 por página</option><option value=\"all\">Todos</option></select></label><span class=\"page-summary\" role=\"status\"></span><button type=\"button\" class=\"page-prev\">Anterior</button><span class=\"page-index\"></span><button type=\"button\" class=\"page-next\">Próxima</button></div>" + '<details class="regional-sources" open><summary>Empresas acompanhadas (inclusive sem integração)</summary>'
-        '<p>Essas empresas não necessariamente possuem vagas coletadas. Consulte as fontes oficiais para cobertura adicional.</p><ul>' +
+        '</div>' + "<div class=\"page-controls\" aria-label=\"Paginação de resultados\"><label>Mostrar<select class=\"page-size\"><option value=\"10\">10 por página</option><option value=\"all\">Todos</option></select></label><span class=\"page-summary\" role=\"status\"></span><button type=\"button\" class=\"page-prev\">Anterior</button><span class=\"page-index\"></span><button type=\"button\" class=\"page-next\">Próxima</button></div>" + '<details class="regional-sources"><summary>Empresas acompanhadas (' + str(monitored_count) + ') · inclusive sem vagas coletadas</summary>'
+        '<p>Esta é uma lista de empresas monitoradas, não de vagas abertas. A ausência de registros não significa ausência de contratações. Consulte os portais oficiais para cobertura adicional.</p><ul>' +
         company_cards + '</ul></details></section>'
     )
 
