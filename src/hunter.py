@@ -4,6 +4,7 @@ from __future__ import annotations
 import csv
 import html
 import json
+import os
 import re
 import sys
 from datetime import datetime, timezone
@@ -107,6 +108,127 @@ def remoteok() -> list[dict]:
     } for j in data if isinstance(j, dict) and j.get("position")]
 
 
+
+def _boards(config: dict, provider: str) -> list[dict]:
+    return [b for b in config.get("company_boards", []) if b.get("provider") == provider and b.get("slug")]
+
+
+def company_ats(config: dict, provider: str) -> list[dict]:
+    jobs = []
+    for board in _boards(config, provider):
+        slug = quote(str(board["slug"]), safe="")
+        company = board.get("company") or slug
+        if provider == "greenhouse":
+            records = fetch_json(f"https://boards-api.greenhouse.io/v1/boards/{slug}/jobs?content=true").get("jobs", [])
+        elif provider == "lever":
+            records = fetch_json(f"https://api.lever.co/v0/postings/{slug}?mode=json")
+        else:
+            records = fetch_json(f"https://api.ashbyhq.com/posting-api/job-board/{slug}?includeCompensation=true").get("jobs", [])
+        for j in records:
+            if provider == "greenhouse":
+                location = (j.get("location") or {}).get("name", "")
+                url = j.get("absolute_url", "")
+                description = j.get("content", "")
+                salary = ""
+                published = j.get("updated_at", "")
+                remote = "remote" in location.lower()
+            elif provider == "lever":
+                cats = j.get("categories") or {}
+                location = cats.get("location") or ""
+                url = j.get("hostedUrl") or j.get("applyUrl") or ""
+                description = j.get("descriptionPlain") or j.get("description") or ""
+                salary = plain(j.get("salaryDescriptionPlain") or "")
+                published = str(j.get("createdAt") or "")
+                remote = (j.get("workplaceType") or "").lower() == "remote"
+            else:
+                location = j.get("location") or ""
+                url = j.get("jobUrl") or j.get("applyUrl") or ""
+                description = j.get("descriptionPlain") or j.get("descriptionHtml") or ""
+                compensation = j.get("compensation") or {}
+                salary = plain(compensation.get("compensationTierSummary") or compensation.get("scrapeableCompensationSalarySummary") or "")
+                published = j.get("publishedAt") or ""
+                remote = bool(j.get("isRemote"))
+            jobs.append({"id": f"{provider}:{slug}:{j.get('id', '')}", "title": plain(j.get("title")),
+                         "company": plain(company), "url": str(url), "location": plain(location),
+                         "salary": salary, "type": plain(j.get("employmentType") or ""),
+                         "description": plain(description), "source": provider.title(),
+                         "published": str(published), "remote": remote})
+    return jobs
+
+
+def adzuna() -> list[dict]:
+    app_id, key = os.getenv("ADZUNA_APP_ID"), os.getenv("ADZUNA_APP_KEY")
+    if not app_id or not key:
+        raise ValueError("Missing ADZUNA_APP_ID / ADZUNA_APP_KEY")
+    jobs = []
+    for country in ("br", "us"):
+        data = fetch_json(f"https://api.adzuna.com/v1/api/jobs/{country}/search/1?app_id={quote(app_id)}&app_key={quote(key)}&results_per_page=50&what=quality%20assurance")
+        for j in data.get("results", []):
+            salary = (f"{j.get('salary_min')} - {j.get('salary_max')} {country.upper()} annual" if j.get("salary_min") else "")
+            jobs.append({"id": "adzuna:" + str(j.get("id")), "title": plain(j.get("title")),
+                         "company": plain((j.get("company") or {}).get("display_name")),
+                         "url": j.get("redirect_url", ""), "location": plain((j.get("location") or {}).get("display_name")),
+                         "salary": salary, "type": plain(j.get("contract_type") or ""),
+                         "description": plain(j.get("description")), "source": "Adzuna",
+                         "published": j.get("created", "")})
+    return jobs
+
+
+def jooble() -> list[dict]:
+    key = os.getenv("JOOBLE_API_KEY")
+    if not key:
+        raise ValueError("Missing JOOBLE_API_KEY")
+    from urllib.request import Request
+    request = Request("https://jooble.org/api/" + quote(key),
+                      data=json.dumps({"keywords": "QA engineer", "page": 1}).encode(),
+                      headers={"Content-Type": "application/json", "User-Agent": USER_AGENT}, method="POST")
+    with urlopen(request, timeout=25) as response:
+        data = json.load(response)
+    return [{"id": "jooble:" + str(j.get("id") or j.get("link")),
+             "title": plain(j.get("title")), "company": plain(j.get("company")),
+             "url": j.get("link", ""), "location": plain(j.get("location")),
+             "salary": plain(j.get("salary")), "type": plain(j.get("type")),
+             "description": plain(j.get("snippet")), "source": "Jooble",
+             "published": str(j.get("updated") or "")} for j in data.get("jobs", [])]
+
+
+def reed() -> list[dict]:
+    key = os.getenv("REED_API_KEY")
+    if not key:
+        raise ValueError("Missing REED_API_KEY")
+    import base64
+    token = base64.b64encode((key + ":").encode()).decode()
+    request = Request("https://www.reed.co.uk/api/1.0/search?keywords=quality%20assurance&resultsToTake=100",
+                      headers={"Authorization": "Basic " + token, "User-Agent": USER_AGENT})
+    with urlopen(request, timeout=25) as response:
+        data = json.load(response)
+    return [{"id": "reed:" + str(j.get("jobId")), "title": plain(j.get("jobTitle")),
+             "company": plain(j.get("employerName")), "url": j.get("jobUrl", ""),
+             "location": plain(j.get("locationName")), "salary": plain(j.get("minimumSalary") or ""),
+             "type": "", "description": plain(j.get("jobDescription")),
+             "source": "Reed", "published": str(j.get("date") or "")} for j in data.get("results", [])]
+
+
+def usajobs() -> list[dict]:
+    key, email = os.getenv("USAJOBS_API_KEY"), os.getenv("USAJOBS_USER_AGENT")
+    if not key or not email:
+        raise ValueError("Missing USAJOBS_API_KEY / USAJOBS_USER_AGENT")
+    request = Request("https://data.usajobs.gov/api/search?Keyword=quality%20assurance&ResultsPerPage=100",
+                      headers={"Authorization-Key": key, "User-Agent": email, "Host": "data.usajobs.gov"})
+    with urlopen(request, timeout=25) as response:
+        data = json.load(response)
+    jobs = []
+    for item in (data.get("SearchResult") or {}).get("SearchResultItems", []):
+        j = item.get("MatchedObjectDescriptor") or {}
+        pay = j.get("PositionRemuneration") or []
+        salary = (str(pay[0].get("MinimumRange", "")) + " - " + str(pay[0].get("MaximumRange", "")) + " USD " + str(pay[0].get("RateIntervalCode", ""))) if pay else ""
+        jobs.append({"id": "usajobs:" + str(j.get("PositionID")), "title": plain(j.get("PositionTitle")),
+                     "company": plain(j.get("OrganizationName")), "url": j.get("PositionURI", ""),
+                     "location": plain(j.get("PositionLocationDisplay")), "salary": salary,
+                     "type": "", "description": plain(j.get("QualificationSummary")),
+                     "source": "USAJOBS", "published": j.get("PublicationStartDate", "")})
+    return jobs
+
 def classify(job: dict, config: dict) -> dict | None:
     title = str(job.get("title") or "").lower()
     location = str(job.get("location") or "").lower()
@@ -142,7 +264,7 @@ def classify(job: dict, config: dict) -> dict | None:
 def collect(config: dict) -> tuple[list[dict], list[str]]:
     raw, errors = [], []
     source_counts = {}
-    for name, fn in (("remotive", remotive), ("arbeitnow", arbeitnow), ("jobicy", jobicy), ("himalayas", himalayas), ("remoteok", remoteok)):
+    for name, fn in (("remotive", remotive), ("arbeitnow", arbeitnow), ("jobicy", jobicy), ("himalayas", himalayas), ("remoteok", remoteok), ("greenhouse", lambda: company_ats(config, "greenhouse")), ("lever", lambda: company_ats(config, "lever")), ("ashby", lambda: company_ats(config, "ashby")), ("adzuna", adzuna), ("jooble", jooble), ("reed", reed), ("usajobs", usajobs)):
         if name not in config["sources"]:
             continue
         try:
