@@ -31,21 +31,21 @@ def monthly_usd_salary(job: dict) -> float | None:
     salary = str(job.get("salary") or "").strip()
     checks = job.get("assessment") if isinstance(job.get("assessment"), dict) else {}
     currency = str(checks.get("salary_currency") or "").upper()
-    if not salary or not (re.search(r"\\bUSD\\b|US\\$|\\$", salary, re.I) or currency == "USD"):
+    if not salary or not (re.search(r"\bUSD\b|US\$|\$", salary, re.I) or currency == "USD"):
         return None
-    numbers = re.findall(r"(?<![\\w])(?:USD\\s*|US\\$\\s*|\\$\\s*)?(\\d{1,3}(?:,\\d{3})+|\\d{4,6}|\\d{1,3})(?:\\.\\d+)?\\s*([kK]?)", salary)
+    numbers = re.findall(r"(?<![\w])(?:USD\s*|US\$\s*|\$\s*)?(\d{1,3}(?:,\d{3})+|\d{4,6}|\d{1,3})(?:\.\d+)?\s*([kK]?)", salary)
     if not numbers:
         return None
     values = [float(n.replace(",", "")) * (1000 if k else 1) for n, k in numbers]
     amount = min(values)
     unit = salary.lower()
-    if re.search(r"/\\s*(?:year|yr|annum)|per\\s+(?:year|annum)|annual|yearly", unit):
+    if re.search(r"/\s*(?:year|yr|annum)|per\s+(?:year|annum)|annual|yearly", unit):
         return amount / 12
-    if re.search(r"/\\s*(?:month|mo)\\b|per\\s+month|monthly", unit):
+    if re.search(r"/\s*(?:month|mo)\b|per\s+month|monthly", unit):
         return amount
-    if re.search(r"/\\s*(?:hour|hr|h)\\b|per\\s+hour|hourly", unit):
+    if re.search(r"/\s*(?:hour|hr|h)\b|per\s+hour|hourly", unit):
         return amount * 40 * 52 / 12
-    if re.search(r"/\\s*(?:week|wk)\\b|per\\s+week|weekly", unit):
+    if re.search(r"/\s*(?:week|wk)\b|per\s+week|weekly", unit):
         return amount * 52 / 12
     return None
 
@@ -75,13 +75,14 @@ def render(queue: dict, generated: str = "", insights: dict | None = None, strat
         link = f'<a href="{escape(url)}" target="_blank" rel="noopener noreferrer">{title}</a>'
         checks = job.get("assessment") if isinstance(job.get("assessment"), dict) else {}
         reputation = checks.get("company_reputation") if isinstance(checks.get("company_reputation"), dict) else {}
-        row = [link, escape(job.get("company")), escape(job.get("category")),
-               escape(job.get("score")), escape(status),
-               escape(checks.get("salary_currency", "unspecified")),
-               escape(checks.get("two_hours_per_day", "unverified")),
-               escape(reputation.get("status", "unverified"))]
         monthly = monthly_usd_salary(job)
         usd_confirmed = monthly is not None
+        salary_display = (f"🇺🇸 US$ {monthly:,.0f}/mês" if usd_confirmed else escape(job.get("salary") or "Não divulgado"))
+        row = [link, escape(job.get("company")), escape(job.get("category")),
+               escape(job.get("score")), escape(status),
+               ("🇺🇸 USD" if usd_confirmed else escape(checks.get("salary_currency", "não informada"))),
+               escape(checks.get("two_hours_per_day", "unverified")),
+               escape(reputation.get("status", "unverified")), salary_display]
         rows.append('<tr data-salary-usd-monthly="' + (str(monthly) if monthly is not None else '') +
                     '" data-usd-confirmed="' + ('true' if usd_confirmed else 'false') +
                     '" data-status="' + escape(status) + '" data-type="' + escape(job.get("category")) + '">' +
@@ -134,6 +135,7 @@ def render(queue: dict, generated: str = "", insights: dict | None = None, strat
 <style>
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif;color:#17233d;background:#f5f7fc}
 *{box-sizing:border-box}body{margin:0;min-height:100vh}a{color:#225ce7;text-decoration:none}a:hover{text-decoration:underline}
+.salary-tab{display:none}.salary-tab.active{display:block}.nav a{cursor:pointer}.nav a.active{font-weight:800}
 .shell{display:grid;grid-template-columns:238px minmax(0,1fr);min-height:100vh}
 .sidebar{background:white;border-right:1px solid #e5eaf3;padding:28px 17px;position:sticky;top:0;height:100vh}
 .brand{font-weight:800;font-size:19px;letter-spacing:-.6px;color:#12234a;margin:0 0 34px 8px}
@@ -170,13 +172,13 @@ footer{margin-top:25px;color:#7b879b;font-size:12px;line-height:1.8}
 @media(max-width:760px){.shell{display:block}.sidebar{height:auto;position:static;padding:16px;border-right:0;border-bottom:1px solid #e5eaf3}.brand{margin:0}.nav,.sidebar-note{display:none}.main{padding:18px 14px}.hero{padding:24px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.workspace{grid-template-columns:1fr}.filters{padding:16px}.controls{grid-template-columns:repeat(2,minmax(0,1fr))}.results{padding:16px}.topbar{margin-bottom:14px}}
 @media(max-width:420px){.controls{grid-template-columns:1fr}.stats{gap:8px}.stat{padding:13px}.stat strong{font-size:23px}}
 </style></head><body><div class="shell"><aside class="sidebar"><div class="brand">AI Job Hunter</div>
-<nav class="nav" aria-label="Navegação principal"><a class="active" href="#inicio">⌂ &nbsp; Visão geral</a><a href="#vagas">▤ &nbsp; Explorar vagas</a><a href="#vagas">◷ &nbsp; Candidaturas</a><a href="#filtros">⚙ &nbsp; Filtros</a><a href="#consultor">＄ &nbsp; Consultor financeiro</a></nav>
+<nav class="nav" aria-label="Navegação principal"><a class="active" href="#inicio">⌂ &nbsp; Visão geral</a><a href="#vagas">▤ &nbsp; Explorar vagas</a><a href="#vagas">◷ &nbsp; Candidaturas</a><a href="#filtros">⚙ &nbsp; Filtros</a><a href="#consultor" id="nav-consultor">＄ &nbsp; Consultor Salarial</a></nav>
 <p class="sidebar-note">Painel de descoberta e revisão de vagas. Nenhuma candidatura é enviada automaticamente.</p></aside>
 <main class="main" id="inicio"><div class="topbar"><span class="eyebrow">Seu painel de oportunidades</span><strong>AI Job Hunter · Dashboard</strong></div>
 <header class="hero"><span class="pill">✦ Busca inteligente de oportunidades</span><h1>Encontre sua próxima grande oportunidade.</h1>
 <p>Explore vagas de QA, liderança e contratos remotos. Compare oportunidades e revise os anúncios antes de se candidatar.</p>
 <div class="pills"><span class="pill">✓ Remoto e internacional</span><span class="pill">✓ Freelance e contratos</span><span class="pill">✓ Busca por empresa e vaga</span></div></header>
-""" + advisor + render_advisor() + strategic_html + apinfo_html + """<section class="stats">""" + stats + """</section>
+""" + advisor + '<div class="salary-tab" id="salary-tab">' + render_advisor() + '</div>' + strategic_html + apinfo_html + """<section class="stats">""" + stats + """</section>
 <h2 class="section-title" id="vagas">Explore oportunidades</h2><p class="section-sub">Dados do último processamento · gerado em """ + timestamp + """</p>
 <div class="workspace"><aside class="filters" id="filtros"><h2>Filtros de busca</h2><div class="controls">
 <div><label for="query">Cargo ou empresa</label><input id="query" aria-label="Pesquisar vagas" placeholder="Ex.: QA Manager, Bosch"></div>
@@ -184,13 +186,16 @@ footer{margin-top:25px;color:#7b879b;font-size:12px;line-height:1.8}
         f'<option value="{escape(s)}">{escape(s.replace("_", " ").title())}</option>' for s in sorted(ALLOWED)) + """</select></div>
 <div><label for="type">Modalidade</label><select id="type" aria-label="Filtrar tipo"><option value="">Todas as modalidades</option><option value="freelance">Freelance</option><option value="full-time/unspecified">Integral / não especificado</option></select></div>
 <div><label for="salary-min">🇺🇸 Salário mínimo (USD/mês)</label><input id="salary-min" type="number" min="0" step="100" value="5000" aria-label="Salário mínimo em dólar por mês"></div>
-<div><label><input id="usd-only" type="checkbox" checked style="width:auto;margin-right:8px">🇺🇸 Somente vagas remuneradas em USD</label></div>\n<div><label><input id="salary-unknown" type="checkbox" style="width:auto;margin-right:8px">Incluir salários não divulgados</label></div>
+<div><label><input id="usd-only" type="checkbox" style="width:auto;margin-right:8px">🇺🇸 Somente vagas remuneradas em USD</label></div>\n<div><label><input id="salary-unknown" type="checkbox" checked style="width:auto;margin-right:8px">Incluir salários não divulgados</label></div>
 </div></aside><section class="results"><div class="results-head"><h2>Vagas encontradas</h2><p>Resultados disponíveis no arquivo gerado</p></div>
 <div class="table"><table id="jobs"><thead><tr><th>Vaga</th><th>Empresa</th><th>Categoria</th><th>Score</th>
-<th>Status</th><th>Moeda</th><th>2h/dia</th><th>Reputação</th></tr></thead><tbody>""" + "".join(rows) + """</tbody></table></div></section></div>
+<th>Status</th><th>Moeda</th><th>2h/dia</th><th>Reputação</th><th>Salário divulgado</th></tr></thead><tbody>""" + "".join(rows) + """</tbody></table></div></section></div>
 <footer>Empresas, elegibilidade no Brasil, disponibilidade de 2h/dia e pagamento devem ser verificados diretamente.
 O status do painel não envia candidatura. Não armazene CV ou informações pessoais neste repositório público.</footer></main></div>
 <script>
+const navConsultor=document.querySelector('#nav-consultor');
+function showTab(){const active=location.hash==='#consultor';document.querySelector('#salary-tab').classList.toggle('active',active);document.querySelectorAll('.main > :not(.salary-tab)').forEach(el=>{if(el.classList.contains('topbar'))return;el.style.display=active?'none':''});document.querySelectorAll('.nav a').forEach(el=>el.classList.toggle('active',active?el===navConsultor:el!==navConsultor&&el.getAttribute('href')==='#inicio'));}
+window.addEventListener('hashchange',showTab);showTab();
 const q=document.querySelector('#query'),s=document.querySelector('#status'),t=document.querySelector('#type'),min=document.querySelector('#salary-min'),unknown=document.querySelector('#salary-unknown'),usdOnly=document.querySelector('#usd-only');
 function filter(){const search=q.value.toLocaleLowerCase();for(const row of document.querySelectorAll('#jobs tbody tr')){
 const salary=row.dataset.salaryUsdMonthly;const threshold=Number(min.value||0);const salaryMatch=salary===''?unknown.checked&&!usdOnly.checked:Number(salary)>=threshold;const currencyMatch=!usdOnly.checked||row.dataset.usdConfirmed==='true';
