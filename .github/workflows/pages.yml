@@ -8,7 +8,7 @@ on:
     - cron: '43 10 * * *'
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -51,6 +51,7 @@ jobs:
           mkdir -p data site
           python -m src.project_jobs_poc --config config/project_boards.example.json --output data/project_jobs_poc.json
           python -m src.hunter
+          python -m src.job_history
           python -m src.strategic_companies
           python -m src.regional_ats_qa --output data/regional_qa_jobs.json
           python -m src.himalayas_jobs --output data/himalayas_jobs.json
@@ -100,6 +101,23 @@ jobs:
           grep -q 'Ver informações da vaga' src/unified_jobs_dashboard.py
           test ! -e site/.env
           touch site/.nojekyll
+      # GitHub Pages artifacts do not persist files for the next workflow run.
+      # Save only public, deduplicated historical data back to main.
+      # Pushes made with GITHUB_TOKEN do not recursively trigger this workflow.
+      - name: Persist public history on main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- data/history.json data/linkedin_history.json
+          if git diff --cached --quiet; then
+            echo "History unchanged; nothing to save."
+          else
+            git commit -m "data: retain collected job and LinkedIn history [skip ci]"
+            git push origin HEAD:main
+            echo "Historical JSON files saved to main."
+          fi
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload public site
