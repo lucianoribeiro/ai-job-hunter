@@ -15,8 +15,9 @@
     {
       "name": "3M Brasil",
       "city": "Sumaré",
-      "url": "",
-      "monitor": "manual"
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search",
+      "monitor": "public_links",
+      "connector": "workday_3m"
     },
     {
       "name": "Villares Metals",
@@ -28,8 +29,9 @@
     {
       "name": "PPG",
       "city": "Sumaré",
-      "url": "",
-      "monitor": "manual"
+      "url": "https://careers.ppg.com/br/pt/search-results",
+      "monitor": "public_links",
+      "connector": "ppg_public"
     },
     {
       "name": "Petrobras / Replan",
