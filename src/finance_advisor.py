@@ -16,9 +16,9 @@ def render_advisor() -> str:
 <div class="fc-head"><div><h2 style="margin:0 0 5px">Consultor Financeiro · CLT × PJ × B2B</h2><p class="section-sub" style="margin:0">Informe seu salário CLT e calcule quanto precisaria faturar em outras modalidades. Só o salário é obrigatório.</p></div><span class="pill" style="color:#334155;border-color:#cbd5e1">Simulação ilustrativa</span></div>
 <div class="fc-grid">
 <div class="fc-field"><label for="fc-salary">Salário CLT bruto mensal (referência)</label><input id="fc-salary" type="text" inputmode="decimal" value="R$ 15.000,00" autocomplete="off"></div>
-<div class="fc-field"><label for="fc-currency">Moeda da proposta</label><select id="fc-currency"><option value="BRL">Real (BRL)</option><option value="USD">Dólar (USD)</option></select></div>
-<div class="fc-field"><label for="fc-contract">Tipo de proposta</label><select id="fc-contract"><option>CLT</option><option>PJ</option><option>B2B</option></select></div>
-<div class="fc-field"><label for="fc-fx">Cotação USD/BRL (premissa)</label><input id="fc-fx" type="number" min="0.01" step=".01" value="5.20"></div>
+<div class="fc-field"><label for="fc-currency">Moeda de negociação</label><select id="fc-currency"><option value="BRL">Real (BRL)</option><option value="USD">Dólar (USD)</option></select></div>
+<div class="fc-field"><label for="fc-contract">Tipo de proposta</label><select id="fc-contract"><option>CLT</option><option>PJ</option><option>B2B</option><option>Cooperativa</option></select></div>
+<div class="fc-field"><label for="fc-fx">Cotação USD/BRL (PTAX ou manual)</label><input id="fc-fx" type="number" min="0.01" step=".0001" value="5.20"><button id="fc-refresh-fx" type="button">Atualizar PTAX</button><small id="fc-fx-status" role="status" aria-live="polite">Cotação inicial ilustrativa; aguardando consulta.</small></div>
 </div>
 <details><summary style="cursor:pointer;font-weight:700">Personalizar benefícios, impostos e premissas (opcional)</summary><div class="fc-grid">
 <div class="fc-field"><label for="fc-benefits">Outros benefícios CLT mensais (R$)</label><input id="fc-benefits" type="text" inputmode="decimal" value="R$ 0,00"></div>
@@ -43,6 +43,7 @@ def render_advisor() -> str:
 <div class="fc-field"><label for="fc-payroll">Folha acumulada 12 meses incluindo encargos (R$)</label><input id="fc-payroll" type="number" min="0" step="1000" value="0"></div>
 <div class="fc-field"><label for="fc-prolabore">Pró-labore mensal planejado (R$)</label><input id="fc-prolabore" type="number" min="0" step="100" value="0"></div>
 <div class="fc-field"><label for="fc-personal-tax">Reserva para INSS/IRPF pessoal e encargos (%)</label><input id="fc-personal-tax" type="number" min="0" max="70" step=".5" value="10"></div>
+<div class="fc-field"><label for="fc-fx-spread">Custo cambial / spread (%)</label><input id="fc-fx-spread" type="number" min="0" max="30" step=".1" value="2"></div>
 <div class="fc-field"><label for="fc-iss">ISS presumido Lucro Presumido (%)</label><input id="fc-iss" type="number" min="2" max="5" step=".5" value="3"></div>
 <div class="fc-field"><label for="fc-coop-fee">Taxa administrativa de cooperativa (%)</label><input id="fc-coop-fee" type="number" min="0" max="99" step=".1" value="15"></div>
 <div class="fc-field"><label for="fc-coop-tax">Retenções / encargos cooperativa (%)</label><input id="fc-coop-tax" type="number" min="0" max="99" step=".1" value="11"></div>
@@ -61,7 +62,7 @@ const money=(v,c='BRL')=>new Intl.NumberFormat('pt-BR',{style:'currency',currenc
 function format(k){const node=el(k),currency=k==='salary'?el('currency').value:'BRL';const raw=node.value.replace(/\\D/g,'');node.value=money((Number(raw)||0)/100,currency)}
 function update(){
  const result=el('results');
- const currency=el('currency').value,fx=number('fx'),salary=parse(el('salary').value),brl=salary*(currency==='USD'?fx:1);
+ const currency=el('currency').value,contract=el('contract').value,fx=number('fx'),salary=parse(el('salary').value),brl=salary;
  if(!Number.isFinite(brl)||brl<=0){result.textContent='Informe seu salário CLT mensal para realizar o cálculo.';return;}
  const benefits=Math.max(0,parse(el('benefits').value)+number('health')+number('dental')+number('meal')+number('food')+number('insurance')+number('pension')-number('health-discount')-number('dental-discount'));
  const cost=parse(el('cost').value),months=Math.min(12,Math.max(1,number('months'))),margin=number('margin')/100;
@@ -84,20 +85,49 @@ function update(){
    return retained>0?(annualTarget+monthlyCost*months)/(months*retained):null;
  }
  const pj=required(effectiveTax,cost+personalCost),coop=required(coopFee+coopTax,0);
+ const spread=Math.min(.3,number('fx-spread')/100),international=required(effectiveTax+(1-effectiveTax)*spread,cost+personalCost);
  const scenarios=[
   {name:'PJ · '+(regime==='simples'?'Simples Nacional':'Lucro Presumido'),amount:pj,rate:effectiveTax,detail:'Tributos efetivos assumidos + custos administrativos'},
-  {name:'B2B internacional',amount:pj,rate:effectiveTax,detail:'Mesma premissa PJ, antes de câmbio efetivo, IOF e regras de exportação'},
+  {name:'B2B internacional',amount:international,rate:effectiveTax,detail:'Considera spread cambial configurável, sem apurar IOF e tributação de exportação'},
   {name:'Cooperativa',amount:coop,rate:coopFee+coopTax,detail:'Taxa administrativa e encargos editáveis; sem custos PJ'},
  ];
  const factorNote=regime==='simples'&&el('activity').value==='subject'?
   (factor===null?'RBT12 não informada; alíquota manual utilizada.':'Fator R estimado: '+(factor*100).toFixed(1)+'%; Anexo '+annex+' considerado. Alíquota efetiva aproximada: '+(effectiveTax*100).toFixed(2)+'%.'):
   'Atividade/regime não validado; aplicada premissa tributária configurável.';
- const cards=scenarios.map(x=>'<article class="fc-card"><span>'+x.name+'</span><strong>'+(x.amount===null?'Inviável com as taxas atuais':money(x.amount)+'/mês')+'</strong><small>Retenções assumidas: '+(x.rate*100).toFixed(1)+'%<br>'+x.detail+'<br>'+(x.amount!==null?'Equivalente USD pela cotação informada: '+money(x.amount/Math.max(fx,.01),'USD'):'')+'</small></article>').join('');
+ const cards=scenarios.map(x=>{
+  const isB2B=x.name==='B2B internacional',showUsd=isB2B||currency==='USD';
+  const negotiated=x.amount===null?'Inviável com as taxas atuais':money(showUsd?x.amount/Math.max(fx,.01):x.amount,showUsd?'USD':'BRL')+'/mês';
+  const converted=x.amount===null?'':'<br>Equivalente em '+(showUsd?'BRL: '+money(x.amount):'USD: '+money(x.amount/Math.max(fx,.01),'USD'));
+  return '<article class="fc-card"><span>'+x.name+'</span><strong>'+negotiated+'</strong><small>Retenções estimadas: '+(x.rate*100).toFixed(1)+'%<br>'+x.detail+converted+'</small></article>';
+ }).join('');
  result.innerHTML='<div class="fc-summary"><strong>Referência CLT anual (valor econômico bruto)</strong><div>'+money(clt)+' · '+money(clt/12)+'/mês</div><small>Inclui provisões de 13º, férias + 1/3, FGTS estimado, benefícios e PLR. Margem desejada: '+(margin*100).toFixed(0)+'%.</small></div><div class="fc-cards">'+cards+'</div><div class="fc-summary"><strong>Como interpretar</strong><p>Os cenários tributários dependem de CNAE, município e enquadramento confirmado. Reserva pessoal sobre pró-labore informada separadamente. Esses valores representam faturamento mensal-alvo durante '+months+' meses faturados, não salário líquido nem imposto apurado. Compare também segurança contratual, férias não remuneradas, seguro, riscos de rescisão, tributação e encargos pessoais.</p></div>';
 }
 
 fields.forEach(k=>{el(k).addEventListener('blur',()=>format(k));el(k).addEventListener('focus',()=>el(k).select())});
-el('currency').addEventListener('change',()=>{el('salary').value=money(parse(el('salary').value),el('currency').value)});
+el('contract').addEventListener('change',()=>{el('currency').value=el('contract').value==='B2B'?'USD':'BRL';});
+async function loadPtax(){
+ const status=el('fx-status');status.textContent='Consultando PTAX do Banco Central...';
+ const today=new Date();
+ for(let i=0;i<9;i++){
+  const day=new Date(today);day.setDate(today.getDate()-i);
+  const d=String(day.getDate()).padStart(2,'0'),m=String(day.getMonth()+1).padStart(2,'0'),y=day.getFullYear();
+  const endpoint="https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='"+m+'-'+d+'-'+y+"'&$format=json";
+  try{
+   const response=await fetch(endpoint,{signal:AbortSignal.timeout(4500)});
+   if(!response.ok)continue;
+   const data=await response.json(),values=Array.isArray(data.value)?data.value:[];
+   const quote=values.find(x=>Number(x.cotacaoVenda)>0);
+   if(!quote)continue;
+   el('fx').value=Number(quote.cotacaoVenda).toFixed(4);
+   status.textContent='PTAX venda BCB de '+d+'/'+m+'/'+y+' (referência; não é cotação comercial).';
+   return;
+  }catch(error){if(i===8)break;}
+ }
+ status.textContent='PTAX indisponível ou bloqueada pelo navegador. Use a cotação manual; valor atual não foi validado.';
+}
+el('refresh-fx').addEventListener('click',loadPtax);
+el('fx').addEventListener('input',()=>el('fx-status').textContent='Cotação manual — confirme o valor aplicado.');
+loadPtax();
 el('calculate').addEventListener('click',update);
 
 })();
