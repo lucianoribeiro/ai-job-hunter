@@ -1,9 +1,54 @@
 {
+  "10cf2e67bb3e3db7e773b2c9": {
+    "company": "Airtm",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "2026-10-18T16:18:48+00:00",
+    "source": "Jobicy",
+    "title": "Senior QA Engineer",
+    "url": "https://jobicy.com/jobs/155766-senior-qa-engineer-3"
+  },
+  "12b86d8f51c3fbf92365e78a": {
+    "company": "Support Tech LLC",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792359044",
+    "source": "Himalayas",
+    "title": "Senior IT Project Manager",
+    "url": "https://himalayas.app/companies/support-tech-llc/jobs/senior-it-project-manager?utm_source=api"
+  },
+  "1326ae2b671d7d7ab1665799": {
+    "company": "TigerConnect",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792342723",
+    "source": "Himalayas",
+    "title": "Senior Implementation Project Manager",
+    "url": "https://himalayas.app/companies/tigerconnect/jobs/senior-implementation-project-manager?utm_source=api"
+  },
+  "1588cdd246f47577fb8cf5be": {
+    "company": "Guidehouse",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792338999",
+    "source": "Himalayas",
+    "title": "Quality Assurance System Tester",
+    "url": "https://himalayas.app/companies/guidehouse/jobs/quality-assurance-system-tester-5550669612?utm_source=api"
+  },
   "1718efd19ea573c1": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
     "last_seen": "2026-10-18",
     "score": 55,
+    "source": "Greenhouse",
+    "title": "Staff Program Manager, CCO Programs",
+    "url": "https://job-boards.greenhouse.io/gitlab/jobs/8822279002"
+  },
+  "1718efd19ea573c12f0b4add": {
+    "company": "GitLab",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "2026-10-15T15:24:46-04:00",
     "source": "Greenhouse",
     "title": "Staff Program Manager, CCO Programs",
     "url": "https://job-boards.greenhouse.io/gitlab/jobs/8822279002"
@@ -17,6 +62,15 @@
     "title": "Program Manager",
     "url": "https://jobicy.com/jobs/155577-program-manager-2"
   },
+  "1a88a5cb0d97ef1fa27e312e": {
+    "company": "Oddball",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "2026-10-17T07:48:30+00:00",
+    "source": "Jobicy",
+    "title": "Program Manager",
+    "url": "https://jobicy.com/jobs/155577-program-manager-2"
+  },
   "1b87960d76ba9e6f": {
     "company": "Tellent",
     "first_seen": "2026-10-18",
@@ -26,11 +80,47 @@
     "title": "Senior Quality Engineer - Tellent Intelligence (AI)",
     "url": "https://www.arbeitnow.nl/jobs/companies/tellent/remote-senior-quality-engineer-tellent-intelligence-ai-amsterdam-295070"
   },
+  "1b87960d76ba9e6f9862705a": {
+    "company": "Tellent",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792290737",
+    "source": "Arbeitnow",
+    "title": "Senior Quality Engineer - Tellent Intelligence (AI)",
+    "url": "https://www.arbeitnow.nl/jobs/companies/tellent/remote-senior-quality-engineer-tellent-intelligence-ai-amsterdam-295070"
+  },
+  "1b9d445bd13736fb30aa2bdf": {
+    "company": "Ashurst Perkins Coie",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792359981",
+    "source": "Himalayas",
+    "title": "eDiscovery Project Manager",
+    "url": "https://himalayas.app/companies/ashurst-perkins-coie/jobs/ediscovery-project-manager?utm_source=api"
+  },
+  "23ea00082bd2d804531e0d43": {
+    "company": "Apogee Global RMS",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792359007",
+    "source": "Himalayas",
+    "title": "Associate Strategy Consultant / Program Manager",
+    "url": "https://himalayas.app/companies/apogee-global-rms/jobs/associate-strategy-consultant-program-manager?utm_source=api"
+  },
   "2a4d54ac15ae0f95": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
     "last_seen": "2026-10-18",
     "score": 55,
+    "source": "Greenhouse",
+    "title": "Senior Program Manager, Enterprise Technology and AI",
+    "url": "https://job-boards.greenhouse.io/gitlab/jobs/8687246002"
+  },
+  "2a4d54ac15ae0f954aa499bf": {
+    "company": "GitLab",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "2026-10-15T15:24:46-04:00",
     "source": "Greenhouse",
     "title": "Senior Program Manager, Enterprise Technology and AI",
     "url": "https://job-boards.greenhouse.io/gitlab/jobs/8687246002"
@@ -43,6 +133,24 @@
     "source": "Himalayas",
     "title": "Clinical Trials Associate Project Manager",
     "url": "https://himalayas.app/companies/rochester-regional-health/jobs/clinical-trials-associate-project-manager"
+  },
+  "34054adc6b7bf7dca47cca92": {
+    "company": "Support Tech LLC",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792356542",
+    "source": "Himalayas",
+    "title": "Remote Technical Project Manager (CCTV & Networking)",
+    "url": "https://himalayas.app/companies/support-tech-llc/jobs/remote-technical-project-manager-cctv-networking?utm_source=api"
+  },
+  "34ba7449e4691e4f7055face": {
+    "company": "Spiralyze",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "2026-10-06T19:35:42+00:00",
+    "source": "Remote OK",
+    "title": "Project Manager",
+    "url": "https://remoteOK.com/remote-jobs/remote-project-manager-spiralyze-1137466"
   },
   "385235c67aa34bc6": {
     "company": "Smart Tech Contracting",
@@ -80,6 +188,15 @@
     "title": "Test Lead II - Healthcare Payer Testing",
     "url": "https://himalayas.app/companies/healthedge/jobs/test-lead-ii-healthcare-payer-testing"
   },
+  "4bd23371cdd3fd940a79e8e3": {
+    "company": "HealthEdge",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792325951",
+    "source": "Himalayas",
+    "title": "Test Lead II - Healthcare Payer Testing",
+    "url": "https://himalayas.app/companies/healthedge/jobs/test-lead-ii-healthcare-payer-testing"
+  },
   "4d26b6e1b1c8e998": {
     "company": "NearSource Technologies",
     "first_seen": "2026-10-18",
@@ -88,6 +205,24 @@
     "source": "Himalayas",
     "title": "Senior Program Manager – Change Management (CAD Domain)",
     "url": "https://himalayas.app/companies/nearsource-technologies/jobs/senior-program-manager-change-management-cad-domain"
+  },
+  "51faec0bcc5c06023b6659e1": {
+    "company": "Ace IT Careers",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "2026-08-15T00:00:25+00:00",
+    "source": "Remote OK",
+    "title": "QA Tester Entry Level",
+    "url": "https://remoteOK.com/remote-jobs/remote-qa-tester-entry-level-ace-it-careers-1136701"
+  },
+  "5db7e52789d356daf2f804ae": {
+    "company": "Zayo Group",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792357153",
+    "source": "Himalayas",
+    "title": "Long Haul Fiber Test & Acceptance Project Manager",
+    "url": "https://himalayas.app/companies/zayo-group/jobs/long-haul-fiber-test-acceptance-project-manager?utm_source=api"
   },
   "5e29ede0b7e1a7ed": {
     "company": "Knotch",
@@ -98,6 +233,24 @@
     "title": "QA Manager",
     "url": "https://himalayas.app/companies/knotch/jobs/qa-manager"
   },
+  "62e4d0bbf74973764abfe713": {
+    "company": "JLL",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792357275",
+    "source": "Himalayas",
+    "title": "Senior Project Manager, PDS Projects",
+    "url": "https://himalayas.app/companies/jll/jobs/senior-project-manager-pds-projects?utm_source=api"
+  },
+  "65c21675756d905dba799260": {
+    "company": "Smartsheet",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "2026-10-18T12:52:45+00:00",
+    "source": "Jobicy",
+    "title": "Sr. Technical Program Manager I (Remote Eligible in Bulgaria)",
+    "url": "https://jobicy.com/jobs/155729-sr-technical-program-manager-i-remote-eligible-in-bulgaria"
+  },
   "6ed310e1424f9bb1": {
     "company": "Mano Lani LLC",
     "first_seen": "2026-10-18",
@@ -106,6 +259,24 @@
     "source": "Himalayas",
     "title": "GIS Software Quality Assurance Engineer",
     "url": "https://himalayas.app/companies/mano-lani-llc/jobs/gis-software-quality-assurance-engineer"
+  },
+  "6ed310e1424f9bb139355012": {
+    "company": "Mano Lani LLC",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792323448",
+    "source": "Himalayas",
+    "title": "GIS Software Quality Assurance Engineer",
+    "url": "https://himalayas.app/companies/mano-lani-llc/jobs/gis-software-quality-assurance-engineer"
+  },
+  "74208acfec0b6fd602dbce66": {
+    "company": "Softtest pays pty ltd",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792351300",
+    "source": "Himalayas",
+    "title": "Software Tester",
+    "url": "https://himalayas.app/companies/softtest-pays-pty-ltd/jobs/software-tester"
   },
   "778611a004251cd4": {
     "company": "Ace IT Careers",
@@ -134,6 +305,15 @@
     "title": "SDET Engineer",
     "url": "https://himalayas.app/companies/bright-vision-technologies/jobs/sdet-engineer-47719070"
   },
+  "85154f3de9007252dae7231e": {
+    "company": "Makersite GmbH",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792333897",
+    "source": "Arbeitnow",
+    "title": "Project Manager - Software Implementation (m/f/x)",
+    "url": "https://www.arbeitnow.com/jobs/companies/makersite-gmbh/remote-project-manager-software-implementation-berlin-117239"
+  },
   "888000b8be6fb629": {
     "company": "NANOSOFT CONSULTING TALENT PAGE",
     "first_seen": "2026-10-18",
@@ -143,11 +323,29 @@
     "title": "Senior Technical Project Manager",
     "url": "https://himalayas.app/companies/nanosoft-consulting-talent-page/jobs/senior-technical-project-manager"
   },
+  "9e4291d401ac35dc8d353723": {
+    "company": "Livefront",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792350467",
+    "source": "Himalayas",
+    "title": "Quality Assurance Engineer [Zeal]",
+    "url": "https://himalayas.app/companies/livefront/jobs/quality-assurance-engineer-zeal?utm_source=api"
+  },
   "9f5d7fcbc28da966": {
     "company": "Ramp",
     "first_seen": "2026-10-18",
     "last_seen": "2026-10-18",
     "score": 70,
+    "source": "Ashby",
+    "title": "Senior Technical Program Manager",
+    "url": "https://jobs.ashbyhq.com/ramp/8be55ffc-d512-4ef3-a14d-3a4cb29a60d4"
+  },
+  "9f5d7fcbc28da96653b684a7": {
+    "company": "Ramp",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "2026-10-16T18:04:33.419+00:00",
     "source": "Ashby",
     "title": "Senior Technical Program Manager",
     "url": "https://jobs.ashbyhq.com/ramp/8be55ffc-d512-4ef3-a14d-3a4cb29a60d4"
@@ -161,11 +359,29 @@
     "title": "Project Coordinator",
     "url": "https://himalayas.app/companies/pavago/jobs/project-coordinator-1177994446"
   },
+  "a5aab64d67b7f440856c8f31": {
+    "company": "JLL",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792358499",
+    "source": "Himalayas",
+    "title": "Regional Program Manager",
+    "url": "https://himalayas.app/companies/jll/jobs/regional-program-manager?utm_source=api"
+  },
   "a72f4df9827fe4b1": {
     "company": "Munich Ventures",
     "first_seen": "2026-10-18",
     "last_seen": "2026-10-18",
     "score": 55,
+    "source": "Himalayas",
+    "title": "Senior QA Automation Engineer",
+    "url": "https://himalayas.app/companies/munich-ventures/jobs/senior-qa-automation-engineer"
+  },
+  "a72f4df9827fe4b1e6ad8439": {
+    "company": "Munich Ventures",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792327473",
     "source": "Himalayas",
     "title": "Senior QA Automation Engineer",
     "url": "https://himalayas.app/companies/munich-ventures/jobs/senior-qa-automation-engineer"
@@ -188,6 +404,15 @@
     "title": "Forest Legacy Program Manager",
     "url": "https://himalayas.app/companies/arizona-department-of-economic-security/jobs/forest-legacy-program-manager"
   },
+  "bef4e928ad9d5cdf82617afd": {
+    "company": "Medical Solutions",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792347638",
+    "source": "Himalayas",
+    "title": "Quality Assurance Specialist",
+    "url": "https://himalayas.app/companies/medical-solutions/jobs/quality-assurance-specialist?utm_source=api"
+  },
   "c643ca1ab0148a83": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
@@ -196,6 +421,24 @@
     "source": "Greenhouse",
     "title": "Principal Technical Program Manager",
     "url": "https://job-boards.greenhouse.io/gitlab/jobs/8693068002"
+  },
+  "c643ca1ab0148a831a238994": {
+    "company": "GitLab",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "2026-10-15T15:24:46-04:00",
+    "source": "Greenhouse",
+    "title": "Principal Technical Program Manager",
+    "url": "https://job-boards.greenhouse.io/gitlab/jobs/8693068002"
+  },
+  "d448bed39ee28f0dc3ffff8a": {
+    "company": "Autoliv Group",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792359800",
+    "source": "Himalayas",
+    "title": "Advanced Technical Project Manager - Product Development",
+    "url": "https://himalayas.app/companies/autoliv-group/jobs/advanced-technical-project-manager-product-development?utm_source=api"
   },
   "dc4a5f6bb2b57e5e": {
     "company": "Utility",
@@ -233,6 +476,24 @@
     "title": "Global Web Growth Project Manager",
     "url": "https://jobicy.com/jobs/153492-global-web-growth-project-manager"
   },
+  "e81e9e9a16e5b84a1a89f55a": {
+    "company": "Docplanner",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "2026-10-18T03:50:18+00:00",
+    "source": "Jobicy",
+    "title": "Global Web Growth Project Manager",
+    "url": "https://jobicy.com/jobs/153492-global-web-growth-project-manager"
+  },
+  "edda12f23cf1a90ccef41fec": {
+    "company": "Odyssey Systems Consulting Group, Ltd.",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792358121",
+    "source": "Himalayas",
+    "title": "Principal Program Manager",
+    "url": "https://himalayas.app/companies/odyssey-systems-consulting-group-ltd/jobs/principal-program-manager?utm_source=api"
+  },
   "ef8d0060e080d7c0": {
     "company": "Spiralyze",
     "first_seen": "2026-10-18",
@@ -251,6 +512,15 @@
     "title": "SNAP EBT Test Lead",
     "url": "https://himalayas.app/companies/dhaka-technologies-limited-company/jobs/snap-ebt-test-lead"
   },
+  "f0b534bd9089ab7cb4c75ccf": {
+    "company": "Dhaka Technologies Limited Company",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792330980",
+    "source": "Himalayas",
+    "title": "SNAP EBT Test Lead",
+    "url": "https://himalayas.app/companies/dhaka-technologies-limited-company/jobs/snap-ebt-test-lead"
+  },
   "f3c77200f08092a7": {
     "company": "Grafana Labs",
     "first_seen": "2026-10-18",
@@ -259,6 +529,15 @@
     "source": "Jobicy",
     "title": "Demand Generation Program Manager | Canada | Remote",
     "url": "https://jobicy.com/jobs/153420-demand-generation-program-manager-canada-remote"
+  },
+  "f848d6a53a772c7b77c18d7a": {
+    "company": "Jabil",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "published": "1792339918",
+    "source": "Himalayas",
+    "title": "Quality Engineer",
+    "url": "https://himalayas.app/companies/jabil/jobs/quality-engineer?utm_source=api"
   },
   "fb5c6db9c542fe5d": {
     "company": "Cisco",
