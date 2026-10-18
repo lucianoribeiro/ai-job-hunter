@@ -398,6 +398,9 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         title = e(raw_title)
         url = e(safe_url(item.get("url")))
         extra = ""
+        salary = item.get('salary_usd')
+        if category == 'QA' and isinstance(salary, str) and salary.startswith('US$ '):
+            extra += '<p class="recruiter-salary">Remuneração anunciada: ' + e(salary) + '</p>'
         contact = recruiter_email(raw_title)
         if category == "Manufatura":
             details = manufacturing_details(raw_title)
