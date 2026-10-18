@@ -22,3 +22,12 @@ class ManufacturingRecruiterTests(unittest.TestCase):
         xml=f"<rss><channel><item><title>Production engineer QA hiring</title><link>https://example.org/post/2</link><pubDate>{published}</pubDate></item></channel></rss>"
         self.assertEqual(parse_feed(xml,"2026-10-18",max_age_days=7,manufacturing_only=True),[])
         self.assertGreaterEqual(len(MANUFACTURING_SEARCHES),10)
+
+    def test_qa_30_day_window(self):
+        from datetime import datetime, timezone, timedelta
+        from email.utils import format_datetime
+        day=datetime(2026, 10, 18, tzinfo=timezone.utc)
+        published=format_datetime(day-timedelta(days=29))
+        xml=f'<rss><channel><item><title>Hiring Senior QA Engineer</title><link>https://example.org/qa</link><pubDate>{published}</pubDate></item></channel></rss>'
+        self.assertEqual(len(parse_feed(xml, '2026-10-18', max_age_days=30)), 1)
+        self.assertEqual(len(parse_feed(xml, '2026-10-18', max_age_days=7)), 0)
