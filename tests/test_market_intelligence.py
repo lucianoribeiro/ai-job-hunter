@@ -35,6 +35,7 @@ class MarketIntelligenceTests(unittest.TestCase):
             chart = market_chart_html(31)
         self.assertIn('id="market-recruiter-current"', chart)
         self.assertIn('id="market-metric"', chart)
+        self.assertIn('<option value="posts" selected>Posts públicos indexados</option>', chart)
         self.assertIn('id="market-scope"', chart)
         self.assertIn("não são vagas verificadas", chart)
         self.assertIn('<option value="24" selected>24 meses</option>', chart)

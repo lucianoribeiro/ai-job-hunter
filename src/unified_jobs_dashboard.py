@@ -807,7 +807,7 @@ def market_chart_html(recruiter_post_count=0):
     <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center"><strong style="color:#6be4dc;letter-spacing:.1em;font-size:12px">◈ TALENT PULSE · MARKET INTELLIGENCE</strong><span style="color:#aac2d8;font-size:12px">Amostra monitorada · sem dados simulados</span></div>
     <div class="market-controls">
       <label for="market-metric">Indicador
-        <select id="market-metric"><option value="vacancies">Vagas coletadas</option><option value="posts">Posts públicos indexados</option></select>
+        <select id="market-metric"><option value="posts" selected>Posts públicos indexados</option><option value="vacancies">Vagas coletadas</option></select>
       </label>
       <label for="market-area">Área profissional
         <select id="market-area"><option value="qa">Tecnologia / QA</option><option value="manufacturing">Manufatura</option><option value="all">Comparar áreas</option></select>
@@ -820,7 +820,7 @@ def market_chart_html(recruiter_post_count=0):
       </label>
     </div>
     <div class="market-kpis" aria-label="Indicadores de mercado">
-      <div class="market-kpi"><small id="market-current-label">Vagas coletadas no mês</small><strong id="market-current">—</strong><span id="market-current-note">Anúncios de vagas · mês parcial</span></div>
+      <div class="market-kpi"><small id="market-current-label">Posts indexados no mês</small><strong id="market-current">—</strong><span id="market-current-note">Amostra histórica pública · mês parcial</span></div>
       <div class="market-kpi"><small>Publicações no Recruiter Monitor</small><strong id="market-recruiter-current">—</strong><span>Janela de até 30 dias · não são vagas verificadas</span></div>
       <div class="market-kpi"><small>Variação entre meses completos</small><strong id="market-change">—</strong><span id="market-change-note">Aguardando dados comparáveis</span></div>
       <div class="market-kpi"><small>Cobertura histórica</small><strong id="market-coverage">—</strong><span id="market-coverage-note">Meses com coleta identificada</span></div>
@@ -892,7 +892,7 @@ def market_chart_html(recruiter_post_count=0):
         const covered=observed.filter(Boolean).length;
         document.getElementById('market-coverage').textContent=covered+' / '+months.length;
         document.getElementById('market-coverage-note').textContent=isPosts?'Meses consultados no índice público':'Meses com registros nas fontes monitoradas';
-        summary.textContent=covered===0?'Nenhuma coleta identificada nesta janela. Não é possível inferir a tendência.':covered<3?'Histórico insuficiente para avaliar tendências com confiança.':'Tendência descritiva da amostra, não do mercado inteiro.';
+        summary.textContent=covered===0?'Nenhuma coleta identificada nesta janela. Não é possível inferir a tendência.':covered<3?'Histórico insuficiente para avaliar tendências com confiança.':isPosts?'Histórico público disponível para leitura descritiva dos períodos; a amostra não representa todo o LinkedIn.':'Tendência descritiva da amostra, não do mercado inteiro.';
         if(covered===0){node('text',{x:330,y:125,fill:'#9bdedc','font-size':16,'text-anchor':'middle'},'Aguardando histórico de coleta');}
         table.querySelector('thead').replaceChildren();table.querySelector('tbody').replaceChildren();
         const head=document.createElement('tr');['Mês',...names,isPosts?'Cobertura':'Fontes'].forEach(x=>{const th=document.createElement('th');th.scope='col';th.textContent=x;head.appendChild(th);});table.querySelector('thead').appendChild(head);
