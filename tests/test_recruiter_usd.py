@@ -1,0 +1,11 @@
+import unittest
+from src.recruiter_monitor import advertised_usd_salary, QA_SEARCHES
+
+class RecruiterUsdTests(unittest.TestCase):
+    def test_hourly_range(self):
+        self.assertEqual(advertised_usd_salary('US$ 63 a US$ 120 por hora'), 'US$ 63–120 /hora')
+    def test_monthly_and_missing(self):
+        self.assertEqual(advertised_usd_salary('USD 6500 per month'), 'US$ 6500 /mês')
+        self.assertIsNone(advertised_usd_salary('Excellent compensation'))
+    def test_qa_queries(self):
+        self.assertGreaterEqual(len(QA_SEARCHES), 5)
