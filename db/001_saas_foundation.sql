@@ -35,6 +35,10 @@ create table if not exists public.opportunities (
   foreign key (profile_id, user_id) references public.career_profiles(id, user_id) on delete cascade
 );
 create index if not exists opportunities_user_id_idx on public.opportunities(user_id);
+-- Required by the composite foreign key in applications. Keep this as an
+-- idempotent index so rerunning the migration also repairs partial installs.
+create unique index if not exists opportunities_id_user_id_uidx
+  on public.opportunities(id, user_id);
 
 create table if not exists public.applications (
   id uuid primary key default gen_random_uuid(),
