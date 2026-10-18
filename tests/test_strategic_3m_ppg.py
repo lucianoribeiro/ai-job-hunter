@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import patch
 from io import BytesIO
+import json
 from src.strategic_companies import collect, ppg_public_jobs, workday_3m_jobs
 
 class StrategicCompanyIntegrationsTests(unittest.TestCase):
@@ -11,7 +12,7 @@ class StrategicCompanyIntegrationsTests(unittest.TestCase):
         self.assertEqual(jobs[0]['location'], 'Sumaré')
 
     def test_3m_workday_public_structured_result(self):
-        payload = b'{"jobPostings":[{"title":"Project Manager SumarÃ©","locationsText":"BR, SÃ£o Paulo, Sumare","externalPath":"/job/Project-Manager_R123"},{"title":"Other","locationsText":"US","externalPath":"/job/Other_R999"}]}'
+        payload = json.dumps({"jobPostings":[{"title":"Project Manager Sumaré","locationsText":"BR, São Paulo, Sumare","externalPath":"/job/Project-Manager_R123"},{"title":"Other","locationsText":"US","externalPath":"/job/Other_R999"}]}).encode("utf-8")
         class Response(BytesIO):
             pass
         with patch('src.strategic_companies.urlopen', return_value=Response(payload)):
