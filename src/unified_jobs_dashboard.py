@@ -9,6 +9,7 @@ import re
 from src.finance_advisor import render_advisor
 from pathlib import Path
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 from urllib.parse import urlencode, urlsplit
 
 
@@ -19,6 +20,21 @@ def e(value):
 def safe_url(value):
     parsed = urlsplit(str(value or ""))
     return str(value) if parsed.scheme == "https" and parsed.netloc else "#"
+
+
+
+def recruiter_index_date(value):
+    """Accessible Brazilian date for an index timestamp, never a post publication claim."""
+    try:
+        dt = datetime.fromisoformat(str(value or "").replace("Z", "+00:00"))
+        if dt.tzinfo is None:
+            return "Data do índice não informada", ""
+        local = dt.astimezone(ZoneInfo("America/Sao_Paulo"))
+        display = local.strftime("%d/%m/%Y às %Hh%M")
+        accessible = local.strftime("%d de %B de %Y às %H horas e %M minutos")
+        return display, accessible
+    except (TypeError, ValueError, OverflowError):
+        return "Data do índice não informada", ""
 
 
 def recruiter_email(value):
@@ -393,7 +409,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             continue
         category = e(item.get("area", "Não classificado"))
         modality = e(item.get("modality", "Não informada"))
-        published = e(item.get("published_at", ""))
+        published, published_accessible = recruiter_index_date(item.get("published_at"))
         raw_title = item.get("title", "Publicação")
         title = e(raw_title)
         url = e(safe_url(item.get("url")))
@@ -423,17 +439,24 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             if app_base:
                 outreach = app_base + "/applications/outreach?" + urlencode({"recipient": contact, "title": raw_title[:160], "source": item.get("url", "")})
                 extra += '<p><a class="recruiter-outreach" href="' + e(outreach) + '">Preparar rascunho com CV no Gmail →</a></p>'
+        # Indexed titles can contain full post excerpts; do not fabricate an employer or summary.
+        link_label = "Ver publicação no LinkedIn"
+        accessible_date = e("Data do índice público: " + published_accessible + ", horário de Brasília") if published_accessible else e(published)
         monitor_cards.append(
             '<article class="recruiter-card" data-area="' + category + '" data-mode="' + modality + '" '
-            'data-origin="' + e(origin) + '" data-usd="' + ('yes' if category == 'QA' and isinstance(salary, str) and salary.startswith('US$ ') else 'no') + '" '
-            'style="background:#252b34;border:1px solid #414956;border-radius:12px;padding:16px;min-width:0">'
-            '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">'
-            '<span style="background:#314f4a;color:#a9f1dc;padding:4px 9px;border-radius:99px;font-size:12px">' + category + '</span>'
-            '<span style="background:#363d49;color:#d8e2f0;padding:4px 9px;border-radius:99px;font-size:12px">' + modality + '</span>'
-            '<span style="background:#39374d;color:#eee2ff;padding:4px 9px;border-radius:99px;font-size:12px">Origem: ' + e(origin) + '</span></div>'
-            '<a target="_blank" rel="noopener noreferrer" href="' + url + '" style="font-weight:700;overflow-wrap:anywhere">' + title + '</a>'
+            'data-origin="' + e(origin) + '" data-usd="' + ('yes' if category == 'QA' and isinstance(salary, str) and salary.startswith('US$ ') else 'no') + '">'
+            '<div class="recruiter-badges">'
+            '<span class="recruiter-pill recruiter-pill-area">' + category + '</span>'
+            '<span class="recruiter-pill">' + modality + '</span>'
+            '<span class="recruiter-pill recruiter-pill-origin">Origem: ' + e(origin) + '</span></div>'
+            '<h3 class="recruiter-title">' + title + '</h3>'
+            '<p class="recruiter-employer">Empresa: não identificada no índice</p>'
             '<div class="recruiter-extra">' + extra + '</div>'
-            '<div style="font-size:12px;opacity:.7;margin-top:10px">Índice: ' + published + '</div></article>'
+            '<div class="recruiter-index-date"><span aria-hidden="true">◷</span> '
+            '<time aria-label="' + accessible_date + '" datetime="' + e(item.get("published_at", "")) + '">'
+            + e(published) + '</time><span class="recruiter-index-note">Data do índice público · horário de Brasília</span></div>'
+            '<a class="recruiter-open" target="_blank" rel="noopener noreferrer" href="' + url + '">'
+            + link_label + ' ↗</a></article>'
         )
     monitor_html = (
         '<section id="recruiter-results" style="padding:20px 0"><h2>Recruiter Monitor · Vagas e publicações</h2>'
@@ -450,6 +473,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         '<option value="Não informada">Não informada</option></select></label>'
         '<label>Salário <select id="recruiter-usd"><option value="">Todos os salários</option><option value="yes">Somente vagas com salário em USD</option></select></label>'
         '<label>Origem <select id="recruiter-origin"><option value="">Todas as origens</option><option value="Empresa">Empresa (verificada)</option><option value="Recrutador">Recrutador (identificado)</option><option value="Não verificada">Origem não verificada</option></select></label></div>'
+        '<style>.recruiter-card{background:#202832;border:1px solid #465363;border-radius:16px;padding:18px;min-width:0;display:flex;flex-direction:column;gap:12px;color:#e8eef5}.recruiter-badges{display:flex;gap:7px;flex-wrap:wrap}.recruiter-pill{background:#363d49;color:#e0e9f3;border-radius:99px;padding:5px 10px;font-size:12px;font-weight:600}.recruiter-pill-area{background:#314f4a;color:#bcffe9}.recruiter-pill-origin{background:#39374d;color:#eee2ff}.recruiter-title{font-size:18px;line-height:1.4;color:#f1f5f9;margin:0;overflow-wrap:anywhere}.recruiter-employer{font-size:13px;color:#d0dae5;margin:0}.recruiter-index-date{border-top:1px solid #465363;padding-top:12px;color:#e3edf7;font-size:14px}.recruiter-index-note{display:block;color:#b2c5d7;font-size:12px;margin-top:4px}.recruiter-open{display:block;margin-top:auto;text-align:center;padding:12px 14px;border-radius:10px;background:#347d6d;color:white!important;font-weight:700;text-decoration:none;min-height:44px}.recruiter-open:hover,.recruiter-open:focus-visible{background:#409582;outline-offset:3px}.recruiter-extra{overflow-wrap:anywhere}</style>'
         '<div id="recruiter-list" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px">'
         + "".join(monitor_cards) + '</div>'
         '<p style="font-size:12px;opacity:.7">A data do índice pode diferir da data do post. '
