@@ -22,9 +22,9 @@ SEARCHES = [
     'site:linkedin.com/posts/ ("hiring" OR "we are hiring") ("QA" OR "quality engineer")',
     'site:linkedin.com/posts/ ("hiring" OR "vaga") ("IT project manager" OR "gerente de projetos de TI")',
     'site:linkedin.com/posts/ ("recruiter" OR "recrutador") ("remote" OR "remoto")',
-    'site:linkedin.com/posts/ ("coordenador de manufatura" OR "coordenador de produção" OR "manufacturing coordinator") hiring',
-    'site:linkedin.com/posts/ ("manufacturing manager" OR "production supervisor" OR "industrial operations manager") (remote OR hybrid)',
-    'site:linkedin.com/posts/ ("manufatura" OR "produção industrial") ("híbrido" OR "remoto" OR "vaga")',
+    'site:linkedin.com/posts/ ("coordenador de projetos industriais" OR "industrial project coordinator") hiring',
+    'site:linkedin.com/posts/ ("industrial project specialist" OR "industrial project analyst") hiring',
+    'site:linkedin.com/posts/ ("especialista de projetos" OR "analista de projetos") ("manufatura" OR "industrial")',
 ]
 
 
@@ -61,9 +61,9 @@ COMPANY_POST_SEARCHES = [
     'site:linkedin.com/posts/ "join our team" "Quality Assurance"',
     'site:linkedin.com/posts/ "estamos contratando" "QA"',
     'site:linkedin.com/posts/ "QA Manager" "careers"',
-    'site:linkedin.com/posts/ "manufacturing manager" "we are hiring"',
-    'site:linkedin.com/posts/ "coordenador de produção" "estamos contratando"',
-    'site:linkedin.com/posts/ "gerente industrial" "oportunidade"',
+    'site:linkedin.com/posts/ "industrial project coordinator" "we are hiring"',
+    'site:linkedin.com/posts/ "coordenador de projetos industriais" "estamos contratando"',
+    'site:linkedin.com/posts/ "especialista de projetos industriais" "oportunidade"',
     'site:linkedin.com/posts/ "gerente de projetos de software" "estamos contratando"',
     'site:linkedin.com/company/ "vagas" "QA"',
     'site:linkedin.com/company/ "vagas" "manufatura"',
@@ -95,35 +95,18 @@ FREELANCE_QA_SEARCHES = [
 ]
 
 MANUFACTURING_SEARCHES = [
-    'site:linkedin.com/posts/ "gerente de produção" vaga',
-    'site:linkedin.com/posts/ "coordenador de produção" contratação',
-    'site:linkedin.com/posts/ "supervisor de produção" oportunidade',
-    'site:linkedin.com/posts/ "gerente industrial" vaga',
-    'site:linkedin.com/posts/ "coordenador de manufatura"',
-    'site:linkedin.com/posts/ "gestor de operações industriais"',
-    'site:linkedin.com/posts/ "manufacturing manager" hiring',
-    'site:linkedin.com/posts/ "production manager" hiring',
-    'site:linkedin.com/posts/ "production supervisor" hiring',
-    'site:linkedin.com/posts/ "plant manager" hiring',
-    'site:linkedin.com/posts/ "production coordinator" hiring',
-    'site:linkedin.com/posts/ "manufacturing coordinator" hiring',
-    'site:linkedin.com/posts/ "operations manager" "factory" hiring',
-    'site:linkedin.com/posts/ "gerente de manufatura" vaga',
-    'site:linkedin.com/posts/ "coordenador industrial" oportunidade',
-    'site:linkedin.com/posts/ "gerente de fábrica" contratação',
-    'site:linkedin.com/posts/ "industrial operations manager" hiring',
+    'site:linkedin.com/posts/ "coordenador de projetos industriais" vaga',
     'site:linkedin.com/posts/ "especialista de projetos industriais" vaga',
     'site:linkedin.com/posts/ "analista de projetos industriais" vaga',
-    'site:linkedin.com/posts/ "industrial project specialist" hiring',
-    'site:linkedin.com/posts/ "industrial project analyst" hiring',
-    'site:linkedin.com/posts/ "coordenador de projetos industriais" vaga',
     'site:linkedin.com/posts/ "coordenador de projetos" ("indústria" OR "manufatura" OR "automotivo")',
     'site:linkedin.com/posts/ "especialista de projetos" ("indústria" OR "manufatura" OR "automotivo")',
     'site:linkedin.com/posts/ "analista de projetos" ("indústria" OR "manufatura" OR "automotivo")',
+    'site:linkedin.com/posts/ "industrial project coordinator" hiring',
+    'site:linkedin.com/posts/ "industrial project specialist" hiring',
+    'site:linkedin.com/posts/ "industrial project analyst" hiring',
     'site:linkedin.com/posts/ "project coordinator" ("manufacturing" OR "industrial")',
     'site:linkedin.com/posts/ "project specialist" ("manufacturing" OR "industrial")',
     'site:linkedin.com/posts/ "project analyst" ("manufacturing" OR "industrial")',
-    'site:linkedin.com/posts/ ("manufatura" OR "produção") ("Sumaré" OR "Campinas" OR "Paulínia" OR "Americana")',
 ]
 
 
@@ -280,8 +263,8 @@ def classify(title: str) -> dict:
     project = r"project manager|gerente de projetos|coordenador de projetos|project coordinator|pmo|especialista de projetos|analista de projetos|project specialist|project analyst"
     tech = r"\b(?:it|ti|software|technology|technical|tecnologia|sistemas|cloud|devops|digital transformation|transforma[cç][aã]o digital|infraestrutura de ti)\b"
     excluded = r"marketing|advertising|publicidade|construction|constru[cç][aã]o civil|real estate|imobili[aá]ri|events?|eventos|architecture|arquitetura"
-    manufacturing = bool(re.search(industrial, t)) and bool(re.search(
-        r"coordenador|coordinator|gerente|manager|supervisor|diretor|director|gestor|lead|especialista|specialist|analista|analyst|opera[cç][oõ]es|operations", t))
+    manufacturing_role = industrial_project_role(title)
+    manufacturing = bool(manufacturing_role)
     software_qa = bool(re.search(r"\bqa\b|sdet|software (?:quality|test)|quality (?:assurance|engineering|engineer)|test (?:engineer|manager|lead|automation)|head of qa|l[ií]der de testes|gerente de qa|autom[aá]c[aã]o de testes", t))
     industrial_quality = bool(re.search(r"qualidade industrial|quality control|quality inspector|qualidade de produ[cç][aã]o|quality manufacturing|supplier quality", t))
     software_qa = software_qa or bool(re.search(r"\bqa\s+(?:tech\s+)?lead\b|\bqa\s+manager\b", t))
@@ -292,9 +275,7 @@ def classify(title: str) -> dict:
     explicit_hiring = bool(re.search(r"hiring|contratando|estamos contratando|we.re hiring|vaga|opportunit|oportunidade|open position|job opening", t))
     area = "Manufatura" if manufacturing else "QA" if qa else "Projetos" if projects else "Outros"
     if area == "Manufatura":
-        role = ("Especialista" if re.search(r"especialista|specialist", t) else
-                "Analista" if re.search(r"analista|analyst", t) else
-                "Coordenador" if re.search(r"coordenador|coordinator", t) else "Gestão industrial")
+        role = manufacturing_role
     elif area == "Projetos":
         role = "Gerente de Projetos de TI"
     else:
@@ -372,19 +353,10 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
         hiring = bool(re.search(r"\bhiring\b|\bcontratando\b|\bvaga(?:s)?\b|\bjob opening\b|\bapply\b|\bopportunit(?:y|ies)\b|\boportunidade\b|\brecruiting\b|\bwe.re hiring\b|\bselection process\b|\bseletivo\b", title, re.I))
         if labels["area"] in ("QA", "Projetos", "Outros") and not (hiring or freelance["freelance_qa"] == "yes"):
             continue
-        if manufacturing_only:
-            if labels["area"] != "Manufatura":
-                continue
-            import re
-            role = title.casefold().split(" - linkedin")[0]
-            if not re.search(r"gerente|coordenador|supervisor|diretor|gestor|manager|director|lead|especialista|specialist|analista|analyst", role):
-                continue
-            # Industrial context and role must be explicit in the advertised title.
-            if not industrial_role and not re.search(r"manufatur|manufactur|produ[cç][aã]o|production|industrial|f[aá]brica|factory|plant|automotiv", role):
-                continue
-            # Manufacturing listings should not be broad engineering/QA job advertisements.
-            if re.search(r"\b(?:qa|sdet|software quality|quality engineer)\b", title.casefold()):
-                continue
+        if manufacturing_only and not industrial_role:
+            continue
+        if labels["area"] == "Manufatura" and not industrial_role:
+            continue
         city = explicit_city(title + " " + indexed_excerpt) if labels["area"] == "Manufatura" else ""
         found[url] = {
             "title": title[:500], "indexed_excerpt": indexed_excerpt[:1500], **facts, **freelance, "url": url, "published_at": date.isoformat(),
