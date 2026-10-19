@@ -7,7 +7,7 @@ from unittest.mock import patch
 class IndexedApplicationLinksTests(unittest.TestCase):
  def test_rss_excerpt_carries_application_link(self):
   date=format_datetime(datetime(2026,10,18,tzinfo=timezone.utc))
-  xml='<rss><channel><item><title>Supervisor de produção - LinkedIn</title><description>Candidate-se: https://lnkd.in/dQqpMZRj</description><link>https://www.linkedin.com/posts/example</link><pubDate>'+date+'</pubDate></item></channel></rss>'
+  xml='<rss><channel><item><title>Coordenador de Projetos Industriais - vaga - LinkedIn</title><description>Candidate-se: https://lnkd.in/dQqpMZRj</description><link>https://www.linkedin.com/posts/example</link><pubDate>'+date+'</pubDate></item></channel></rss>'
   results=parse_feed(xml,'2026-10-18',max_age_days=30)
   self.assertEqual(len(results),1)
   self.assertIn('lnkd.in/dQqpMZRj',results[0]['indexed_excerpt'])
