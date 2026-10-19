@@ -411,6 +411,9 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             continue
         existing_links.add(url)
         location = str(job.get("location") or "")
+        # Manufacturing results are scoped to explicitly located São Paulo vacancies.
+        if not (re.search(r"(?:,|/|\\s)\\s*SP\\b|São Paulo|Sao Paulo", location, re.I) or (job.get("curated") and job.get("city") and str(job.get("location") or "").endswith(", SP"))):
+            continue
         monitor_items.append({
             "area": "Manufatura", "role": role, "title": str(job.get("title") or ""),
             "indexed_excerpt": str(job.get("description") or "")[:1500],
@@ -438,6 +441,11 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             continue
         # Revalidate cached results so old production leadership cards do not reappear.
         if item.get("area") == "Manufatura":
+            # Exclude non-SP and unknown-location cached ATS posts, including Bosch Portugal.
+            item_city = str(item.get("city") or "")
+            item_url = str(item.get("url") or "")
+            if ("api.smartrecruiters.com/" in item_url or item.get("source_kind") == "ats") and not item_city:
+                continue
             from src.recruiter_monitor import industrial_project_role
             verified_role = (item.get("role") if item.get("source_kind") == "curated" and item.get("role") in ("Gerente de Projetos", "Coordenador de Projetos", "Analista de Projetos") else industrial_project_role(str(item.get("title") or ""), str(item.get("indexed_excerpt") or "")))
             if not verified_role:
@@ -543,13 +551,12 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         '<option>Manufatura</option><option>QA</option><option value="Projetos">Projetos de TI</option><option>Outros</option></select></label>'
         '<label>Cargo <select id="recruiter-role"><option value="">Todos os cargos</option></select></label>'
         '<label>Cidade <select id="recruiter-city"><option value="">Todas as cidades</option></select></label>'
-        '<label>Tipo de oportunidade <select id="recruiter-freelance"><option value="">Todas</option><option value="yes">Freelancer QA</option><option value="no">Demais vagas</option></select></label>'
         '<label>Modalidade <select id="recruiter-mode"><option value="">Todas</option>'
         '<option value="Remoto">Remoto mencionado</option><option value="Híbrido">Híbrido mencionado</option>'
         '<option value="Não informada">Não informada</option></select></label>'
         '<label>Salário <select id="recruiter-usd"><option value="">Todos os salários</option><option value="yes">Somente vagas com salário em USD</option></select></label>'
         '<label>Contrato <select id="recruiter-contract"><option value="">Todos</option><option>CLT</option><option>PJ</option><option>B2B</option><option>Cooperativa</option><option value="Não informado">Não informado</option></select></label>'
-        '<label>Origem <select id="recruiter-origin"><option value="">Todas as origens</option><option value="Empresa">Empresa (verificada)</option><option value="Recrutador">Recrutador (identificado)</option><option value="Não verificada">Origem não verificada</option></select></label></div>'
+        '<button type="button" id="recruiter-clear" class="recruiter-clear">Limpar Filtros</button></div>'
         '<style>.recruiter-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:18px 0}.recruiter-stat{border:1px solid #465363;border-radius:12px;background:#202c39;padding:15px;display:flex;flex-direction:column;gap:5px}.recruiter-stat span,.recruiter-stat small{color:#c1d0de;font-size:13px}.recruiter-stat strong{font-size:22px;color:#f4f7fa}.recruiter-collection-status{border-left:3px solid #5ec9b3;padding:8px 12px;color:#dae8ee;font-size:14px}.recruiter-card[hidden]{display:none!important}.recruiter-card{background:#202832;border:1px solid #465363;border-radius:16px;padding:18px;min-width:0;display:flex;flex-direction:column;gap:12px;color:#e8eef5}.recruiter-badges{display:flex;gap:7px;flex-wrap:wrap}.recruiter-pill{background:#363d49;color:#e0e9f3;border-radius:99px;padding:5px 10px;font-size:12px;font-weight:600}.recruiter-pill-area{background:#314f4a;color:#bcffe9}.recruiter-pill-origin{background:#39374d;color:#eee2ff}.recruiter-title{font-size:18px;line-height:1.4;color:#f1f5f9;margin:0;overflow-wrap:anywhere}.recruiter-employer{font-size:13px;color:#d0dae5;margin:0}.recruiter-index-date{border-top:1px solid #465363;padding-top:12px;color:#e3edf7;font-size:14px}.recruiter-index-note{display:block;color:#b2c5d7;font-size:12px;margin-top:4px}.recruiter-open{display:block;margin-top:auto;text-align:center;padding:12px 14px;border-radius:10px;background:#347d6d;color:white!important;font-weight:700;text-decoration:none;min-height:44px}.recruiter-open:hover,.recruiter-open:focus-visible{background:#409582;outline-offset:3px}.recruiter-extra{overflow-wrap:anywhere}</style>'
         '<p id="recruiter-filter-empty" hidden role="status">Nenhuma publicação corresponde aos filtros selecionados. Tente outro cargo, cidade ou modalidade.</p>'
         '<div id="recruiter-list" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px">'
@@ -618,9 +625,9 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 <footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
 na página oficial. Fonte Himalayas: <a href="https://himalayas.app">himalayas.app</a>. Apenas datas de publicação fornecidas pelas fontes são exibidas; datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
-const recruiterArea=document.getElementById('recruiter-area'),recruiterRole=document.getElementById('recruiter-role'),recruiterCity=document.getElementById('recruiter-city'),recruiterMode=document.getElementById('recruiter-mode'),recruiterUsd=document.getElementById('recruiter-usd'),recruiterOrigin=document.getElementById('recruiter-origin'),recruiterContract=document.getElementById('recruiter-contract'),recruiterFreelance=document.getElementById('recruiter-freelance');
+const recruiterArea=document.getElementById('recruiter-area'),recruiterRole=document.getElementById('recruiter-role'),recruiterCity=document.getElementById('recruiter-city'),recruiterMode=document.getElementById('recruiter-mode'),recruiterUsd=document.getElementById('recruiter-usd'),recruiterContract=document.getElementById('recruiter-contract');
 function filterRecruiter(){
- if(!recruiterArea||!recruiterMode||!recruiterUsd||!recruiterOrigin||!recruiterContract)return;
+ if(!recruiterArea||!recruiterMode||!recruiterUsd||!recruiterContract)return;
  let visible=0;
  document.querySelectorAll('.recruiter-card').forEach(card=>{
   const area=!recruiterArea.value||card.dataset.area===recruiterArea.value;
@@ -628,10 +635,8 @@ function filterRecruiter(){
   const city=!recruiterCity||!recruiterCity.value||card.dataset.city===recruiterCity.value;
   const mode=!recruiterMode.value||card.dataset.mode.startsWith(recruiterMode.value);
   const usd=!recruiterUsd.value||card.dataset.usd===recruiterUsd.value;
-  const origin=!recruiterOrigin.value||card.dataset.origin===recruiterOrigin.value;
   const contract=!recruiterContract.value||card.dataset.contract===recruiterContract.value;
-  const freelance=!recruiterFreelance||!recruiterFreelance.value||card.dataset.freelance===recruiterFreelance.value;
-  card.hidden=!(area&&role&&city&&mode&&usd&&origin&&contract&&freelance);
+  card.hidden=!(area&&role&&city&&mode&&usd&&contract);
   if(!card.hidden)visible++;
  });
  const count=document.getElementById('recruiter-count');
@@ -639,7 +644,7 @@ function filterRecruiter(){
  const empty=document.getElementById('recruiter-filter-empty');
  if(empty)empty.hidden=visible!==0;
 }
-if(recruiterArea&&recruiterMode&&recruiterUsd&&recruiterOrigin&&recruiterContract){
+if(recruiterArea&&recruiterMode&&recruiterUsd&&recruiterContract){
  const available=[...document.querySelectorAll('.recruiter-card')];
  function fillRecruiterSelect(select,values,placeholder){const previous=select.value;select.replaceChildren(new Option(placeholder,''),...values.map(v=>new Option(v,v)));if(values.includes(previous))select.value=previous;}
  function refreshRecruiterOptions(){
@@ -654,7 +659,11 @@ if(recruiterArea&&recruiterMode&&recruiterUsd&&recruiterOrigin&&recruiterContrac
   filterRecruiter();
  }
  recruiterArea.addEventListener('change',refreshRecruiterOptions);
- for(const select of [...(recruiterRole?[recruiterRole]:[]),...(recruiterCity?[recruiterCity]:[]),recruiterMode,recruiterUsd,recruiterOrigin,recruiterContract,...(recruiterFreelance?[recruiterFreelance]:[])])select.addEventListener('change',filterRecruiter);
+ for(const select of [...(recruiterRole?[recruiterRole]:[]),...(recruiterCity?[recruiterCity]:[]),recruiterMode,recruiterUsd,recruiterContract])select.addEventListener('change',filterRecruiter);
+ document.getElementById('recruiter-clear')?.addEventListener('click',()=>{
+  for(const select of [recruiterArea,recruiterRole,recruiterCity,recruiterMode,recruiterUsd,recruiterContract])if(select)select.value='';
+  refreshRecruiterOptions();
+ });
  refreshRecruiterOptions();
 }
 document.querySelector('.ai-tab[data-task="cv"]')?.click();
