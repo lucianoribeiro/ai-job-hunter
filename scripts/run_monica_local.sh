@@ -6,7 +6,7 @@ CV="${1:-private/profiles/monica/profile.pdf}"
 test -r "$CV" || { echo "CV not found: $CV" >&2; exit 1; }
 python3 -m src.project_jobs_poc --config config/project_boards.example.json --output data/project_jobs_poc.json
 python3 -m src.strategic_companies --config config/strategic_companies.json --output data/strategic_jobs.json
-python3 -m src.monica_pipeline --cv "$CV" --projects data/project_jobs_poc.json --check-links --output site/monica-opportunities.json
+python3 -m src.monica_pipeline --cv "$CV" --projects data/project_jobs_poc.json --enrich-links --check-links --output site/monica-opportunities.json
 python3 -m src.monica_page --input site/monica-opportunities.json --output site/monica.html
 python3 - <<'PY'
 import json
