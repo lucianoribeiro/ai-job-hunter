@@ -31,11 +31,11 @@ button{cursor:pointer}button.primary{background:linear-gradient(120deg,#517aff,#
 const descriptions={qa:'QA Engineer, QA Lead, QA Manager • remoto e oportunidades internacionais em USD',manufacturing:'Gerente ou Coordenadora de Projetos • manufatura, operações e indústria • sem exigir TI'};
 const examples={qa:[['QA Lead','Função-alvo','Remoto prioritário'],['QA Engineer','Função-alvo','Freelance flexível']],manufacturing:[['Gerente de Projetos Industriais','Função-alvo','Remoto prioritário'],['Coordenadora de Projetos','Função-alvo','Raio configurável']]};
 const profile=document.querySelector('#profile'),mode=document.querySelector('#mode'),radius=document.querySelector('#radius');
-function draw(){document.querySelector('#description').textContent=descriptions[profile.value];radius.disabled=mode.value==='remote';
-document.querySelector('#examples').replaceChildren(...examples[profile.value].map(([name,type,tag])=>{const article=document.createElement('article');article.className='job';
+function draw(){const selectedProfile=profile.value==='manufacturing'?'manufacturing':'qa';document.querySelector('#description').textContent=descriptions[selectedProfile];radius.disabled=mode.value==='remote';
+document.querySelector('#examples').replaceChildren(...examples[selectedProfile].map(([name,type,tag])=>{const article=document.createElement('article');article.className='job';
 const title=document.createElement('strong');title.textContent=name;const desc=document.createElement('div');desc.className='muted';desc.textContent='Exemplo de cargo • não é vaga real';
 const pill=document.createElement('span');pill.className='tag';pill.textContent=tag;article.append(title,desc,pill);return article}));}
-profile.addEventListener('change',draw);mode.addEventListener('change',draw);draw();
+profile.addEventListener('change',draw);mode.addEventListener('change',draw);radius.addEventListener('change',draw);draw();
 document.querySelector('#help').onclick=()=>alert('Configure o perfil, revise oportunidades e aprove cada candidatura. Esta é uma prévia sem dados reais.');
 document.querySelector('#details').onclick=()=>{const p=document.querySelector('#detailsText');p.hidden=!p.hidden};
 </script></body></html>
