@@ -400,7 +400,9 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
     ats = json.loads(ats_path.read_text(encoding="utf-8")) if ats_path.exists() else {}
     from src.recruiter_monitor import industrial_project_role, explicit_city
     existing_links = {safe_url(item.get("url")) for item in monitor_items if isinstance(item, dict)}
-    for job in ats.get("jobs", []):
+    curated_path = Path("data/curated_industrial_projects.json")
+    curated = json.loads(curated_path.read_text(encoding="utf-8")) if curated_path.exists() else {}
+    for job in list(ats.get("jobs", [])) + list(curated.get("jobs", [])):
         if not isinstance(job, dict):
             continue
         role = industrial_project_role(str(job.get("title") or ""), str(job.get("description") or ""))
