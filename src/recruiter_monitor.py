@@ -69,6 +69,19 @@ COMPANY_POST_SEARCHES = [
     'site:linkedin.com/company/ "vagas" "manufatura"',
 ]
 
+QA_LEADERSHIP_SEARCHES = [
+    'site:linkedin.com/posts/ "Head of QA" "hiring"',
+    'site:linkedin.com/posts/ "Test Manager" "opportunity"',
+    'site:linkedin.com/posts/ "Quality Engineering Lead" "hiring"',
+    'site:linkedin.com/posts/ "QA Tech Lead" "vaga"',
+    'site:linkedin.com/posts/ "Software Test Manager" "remote"',
+    'site:linkedin.com/posts/ "Gerente de QA" "vaga"',
+    'site:linkedin.com/posts/ "Líder de Testes" "contratando"',
+    'site:linkedin.com/posts/ "Quality Assurance Manager" "Brazil"',
+    'site:linkedin.com/posts/ "QA Lead" "LATAM"',
+    'site:linkedin.com/posts/ "SDET Lead" "hiring"',
+]
+
 MANUFACTURING_SEARCHES = [
     'site:linkedin.com/posts/ "gerente de produção" vaga',
     'site:linkedin.com/posts/ "coordenador de produção" contratação',
@@ -80,6 +93,12 @@ MANUFACTURING_SEARCHES = [
     'site:linkedin.com/posts/ "production manager" hiring',
     'site:linkedin.com/posts/ "production supervisor" hiring',
     'site:linkedin.com/posts/ "plant manager" hiring',
+    'site:linkedin.com/posts/ "production coordinator" hiring',
+    'site:linkedin.com/posts/ "manufacturing coordinator" hiring',
+    'site:linkedin.com/posts/ "operations manager" "factory" hiring',
+    'site:linkedin.com/posts/ "gerente de manufatura" vaga',
+    'site:linkedin.com/posts/ "coordenador industrial" oportunidade',
+    'site:linkedin.com/posts/ "gerente de fábrica" contratação',
     'site:linkedin.com/posts/ "industrial operations manager" hiring',
     'site:linkedin.com/posts/ ("manufatura" OR "produção") ("Sumaré" OR "Campinas" OR "Paulínia" OR "Americana")',
 ]
@@ -192,8 +211,10 @@ def classify(title: str) -> dict:
     """Conservative title-only tags; never infer remote/hybrid eligibility."""
     import re
     t = title.casefold()
-    manufacturing = bool(re.search(r"manufatur|manufactur|produ[cç][aã]o|production|industrial|lean manufacturing|plant manager|gerente de planta|gestor de f[aá]brica", t))
-    qa = bool(re.search(r"\bqa\b|quality engineer|quality assurance|sdet|test engineer|software test", t))
+    manufacturing = bool(re.search(r"manufatur|manufactur|produ[cç][aã]o|production|industrial|lean manufacturing|plant manager|gerente de planta|gestor de f[aá]brica|factory manager|gerente de f[aá]brica|coordenador industrial|operations manager.{0,35}factory", t))
+    software_qa = bool(re.search(r"\\bqa\\b|sdet|software (?:quality|test)|quality (?:assurance|engineering|engineer)|test (?:engineer|manager|lead|automation)|head of qa|l[ií]der de testes|gerente de qa|autom[aá]c[aã]o de testes", t))
+    industrial_quality = bool(re.search(r"qualidade industrial|quality control|quality inspector|qualidade de produ[cç][aã]o|quality manufacturing|supplier quality", t))
+    qa = software_qa and not (industrial_quality and not re.search(r"software|\\bqa\\b|sdet|test automation", t))
     projects = bool(re.search(r"project manager|gerente de projetos|coordenador de projetos|project coordinator|pmo", t))
     remote = bool(re.search(r"\bremote\b|\bremoto\b|home.office", t))
     hybrid = bool(re.search(r"\bhybrid\b|\bh[ií]brid[oa]\b", t))
@@ -284,9 +305,9 @@ def run() -> dict:
     if os.environ.get("RECRUITER_MONITOR_DISABLED") == "1":
         state = "disabled"
     else:
-        for query in SEARCHES + QA_SEARCHES + LINKEDIN_EXTRA_SEARCHES + COMPANY_POST_SEARCHES + MANUFACTURING_SEARCHES:
+        for query in SEARCHES + QA_SEARCHES + QA_LEADERSHIP_SEARCHES + LINKEDIN_EXTRA_SEARCHES + COMPANY_POST_SEARCHES + MANUFACTURING_SEARCHES:
             manufacturing_query = query in MANUFACTURING_SEARCHES or query in SEARCHES[3:]
-            qa_query = query == SEARCHES[0] or query in QA_SEARCHES or query in LINKEDIN_EXTRA_SEARCHES or query in COMPANY_POST_SEARCHES
+            qa_query = query == SEARCHES[0] or query in QA_SEARCHES or query in QA_LEADERSHIP_SEARCHES or query in LINKEDIN_EXTRA_SEARCHES or query in COMPANY_POST_SEARCHES
             days = 30 if manufacturing_query or qa_query else 1
             endpoint = "https://news.google.com/rss/search?" + urlencode({
                 "q": query + f" when:{days}d", "hl": "pt-BR" if manufacturing_query else "en-US", "gl": "BR" if manufacturing_query else "US", "ceid": "BR:pt-419" if manufacturing_query else "US:en"
@@ -304,7 +325,7 @@ def run() -> dict:
         state = "partial" if failures else "ok"
     data = {
         "date_utc": day, "checked_at": datetime.now(timezone.utc).isoformat(),
-        "status": state, "query_count": len(SEARCHES) + len(QA_SEARCHES) + len(LINKEDIN_EXTRA_SEARCHES) + len(COMPANY_POST_SEARCHES) + len(MANUFACTURING_SEARCHES),
+        "status": state, "query_count": len(SEARCHES) + len(QA_SEARCHES) + len(QA_LEADERSHIP_SEARCHES) + len(LINKEDIN_EXTRA_SEARCHES) + len(COMPANY_POST_SEARCHES) + len(MANUFACTURING_SEARCHES),
         "items": sorted(jobs.values(), key=lambda x: x["published_at"], reverse=True)[:100],
         "limitations": "Incomplete web-index coverage; RSS publication date is not guaranteed to match original LinkedIn post date. Review each link. No automatic applications.",
         "failed_queries": len(failures),
