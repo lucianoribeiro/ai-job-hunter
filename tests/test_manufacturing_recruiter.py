@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime, timedelta, timezone
 from email.utils import format_datetime
-from src.recruiter_monitor import classify, parse_feed, MANUFACTURING_SEARCHES
+from src.recruiter_monitor import classify, parse_feed, MANUFACTURING_SEARCHES, industrial_project_role
 
 class ManufacturingRecruiterTests(unittest.TestCase):
     def test_industrial_leadership_classification(self):
@@ -22,6 +22,32 @@ class ManufacturingRecruiterTests(unittest.TestCase):
         xml=f"<rss><channel><item><title>Production engineer QA hiring</title><link>https://www.linkedin.com/posts/test-456</link><pubDate>{published}</pubDate></item></channel></rss>"
         self.assertEqual(parse_feed(xml,"2026-10-18",max_age_days=7,manufacturing_only=True),[])
         self.assertGreaterEqual(len(MANUFACTURING_SEARCHES),10)
+
+
+    def test_generic_industrial_project_roles_with_context(self):
+        examples = [
+            ("Coordenador de Projetos - vaga", "Fábrica automotiva em Sumaré", "Coordenador"),
+            ("Especialista de Projeto - hiring", "Indústria e manufatura", "Especialista"),
+            ("Analista de Projetos - vaga", "Produção industrial em Campinas", "Analista"),
+        ]
+        for title, excerpt, role in examples:
+            with self.subTest(title=title):
+                self.assertEqual(industrial_project_role(title, excerpt), role)
+        self.assertEqual(industrial_project_role("Coordenador de Projetos Marketing", "Indústria"), "")
+        self.assertEqual(industrial_project_role("Analista de Projetos TI", "Fábrica"), "")
+        self.assertEqual(industrial_project_role("Especialista de Projeto", "Equipe e benefícios"), "")
+
+    def test_generic_role_retained_when_industrial_excerpt_confirms_area(self):
+        published=format_datetime(datetime(2026,10,18,tzinfo=timezone.utc))
+        xml=('<rss><channel><item><title>Analista de Projetos - vaga</title>'
+             '<description>Industria automotiva em Campinas</description>'
+             '<link>https://www.linkedin.com/posts/industrial-project-1</link>'
+             f'<pubDate>{published}</pubDate></item></channel></rss>')
+        rows=parse_feed(xml,"2026-10-18",max_age_days=30,manufacturing_only=True)
+        self.assertEqual(len(rows),1)
+        self.assertEqual(rows[0]["area"],"Manufatura")
+        self.assertEqual(rows[0]["role"],"Analista")
+        self.assertEqual(rows[0]["city"],"Campinas")
 
     def test_qa_30_day_window(self):
         from datetime import datetime, timezone, timedelta
