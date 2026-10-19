@@ -406,7 +406,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         [item for item in monitor_items if isinstance(item, dict)],
         key=lambda item: str(item.get("published_at") or ""),
         reverse=True,
-    )[:100]
+    )
     for item in ordered_items:
         if not isinstance(item, dict):
             continue
@@ -506,10 +506,11 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         '<div class="recruiter-stat"><span>Última coleta</span><strong>' + e(checked_display) + '</strong>'
         '<small>Horário de Brasília</small></div>'
         '<div class="recruiter-stat"><span>Publicações coletadas</span><strong id="recruiter-total">' + str(total_posts) + '</strong>'
-        '<small>Amostra do índice público</small></div>'
+        '<small>Publicações pertinentes exibidas após validação</small></div>'
         '<div class="recruiter-stat"><span>Resultados exibidos</span><strong id="recruiter-count" role="status" aria-live="polite" aria-atomic="true">' + str(total_posts) + '</strong>'
         '<small>Após aplicar os filtros</small></div></div>'
         '<p class="recruiter-collection-status" role="status">' + e(collection_state) + '</p>'
+        + ('<p id="recruiter-empty-note">Nenhuma publicação compatível com os critérios da coleta. Isso não significa ausência de vagas no mercado.</p>' if not total_posts else '')
         '<div style="display:flex;gap:12px;flex-wrap:wrap;margin:18px 0">'
         '<label>Área <select id="recruiter-area"><option value="">Todas as áreas</option>'
         '<option>Manufatura</option><option>QA</option><option value="Projetos">Projetos de TI</option><option>Outros</option></select></label>'
@@ -523,6 +524,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         '<label>Contrato <select id="recruiter-contract"><option value="">Todos</option><option>CLT</option><option>PJ</option><option>B2B</option><option>Cooperativa</option><option value="Não informado">Não informado</option></select></label>'
         '<label>Origem <select id="recruiter-origin"><option value="">Todas as origens</option><option value="Empresa">Empresa (verificada)</option><option value="Recrutador">Recrutador (identificado)</option><option value="Não verificada">Origem não verificada</option></select></label></div>'
         '<style>.recruiter-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:18px 0}.recruiter-stat{border:1px solid #465363;border-radius:12px;background:#202c39;padding:15px;display:flex;flex-direction:column;gap:5px}.recruiter-stat span,.recruiter-stat small{color:#c1d0de;font-size:13px}.recruiter-stat strong{font-size:22px;color:#f4f7fa}.recruiter-collection-status{border-left:3px solid #5ec9b3;padding:8px 12px;color:#dae8ee;font-size:14px}.recruiter-card[hidden]{display:none!important}.recruiter-card{background:#202832;border:1px solid #465363;border-radius:16px;padding:18px;min-width:0;display:flex;flex-direction:column;gap:12px;color:#e8eef5}.recruiter-badges{display:flex;gap:7px;flex-wrap:wrap}.recruiter-pill{background:#363d49;color:#e0e9f3;border-radius:99px;padding:5px 10px;font-size:12px;font-weight:600}.recruiter-pill-area{background:#314f4a;color:#bcffe9}.recruiter-pill-origin{background:#39374d;color:#eee2ff}.recruiter-title{font-size:18px;line-height:1.4;color:#f1f5f9;margin:0;overflow-wrap:anywhere}.recruiter-employer{font-size:13px;color:#d0dae5;margin:0}.recruiter-index-date{border-top:1px solid #465363;padding-top:12px;color:#e3edf7;font-size:14px}.recruiter-index-note{display:block;color:#b2c5d7;font-size:12px;margin-top:4px}.recruiter-open{display:block;margin-top:auto;text-align:center;padding:12px 14px;border-radius:10px;background:#347d6d;color:white!important;font-weight:700;text-decoration:none;min-height:44px}.recruiter-open:hover,.recruiter-open:focus-visible{background:#409582;outline-offset:3px}.recruiter-extra{overflow-wrap:anywhere}</style>'
+        '<p id="recruiter-filter-empty" hidden role="status">Nenhuma publicação corresponde aos filtros selecionados. Tente outro cargo, cidade ou modalidade.</p>'
         '<div id="recruiter-list" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px">'
         + "".join(monitor_cards) + '</div>'
         '<p style="font-size:12px;opacity:.7">A data do índice pode diferir da data do post. '
@@ -607,6 +609,8 @@ function filterRecruiter(){
  });
  const count=document.getElementById('recruiter-count');
  if(count)count.textContent=String(visible);
+ const empty=document.getElementById('recruiter-filter-empty');
+ if(empty)empty.hidden=visible!==0;
 }
 if(recruiterArea&&recruiterMode&&recruiterUsd&&recruiterOrigin&&recruiterContract){
  const available=[...document.querySelectorAll('.recruiter-card')];
