@@ -451,6 +451,8 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
                 continue
             seen_manufacturing.add(key)
             title = e(details["role"] + (" · " + details["employer"] if details["employer"] else "") + (" · " + details["location"] if details["location"] else ""))
+            city = item.get("city") or details["location"] or ""
+            extra += '<p class="recruiter-location">📍 Cidade: ' + e(city or "Não informada") + '</p>'
             if details["priority"]:
                 extra += '<span class="recruiter-tag">Região prioritária</span>'
             if details["expired"]:
@@ -466,7 +468,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         accessible_date = e("Data do índice público: " + published_accessible + ", horário de Brasília") if published_accessible else e(published)
         monitor_cards.append(
             '<article class="recruiter-card" data-area="' + category + '" data-mode="' + modality + '" '
-            'data-origin="' + e(origin) + '" data-contract="' + e(contract) + '" data-freelance="' + freelance + '" data-usd="' + ('yes' if isinstance(salary, str) and salary.startswith('US$ ') else 'no') + '">'
+            'data-role="' + e(item.get("role") or ("Gerente de Projetos de TI" if category == "Projetos" else "")) + '" data-city="' + e(item.get("city") or (details["location"] if category == "Manufatura" else "") or "") + '" data-origin="' + e(origin) + '" data-contract="' + e(contract) + '" data-freelance="' + freelance + '" data-usd="' + ('yes' if isinstance(salary, str) and salary.startswith('US$ ') else 'no') + '">'
             '<div class="recruiter-badges">'
             '<span class="recruiter-pill recruiter-pill-area">' + category + '</span>'
             '<span class="recruiter-pill">' + modality + '</span>'
@@ -503,7 +505,9 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         '<p class="recruiter-collection-status" role="status">' + e(collection_state) + '</p>'
         '<div style="display:flex;gap:12px;flex-wrap:wrap;margin:18px 0">'
         '<label>Área <select id="recruiter-area"><option value="">Todas as áreas</option>'
-        '<option>Manufatura</option><option>QA</option><option>Projetos</option><option>Outros</option></select></label>'
+        '<option>Manufatura</option><option>QA</option><option value="Projetos">Projetos de TI</option><option>Outros</option></select></label>'
+        '<label>Cargo <select id="recruiter-role"><option value="">Todos os cargos</option></select></label>'
+        '<label>Cidade <select id="recruiter-city"><option value="">Todas as cidades</option></select></label>'
         '<label>Tipo de oportunidade <select id="recruiter-freelance"><option value="">Todas</option><option value="yes">Freelancer QA</option><option value="no">Demais vagas</option></select></label>'
         '<label>Modalidade <select id="recruiter-mode"><option value="">Todas</option>'
         '<option value="Remoto">Remoto mencionado</option><option value="Híbrido">Híbrido mencionado</option>'
@@ -578,25 +582,38 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 <footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
 na página oficial. Fonte Himalayas: <a href="https://himalayas.app">himalayas.app</a>. Apenas datas de publicação fornecidas pelas fontes são exibidas; datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
+const recruiterRole=document.getElementById('recruiter-role'),recruiterCity=document.getElementById('recruiter-city');
 const recruiterArea=document.getElementById('recruiter-area'),recruiterMode=document.getElementById('recruiter-mode'),recruiterUsd=document.getElementById('recruiter-usd'),recruiterOrigin=document.getElementById('recruiter-origin'),recruiterContract=document.getElementById('recruiter-contract'),recruiterFreelance=document.getElementById('recruiter-freelance');
 function filterRecruiter(){
  if(!recruiterArea||!recruiterMode||!recruiterUsd||!recruiterOrigin||!recruiterContract)return;
  let visible=0;
  document.querySelectorAll('.recruiter-card').forEach(card=>{
   const area=!recruiterArea.value||card.dataset.area===recruiterArea.value;
+  const role=!recruiterRole.value||card.dataset.role===recruiterRole.value;
+  const city=!recruiterCity.value||card.dataset.city===recruiterCity.value;
   const mode=!recruiterMode.value||card.dataset.mode.startsWith(recruiterMode.value);
   const usd=!recruiterUsd.value||card.dataset.usd===recruiterUsd.value;
   const origin=!recruiterOrigin.value||card.dataset.origin===recruiterOrigin.value;
   const contract=!recruiterContract.value||card.dataset.contract===recruiterContract.value;
   const freelance=!recruiterFreelance||!recruiterFreelance.value||card.dataset.freelance===recruiterFreelance.value;
-  card.hidden=!(area&&mode&&usd&&origin&&contract&&freelance);
+  card.hidden=!(area&&role&&city&&mode&&usd&&origin&&contract&&freelance);
   if(!card.hidden)visible++;
  });
  const count=document.getElementById('recruiter-count');
  if(count)count.textContent=String(visible);
 }
 if(recruiterArea&&recruiterMode&&recruiterUsd&&recruiterOrigin&&recruiterContract){
- for(const select of [recruiterArea,recruiterMode,recruiterUsd,recruiterOrigin,recruiterContract,...(recruiterFreelance?[recruiterFreelance]:[])])select.addEventListener('change',filterRecruiter);
+ const available=[...document.querySelectorAll('.recruiter-card')];
+ function fillRecruiterSelect(select,values,placeholder){const previous=select.value;select.replaceChildren(new Option(placeholder,''),...values.map(v=>new Option(v,v)));if(values.includes(previous))select.value=previous;}
+ function refreshRecruiterOptions(){
+  const cards=available.filter(c=>!recruiterArea.value||c.dataset.area===recruiterArea.value);
+  fillRecruiterSelect(recruiterRole,[...new Set(cards.map(c=>c.dataset.role).filter(Boolean))].sort(),'Todos os cargos');
+  fillRecruiterSelect(recruiterCity,[...new Set(cards.map(c=>c.dataset.city).filter(Boolean))].sort(),'Todas as cidades');
+  filterRecruiter();
+ }
+ recruiterArea.addEventListener('change',refreshRecruiterOptions);
+ for(const select of [recruiterRole,recruiterCity,recruiterMode,recruiterUsd,recruiterOrigin,recruiterContract,...(recruiterFreelance?[recruiterFreelance]:[])])select.addEventListener('change',filterRecruiter);
+ refreshRecruiterOptions();
 }
 document.querySelector('.ai-tab[data-task="cv"]')?.click();
 const cvStudio=document.getElementById('studioCvPanel');
