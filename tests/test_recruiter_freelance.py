@@ -24,7 +24,7 @@ class FreelancerQAMonitorTests(unittest.TestCase):
     def test_recruiter_html_contains_filter_and_combination_logic(self):
         html = render({"jobs": []}, [])
         self.assertNotIn('id="recruiter-freelance"', html)
-        self.assertIn('Freelancer QA identificado', html)
+        self.assertIn('id="recruiter-clear"', html)
         self.assertIn('card.hidden=!(area&&role&&city&&mode&&usd&&contract)', html)
 
 
