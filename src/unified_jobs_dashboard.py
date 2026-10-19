@@ -614,7 +614,11 @@ if(recruiterArea&&recruiterMode&&recruiterUsd&&recruiterOrigin&&recruiterContrac
  function refreshRecruiterOptions(){
   if(!recruiterRole||!recruiterCity)return filterRecruiter();
   const cards=available.filter(c=>!recruiterArea.value||c.dataset.area===recruiterArea.value);
-  fillRecruiterSelect(recruiterRole,[...new Set(cards.map(c=>c.dataset.role).filter(Boolean))].sort(),'Todos os cargos');
+  const industrialRoles=['Gerente de Projetos','Coordenador de Projetos','Analista de Projetos'];
+  const roles=recruiterArea.value==='Manufatura'?industrialRoles:recruiterArea.value===''
+   ?[...new Set([...industrialRoles,...cards.map(c=>c.dataset.role).filter(Boolean)])]
+   :[...new Set(cards.map(c=>c.dataset.role).filter(Boolean))].sort();
+  fillRecruiterSelect(recruiterRole,roles,'Todos os cargos');
   fillRecruiterSelect(recruiterCity,[...new Set(cards.map(c=>c.dataset.city).filter(Boolean))].sort(),'Todas as cidades');
   filterRecruiter();
  }
