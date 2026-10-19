@@ -27,6 +27,12 @@ def render(data, minimum=50):
         score=int(j.get("score") or 0)
         summary="; ".join(j.get("evidence") or []) or "Aderência identificada; requisitos precisam de confirmação."
         warnings="; ".join(j.get("gaps") or []) or "Verificar requisitos completos na fonte oficial."
+        assessment=j.get("requirement_analysis") or {}
+        if assessment:
+            found=assessment.get("matched_requirements") or []
+            missing=assessment.get("requirements_to_confirm") or []
+            summary="; ".join(x["requirement"] for x in found) or "Sem competências comprovadas no texto disponível"
+            warnings="; ".join(x["requirement"] for x in missing) or warnings
         band="Recomendada" if score>=70 else "Para avaliação"
         status="Candidatura indicada" if j.get("application_status")=="apply_indicated" else "A confirmar"
         cards.append(f'<article><div class="heading"><h2>{esc(j.get("title"))}</h2><strong>{score}/100</strong></div>'
