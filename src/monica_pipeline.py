@@ -33,6 +33,8 @@ def build(profile, jobs, check_links=False, verifier=verify, enrich_links=False,
         if not url or url in seen:
             continue
         seen.add(url)
+        if job.get("source_listing_only") or job.get("application_status") == "closed":
+            continue
         job = enricher(job) if enrich_links else job
         location_class = location_category(job)
         if location_class == "out_of_scope":
@@ -83,10 +85,16 @@ def main():
         if extra.is_file():
             jobs.extend(collect(extra))
     results = build(profile, jobs, check_links=args.check_links, enrich_links=args.enrich_links)
+    history = [{"title": str(j.get("title") or ""), "company": str(j.get("company") or ""),
+                "location": str(j.get("location") or ""), "url": str(j.get("url") or ""),
+                "status": ("closed" if j.get("application_status") == "closed" else
+                           "listing_only" if j.get("source_listing_only") else "unverified")}
+               for j in jobs if str(j.get("source") or "").startswith("LinkedIn")]
+
     sources = {"total_input": len(jobs), "linkedin_input": sum("linkedin.com/jobs/" in str(j.get("url") or "") for j in jobs)}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps({"profile_id": str(profile.get("id") or "monica"),
-       "privacy": "public_job_metadata_only", "source_counts": sources, "jobs": results}, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
+       "privacy": "public_job_metadata_only", "source_counts": sources, "linkedin_history": history, "jobs": results}, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
     print(f"Public-safe assessments: {len(results)}; no CV data exported")
 
 if __name__ == "__main__":
