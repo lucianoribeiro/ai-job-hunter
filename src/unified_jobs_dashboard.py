@@ -420,12 +420,17 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         origin = item.get("post_origin", "Não verificada")
         if origin not in ("Empresa", "Recrutador"):
             origin = "Não verificada"
+        freelance = "yes" if item.get("area") == "QA" and item.get("freelance_qa") == "yes" else "no"
         salary = item.get('salary_usd')
         contract = item.get("contract_type", "Não informado")
         if contract not in ("CLT", "PJ", "B2B", "Cooperativa"):
             contract = "Não informado"
         if isinstance(salary, str) and salary.startswith('US$ '):
             extra += '<p class="recruiter-salary"><strong>Remuneração em USD:</strong> ' + e(salary) + '</p>'
+        if freelance == "yes":
+            extra += '<p class="recruiter-evidence"><strong>Freelancer QA identificado:</strong> ' + e(item.get("freelance_evidence", "")) + ' · confirmar condições no anúncio.</p>'
+        if item.get("part_time_evidence"):
+            extra += '<p class="recruiter-evidence">Flexibilidade mencionada: ' + e(item["part_time_evidence"]) + ' · carga horária a confirmar.</p>'
         if item.get("salary_evidence"):
             extra += '<p class="recruiter-evidence">Trecho da remuneração: ' + e(item["salary_evidence"]) + '</p>'
         if item.get("modality_evidence"):
@@ -461,12 +466,12 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         accessible_date = e("Data do índice público: " + published_accessible + ", horário de Brasília") if published_accessible else e(published)
         monitor_cards.append(
             '<article class="recruiter-card" data-area="' + category + '" data-mode="' + modality + '" '
-            'data-origin="' + e(origin) + '" data-contract="' + e(contract) + '" data-usd="' + ('yes' if isinstance(salary, str) and salary.startswith('US$ ') else 'no') + '">'
+            'data-origin="' + e(origin) + '" data-contract="' + e(contract) + '" data-freelance="' + freelance + '" data-usd="' + ('yes' if isinstance(salary, str) and salary.startswith('US$ ') else 'no') + '">'
             '<div class="recruiter-badges">'
             '<span class="recruiter-pill recruiter-pill-area">' + category + '</span>'
             '<span class="recruiter-pill">' + modality + '</span>'
             '<span class="recruiter-pill recruiter-pill-origin">Origem: ' + e(origin) + '</span>'
-            '<span class="recruiter-pill">Contrato: ' + e(contract) + '</span></div>'
+            '<span class="recruiter-pill">Contrato: ' + e(contract) + '</span>' + ('<span class="recruiter-pill">Freelancer QA</span>' if freelance == "yes" else '') + '</div>'
             '<h3 class="recruiter-title">' + title + '</h3>'
             '<p class="recruiter-employer">Empresa: não identificada no índice</p>'
             '<div class="recruiter-extra">' + extra + '</div>'
@@ -499,6 +504,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         '<div style="display:flex;gap:12px;flex-wrap:wrap;margin:18px 0">'
         '<label>Área <select id="recruiter-area"><option value="">Todas as áreas</option>'
         '<option>Manufatura</option><option>QA</option><option>Projetos</option><option>Outros</option></select></label>'
+        '<label>Tipo de oportunidade <select id="recruiter-freelance"><option value="">Todas</option><option value="yes">Freelancer QA</option><option value="no">Demais vagas</option></select></label>'
         '<label>Modalidade <select id="recruiter-mode"><option value="">Todas</option>'
         '<option value="Remoto">Remoto mencionado</option><option value="Híbrido">Híbrido mencionado</option>'
         '<option value="Não informada">Não informada</option></select></label>'
@@ -572,7 +578,7 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 <footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
 na página oficial. Fonte Himalayas: <a href="https://himalayas.app">himalayas.app</a>. Apenas datas de publicação fornecidas pelas fontes são exibidas; datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
-const recruiterArea=document.getElementById('recruiter-area'),recruiterMode=document.getElementById('recruiter-mode'),recruiterUsd=document.getElementById('recruiter-usd'),recruiterOrigin=document.getElementById('recruiter-origin'),recruiterContract=document.getElementById('recruiter-contract');
+const recruiterArea=document.getElementById('recruiter-area'),recruiterMode=document.getElementById('recruiter-mode'),recruiterUsd=document.getElementById('recruiter-usd'),recruiterOrigin=document.getElementById('recruiter-origin'),recruiterContract=document.getElementById('recruiter-contract'),recruiterFreelance=document.getElementById('recruiter-freelance');
 function filterRecruiter(){
  if(!recruiterArea||!recruiterMode||!recruiterUsd||!recruiterOrigin||!recruiterContract)return;
  let visible=0;
@@ -582,14 +588,15 @@ function filterRecruiter(){
   const usd=!recruiterUsd.value||card.dataset.usd===recruiterUsd.value;
   const origin=!recruiterOrigin.value||card.dataset.origin===recruiterOrigin.value;
   const contract=!recruiterContract.value||card.dataset.contract===recruiterContract.value;
-  card.hidden=!(area&&mode&&usd&&origin&&contract);
+  const freelance=!recruiterFreelance||!recruiterFreelance.value||card.dataset.freelance===recruiterFreelance.value;
+  card.hidden=!(area&&mode&&usd&&origin&&contract&&freelance);
   if(!card.hidden)visible++;
  });
  const count=document.getElementById('recruiter-count');
  if(count)count.textContent=String(visible);
 }
 if(recruiterArea&&recruiterMode&&recruiterUsd&&recruiterOrigin&&recruiterContract){
- for(const select of [recruiterArea,recruiterMode,recruiterUsd,recruiterOrigin,recruiterContract])select.addEventListener('change',filterRecruiter);
+ for(const select of [recruiterArea,recruiterMode,recruiterUsd,recruiterOrigin,recruiterContract,...(recruiterFreelance?[recruiterFreelance]:[])])select.addEventListener('change',filterRecruiter);
 }
 document.querySelector('.ai-tab[data-task="cv"]')?.click();
 const cvStudio=document.getElementById('studioCvPanel');
