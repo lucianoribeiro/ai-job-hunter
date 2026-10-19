@@ -9,6 +9,7 @@ from pathlib import Path
 from src.monica_match import assess
 from src.monica_verify import verify
 from src.monica_local import read_cv, structured_profile
+from src.monica_location import location_category
 
 def collect(project_path, qa_path=None):
     document = json.loads(Path(project_path).read_text(encoding="utf-8"))
@@ -30,13 +31,18 @@ def build(profile, jobs, check_links=False, verifier=verify):
         if not url or url in seen:
             continue
         seen.add(url)
+        location_class = location_category(job)
+        if location_class == "out_of_scope":
+            continue
         verification = verifier(job) if check_links else {"status": "unverified", "reason": "Validação não executada"}
         result = assess(job, profile,
                         "Não aceita mais candidaturas" if verification["status"] == "closed" else
                         "Apply for this job" if verification["status"] == "apply_indicated" else "",
                         verification["status"] != "unverified")
         result["verification_reason"] = verification.get("reason", "")
-        if result["recommendation"] == "exclude":
+        result["location_class"] = location_class
+        result["tier"] = ("recommended" if result["score"] >= 70 else "review" if result["score"] >= 50 else "low")
+        if result["recommendation"] == "exclude" or result["tier"] == "low":
             continue
         # Do not claim a posting is open without inspecting the official live page.
         # These entries are intentionally shown as unverified until validation exists.
