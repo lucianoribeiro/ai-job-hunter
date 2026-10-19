@@ -51,6 +51,14 @@ class ManufacturingRecruiterTests(unittest.TestCase):
         self.assertEqual(rows[0]["role"],"Analista de Projetos")
         self.assertEqual(rows[0]["city"],"Campinas")
 
+    def test_consolidation_keeps_industrial_vacancy_after_many_qa_posts(self):
+        from src.recruiter_monitor import consolidate_results
+        jobs = {str(i): {"area": "QA", "published_at": "2026-10-19T14:00:00+00:00", "url": str(i)} for i in range(120)}
+        jobs["industrial"] = {"area": "Manufatura", "published_at": "2026-10-18T14:00:00+00:00", "url": "industrial"}
+        result = consolidate_results(jobs)
+        self.assertEqual(len([x for x in result if x["area"] == "QA"]), 100)
+        self.assertIn("industrial", [x["url"] for x in result])
+
     def test_qa_30_day_window(self):
         from datetime import datetime, timezone, timedelta
         from email.utils import format_datetime
