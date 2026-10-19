@@ -405,7 +405,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
     for job in list(ats.get("jobs", [])) + list(curated.get("jobs", [])):
         if not isinstance(job, dict):
             continue
-        role = industrial_project_role(str(job.get("title") or ""), str(job.get("description") or ""))
+        role = (job.get("role") if job.get("curated") and job.get("role") in ("Gerente de Projetos", "Coordenador de Projetos", "Analista de Projetos") else industrial_project_role(str(job.get("title") or ""), str(job.get("description") or "")))
         url = safe_url(job.get("url"))
         if not role or url == "#" or url in existing_links:
             continue
@@ -414,11 +414,11 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         monitor_items.append({
             "area": "Manufatura", "role": role, "title": str(job.get("title") or ""),
             "indexed_excerpt": str(job.get("description") or "")[:1500],
-            "city": explicit_city(location) or explicit_city(str(job.get("title") or "")),
+            "city": str(job.get("city") or "").strip() or (location.split(",")[0].strip() if location.endswith(", SP") else "") or explicit_city(location) or explicit_city(str(job.get("title") or "")),
             "url": url, "published_at": "", "source": str(job.get("source") or "Public ATS"),
             "company": str(job.get("company") or ""), "modality": "Não informada",
             "post_origin": "Empresa", "contract_type": "Não informado",
-            "salary_usd": None, "freelance_qa": "no", "source_kind": "ats",
+            "salary_usd": None, "freelance_qa": "no", "source_kind": "curated" if job.get("curated") else "ats",
         })
     app_base = os.environ.get("CAREER_APP_URL", "").rstrip("/")
     if app_base and safe_url(app_base) == "#":
@@ -439,7 +439,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         # Revalidate cached results so old production leadership cards do not reappear.
         if item.get("area") == "Manufatura":
             from src.recruiter_monitor import industrial_project_role
-            verified_role = industrial_project_role(str(item.get("title") or ""), str(item.get("indexed_excerpt") or ""))
+            verified_role = (item.get("role") if item.get("source_kind") == "curated" and item.get("role") in ("Gerente de Projetos", "Coordenador de Projetos", "Analista de Projetos") else industrial_project_role(str(item.get("title") or ""), str(item.get("indexed_excerpt") or "")))
             if not verified_role:
                 continue
             item = {**item, "role": verified_role}
@@ -479,7 +479,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         if category == "Manufatura":
             details = manufacturing_details(raw_title)
             fingerprint = _re.sub(r"[^a-z0-9]+", " ", raw_title.casefold().replace("linkedin", "")).strip()
-            key = (item["role"].casefold(), details["employer"].casefold(), details["location"].casefold()) if details["employer"] and details["location"] else (fingerprint,)
+            key = (item["role"].casefold(), (item.get("company") or details["employer"]).casefold(), (item.get("city") or details["location"]).casefold()) if (item.get("company") or details["employer"]) and (item.get("city") or details["location"]) else (fingerprint,)
             if key in seen_manufacturing:
                 continue
             seen_manufacturing.add(key)
@@ -498,7 +498,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
                 outreach = app_base + "/applications/outreach?" + urlencode({"recipient": contact, "title": raw_title[:160], "source": item.get("url", "")})
                 extra += '<p><a class="recruiter-outreach" href="' + e(outreach) + '">Preparar rascunho com CV no Gmail →</a></p>'
         # Indexed titles can contain full post excerpts; do not fabricate an employer or summary.
-        link_label = "Ver vaga na fonte original" if item.get("source_kind") == "ats" else "Ver publicação no LinkedIn"
+        link_label = "Ver vaga na fonte original" if item.get("source_kind") in ("ats", "curated") else "Ver publicação no LinkedIn"
         accessible_date = e("Data do índice público: " + published_accessible + ", horário de Brasília") if published_accessible else e(published)
         monitor_cards.append(
             '<article class="recruiter-card" data-area="' + category + '" data-mode="' + modality + '" '
