@@ -1,0 +1,150 @@
+{
+  "source": "LinkedIn público",
+  "snapshot_date": "2026-10-19",
+  "notes": "Curadoria dos 13 anúncios discutidos. Um anúncio 3M com URL individual pendente; duas vagas com encerramento explícito. Não é integração automática ou disponibilidade em tempo real.",
+  "jobs": [
+    {
+      "company": "AB InBev",
+      "title": "Gerente de Projetos - PMO",
+      "location": "Campinas e Região",
+      "url": "https://br.linkedin.com/jobs/view/4478601281",
+      "source": "LinkedIn público",
+      "description": "Gestão de portfolio de projetos, supply chain e logística, cronogramas, stakeholders, melhoria contínua, Power BI, MS Project, inglês fluente e espanhol dependendo da posição.",
+      "application_status": "unverified",
+      "source_listing_only": false,
+      "verification_note": "Disponibilidade final não confirmada"
+    },
+    {
+      "company": "Maminfo",
+      "title": "Gerente de Projetos",
+      "location": "Campinas, SP",
+      "url": "https://br.linkedin.com/jobs/view/4477775100",
+      "source": "LinkedIn público",
+      "description": "Liderança de projetos e equipes, contratos, cronogramas, riscos e gestão de stakeholders. Superior em Engenharia, TI, Redes ou áreas correlatas; telecom e infraestrutura são diferenciais.",
+      "application_status": "unverified",
+      "source_listing_only": false,
+      "verification_note": "Disponibilidade final não confirmada"
+    },
+    {
+      "company": "GE Vernova",
+      "title": "Gerente de Projetos de Serviços",
+      "location": "Campinas, SP",
+      "url": "https://br.linkedin.com/jobs/view/4476953254",
+      "source": "LinkedIn público",
+      "description": "Projetos industriais de serviços, clientes, cronogramas, Excel, Project, inglês avançado. Exige graduação em Engenharia, ERP e leitura de desenhos técnicos.",
+      "application_status": "unverified",
+      "source_listing_only": false,
+      "verification_note": "Disponibilidade final não confirmada"
+    },
+    {
+      "company": "LUSA Brasil",
+      "title": "Gerente de Projetos",
+      "location": "Indaiatuba, SP",
+      "url": "https://br.linkedin.com/jobs/view/4475980909",
+      "source": "LinkedIn público",
+      "description": "Gestão de projetos, recursos, cronogramas, riscos, equipes, indicadores e orçamento. Experiência no terceiro setor e métodos ágeis são diferenciais.",
+      "application_status": "unverified",
+      "source_listing_only": false,
+      "verification_note": "Disponibilidade final não confirmada"
+    },
+    {
+      "company": "Looqbox",
+      "title": "Project Manager (Remoto)",
+      "location": "Remoto, Brasil",
+      "url": "https://br.linkedin.com/jobs/view/4474054294",
+      "source": "LinkedIn público",
+      "description": "Implementação de solução para clientes, reuniões, gestão de cronogramas, riscos, prioridades e stakeholders. SaaS e BI são diferenciais.",
+      "application_status": "unverified",
+      "source_listing_only": false,
+      "verification_note": "Disponibilidade final não confirmada"
+    },
+    {
+      "company": "3M",
+      "title": "Project Manager - Sumare, Brasil",
+      "location": "Sumaré, SP",
+      "url": "https://br.linkedin.com/jobs/talent-web-vagas",
+      "source": "LinkedIn público",
+      "description": "Detalhes da vaga não confirmados; disponível apenas em resultado de pesquisa do LinkedIn.",
+      "application_status": "unverified",
+      "source_listing_only": true,
+      "verification_note": "URL individual ainda não verificada"
+    },
+    {
+      "company": "Capitani Group",
+      "title": "Gerente de projetos sênior",
+      "location": "Campinas, SP",
+      "url": "https://br.linkedin.com/jobs/view/4469151617",
+      "source": "LinkedIn público",
+      "description": "Gestão de projetos, carteira, cronogramas, riscos, fornecedores e stakeholders. Requer vivência em projetos de TI, testes e incidentes.",
+      "application_status": "unverified",
+      "source_listing_only": false,
+      "verification_note": "Disponibilidade final não confirmada"
+    },
+    {
+      "company": "Arcor do Brasil",
+      "title": "Gerente de Projetos Estratégicos de TI",
+      "location": "Campinas, SP",
+      "url": "https://br.linkedin.com/jobs/view/4464233870",
+      "source": "LinkedIn público",
+      "description": "Gestão estratégica de portfólio e transformação tecnológica, sistemas corporativos e equipes globais; experiência de PMO estratégico e TI.",
+      "application_status": "closed",
+      "source_listing_only": false,
+      "verification_note": "LinkedIn informa não aceita mais candidaturas"
+    },
+    {
+      "company": "Afonso França Engenharia",
+      "title": "Coordenador de Projetos",
+      "location": "Hortolândia, SP",
+      "url": "https://br.linkedin.com/jobs/view/4467122803",
+      "source": "LinkedIn público",
+      "description": "Gestão de projetos de construção civil, BIM, Revit, Navisworks e AutoCAD. Exige experiência indispensável em construção civil.",
+      "application_status": "unverified",
+      "source_listing_only": false,
+      "verification_note": "Disponibilidade final não confirmada"
+    },
+    {
+      "company": "levva",
+      "title": "Gerente de Projetos Sênior",
+      "location": "Campinas, SP",
+      "url": "https://br.linkedin.com/jobs/view/4479166367",
+      "source": "LinkedIn público",
+      "description": "Planejamento, cronogramas, gestão de riscos, equipes multifuncionais, comunicação e stakeholders. Vivência em tecnologia é diferencial.",
+      "application_status": "unverified",
+      "source_listing_only": false,
+      "verification_note": "Disponibilidade final não confirmada"
+    },
+    {
+      "company": "Kryptus",
+      "title": "Gerente de Projetos/Programa",
+      "location": "Campinas, SP",
+      "url": "https://br.linkedin.com/jobs/view/4471235299",
+      "source": "LinkedIn público",
+      "description": "Gestão de projetos técnicos e programas, controle financeiro, KPIs, metodologias ágeis. Exige certificação PMP, CSM, PMO-CP ou equivalente.",
+      "application_status": "unverified",
+      "source_listing_only": false,
+      "verification_note": "Disponibilidade final não confirmada"
+    },
+    {
+      "company": "BairesDev",
+      "title": "Gerente de Projetos Técnicos - Trabalho Remoto",
+      "location": "Remoto, Brasil",
+      "url": "https://br.linkedin.com/jobs/view/4454788368",
+      "source": "LinkedIn público",
+      "description": "Gestão de projetos de software, equipes técnicas, Scrum, riscos, cronogramas e inglês avançado; requer conhecimento sólido de desenvolvimento de software.",
+      "application_status": "unverified",
+      "source_listing_only": false,
+      "verification_note": "Disponibilidade final não confirmada"
+    },
+    {
+      "company": "Círculo",
+      "title": "Gerente de Projetos Pleno | Salesforce",
+      "location": "Campinas, SP",
+      "url": "https://br.linkedin.com/jobs/view/4433192603",
+      "source": "LinkedIn público",
+      "description": "Gestão de projetos Salesforce, CRM, automação de marketing, interface com clientes e desenvolvimento de produto.",
+      "application_status": "closed",
+      "source_listing_only": false,
+      "verification_note": "LinkedIn informa não aceita mais candidaturas"
+    }
+  ]
+}
