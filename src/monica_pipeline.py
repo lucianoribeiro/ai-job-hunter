@@ -10,6 +10,7 @@ from src.monica_match import assess
 from src.monica_verify import verify
 from src.monica_local import read_cv, structured_profile
 from src.monica_location import location_category
+from src.monica_job_enrichment import enrich
 
 def collect(project_path, qa_path=None):
     document = json.loads(Path(project_path).read_text(encoding="utf-8"))
@@ -21,7 +22,7 @@ def collect(project_path, qa_path=None):
         records = []
     return [item for item in records if isinstance(item, dict)]
 
-def build(profile, jobs, check_links=False, verifier=verify):
+def build(profile, jobs, check_links=False, verifier=verify, enrich_links=False, enricher=enrich):
     if not isinstance(profile, dict) or not isinstance(profile.get("competencies"), list):
         raise ValueError("A private structured profile with competencies is required")
     seen = set()
@@ -31,6 +32,7 @@ def build(profile, jobs, check_links=False, verifier=verify):
         if not url or url in seen:
             continue
         seen.add(url)
+        job = enricher(job) if enrich_links else job
         location_class = location_category(job)
         if location_class == "out_of_scope":
             continue
@@ -41,6 +43,7 @@ def build(profile, jobs, check_links=False, verifier=verify):
                         verification["status"] != "unverified")
         result["verification_reason"] = verification.get("reason", "")
         result["location_class"] = location_class
+        result["location_evidence"] = job.get("location_evidence", "unverified")
         result["tier"] = ("recommended" if result["score"] >= 70 else "review" if result["score"] >= 50 else "low")
         if result["recommendation"] == "exclude" or result["tier"] == "low":
             continue
@@ -57,6 +60,7 @@ def main():
     parser.add_argument("--output", type=Path, default=Path("site/monica-opportunities.json"))
     parser.add_argument("--extra-jobs", type=Path, nargs="*", default=[],
                         help="Additional public vacancy JSON feeds from verified regional sources")
+    parser.add_argument("--enrich-links", action="store_true", help="Read JobPosting location metadata from supported ATS pages")
     parser.add_argument("--check-links", action="store_true", help="Check allowlisted ATS pages; unknown remains unverified")
     args = parser.parse_args()
     if bool(args.profile) == bool(args.cv):
@@ -70,7 +74,7 @@ def main():
     for extra in extras:
         if extra.is_file():
             jobs.extend(collect(extra))
-    results = build(profile, jobs, check_links=args.check_links)
+    results = build(profile, jobs, check_links=args.check_links, enrich_links=args.enrich_links)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps({"profile_id": str(profile.get("id") or "monica"),
        "privacy": "public_job_metadata_only", "jobs": results}, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
