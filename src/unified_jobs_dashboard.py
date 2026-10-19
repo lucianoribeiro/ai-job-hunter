@@ -582,15 +582,14 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 <footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
 na página oficial. Fonte Himalayas: <a href="https://himalayas.app">himalayas.app</a>. Apenas datas de publicação fornecidas pelas fontes são exibidas; datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
 <script>
-const recruiterRole=document.getElementById('recruiter-role'),recruiterCity=document.getElementById('recruiter-city');
-const recruiterArea=document.getElementById('recruiter-area'),recruiterMode=document.getElementById('recruiter-mode'),recruiterUsd=document.getElementById('recruiter-usd'),recruiterOrigin=document.getElementById('recruiter-origin'),recruiterContract=document.getElementById('recruiter-contract'),recruiterFreelance=document.getElementById('recruiter-freelance');
+const recruiterArea=document.getElementById('recruiter-area'),recruiterRole=document.getElementById('recruiter-role'),recruiterCity=document.getElementById('recruiter-city'),recruiterMode=document.getElementById('recruiter-mode'),recruiterUsd=document.getElementById('recruiter-usd'),recruiterOrigin=document.getElementById('recruiter-origin'),recruiterContract=document.getElementById('recruiter-contract'),recruiterFreelance=document.getElementById('recruiter-freelance');
 function filterRecruiter(){
  if(!recruiterArea||!recruiterMode||!recruiterUsd||!recruiterOrigin||!recruiterContract)return;
  let visible=0;
  document.querySelectorAll('.recruiter-card').forEach(card=>{
   const area=!recruiterArea.value||card.dataset.area===recruiterArea.value;
-  const role=!recruiterRole.value||card.dataset.role===recruiterRole.value;
-  const city=!recruiterCity.value||card.dataset.city===recruiterCity.value;
+  const role=!recruiterRole||!recruiterRole.value||card.dataset.role===recruiterRole.value;
+  const city=!recruiterCity||!recruiterCity.value||card.dataset.city===recruiterCity.value;
   const mode=!recruiterMode.value||card.dataset.mode.startsWith(recruiterMode.value);
   const usd=!recruiterUsd.value||card.dataset.usd===recruiterUsd.value;
   const origin=!recruiterOrigin.value||card.dataset.origin===recruiterOrigin.value;
@@ -606,13 +605,14 @@ if(recruiterArea&&recruiterMode&&recruiterUsd&&recruiterOrigin&&recruiterContrac
  const available=[...document.querySelectorAll('.recruiter-card')];
  function fillRecruiterSelect(select,values,placeholder){const previous=select.value;select.replaceChildren(new Option(placeholder,''),...values.map(v=>new Option(v,v)));if(values.includes(previous))select.value=previous;}
  function refreshRecruiterOptions(){
+  if(!recruiterRole||!recruiterCity)return filterRecruiter();
   const cards=available.filter(c=>!recruiterArea.value||c.dataset.area===recruiterArea.value);
   fillRecruiterSelect(recruiterRole,[...new Set(cards.map(c=>c.dataset.role).filter(Boolean))].sort(),'Todos os cargos');
   fillRecruiterSelect(recruiterCity,[...new Set(cards.map(c=>c.dataset.city).filter(Boolean))].sort(),'Todas as cidades');
   filterRecruiter();
  }
  recruiterArea.addEventListener('change',refreshRecruiterOptions);
- for(const select of [recruiterRole,recruiterCity,recruiterMode,recruiterUsd,recruiterOrigin,recruiterContract,...(recruiterFreelance?[recruiterFreelance]:[])])select.addEventListener('change',filterRecruiter);
+ for(const select of [...(recruiterRole?[recruiterRole]:[]),...(recruiterCity?[recruiterCity]:[]),recruiterMode,recruiterUsd,recruiterOrigin,recruiterContract,...(recruiterFreelance?[recruiterFreelance]:[])])select.addEventListener('change',filterRecruiter);
  refreshRecruiterOptions();
 }
 document.querySelector('.ai-tab[data-task="cv"]')?.click();
