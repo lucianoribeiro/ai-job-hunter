@@ -70,7 +70,7 @@ jobs:
             trap 'rm -f "$profile_path"' EXIT
             chmod 600 "$profile_path"
             printf '%s' "$MONICA_PROFILE_JSON" > "$profile_path"
-            python -m src.monica_pipeline --profile "$profile_path" --projects data/project_jobs_poc.json --output site/monica-opportunities.json
+            python -m src.monica_pipeline --check-links --profile "$profile_path" --projects data/project_jobs_poc.json --output site/monica-opportunities.json
           else
             echo 'No private Monica profile configured; publishing empty information page.'
             printf '{"profile_id":"monica","jobs":[],"privacy":"public_job_metadata_only"}\n' > site/monica-opportunities.json
