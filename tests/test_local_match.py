@@ -15,7 +15,7 @@ class LocalMatchTests(unittest.TestCase):
 
     def test_source_vacancy_count_not_modified(self):
         page=render({"jobs":[{"title":"Gerente de Projetos","company":"Acme","location":"Campinas","url":"https://example.org/1"}]},[])
-        self.assertIn("Total de vagas<strong>1</strong>",page)
+        self.assertIn('Total de vagas<strong id="summary-total" aria-live="polite">1</strong>',page)
         self.assertIn('id="aiJob"',page)
 
     def test_compact_upload_ui_status_and_optional_details(self):
