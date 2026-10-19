@@ -253,17 +253,17 @@ def classify(title: str) -> dict:
     t = title.casefold().split(" - linkedin")[0]
     industrial = r"manufatur|manufactur|produ[cç][aã]o|production|industrial|f[aá]brica|factory|plant|automotiv"
     project = r"project manager|gerente de projetos|coordenador de projetos|project coordinator|pmo|especialista de projetos|analista de projetos|project specialist|project analyst"
-    tech = r"\\b(?:it|ti|software|technology|technical|tecnologia|sistemas|cloud|devops|digital transformation|transforma[cç][aã]o digital|infraestrutura de ti)\\b"
+    tech = r"\b(?:it|ti|software|technology|technical|tecnologia|sistemas|cloud|devops|digital transformation|transforma[cç][aã]o digital|infraestrutura de ti)\b"
     excluded = r"marketing|advertising|publicidade|construction|constru[cç][aã]o civil|real estate|imobili[aá]ri|events?|eventos|architecture|arquitetura"
     manufacturing = bool(re.search(industrial, t)) and bool(re.search(
         r"coordenador|coordinator|gerente|manager|supervisor|diretor|director|gestor|lead|especialista|specialist|analista|analyst|opera[cç][oõ]es|operations", t))
-    software_qa = bool(re.search(r"\\bqa\\b|sdet|software (?:quality|test)|quality (?:assurance|engineering|engineer)|test (?:engineer|manager|lead|automation)|head of qa|l[ií]der de testes|gerente de qa|autom[aá]c[aã]o de testes", t))
+    software_qa = bool(re.search(r"\bqa\b|sdet|software (?:quality|test)|quality (?:assurance|engineering|engineer)|test (?:engineer|manager|lead|automation)|head of qa|l[ií]der de testes|gerente de qa|autom[aá]c[aã]o de testes", t))
     industrial_quality = bool(re.search(r"qualidade industrial|quality control|quality inspector|qualidade de produ[cç][aã]o|quality manufacturing|supplier quality", t))
-    software_qa = software_qa or bool(re.search(r"\\bqa\\s+(?:tech\\s+)?lead\\b|\\bqa\\s+manager\\b", t))
-    qa = software_qa and not (industrial_quality and not re.search(r"software|\\bqa\\b|sdet|test automation", t))
+    software_qa = software_qa or bool(re.search(r"\bqa\s+(?:tech\s+)?lead\b|\bqa\s+manager\b", t))
+    qa = software_qa and not (industrial_quality and not re.search(r"software|\bqa\b|sdet|test automation", t))
     projects = bool(re.search(project, t) and re.search(tech, t) and not re.search(excluded, t))
-    remote = bool(re.search(r"\\bremote\\b|\\bremoto\\b|home.office", t))
-    hybrid = bool(re.search(r"\\bhybrid\\b|\\bh[ií]brid[oa]\\b", t))
+    remote = bool(re.search(r"\bremote\b|\bremoto\b|home.office", t))
+    hybrid = bool(re.search(r"\bhybrid\b|\bh[ií]brid[oa]\b", t))
     explicit_hiring = bool(re.search(r"hiring|contratando|estamos contratando|we.re hiring|vaga|opportunit|oportunidade|open position|job opening", t))
     area = "Manufatura" if manufacturing else "QA" if qa else "Projetos" if projects else "Outros"
     if area == "Manufatura":
@@ -285,7 +285,7 @@ def explicit_city(text: str) -> str:
               "Hortolândia", "Indaiatuba", "Valinhos", "Vinhedo", "Jaguariúna",
               "Piracicaba", "São Paulo", "Mogi Guaçu")
     for city in cities:
-        if re.search(r"(?<!\\w)" + re.escape(city) + r"(?!\\w)", text, re.I):
+        if re.search(r"(?<!\w)" + re.escape(city) + r"(?!\w)", text, re.I):
             return city
     return ""
 
