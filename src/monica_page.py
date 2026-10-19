@@ -17,6 +17,7 @@ def render(data, minimum=50):
     esc=lambda x:html.escape(str(x if x is not None else ""),quote=True)
     rows=[item for item in data.get("jobs",[]) if isinstance(item,dict) and eligible(item,minimum)]
     rows=sorted(rows,key=lambda item:(-int(item.get("score") or 0),item.get("title","")))
+    pending=[item for item in data.get("jobs",[]) if isinstance(item,dict) and (item.get("location_class") or location_category(item))=="unknown" and int(item.get("score") or 0)>=minimum and item.get("application_status")!="closed"]
     high=sum(int(item.get("score") or 0)>=70 for item in rows)
     review=len(rows)-high
     cards=[]
@@ -33,6 +34,9 @@ def render(data, minimum=50):
                      f'<p class="status">{band} · {status}</p><p><b>Por que é interessante:</b> {esc(summary)}</p>'
                      f'<details><summary>Requisitos a confirmar</summary><p>{esc(warnings)}</p></details>'
                      f'<p><a href="{url}" target="_blank" rel="noopener noreferrer">Ver candidatura ↗</a></p></article>')
+    pending_note = (f'<details class="pending"><summary>{len(pending)} vagas com localização não confirmada — revisar fontes</summary>'
+                    + ''.join(f'<p>{esc(j.get("title"))} · {esc(j.get("company"))} — localização não comprovada</p>' for j in pending[:30])
+                    + '</details>') if pending else ""
     body="".join(cards) or "<p>Nenhuma vaga atendeu aos critérios de aderência, localização e verificação nesta coleta. Não significa ausência de oportunidades no mercado.</p>"
     return f"""<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Oportunidades para Mônica | AI Job Hunter</title>
@@ -42,7 +46,7 @@ main{{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:
 h2{{font-size:1.06rem;margin:0}}.status{{color:#efc778}}details{{margin-top:12px}}footer{{margin-top:24px;font-size:.85rem}}</style>
 <header><p><a href="./">← AI Job Hunter</a></p><h1>Oportunidades para Mônica</h1>
 <p>Gestão de Projetos · NPI · Manufatura</p><p>{len(cards)} oportunidade(s) selecionada(s) · {high} recomendada(s) · {review} para avaliação · nota mínima {minimum}/100</p></header>
-<main>{body}</main><footer>Aderência heurística, não probabilidade de contratação. Inscrição indicada não garante disponibilidade final. Vagas encerradas são excluídas.</footer></html>"""
+<main>{body}</main>{pending_note}<footer>Aderência heurística, não probabilidade de contratação. Inscrição indicada não garante disponibilidade final. Vagas encerradas são excluídas.</footer></html>"""
 
 def main():
     parser=argparse.ArgumentParser()
