@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 from src.monica_match import assess
 from src.monica_verify import verify
+from src.monica_local import read_cv, structured_profile
 
 def collect(project_path, qa_path=None):
     document = json.loads(Path(project_path).read_text(encoding="utf-8"))
@@ -44,12 +45,15 @@ def build(profile, jobs, check_links=False, verifier=verify):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--profile", type=Path, required=True, help="Private structured JSON outside repository")
+    parser.add_argument("--profile", type=Path, help="Private structured JSON outside repository")
+    parser.add_argument("--cv", type=Path, help="Local private PDF, DOCX or TXT curriculum")
     parser.add_argument("--projects", type=Path, default=Path("data/project_jobs_poc.json"))
     parser.add_argument("--output", type=Path, default=Path("site/monica-opportunities.json"))
     parser.add_argument("--check-links", action="store_true", help="Check allowlisted ATS pages; unknown remains unverified")
     args = parser.parse_args()
-    profile = json.loads(args.profile.read_text(encoding="utf-8"))
+    if bool(args.profile) == bool(args.cv):
+        parser.error("Provide exactly one of --profile or --cv")
+    profile = structured_profile(read_cv(args.cv)) if args.cv else json.loads(args.profile.read_text(encoding="utf-8"))
     results = build(profile, collect(args.projects), check_links=args.check_links)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps({"profile_id": str(profile.get("id") or "monica"),
