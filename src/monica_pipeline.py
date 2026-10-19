@@ -47,6 +47,10 @@ def build(profile, jobs, check_links=False, verifier=verify, enrich_links=False,
         result["location_class"] = location_class
         result["location_evidence"] = job.get("location_evidence", "unverified")
         result["tier"] = ("recommended" if result["score"] >= 70 else "review" if result["score"] >= 50 else "low")
+        result["publication_group"] = ("history_closed" if result["application_status"] == "closed" else
+                                       "needs_location" if location_class == "unknown" else
+                                       "needs_eligibility" if location_class == "remote_review" else
+                                       "review" if result["tier"] == "low" else "candidate")
         if result["recommendation"] == "exclude" or result["tier"] == "low":
             continue
         # Do not claim a posting is open without inspecting the official live page.
@@ -62,6 +66,8 @@ def main():
     parser.add_argument("--output", type=Path, default=Path("site/monica-opportunities.json"))
     parser.add_argument("--extra-jobs", type=Path, nargs="*", default=[],
                         help="Additional public vacancy JSON feeds from verified regional sources")
+    parser.add_argument("--linkedin", type=Path, default=Path("data/monica_linkedin_jobs.json"),
+                        help="Locally supplied public LinkedIn job records (not fetched automatically)")
     parser.add_argument("--enrich-links", action="store_true", help="Read JobPosting location metadata from supported ATS pages")
     parser.add_argument("--check-links", action="store_true", help="Check allowlisted ATS pages; unknown remains unverified")
     args = parser.parse_args()
@@ -72,14 +78,15 @@ def main():
     # Use the existing official regional company watcher when its feed is present.
     # No data is invented when monitoring returns an empty list.
     regional_feed = Path("data/strategic_jobs.json")
-    extras = [regional_feed] + args.extra_jobs
+    extras = [regional_feed, args.linkedin] + args.extra_jobs
     for extra in extras:
         if extra.is_file():
             jobs.extend(collect(extra))
     results = build(profile, jobs, check_links=args.check_links, enrich_links=args.enrich_links)
+    sources = {"total_input": len(jobs), "linkedin_input": sum("linkedin.com/jobs/" in str(j.get("url") or "") for j in jobs)}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps({"profile_id": str(profile.get("id") or "monica"),
-       "privacy": "public_job_metadata_only", "jobs": results}, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
+       "privacy": "public_job_metadata_only", "source_counts": sources, "jobs": results}, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
     print(f"Public-safe assessments: {len(results)}; no CV data exported")
 
 if __name__ == "__main__":
