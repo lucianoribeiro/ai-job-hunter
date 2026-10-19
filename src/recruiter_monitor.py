@@ -92,18 +92,18 @@ FREELANCE_QA_SEARCHES = [
 ]
 
 MANUFACTURING_SEARCHES = [
-    'site:linkedin.com/posts/ "coordenador de projetos industriais" vaga',
     'site:linkedin.com/posts/ "gerente de projetos industriais" vaga',
-    'site:linkedin.com/posts/ "industrial project manager" hiring',
+    'site:linkedin.com/posts/ "coordenador de projetos industriais" vaga',
     'site:linkedin.com/posts/ "analista de projetos industriais" vaga',
-    'site:linkedin.com/posts/ "coordenador de projetos" ("indústria" OR "manufatura" OR "automotivo")',
-    'site:linkedin.com/posts/ "analista de projetos" ("indústria" OR "manufatura" OR "automotivo")',
+    'site:linkedin.com/posts/ "industrial project manager" hiring',
     'site:linkedin.com/posts/ "industrial project coordinator" hiring',
     'site:linkedin.com/posts/ "industrial project analyst" hiring',
-    'site:linkedin.com/posts/ "project coordinator" ("manufacturing" OR "industrial")',
-    'site:linkedin.com/posts/ "project specialist" ("manufacturing" OR "industrial")',
-    'site:linkedin.com/posts/ "project analyst" ("manufacturing" OR "industrial")',
     'site:linkedin.com/posts/ "gerente de projetos" ("indústria" OR "manufatura" OR "automotivo")',
+    'site:linkedin.com/posts/ "coordenador de projetos" ("indústria" OR "manufatura" OR "automotivo")',
+    'site:linkedin.com/posts/ "analista de projetos" ("indústria" OR "manufatura" OR "automotivo")',
+    'site:linkedin.com/posts/ "project manager" ("manufacturing" OR "industrial")',
+    'site:linkedin.com/posts/ "project coordinator" ("manufacturing" OR "industrial")',
+    'site:linkedin.com/posts/ "project analyst" ("manufacturing" OR "industrial")',
 ]
 
 
@@ -362,6 +362,17 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
     return list(found.values())
 
 
+def consolidate_results(jobs: dict[str, dict], per_area: int = 100) -> list[dict]:
+    """Keep a quota per area before merging, rather than cutting off industrial roles."""
+    groups: dict[str, list[dict]] = {}
+    for item in jobs.values():
+        groups.setdefault(str(item.get("area") or "Outros"), []).append(item)
+    retained = []
+    for entries in groups.values():
+        retained.extend(sorted(entries, key=lambda x: x.get("published_at") or "", reverse=True)[:per_area])
+    return sorted(retained, key=lambda x: x.get("published_at") or "", reverse=True)
+
+
 def run() -> dict:
     day = datetime.now(timezone.utc).date().isoformat()
     jobs: dict[str, dict] = {}
@@ -390,7 +401,7 @@ def run() -> dict:
     data = {
         "date_utc": day, "checked_at": datetime.now(timezone.utc).isoformat(),
         "status": state, "query_count": len(SEARCHES) + len(QA_SEARCHES) + len(QA_LEADERSHIP_SEARCHES) + len(LINKEDIN_EXTRA_SEARCHES) + len(COMPANY_POST_SEARCHES) + len(FREELANCE_QA_SEARCHES) + len(MANUFACTURING_SEARCHES),
-        "items": sorted(jobs.values(), key=lambda x: x["published_at"], reverse=True)[:100],
+        "items": consolidate_results(jobs),
         "limitations": "Incomplete web-index coverage; RSS publication date is not guaranteed to match original LinkedIn post date. Review each link. No automatic applications.",
         "failed_queries": len(failures),
     }
