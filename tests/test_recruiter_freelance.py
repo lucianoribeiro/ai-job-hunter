@@ -25,7 +25,7 @@ class FreelancerQAMonitorTests(unittest.TestCase):
         html = render({"jobs": []}, [])
         self.assertIn('id="recruiter-freelance"', html)
         self.assertIn('card.dataset.freelance===recruiterFreelance.value', html)
-        self.assertIn('card.hidden=!(area&&mode&&usd&&origin&&contract&&freelance)', html)
+        self.assertIn('card.hidden=!(area&&role&&city&&mode&&usd&&origin&&contract&&freelance)', html)
 
 
 if __name__ == "__main__":
