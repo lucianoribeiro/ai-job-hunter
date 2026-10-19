@@ -393,7 +393,31 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
 
     monitor_file = Path("data/recruiter_monitor.json")
     monitor = json.loads(monitor_file.read_text(encoding="utf-8")) if monitor_file.exists() else {}
-    monitor_items = monitor.get("items", [])
+    monitor_items = list(monitor.get("items", []))
+    # Merge actual public ATS vacancies already gathered by the project workflow.
+    # Do not infer posting dates or represent ATS jobs as LinkedIn posts.
+    ats_path = Path("data/project_jobs_poc.json")
+    ats = json.loads(ats_path.read_text(encoding="utf-8")) if ats_path.exists() else {}
+    from src.recruiter_monitor import industrial_project_role, explicit_city
+    existing_links = {safe_url(item.get("url")) for item in monitor_items if isinstance(item, dict)}
+    for job in ats.get("jobs", []):
+        if not isinstance(job, dict):
+            continue
+        role = industrial_project_role(str(job.get("title") or ""), str(job.get("description") or ""))
+        url = safe_url(job.get("url"))
+        if not role or url == "#" or url in existing_links:
+            continue
+        existing_links.add(url)
+        location = str(job.get("location") or "")
+        monitor_items.append({
+            "area": "Manufatura", "role": role, "title": str(job.get("title") or ""),
+            "indexed_excerpt": str(job.get("description") or "")[:1500],
+            "city": explicit_city(location) or explicit_city(str(job.get("title") or "")),
+            "url": url, "published_at": "", "source": str(job.get("source") or "Public ATS"),
+            "company": str(job.get("company") or ""), "modality": "Não informada",
+            "post_origin": "Empresa", "contract_type": "Não informado",
+            "salary_usd": None, "freelance_qa": "no", "source_kind": "ats",
+        })
     app_base = os.environ.get("CAREER_APP_URL", "").rstrip("/")
     if app_base and safe_url(app_base) == "#":
         app_base = ""
@@ -458,7 +482,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
                 continue
             seen_manufacturing.add(key)
             # The matching project role was verified above; never relabel it as production leadership.
-            title = e(item["role"] + (" · " + details["employer"] if details["employer"] else "") + (" · " + details["location"] if details["location"] else ""))
+            title = e(item["role"] + (" · " + (item.get("company") or details["employer"]) if (item.get("company") or details["employer"]) else "") + (" · " + details["location"] if details["location"] else ""))
             city = item.get("city") or details["location"] or ""
             extra += '<p class="recruiter-location">📍 Cidade: ' + e(city or "Não informada") + '</p>'
             if details["priority"]:
@@ -472,7 +496,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
                 outreach = app_base + "/applications/outreach?" + urlencode({"recipient": contact, "title": raw_title[:160], "source": item.get("url", "")})
                 extra += '<p><a class="recruiter-outreach" href="' + e(outreach) + '">Preparar rascunho com CV no Gmail →</a></p>'
         # Indexed titles can contain full post excerpts; do not fabricate an employer or summary.
-        link_label = "Ver publicação no LinkedIn"
+        link_label = "Ver vaga na fonte original" if item.get("source_kind") == "ats" else "Ver publicação no LinkedIn"
         accessible_date = e("Data do índice público: " + published_accessible + ", horário de Brasília") if published_accessible else e(published)
         monitor_cards.append(
             '<article class="recruiter-card" data-area="' + category + '" data-mode="' + modality + '" '
@@ -483,11 +507,11 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             '<span class="recruiter-pill recruiter-pill-origin">Origem: ' + e(origin) + '</span>'
             '<span class="recruiter-pill">Contrato: ' + e(contract) + '</span>' + ('<span class="recruiter-pill">Freelancer QA</span>' if freelance == "yes" else '') + '</div>'
             '<h3 class="recruiter-title">' + title + '</h3>'
-            '<p class="recruiter-employer">Empresa: não identificada no índice</p>'
+            '<p class="recruiter-employer">Empresa: ' + e(item.get("company") or "não identificada no índice") + '</p>'
             '<div class="recruiter-extra">' + extra + '</div>'
             '<div class="recruiter-index-date"><span aria-hidden="true">◷</span> '
             '<time aria-label="' + accessible_date + '" datetime="' + e(item.get("published_at", "")) + '">'
-            + e(published) + '</time><span class="recruiter-index-note">Data do índice público · horário de Brasília</span></div>'
+            + e(published) + '</time><span class="recruiter-index-note">' + ("Data não informada pela fonte" if item.get("source_kind") == "ats" else "Data do índice público · horário de Brasília") + '</span></div>'
             '<a class="recruiter-open" target="_blank" rel="noopener noreferrer" href="' + url + '">'
             + link_label + ' ↗</a></article>'
         )
