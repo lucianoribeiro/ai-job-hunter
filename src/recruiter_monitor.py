@@ -241,7 +241,7 @@ def industrial_project_role(title: str, excerpt: str = "") -> str:
     import re
     t = title.casefold().split(" - linkedin")[0]
     context = (t + " " + excerpt.casefold())
-    if re.search(r"marketing|advertising|publicidade|software|\\bti\\b|\\bit\\b|construction|constru[cç][aã]o civil|events?|eventos", t):
+    if re.search(r"marketing|advertising|publicidade|software|\bti\b|\bit\b|construction|constru[cç][aã]o civil|events?|eventos", t):
         return ""
     if not re.search(r"manufatur|manufactur|industrial|ind[uú]stria|automotiv|f[aá]brica|factory|plant|produ[cç][aã]o|production", context):
         return ""
