@@ -7,6 +7,7 @@ import csv
 import json
 from pathlib import Path
 from src.monica_match import assess
+from src.monica_verify import verify
 
 def collect(project_path, qa_path=None):
     document = json.loads(Path(project_path).read_text(encoding="utf-8"))
@@ -18,7 +19,7 @@ def collect(project_path, qa_path=None):
         records = []
     return [item for item in records if isinstance(item, dict)]
 
-def build(profile, jobs):
+def build(profile, jobs, check_links=False, verifier=verify):
     if not isinstance(profile, dict) or not isinstance(profile.get("competencies"), list):
         raise ValueError("A private structured profile with competencies is required")
     seen = set()
@@ -28,7 +29,12 @@ def build(profile, jobs):
         if not url or url in seen:
             continue
         seen.add(url)
-        result = assess(job, profile)
+        verification = verifier(job) if check_links else {"status": "unverified", "reason": "Validação não executada"}
+        result = assess(job, profile,
+                        "Não aceita mais candidaturas" if verification["status"] == "closed" else
+                        "Apply for this job" if verification["status"] == "apply_indicated" else "",
+                        verification["status"] != "unverified")
+        result["verification_reason"] = verification.get("reason", "")
         if result["recommendation"] == "exclude":
             continue
         # Do not claim a posting is open without inspecting the official live page.
@@ -41,9 +47,10 @@ def main():
     parser.add_argument("--profile", type=Path, required=True, help="Private structured JSON outside repository")
     parser.add_argument("--projects", type=Path, default=Path("data/project_jobs_poc.json"))
     parser.add_argument("--output", type=Path, default=Path("site/monica-opportunities.json"))
+    parser.add_argument("--check-links", action="store_true", help="Check allowlisted ATS pages; unknown remains unverified")
     args = parser.parse_args()
     profile = json.loads(args.profile.read_text(encoding="utf-8"))
-    results = build(profile, collect(args.projects))
+    results = build(profile, collect(args.projects), check_links=args.check_links)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps({"profile_id": str(profile.get("id") or "monica"),
        "privacy": "public_job_metadata_only", "jobs": results}, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
