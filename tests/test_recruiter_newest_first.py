@@ -1,4 +1,7 @@
 import unittest
+import json
+from pathlib import Path
+from unittest.mock import patch
 from src.unified_jobs_dashboard import render
 
 class RecruiterNewestFirstTests(unittest.TestCase):
@@ -8,6 +11,13 @@ class RecruiterNewestFirstTests(unittest.TestCase):
           {"title":"Newer QA Manager hiring","area":"QA","published_at":"2026-10-18T20:00:00+00:00","url":"https://www.linkedin.com/posts/newer","modality":"Não informada"},
           {"title":"Middle production supervisor","area":"Manufatura","published_at":"2026-10-17T12:00:00+00:00","url":"https://www.linkedin.com/posts/middle","modality":"Não informada"},
         ]}
-        page=render({"jobs":[]},[],monitor=monitor)
+        original_exists = Path.exists
+        original_read = Path.read_text
+        def exists(path):
+            return True if str(path) == "data/recruiter_monitor.json" else original_exists(path)
+        def read_text(path, *args, **kwargs):
+            return json.dumps(monitor) if str(path) == "data/recruiter_monitor.json" else original_read(path, *args, **kwargs)
+        with patch.object(Path, "exists", exists), patch.object(Path, "read_text", read_text):
+            page=render({"jobs":[]},[])
         self.assertLess(page.index("Newer QA Manager hiring"),page.index("Middle production supervisor"))
         self.assertLess(page.index("Middle production supervisor"),page.index("Older manufacturing manager"))
