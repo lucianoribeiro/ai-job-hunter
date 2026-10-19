@@ -212,9 +212,9 @@ def classify(title: str) -> dict:
     import re
     t = title.casefold()
     manufacturing = bool(re.search(r"manufatur|manufactur|produ[cç][aã]o|production|industrial|lean manufacturing|plant manager|gerente de planta|gestor de f[aá]brica|factory manager|gerente de f[aá]brica|coordenador industrial|operations manager.{0,35}factory", t))
-    software_qa = bool(re.search(r"\\bqa\\b|sdet|software (?:quality|test)|quality (?:assurance|engineering|engineer)|test (?:engineer|manager|lead|automation)|head of qa|l[ií]der de testes|gerente de qa|autom[aá]c[aã]o de testes", t))
+    software_qa = bool(re.search(r"\bqa\b|sdet|software (?:quality|test)|quality (?:assurance|engineering|engineer)|test (?:engineer|manager|lead|automation)|head of qa|l[ií]der de testes|gerente de qa|autom[aá]c[aã]o de testes", t))
     industrial_quality = bool(re.search(r"qualidade industrial|quality control|quality inspector|qualidade de produ[cç][aã]o|quality manufacturing|supplier quality", t))
-    qa = software_qa and not (industrial_quality and not re.search(r"software|\\bqa\\b|sdet|test automation", t))
+    qa = software_qa and not (industrial_quality and not re.search(r"software|\bqa\b|sdet|test automation", t))
     projects = bool(re.search(r"project manager|gerente de projetos|coordenador de projetos|project coordinator|pmo", t))
     remote = bool(re.search(r"\bremote\b|\bremoto\b|home.office", t))
     hybrid = bool(re.search(r"\bhybrid\b|\bh[ií]brid[oa]\b", t))
