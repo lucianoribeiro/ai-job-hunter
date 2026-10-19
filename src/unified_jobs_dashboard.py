@@ -410,6 +410,13 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
     for item in ordered_items:
         if not isinstance(item, dict):
             continue
+        # Revalidate cached results so old production leadership cards do not reappear.
+        if item.get("area") == "Manufatura":
+            from src.recruiter_monitor import industrial_project_role
+            verified_role = industrial_project_role(str(item.get("title") or ""), str(item.get("indexed_excerpt") or ""))
+            if not verified_role:
+                continue
+            item = {**item, "role": verified_role}
         category = e(item.get("area", "Não classificado"))
         modality = e(item.get("modality", "Não informada"))
         published, published_accessible = recruiter_index_date(item.get("published_at"))
