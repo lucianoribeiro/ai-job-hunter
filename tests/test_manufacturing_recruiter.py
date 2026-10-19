@@ -5,7 +5,7 @@ from src.recruiter_monitor import classify, parse_feed, MANUFACTURING_SEARCHES, 
 
 class ManufacturingRecruiterTests(unittest.TestCase):
     def test_industrial_leadership_classification(self):
-        for title in ("Industrial Project Coordinator hiring", "Especialista de Projetos Industriais vaga",
+        for title in ("Industrial Project Coordinator hiring", "Gerente de Projetos Industriais vaga",
                       "Analista de Projetos Industriais oportunidade"):
             self.assertEqual(classify(title)["area"], "Manufatura")
         self.assertEqual(classify("SDET - Software QA hiring")["area"], "QA")
@@ -28,9 +28,9 @@ class ManufacturingRecruiterTests(unittest.TestCase):
 
     def test_generic_industrial_project_roles_with_context(self):
         examples = [
-            ("Coordenador de Projetos - vaga", "Fábrica automotiva em Sumaré", "Coordenador"),
-            ("Especialista de Projeto - hiring", "Indústria e manufatura", "Especialista"),
-            ("Analista de Projetos - vaga", "Produção industrial em Campinas", "Analista"),
+            ("Coordenador de Projetos - vaga", "Fábrica automotiva em Sumaré", "Coordenador de Projetos"),
+            ("Gerente de Projetos - hiring", "Indústria e manufatura", "Gerente de Projetos"),
+            ("Analista de Projetos - vaga", "Produção industrial em Campinas", "Analista de Projetos"),
         ]
         for title, excerpt, role in examples:
             with self.subTest(title=title):
@@ -48,7 +48,7 @@ class ManufacturingRecruiterTests(unittest.TestCase):
         rows=parse_feed(xml,"2026-10-18",max_age_days=30,manufacturing_only=True)
         self.assertEqual(len(rows),1)
         self.assertEqual(rows[0]["area"],"Manufatura")
-        self.assertEqual(rows[0]["role"],"Analista")
+        self.assertEqual(rows[0]["role"],"Analista de Projetos")
         self.assertEqual(rows[0]["city"],"Campinas")
 
     def test_qa_30_day_window(self):
