@@ -2,7 +2,7 @@
   "10cf2e67bb3e3db7e773b2c9": {
     "company": "Airtm",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "2026-10-18T16:18:48+00:00",
     "source": "Jobicy",
     "title": "Senior QA Engineer",
@@ -20,7 +20,7 @@
   "1326ae2b671d7d7ab1665799": {
     "company": "TigerConnect",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "1792342723",
     "source": "Himalayas",
     "title": "Senior Implementation Project Manager",
@@ -29,7 +29,7 @@
   "1588cdd246f47577fb8cf5be": {
     "company": "Guidehouse",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "1792338999",
     "source": "Himalayas",
     "title": "Quality Assurance System Tester",
@@ -47,7 +47,7 @@
   "1718efd19ea573c12f0b4add": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "2026-10-15T15:24:46-04:00",
     "source": "Greenhouse",
     "title": "Staff Program Manager, CCO Programs",
@@ -65,7 +65,7 @@
   "1a88a5cb0d97ef1fa27e312e": {
     "company": "Oddball",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "2026-10-17T07:48:30+00:00",
     "source": "Jobicy",
     "title": "Program Manager",
@@ -83,7 +83,7 @@
   "1b87960d76ba9e6f9862705a": {
     "company": "Tellent",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "1792290737",
     "source": "Arbeitnow",
     "title": "Senior Quality Engineer - Tellent Intelligence (AI)",
@@ -92,7 +92,7 @@
   "1b9d445bd13736fb30aa2bdf": {
     "company": "Ashurst Perkins Coie",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "1792359981",
     "source": "Himalayas",
     "title": "eDiscovery Project Manager",
@@ -110,11 +110,20 @@
   "25bd12141d21d695761df19d": {
     "company": "Rochester Regional Health",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "1792361532",
     "source": "Himalayas",
     "title": "Clinical Trials Sr. Project Manager",
     "url": "https://himalayas.app/companies/rochester-regional-health/jobs/clinical-trials-sr-project-manager?utm_source=api"
+  },
+  "2786d4a139693d9b1ba63e17": {
+    "company": "Sword Health",
+    "first_seen": "2026-10-19",
+    "last_seen": "2026-10-19",
+    "published": "1792366143",
+    "source": "Himalayas",
+    "title": "Quality Engineer",
+    "url": "https://himalayas.app/companies/sword-com/jobs/quality-engineer?utm_source=api"
   },
   "2a4d54ac15ae0f95": {
     "company": "GitLab",
@@ -128,7 +137,7 @@
   "2a4d54ac15ae0f954aa499bf": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "2026-10-15T15:24:46-04:00",
     "source": "Greenhouse",
     "title": "Senior Program Manager, Enterprise Technology and AI",
@@ -155,7 +164,7 @@
   "34ba7449e4691e4f7055face": {
     "company": "Spiralyze",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "2026-10-06T19:35:42+00:00",
     "source": "Remote OK",
     "title": "Project Manager",
@@ -178,6 +187,15 @@
     "source": "Himalayas",
     "title": "Senior SDET (Software Development Engineer in Test) - Asian Timezones",
     "url": "https://himalayas.app/companies/hermeneutic-investments/jobs/senior-sdet-software-development-engineer-in-test-asian-timezones"
+  },
+  "3b856f0e70cc249245408165": {
+    "company": "Kitu Systems",
+    "first_seen": "2026-10-19",
+    "last_seen": "2026-10-19",
+    "published": "1792365512",
+    "source": "Himalayas",
+    "title": "QA Engineer",
+    "url": "https://himalayas.app/companies/kitu-systems/jobs/qa-engineer?utm_source=api"
   },
   "4645f9c54b25792a": {
     "company": "Beecruit Pte Ltd",
@@ -218,7 +236,7 @@
   "51faec0bcc5c06023b6659e1": {
     "company": "Ace IT Careers",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "2026-08-15T00:00:25+00:00",
     "source": "Remote OK",
     "title": "QA Tester Entry Level",
@@ -254,7 +272,7 @@
   "65c21675756d905dba799260": {
     "company": "Smartsheet",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "2026-10-18T12:52:45+00:00",
     "source": "Jobicy",
     "title": "Sr. Technical Program Manager I (Remote Eligible in Bulgaria)",
@@ -263,7 +281,7 @@
   "6a21694ee9667217817574f0": {
     "company": "Munich Ventures",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "1792327473",
     "source": "Himalayas",
     "title": "Senior QA Automation Engineer",
@@ -290,7 +308,7 @@
   "72370ea982d3c0f7cc2b694e": {
     "company": "Dhaka Technologies Limited Company",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "1792330980",
     "source": "Himalayas",
     "title": "SNAP EBT Test Lead",
@@ -335,7 +353,7 @@
   "85154f3de9007252dae7231e": {
     "company": "Makersite GmbH",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "1792333897",
     "source": "Arbeitnow",
     "title": "Project Manager - Software Implementation (m/f/x)",
@@ -353,7 +371,7 @@
   "8949da9f798b7d0ef39192cc": {
     "company": "Mano Lani LLC",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "1792323448",
     "source": "Himalayas",
     "title": "GIS Software Quality Assurance Engineer",
@@ -362,7 +380,7 @@
   "9e4291d401ac35dc8d353723": {
     "company": "Livefront",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "1792350467",
     "source": "Himalayas",
     "title": "Quality Assurance Engineer [Zeal]",
@@ -380,7 +398,7 @@
   "9f5d7fcbc28da96653b684a7": {
     "company": "Ramp",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "2026-10-16T18:04:33.419+00:00",
     "source": "Ashby",
     "title": "Senior Technical Program Manager",
@@ -398,7 +416,7 @@
   "a5487ee978014305339e250e": {
     "company": "Apogee Global RMS",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "1792362904",
     "source": "Himalayas",
     "title": "Cybersecurity Program Manager",
@@ -452,7 +470,7 @@
   "bef4e928ad9d5cdf82617afd": {
     "company": "Medical Solutions",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "1792347638",
     "source": "Himalayas",
     "title": "Quality Assurance Specialist",
@@ -470,7 +488,7 @@
   "c643ca1ab0148a831a238994": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "2026-10-15T15:24:46-04:00",
     "source": "Greenhouse",
     "title": "Principal Technical Program Manager",
@@ -479,11 +497,20 @@
   "cbd41b2112111b327ea00940": {
     "company": "HealthEdge",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "1792325951",
     "source": "Himalayas",
     "title": "Test Lead II - Healthcare Payer Testing",
     "url": "https://himalayas.app/companies/healthedge/jobs/test-lead-ii-healthcare-payer-testing?utm_source=api"
+  },
+  "cff8befaf023e9473908bb2e": {
+    "company": "HRchitect",
+    "first_seen": "2026-10-19",
+    "last_seen": "2026-10-19",
+    "published": "1792366090",
+    "source": "Himalayas",
+    "title": "Dayforce Project Manager",
+    "url": "https://himalayas.app/companies/hrchitect/jobs/dayforce-project-manager?utm_source=api"
   },
   "d448bed39ee28f0dc3ffff8a": {
     "company": "Autoliv Group",
@@ -524,7 +551,7 @@
   "e70f7b1c6fa798f05772b75a": {
     "company": "Softtest pays pty ltd",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "1792351300",
     "source": "Himalayas",
     "title": "Software Tester",
@@ -542,7 +569,7 @@
   "e81e9e9a16e5b84a1a89f55a": {
     "company": "Docplanner",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "2026-10-18T03:50:18+00:00",
     "source": "Jobicy",
     "title": "Global Web Growth Project Manager",
@@ -596,7 +623,7 @@
   "f848d6a53a772c7b77c18d7a": {
     "company": "Jabil",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-18",
+    "last_seen": "2026-10-19",
     "published": "1792339918",
     "source": "Himalayas",
     "title": "Quality Engineer",
