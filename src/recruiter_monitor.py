@@ -82,6 +82,18 @@ QA_LEADERSHIP_SEARCHES = [
     'site:linkedin.com/posts/ "SDET Lead" "hiring"',
 ]
 
+FREELANCE_QA_SEARCHES = [
+    'site:linkedin.com/posts/ "QA Engineer" "freelance" "remote"',
+    'site:linkedin.com/posts/ "software tester" "freelance" "remote"',
+    'site:linkedin.com/posts/ "QA automation" "contractor" "remote"',
+    'site:linkedin.com/posts/ "SDET" "independent contractor"',
+    'site:linkedin.com/posts/ "QA tester" "part-time" "remote"',
+    'site:linkedin.com/posts/ "quality assurance" "project based" "remote"',
+    'site:linkedin.com/posts/ "QA Engineer" "hourly" "remote"',
+    'site:linkedin.com/posts/ "QA" "freelancer" "USD"',
+    'site:linkedin.com/posts/ "test automation" "contract" "LATAM"',
+]
+
 MANUFACTURING_SEARCHES = [
     'site:linkedin.com/posts/ "gerente de produção" vaga',
     'site:linkedin.com/posts/ "coordenador de produção" contratação',
@@ -122,6 +134,29 @@ def advertised_usd_salary(text: str) -> str | None:
             suffix = "/hora" if idx <= 1 else "/mês" if idx == 2 else "/ano"
             return "US$ " + "–".join(numbers) + " " + suffix
     return None
+
+
+def freelance_qa_facts(title: str, excerpt: str = "", area: str = "") -> dict:
+    """Require explicit freelance/contract signals in a QA listing."""
+    import re
+    if area != "QA":
+        return {"freelance_qa": "no", "freelance_evidence": "", "part_time_evidence": ""}
+    value = str(title or "") + " " + str(excerpt or "")
+    contract = re.search(
+        r"\bfreelanc(?:e|er|ing)\b|\bindependent contractor\b|\bcontractor\b|"
+        r"\bcontract(?:\s+role|\s+position|\s+job|\s+work|\s+opportunity)\b|"
+        r"\bproject[ -]based\b|\bfreela\b|\baut[oô]nom[oa]\b", value, re.I
+    )
+    part_time = re.search(
+        r"\bpart[ -]time\b|\bflexible hours\b|\b(?:2|two)\s+hours?\s+(?:per|a|/)\s+day\b|"
+        r"\b(?:up to|max(?:imum)?)\s+10\s+hours?\s+(?:per|a|/)\s+week\b",
+        value, re.I
+    )
+    return {
+        "freelance_qa": "yes" if contract else "no",
+        "freelance_evidence": contract.group(0) if contract else "",
+        "part_time_evidence": part_time.group(0) if part_time else "",
+    }
 
 
 def extract_job_facts(text: str) -> dict:
@@ -273,9 +308,10 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
             continue
         labels = classify(title)
         facts = extract_job_facts(title + " " + indexed_excerpt)
+        freelance = freelance_qa_facts(title, indexed_excerpt, labels["area"])
         labels["modality"] = facts["modality"]
         hiring = bool(re.search(r"\bhiring\b|\bcontratando\b|\bvaga(?:s)?\b|\bjob opening\b|\bapply\b|\bopportunit(?:y|ies)\b|\boportunidade\b|\brecruiting\b|\bwe.re hiring\b|\bselection process\b|\bseletivo\b", title, re.I))
-        if labels["area"] in ("QA", "Projetos") and not hiring:
+        if labels["area"] in ("QA", "Projetos") and not (hiring or freelance["freelance_qa"] == "yes"):
             continue
         if manufacturing_only:
             if labels["area"] != "Manufatura":
@@ -292,7 +328,7 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
             if re.search(r"\b(?:qa|sdet|software quality|quality engineer)\b", title.casefold()):
                 continue
         found[url] = {
-            "title": title[:500], "indexed_excerpt": indexed_excerpt[:1500], **facts, "url": url, "published_at": date.isoformat(),
+            "title": title[:500], "indexed_excerpt": indexed_excerpt[:1500], **facts, **freelance, "url": url, "published_at": date.isoformat(),
             "source": "Public web news index", "status": "needs_review", "post_origin": post_origin(url, source_url), **labels,
         }
     return list(found.values())
@@ -305,9 +341,9 @@ def run() -> dict:
     if os.environ.get("RECRUITER_MONITOR_DISABLED") == "1":
         state = "disabled"
     else:
-        for query in SEARCHES + QA_SEARCHES + QA_LEADERSHIP_SEARCHES + LINKEDIN_EXTRA_SEARCHES + COMPANY_POST_SEARCHES + MANUFACTURING_SEARCHES:
+        for query in SEARCHES + QA_SEARCHES + QA_LEADERSHIP_SEARCHES + LINKEDIN_EXTRA_SEARCHES + COMPANY_POST_SEARCHES + FREELANCE_QA_SEARCHES + MANUFACTURING_SEARCHES:
             manufacturing_query = query in MANUFACTURING_SEARCHES or query in SEARCHES[3:]
-            qa_query = query == SEARCHES[0] or query in QA_SEARCHES or query in QA_LEADERSHIP_SEARCHES or query in LINKEDIN_EXTRA_SEARCHES or query in COMPANY_POST_SEARCHES
+            qa_query = query == SEARCHES[0] or query in QA_SEARCHES or query in QA_LEADERSHIP_SEARCHES or query in LINKEDIN_EXTRA_SEARCHES or query in COMPANY_POST_SEARCHES or query in FREELANCE_QA_SEARCHES
             days = 30 if manufacturing_query or qa_query else 1
             endpoint = "https://news.google.com/rss/search?" + urlencode({
                 "q": query + f" when:{days}d", "hl": "pt-BR" if manufacturing_query else "en-US", "gl": "BR" if manufacturing_query else "US", "ceid": "BR:pt-419" if manufacturing_query else "US:en"
@@ -325,7 +361,7 @@ def run() -> dict:
         state = "partial" if failures else "ok"
     data = {
         "date_utc": day, "checked_at": datetime.now(timezone.utc).isoformat(),
-        "status": state, "query_count": len(SEARCHES) + len(QA_SEARCHES) + len(QA_LEADERSHIP_SEARCHES) + len(LINKEDIN_EXTRA_SEARCHES) + len(COMPANY_POST_SEARCHES) + len(MANUFACTURING_SEARCHES),
+        "status": state, "query_count": len(SEARCHES) + len(QA_SEARCHES) + len(QA_LEADERSHIP_SEARCHES) + len(LINKEDIN_EXTRA_SEARCHES) + len(COMPANY_POST_SEARCHES) + len(FREELANCE_QA_SEARCHES) + len(MANUFACTURING_SEARCHES),
         "items": sorted(jobs.values(), key=lambda x: x["published_at"], reverse=True)[:100],
         "limitations": "Incomplete web-index coverage; RSS publication date is not guaranteed to match original LinkedIn post date. Review each link. No automatic applications.",
         "failed_queries": len(failures),
