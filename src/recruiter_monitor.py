@@ -20,7 +20,7 @@ from src.hunter import DATA
 OUTPUT = DATA / "recruiter_monitor.json"
 SEARCHES = [
     'site:linkedin.com/posts/ ("hiring" OR "we are hiring") ("QA" OR "quality engineer")',
-    'site:linkedin.com/posts/ ("hiring" OR "vaga") ("project manager" OR "gerente de projetos")',
+    'site:linkedin.com/posts/ ("hiring" OR "vaga") ("IT project manager" OR "gerente de projetos de TI")',
     'site:linkedin.com/posts/ ("recruiter" OR "recrutador") ("remote" OR "remoto")',
     'site:linkedin.com/posts/ ("coordenador de manufatura" OR "coordenador de produção" OR "manufacturing coordinator") hiring',
     'site:linkedin.com/posts/ ("manufacturing manager" OR "production supervisor" OR "industrial operations manager") (remote OR hybrid)',
@@ -50,9 +50,9 @@ LINKEDIN_EXTRA_SEARCHES = [
     'site:linkedin.com/posts/ "engenheiro de qualidade de software" "vaga"',
     'site:linkedin.com/posts/ "analista de testes" "contratando"',
     'site:linkedin.com/posts/ "gerente de qualidade" "software" "vaga"',
-    'site:linkedin.com/posts/ "project manager" "we are hiring"',
-    'site:linkedin.com/posts/ "gerente de projetos" "vaga"',
-    'site:linkedin.com/posts/ "coordenador de projetos" "contratando"',
+    'site:linkedin.com/posts/ "IT Project Manager" "we are hiring"',
+    'site:linkedin.com/posts/ "gerente de projetos de TI" "vaga"',
+    'site:linkedin.com/posts/ "technical project manager" "hiring"',
 ]
 
 # Discovery of publicly indexed LinkedIn posts; queries do not prove authorship.
@@ -64,7 +64,7 @@ COMPANY_POST_SEARCHES = [
     'site:linkedin.com/posts/ "manufacturing manager" "we are hiring"',
     'site:linkedin.com/posts/ "coordenador de produção" "estamos contratando"',
     'site:linkedin.com/posts/ "gerente industrial" "oportunidade"',
-    'site:linkedin.com/posts/ "gerente de projetos" "estamos contratando"',
+    'site:linkedin.com/posts/ "gerente de projetos de software" "estamos contratando"',
     'site:linkedin.com/company/ "vagas" "QA"',
     'site:linkedin.com/company/ "vagas" "manufatura"',
 ]
@@ -112,6 +112,11 @@ MANUFACTURING_SEARCHES = [
     'site:linkedin.com/posts/ "coordenador industrial" oportunidade',
     'site:linkedin.com/posts/ "gerente de fábrica" contratação',
     'site:linkedin.com/posts/ "industrial operations manager" hiring',
+    'site:linkedin.com/posts/ "especialista de projetos industriais" vaga',
+    'site:linkedin.com/posts/ "analista de projetos industriais" vaga',
+    'site:linkedin.com/posts/ "industrial project specialist" hiring',
+    'site:linkedin.com/posts/ "industrial project analyst" hiring',
+    'site:linkedin.com/posts/ "coordenador de projetos industriais" vaga',
     'site:linkedin.com/posts/ ("manufatura" OR "produção") ("Sumaré" OR "Campinas" OR "Paulínia" OR "Americana")',
 ]
 
@@ -243,20 +248,45 @@ def enrich_application(item: dict) -> dict:
 
 
 def classify(title: str) -> dict:
-    """Conservative title-only tags; never infer remote/hybrid eligibility."""
+    """Classify advertised roles conservatively; generic project managers are not IT."""
     import re
-    t = title.casefold()
-    manufacturing = bool(re.search(r"manufatur|manufactur|produ[cç][aã]o|production|industrial|lean manufacturing|plant manager|gerente de planta|gestor de f[aá]brica|factory manager|gerente de f[aá]brica|coordenador industrial|operations manager.{0,35}factory", t))
-    software_qa = bool(re.search(r"\bqa\b|sdet|software (?:quality|test)|quality (?:assurance|engineering|engineer)|test (?:engineer|manager|lead|automation)|head of qa|l[ií]der de testes|gerente de qa|autom[aá]c[aã]o de testes", t))
+    t = title.casefold().split(" - linkedin")[0]
+    industrial = r"manufatur|manufactur|produ[cç][aã]o|production|industrial|f[aá]brica|factory|plant|automotiv"
+    project = r"project manager|gerente de projetos|coordenador de projetos|project coordinator|pmo|especialista de projetos|analista de projetos|project specialist|project analyst"
+    tech = r"\\b(?:it|ti|software|technology|technical|tecnologia|sistemas|cloud|devops|digital transformation|transforma[cç][aã]o digital|infraestrutura de ti)\\b"
+    excluded = r"marketing|advertising|publicidade|construction|constru[cç][aã]o civil|real estate|imobili[aá]ri|events?|eventos|architecture|arquitetura"
+    manufacturing = bool(re.search(industrial, t)) and bool(re.search(
+        r"coordenador|coordinator|gerente|manager|supervisor|diretor|director|gestor|lead|especialista|specialist|analista|analyst|opera[cç][oõ]es|operations", t))
+    software_qa = bool(re.search(r"\\bqa\\b|sdet|software (?:quality|test)|quality (?:assurance|engineering|engineer)|test (?:engineer|manager|lead|automation)|head of qa|l[ií]der de testes|gerente de qa|autom[aá]c[aã]o de testes", t))
     industrial_quality = bool(re.search(r"qualidade industrial|quality control|quality inspector|qualidade de produ[cç][aã]o|quality manufacturing|supplier quality", t))
-    qa = software_qa and not (industrial_quality and not re.search(r"software|\bqa\b|sdet|test automation", t))
-    projects = bool(re.search(r"project manager|gerente de projetos|coordenador de projetos|project coordinator|pmo", t))
-    remote = bool(re.search(r"\bremote\b|\bremoto\b|home.office", t))
-    hybrid = bool(re.search(r"\bhybrid\b|\bh[ií]brid[oa]\b", t))
+    qa = software_qa and not (industrial_quality and not re.search(r"software|\\bqa\\b|sdet|test automation", t))
+    projects = bool(re.search(project, t) and re.search(tech, t) and not re.search(excluded, t))
+    remote = bool(re.search(r"\\bremote\\b|\\bremoto\\b|home.office", t))
+    hybrid = bool(re.search(r"\\bhybrid\\b|\\bh[ií]brid[oa]\\b", t))
     explicit_hiring = bool(re.search(r"hiring|contratando|estamos contratando|we.re hiring|vaga|opportunit|oportunidade|open position|job opening", t))
     area = "Manufatura" if manufacturing else "QA" if qa else "Projetos" if projects else "Outros"
+    if area == "Manufatura":
+        role = ("Especialista" if re.search(r"especialista|specialist", t) else
+                "Analista" if re.search(r"analista|analyst", t) else
+                "Coordenador" if re.search(r"coordenador|coordinator", t) else "Gestão industrial")
+    elif area == "Projetos":
+        role = "Gerente de Projetos de TI"
+    else:
+        role = ""
     modality = "Remoto (citado)" if remote else "Híbrido (citado)" if hybrid else "Não informada"
-    return {"area": area, "modality": modality, "review_priority": "high" if area != "Outros" and explicit_hiring else "normal"}
+    return {"area": area, "role": role, "modality": modality, "review_priority": "high" if area != "Outros" and explicit_hiring else "normal"}
+
+
+def explicit_city(text: str) -> str:
+    """Use only an explicitly mentioned municipality; never infer from query geography."""
+    import re
+    cities = ("Sumaré", "Campinas", "Paulínia", "Americana", "Nova Odessa",
+              "Hortolândia", "Indaiatuba", "Valinhos", "Vinhedo", "Jaguariúna",
+              "Piracicaba", "São Paulo", "Mogi Guaçu")
+    for city in cities:
+        if re.search(r"(?<!\\w)" + re.escape(city) + r"(?!\\w)", text, re.I):
+            return city
+    return ""
 
 
 def post_origin(url: str, source_url: str = "") -> str:
@@ -317,19 +347,19 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
             if labels["area"] != "Manufatura":
                 continue
             import re
-            leadership = r"gerente|coordenador|supervisor|diretor|gestor|lideran[cç]a|l[ií]der|manager|supervisor|director|lead|plant manager"
-            if not re.search(leadership, title.casefold()):
-                continue
-            # Require the advertised role, not just incidental text, to be industrial leadership.
             role = title.casefold().split(" - linkedin")[0]
-            if not re.search(r"(?:gerente|coordenador|supervisor|diretor|gestor|manager|director|lead|l[ií]der).{0,65}(?:produ[cç][aã]o|production|manufatur|manufactur|industrial|f[aá]brica|plant)|(?:produ[cç][aã]o|production|manufatur|manufactur|industrial|plant).{0,65}(?:gerente|coordenador|supervisor|manager|director|lead)", role):
+            if not re.search(r"gerente|coordenador|supervisor|diretor|gestor|manager|director|lead|especialista|specialist|analista|analyst", role):
+                continue
+            # Industrial context and role must be explicit in the advertised title.
+            if not re.search(r"manufatur|manufactur|produ[cç][aã]o|production|industrial|f[aá]brica|factory|plant|automotiv", role):
                 continue
             # Manufacturing listings should not be broad engineering/QA job advertisements.
             if re.search(r"\b(?:qa|sdet|software quality|quality engineer)\b", title.casefold()):
                 continue
+        city = explicit_city(title + " " + indexed_excerpt) if labels["area"] == "Manufatura" else ""
         found[url] = {
             "title": title[:500], "indexed_excerpt": indexed_excerpt[:1500], **facts, **freelance, "url": url, "published_at": date.isoformat(),
-            "source": "Public web news index", "status": "needs_review", "post_origin": post_origin(url, source_url), **labels,
+            "source": "Public web news index", "status": "needs_review", "city": city, "post_origin": post_origin(url, source_url), **labels,
         }
     return list(found.values())
 
