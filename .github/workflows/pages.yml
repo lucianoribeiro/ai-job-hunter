@@ -58,6 +58,35 @@ jobs:
           python -m src.recruiter_monitor
           python -m src.linkedin_history
           python -m src.unified_jobs_dashboard --projects data/project_jobs_poc.json --qa data/jobs.csv --output site/index.html
+      - name: Generate Monica opportunity assessments (private profile optional)
+        env:
+          MONICA_PROFILE_JSON: ${{ secrets.MONICA_PROFILE_JSON }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p site
+          if [ -n "${MONICA_PROFILE_JSON:-}" ]; then
+            profile_path="$(mktemp)"
+            trap 'rm -f "$profile_path"' EXIT
+            chmod 600 "$profile_path"
+            printf '%s' "$MONICA_PROFILE_JSON" > "$profile_path"
+            python -m src.monica_pipeline --profile "$profile_path" --projects data/project_jobs_poc.json --output site/monica-opportunities.json
+          else
+            echo 'No private Monica profile configured; publishing empty information page.'
+            printf '{"profile_id":"monica","jobs":[],"privacy":"public_job_metadata_only"}\n' > site/monica-opportunities.json
+          fi
+          python -m src.monica_page --input site/monica-opportunities.json --output site/monica.html
+          python - <<'PY'
+          from pathlib import Path
+          html = Path("site/index.html")
+          page = html.read_text(encoding="utf-8")
+          anchor = '<a href="monica.html" style="position:fixed;bottom:18px;right:18px;z-index:1000;background:#164a68;color:#fff;padding:12px 16px;border-radius:12px;text-decoration:none;box-shadow:0 4px 20px #0007">Carreira Mônica · CV × Vagas</a>'
+          if '</body>' in page:
+              page=page.replace('</body>',anchor+'</body>',1)
+          else:
+              page+=anchor
+          html.write_text(page,encoding="utf-8")
+          PY
           # Public endpoint only; no API credentials are injected into HTML.
           AI_MATCH_API_URL="${{ vars.AI_MATCH_API_URL }}" python - <<'PY'
           import json, os, re
