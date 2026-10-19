@@ -73,8 +73,12 @@ def assess(job, profile, page_text="", source_verified=False):
         gaps.append("Status da candidatura não verificado")
     if not job.get("url") or urlsplit(str(job.get("url"))).scheme not in ("http", "https"):
         gaps.append("URL de candidatura inválida")
-    score = max(0, min(100, 25 + len(matches)*9 + (10 if valid_role else -25)
-                    + (8 if remote or regional else -10) - len(gaps)*12 - (30 if irrelevant else 0)))
+    # Rank the professional match; do not penalize a vacancy merely because
+    # its public application page could not be checked. Status is a separate axis.
+    technical_gaps = sum(g.startswith("Requisito a confirmar:") for g in gaps)
+    score = max(0, min(100, 35 + len(matches)*12 + (10 if valid_role else -30)
+                    + (10 if remote or regional else 0) - technical_gaps*12
+                    - (50 if irrelevant else 0)))
     return {
         "title": str(job.get("title") or ""), "company": str(job.get("company") or ""),
         "location": str(job.get("location") or ""), "url": str(job.get("url") or ""),
