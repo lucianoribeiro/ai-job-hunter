@@ -7,7 +7,7 @@ class RecruiterSearchTaxonomyTests(unittest.TestCase):
             with self.subTest(title=title):
                 self.assertEqual(classify(title)["area"], "QA")
     def test_manufacturing_management_classification(self):
-        for title in ("Coordenador de Projetos Industriais hiring", "Industrial Project Specialist vacancy", "Analista de Projetos Industriais oportunidade"):
+        for title in ("Coordenador de Projetos Industriais hiring", "Industrial Project Manager vacancy", "Analista de Projetos Industriais oportunidade"):
             with self.subTest(title=title):
                 self.assertEqual(classify(title)["area"], "Manufatura")
     def test_production_coordination_is_not_industrial_projects(self):
