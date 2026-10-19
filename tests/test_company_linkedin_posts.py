@@ -13,6 +13,6 @@ class CompanyPostsTests(unittest.TestCase):
   self.assertTrue(all('site:linkedin.com/' in q for q in COMPANY_POST_SEARCHES))
  def test_origin_filter_ui(self):
   page=render({'jobs': []}, [])
-  self.assertIn('id="recruiter-origin"',page)
-  self.assertIn("card.dataset.origin===recruiterOrigin.value",page)
+  self.assertNotIn('id="recruiter-origin"',page)
+  self.assertIn('id="recruiter-clear"',page)
   self.assertIn('data-origin=',page)
