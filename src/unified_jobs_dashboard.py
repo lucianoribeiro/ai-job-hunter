@@ -601,9 +601,9 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 <nav class="primary-tabs" aria-label="Navegação principal" role="tablist"><button type="button" class="primary-tab" id="mainTabGeneral" role="tab" aria-controls="mainPanelGeneral" aria-selected="true" tabindex="0">Oportunidades Gerais</button><button type="button" class="primary-tab" id="mainTabRegional" role="tab" aria-controls="mainPanelRegional" aria-selected="false" tabindex="-1">Oportunidades Regionais</button><button type="button" class="primary-tab" id="mainTabAI" role="tab" aria-controls="mainPanelAI" aria-selected="false" tabindex="-1">AI Career Studio</button><button type="button" class="primary-tab" id="mainTabFinance" role="tab" aria-controls="mainPanelFinance" aria-selected="false" tabindex="-1">Consultor Salarial</button><button type="button" class="primary-tab" id="mainTabRecruiter" role="tab" aria-controls="mainPanelRecruiter" aria-selected="false" tabindex="-1">Recruiter Monitor</button></nav>
 <div id="mainPanelGeneral" class="primary-panel" role="tabpanel" aria-labelledby="mainTabGeneral">
 <section class="market-intelligence" aria-labelledby="market-heading" style="margin:20px 0;padding:22px;border:1px solid #415574;border-radius:18px;background:#152540"><h2 id="market-heading">Inteligência do Mercado · Histórico de oportunidades</h2><p style="color:#b7c7e0">Evolução mensal de vagas coletadas e posts públicos indexados. Os números representam a amostra encontrada, não todo o mercado.</p>""" + market_chart_html(len(monitor_cards)) + """</section>
-<div class="summary"><article>Total de vagas<strong>""" + str(len(jobs)) + """</strong></article>
-<article>QA<strong>""" + str(qa_count) + """</strong></article>
-<article>Projetos<strong>""" + str(projects_count) + """</strong></article>
+<div class="summary" aria-label="Resumo das vagas filtradas"><article>Total de vagas<strong id="summary-total" aria-live="polite">""" + str(len(jobs)) + """</strong></article>
+<article>QA<strong id="summary-qa" aria-live="polite">""" + str(qa_count) + """</strong></article>
+<article>Projetos<strong id="summary-projects" aria-live="polite">""" + str(projects_count) + """</strong></article>
 </div>
 <section><h2>Pesquisar oportunidades</h2><div class="filters">
 <input id="q" aria-label="Pesquisar vaga ou empresa" placeholder="Cargo, empresa, local...">
@@ -676,7 +676,7 @@ mainTabPairs.forEach(([tid],i)=>{const tab=document.getElementById(tid);tab.addE
 activateMainTab(0);
 const q=document.getElementById('q'),a=document.getElementById('area'),m=document.getElementById('mode'),source=document.getElementById('source'),region=document.getElementById('region'),city=document.getElementById('city'),age=document.getElementById('age'),usdFilter=document.getElementById('usdFilter');
 const rows=[...document.querySelectorAll('#jobs-table tbody tr')],count=document.getElementById('count');
-function apply(){let visible=0;for(const r of rows){
+function apply(){let visible=0,qaVisible=0,projectsVisible=0;for(const r of rows){
 const local=Boolean(r.dataset.city),location=(r.dataset.location||'').toLocaleLowerCase();
 const locOK=!region.value||(region.value==='local'?local:region.value==='remote'?r.dataset.mode==='remote':region.value==='brazil'?(!local&&/brasil|brazil/.test(location)):!local);
 const cityOK=!city.value||r.dataset.city===city.value;
@@ -685,8 +685,11 @@ let dateOK=!age.value||(age.value==='unknown'?!published:false);
 if(age.value&&age.value!=='unknown'&&published){const date=Date.parse(published+'T00:00:00Z');const now=Date.now();const elapsed=(now-date)/86400000;dateOK=elapsed>=0&&elapsed<=Number(age.value);}
 const usd=Number(r.dataset.usdMonthly||0),usdOK=!usdFilter.value||(usdFilter.value==='usd'?usd>0:usd>=5000);const show=usdOK&&dateOK&&locOK&&cityOK&&(!a.value||r.dataset.area===a.value)&&(!m.value||r.dataset.mode===m.value)&&(!source.value||r.dataset.source===source.value)&&
 r.textContent.toLocaleLowerCase().includes(q.value.trim().toLocaleLowerCase());
-r.hidden=!show;r.dataset.filterPass=String(show);if(show)visible++;
-}count.textContent=visible+' vaga(s) exibida(s)';document.getElementById('empty').hidden=visible!==0;}
+r.hidden=!show;r.dataset.filterPass=String(show);if(show){visible++;if(r.dataset.area==='QA')qaVisible++;else if(r.dataset.area==='Projetos')projectsVisible++;}
+}document.getElementById('summary-total').textContent=String(visible);
+document.getElementById('summary-qa').textContent=String(qaVisible);
+document.getElementById('summary-projects').textContent=String(projectsVisible);
+count.textContent=visible+' vaga(s) exibida(s)';document.getElementById('empty').hidden=visible!==0;}
 [q,a,m,source,region,city,age,usdFilter].forEach(el=>el.addEventListener('input',apply));apply();
 
 const rc=document.getElementById('regionalCompany'),rCity=document.getElementById('regionalCity'),rArea=document.getElementById('regionalArea'),rq=document.getElementById('regionalQuery');
