@@ -63,7 +63,11 @@ def main():
         parser.error("Provide exactly one of --profile or --cv")
     profile = structured_profile(read_cv(args.cv)) if args.cv else json.loads(args.profile.read_text(encoding="utf-8"))
     jobs = collect(args.projects)
-    for extra in args.extra_jobs:
+    # Use the existing official regional company watcher when its feed is present.
+    # No data is invented when monitoring returns an empty list.
+    regional_feed = Path("data/strategic_jobs.json")
+    extras = [regional_feed] + args.extra_jobs
+    for extra in extras:
         if extra.is_file():
             jobs.extend(collect(extra))
     results = build(profile, jobs, check_links=args.check_links)
