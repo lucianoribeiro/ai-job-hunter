@@ -398,6 +398,25 @@ def run() -> dict:
             except Exception as exc:
                 failures.append(type(exc).__name__)
         state = "partial" if failures else "ok"
+    # Retain collected items across partial RSS runs, for a rolling 30-day window.
+    # An empty or incomplete feed must not erase already discovered QA posts.
+    if OUTPUT.exists():
+        try:
+            previous = json.loads(OUTPUT.read_text(encoding="utf-8"))
+            cutoff = datetime.now(timezone.utc) - timedelta(days=30)
+            for item in previous.get("items", []):
+                if not isinstance(item, dict) or not item.get("url") or item["url"] in jobs:
+                    continue
+                try:
+                    published = datetime.fromisoformat(str(item.get("published_at") or "").replace("Z", "+00:00"))
+                    if published.tzinfo is None or published.astimezone(timezone.utc) < cutoff:
+                        continue
+                except (TypeError, ValueError, OverflowError):
+                    continue
+                jobs[item["url"]] = item
+        except (OSError, ValueError, TypeError):
+            pass
+
     data = {
         "date_utc": day, "checked_at": datetime.now(timezone.utc).isoformat(),
         "status": state, "query_count": len(SEARCHES) + len(QA_SEARCHES) + len(QA_LEADERSHIP_SEARCHES) + len(LINKEDIN_EXTRA_SEARCHES) + len(COMPANY_POST_SEARCHES) + len(FREELANCE_QA_SEARCHES) + len(MANUFACTURING_SEARCHES),
