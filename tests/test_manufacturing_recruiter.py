@@ -5,23 +5,25 @@ from src.recruiter_monitor import classify, parse_feed, MANUFACTURING_SEARCHES, 
 
 class ManufacturingRecruiterTests(unittest.TestCase):
     def test_industrial_leadership_classification(self):
-        for title in ("Plant Manager hiring", "Gerente industrial vaga",
-                      "Coordenador de produção oportunidade"):
+        for title in ("Industrial Project Coordinator hiring", "Especialista de Projetos Industriais vaga",
+                      "Analista de Projetos Industriais oportunidade"):
             self.assertEqual(classify(title)["area"], "Manufatura")
         self.assertEqual(classify("SDET - Software QA hiring")["area"], "QA")
 
     def test_manufacturing_seven_day_window_without_changing_qa(self):
         today=datetime(2026, 10, 18, tzinfo=timezone.utc)
         published=format_datetime(today-timedelta(days=3))
-        xml=f"<rss><channel><item><title>Coordenador de produção - vaga</title><link>https://www.linkedin.com/posts/test-123</link><pubDate>{published}</pubDate></item></channel></rss>"
+        xml=f"<rss><channel><item><title>Coordenador de Projetos Industriais - vaga</title><link>https://www.linkedin.com/posts/test-123</link><pubDate>{published}</pubDate></item></channel></rss>"
         self.assertEqual(len(parse_feed(xml, "2026-10-18", max_age_days=7, manufacturing_only=True)),1)
         self.assertEqual(len(parse_feed(xml, "2026-10-18")),0)
+        self.assertEqual(classify("Coordenador de Produção - vaga")["area"], "Outros")
 
     def test_nonleadership_post_filtered_in_manufacturing_feed(self):
         published=format_datetime(datetime(2026,10,18,tzinfo=timezone.utc))
         xml=f"<rss><channel><item><title>Production engineer QA hiring</title><link>https://www.linkedin.com/posts/test-456</link><pubDate>{published}</pubDate></item></channel></rss>"
         self.assertEqual(parse_feed(xml,"2026-10-18",max_age_days=7,manufacturing_only=True),[])
         self.assertGreaterEqual(len(MANUFACTURING_SEARCHES),10)
+        self.assertTrue(all("projet" in q or "project" in q for q in MANUFACTURING_SEARCHES))
 
 
     def test_generic_industrial_project_roles_with_context(self):
