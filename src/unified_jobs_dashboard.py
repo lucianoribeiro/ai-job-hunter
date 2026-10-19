@@ -511,7 +511,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         '<small>Após aplicar os filtros</small></div></div>'
         '<p class="recruiter-collection-status" role="status">' + e(collection_state) + '</p>'
         + ('<p id="recruiter-empty-note">Nenhuma publicação compatível com os critérios da coleta. Isso não significa ausência de vagas no mercado.</p>' if not total_posts else '')
-        '<div style="display:flex;gap:12px;flex-wrap:wrap;margin:18px 0">'
+        + '<div style="display:flex;gap:12px;flex-wrap:wrap;margin:18px 0">'
         '<label>Área <select id="recruiter-area"><option value="">Todas as áreas</option>'
         '<option>Manufatura</option><option>QA</option><option value="Projetos">Projetos de TI</option><option>Outros</option></select></label>'
         '<label>Cargo <select id="recruiter-role"><option value="">Todos os cargos</option></select></label>'
