@@ -55,12 +55,18 @@ def main():
     parser.add_argument("--cv", type=Path, help="Local private PDF, DOCX or TXT curriculum")
     parser.add_argument("--projects", type=Path, default=Path("data/project_jobs_poc.json"))
     parser.add_argument("--output", type=Path, default=Path("site/monica-opportunities.json"))
+    parser.add_argument("--extra-jobs", type=Path, nargs="*", default=[],
+                        help="Additional public vacancy JSON feeds from verified regional sources")
     parser.add_argument("--check-links", action="store_true", help="Check allowlisted ATS pages; unknown remains unverified")
     args = parser.parse_args()
     if bool(args.profile) == bool(args.cv):
         parser.error("Provide exactly one of --profile or --cv")
     profile = structured_profile(read_cv(args.cv)) if args.cv else json.loads(args.profile.read_text(encoding="utf-8"))
-    results = build(profile, collect(args.projects), check_links=args.check_links)
+    jobs = collect(args.projects)
+    for extra in args.extra_jobs:
+        if extra.is_file():
+            jobs.extend(collect(extra))
+    results = build(profile, jobs, check_links=args.check_links)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps({"profile_id": str(profile.get("id") or "monica"),
        "privacy": "public_job_metadata_only", "jobs": results}, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
