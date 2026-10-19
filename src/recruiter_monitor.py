@@ -96,6 +96,8 @@ FREELANCE_QA_SEARCHES = [
 
 MANUFACTURING_SEARCHES = [
     'site:linkedin.com/posts/ "coordenador de projetos industriais" vaga',
+    'site:linkedin.com/posts/ "gerente de projetos industriais" vaga',
+    'site:linkedin.com/posts/ "industrial project manager" hiring',
     'site:linkedin.com/posts/ "especialista de projetos industriais" vaga',
     'site:linkedin.com/posts/ "analista de projetos industriais" vaga',
     'site:linkedin.com/posts/ "coordenador de projetos" ("indústria" OR "manufatura" OR "automotivo")',
@@ -107,6 +109,7 @@ MANUFACTURING_SEARCHES = [
     'site:linkedin.com/posts/ "project coordinator" ("manufacturing" OR "industrial")',
     'site:linkedin.com/posts/ "project specialist" ("manufacturing" OR "industrial")',
     'site:linkedin.com/posts/ "project analyst" ("manufacturing" OR "industrial")',
+    'site:linkedin.com/posts/ "gerente de projetos" ("indústria" OR "manufatura" OR "automotivo")',
 ]
 
 
@@ -246,9 +249,9 @@ def industrial_project_role(title: str, excerpt: str = "") -> str:
     if not re.search(r"manufatur|manufactur|industrial|ind[uú]stria|automotiv|f[aá]brica|factory|plant|produ[cç][aã]o|production", context):
         return ""
     for label, pattern in (
-        ("Coordenador", r"coordenador(?:a)? de projetos|project coordinator"),
-        ("Especialista", r"especialista de projetos?|project specialist"),
-        ("Analista", r"analista de projetos?|project analyst"),
+        ("Gerente de Projetos", r"gerente de projetos|project manager"),
+        ("Coordenador de Projetos", r"coordenador(?:a)? de projetos|project coordinator"),
+        ("Analista de Projetos", r"analista de projetos?|project analyst"),
     ):
         if re.search(pattern, t):
             return label
