@@ -400,13 +400,13 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
     monitor_cards = []
     # Deduplicate manufacturing posts with the same inferred role, company and city.
     seen_manufacturing = set()
+    # Publication index timestamp is the primary sort key: newest first, across all areas.
+    # Use the original ISO timestamp (UTC-aware) to avoid sorting localized display strings.
     ordered_items = sorted(
-        [i for i in monitor_items[:100] if isinstance(i, dict)], key=lambda i: (
-            i.get("area") != "Manufatura",
-            not manufacturing_details(i.get("title", ""))["priority"] if i.get("area") == "Manufatura" else False,
-            manufacturing_details(i.get("title", ""))["expired"] if i.get("area") == "Manufatura" else False,
-        )
-    )
+        [item for item in monitor_items if isinstance(item, dict)],
+        key=lambda item: str(item.get("published_at") or ""),
+        reverse=True,
+    )[:100]
     for item in ordered_items:
         if not isinstance(item, dict):
             continue
