@@ -6,7 +6,7 @@ CV="${1:-private/profiles/monica/profile.pdf}"
 test -r "$CV" || { echo "CV not found: $CV" >&2; exit 1; }
 python3 -m src.project_jobs_poc --config config/project_boards.example.json --output data/project_jobs_poc.json
 python3 -m src.strategic_companies --config config/strategic_companies.json --output data/strategic_jobs.json
-python3 -m src.monica_pipeline --cv "$CV" --projects data/project_jobs_poc.json --enrich-links --check-links --output site/monica-opportunities.json
+python3 -m src.monica_pipeline --cv "$CV" --projects data/project_jobs_poc.json --linkedin data/monica_linkedin_jobs.json --enrich-links --check-links --output site/monica-opportunities.json
 python3 -m src.monica_page --input site/monica-opportunities.json --output site/monica.html
 python3 - <<'PY'
 import json
@@ -19,5 +19,6 @@ print("Project feed:",len(raw.get("jobs",[])),"Regional feed:",len(reg.get("jobs
 print("Matched after screening:",len(out["jobs"]))
 print("Geography:",dict(Counter(j.get("location_class") for j in out["jobs"])))
 print("Status:",dict(Counter(j.get("application_status") for j in out["jobs"])))
+print("LinkedIn imported:",out.get("source_counts",{}).get("linkedin_input",0))
 PY
 echo "Report ready: site/monica.html"
