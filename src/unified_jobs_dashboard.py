@@ -453,11 +453,12 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         if category == "Manufatura":
             details = manufacturing_details(raw_title)
             fingerprint = _re.sub(r"[^a-z0-9]+", " ", raw_title.casefold().replace("linkedin", "")).strip()
-            key = (details["role"].casefold(), details["employer"].casefold(), details["location"].casefold()) if details["employer"] and details["location"] else (fingerprint,)
+            key = (item["role"].casefold(), details["employer"].casefold(), details["location"].casefold()) if details["employer"] and details["location"] else (fingerprint,)
             if key in seen_manufacturing:
                 continue
             seen_manufacturing.add(key)
-            title = e(details["role"] + (" · " + details["employer"] if details["employer"] else "") + (" · " + details["location"] if details["location"] else ""))
+            # The matching project role was verified above; never relabel it as production leadership.
+            title = e(item["role"] + (" · " + details["employer"] if details["employer"] else "") + (" · " + details["location"] if details["location"] else ""))
             city = item.get("city") or details["location"] or ""
             extra += '<p class="recruiter-location">📍 Cidade: ' + e(city or "Não informada") + '</p>'
             if details["priority"]:
