@@ -259,6 +259,7 @@ def classify(title: str) -> dict:
         r"coordenador|coordinator|gerente|manager|supervisor|diretor|director|gestor|lead|especialista|specialist|analista|analyst|opera[cç][oõ]es|operations", t))
     software_qa = bool(re.search(r"\\bqa\\b|sdet|software (?:quality|test)|quality (?:assurance|engineering|engineer)|test (?:engineer|manager|lead|automation)|head of qa|l[ií]der de testes|gerente de qa|autom[aá]c[aã]o de testes", t))
     industrial_quality = bool(re.search(r"qualidade industrial|quality control|quality inspector|qualidade de produ[cç][aã]o|quality manufacturing|supplier quality", t))
+    software_qa = software_qa or bool(re.search(r"\\bqa\\s+(?:tech\\s+)?lead\\b|\\bqa\\s+manager\\b", t))
     qa = software_qa and not (industrial_quality and not re.search(r"software|\\bqa\\b|sdet|test automation", t))
     projects = bool(re.search(project, t) and re.search(tech, t) and not re.search(excluded, t))
     remote = bool(re.search(r"\\bremote\\b|\\bremoto\\b|home.office", t))
@@ -341,7 +342,7 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
         freelance = freelance_qa_facts(title, indexed_excerpt, labels["area"])
         labels["modality"] = facts["modality"]
         hiring = bool(re.search(r"\bhiring\b|\bcontratando\b|\bvaga(?:s)?\b|\bjob opening\b|\bapply\b|\bopportunit(?:y|ies)\b|\boportunidade\b|\brecruiting\b|\bwe.re hiring\b|\bselection process\b|\bseletivo\b", title, re.I))
-        if labels["area"] in ("QA", "Projetos") and not (hiring or freelance["freelance_qa"] == "yes"):
+        if labels["area"] in ("QA", "Projetos", "Outros") and not (hiring or freelance["freelance_qa"] == "yes"):
             continue
         if manufacturing_only:
             if labels["area"] != "Manufatura":
