@@ -23,8 +23,6 @@ SEARCHES = [
     'site:linkedin.com/posts/ ("hiring" OR "vaga") ("IT project manager" OR "gerente de projetos de TI")',
     'site:linkedin.com/posts/ ("recruiter" OR "recrutador") ("remote" OR "remoto")',
     'site:linkedin.com/posts/ ("coordenador de projetos industriais" OR "industrial project coordinator") hiring',
-    'site:linkedin.com/posts/ ("industrial project specialist" OR "industrial project analyst") hiring',
-    'site:linkedin.com/posts/ ("especialista de projetos" OR "analista de projetos") ("manufatura" OR "industrial")',
 ]
 
 
@@ -63,7 +61,6 @@ COMPANY_POST_SEARCHES = [
     'site:linkedin.com/posts/ "QA Manager" "careers"',
     'site:linkedin.com/posts/ "industrial project coordinator" "we are hiring"',
     'site:linkedin.com/posts/ "coordenador de projetos industriais" "estamos contratando"',
-    'site:linkedin.com/posts/ "especialista de projetos industriais" "oportunidade"',
     'site:linkedin.com/posts/ "gerente de projetos de software" "estamos contratando"',
     'site:linkedin.com/company/ "vagas" "QA"',
     'site:linkedin.com/company/ "vagas" "manufatura"',
@@ -98,13 +95,10 @@ MANUFACTURING_SEARCHES = [
     'site:linkedin.com/posts/ "coordenador de projetos industriais" vaga',
     'site:linkedin.com/posts/ "gerente de projetos industriais" vaga',
     'site:linkedin.com/posts/ "industrial project manager" hiring',
-    'site:linkedin.com/posts/ "especialista de projetos industriais" vaga',
     'site:linkedin.com/posts/ "analista de projetos industriais" vaga',
     'site:linkedin.com/posts/ "coordenador de projetos" ("indústria" OR "manufatura" OR "automotivo")',
-    'site:linkedin.com/posts/ "especialista de projetos" ("indústria" OR "manufatura" OR "automotivo")',
     'site:linkedin.com/posts/ "analista de projetos" ("indústria" OR "manufatura" OR "automotivo")',
     'site:linkedin.com/posts/ "industrial project coordinator" hiring',
-    'site:linkedin.com/posts/ "industrial project specialist" hiring',
     'site:linkedin.com/posts/ "industrial project analyst" hiring',
     'site:linkedin.com/posts/ "project coordinator" ("manufacturing" OR "industrial")',
     'site:linkedin.com/posts/ "project specialist" ("manufacturing" OR "industrial")',
