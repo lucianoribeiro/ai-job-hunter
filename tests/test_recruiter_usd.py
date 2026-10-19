@@ -16,4 +16,4 @@ class RecruiterUsdTests(unittest.TestCase):
         self.assertIn('id="recruiter-usd"', page)
         self.assertIn('Somente vagas com salário em USD', page)
         self.assertIn('card.dataset.usd===recruiterUsd.value', page)
-        self.assertIn('area&&mode&&usd&&origin&&contract', page)
+        self.assertIn('area&&role&&city&&mode&&usd&&origin&&contract', page)
