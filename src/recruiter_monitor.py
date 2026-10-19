@@ -117,6 +117,12 @@ MANUFACTURING_SEARCHES = [
     'site:linkedin.com/posts/ "industrial project specialist" hiring',
     'site:linkedin.com/posts/ "industrial project analyst" hiring',
     'site:linkedin.com/posts/ "coordenador de projetos industriais" vaga',
+    'site:linkedin.com/posts/ "coordenador de projetos" ("indústria" OR "manufatura" OR "automotivo")',
+    'site:linkedin.com/posts/ "especialista de projetos" ("indústria" OR "manufatura" OR "automotivo")',
+    'site:linkedin.com/posts/ "analista de projetos" ("indústria" OR "manufatura" OR "automotivo")',
+    'site:linkedin.com/posts/ "project coordinator" ("manufacturing" OR "industrial")',
+    'site:linkedin.com/posts/ "project specialist" ("manufacturing" OR "industrial")',
+    'site:linkedin.com/posts/ "project analyst" ("manufacturing" OR "industrial")',
     'site:linkedin.com/posts/ ("manufatura" OR "produção") ("Sumaré" OR "Campinas" OR "Paulínia" OR "Americana")',
 ]
 
@@ -247,6 +253,25 @@ def enrich_application(item: dict) -> dict:
         return item
 
 
+def industrial_project_role(title: str, excerpt: str = "") -> str:
+    """Accept generic project job titles only with explicit industrial context."""
+    import re
+    t = title.casefold().split(" - linkedin")[0]
+    context = (t + " " + excerpt.casefold())
+    if re.search(r"marketing|advertising|publicidade|software|\\bti\\b|\\bit\\b|construction|constru[cç][aã]o civil|events?|eventos", t):
+        return ""
+    if not re.search(r"manufatur|manufactur|industrial|ind[uú]stria|automotiv|f[aá]brica|factory|plant|produ[cç][aã]o|production", context):
+        return ""
+    for label, pattern in (
+        ("Coordenador", r"coordenador(?:a)? de projetos|project coordinator"),
+        ("Especialista", r"especialista de projetos?|project specialist"),
+        ("Analista", r"analista de projetos?|project analyst"),
+    ):
+        if re.search(pattern, t):
+            return label
+    return ""
+
+
 def classify(title: str) -> dict:
     """Classify advertised roles conservatively; generic project managers are not IT."""
     import re
@@ -338,6 +363,9 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
         if not (linkedin_url or (news_redirect and re.search(r"\bLinkedIn\b", title, re.I))):
             continue
         labels = classify(title)
+        industrial_role = industrial_project_role(title, indexed_excerpt)
+        if industrial_role:
+            labels["area"], labels["role"] = "Manufatura", industrial_role
         facts = extract_job_facts(title + " " + indexed_excerpt)
         freelance = freelance_qa_facts(title, indexed_excerpt, labels["area"])
         labels["modality"] = facts["modality"]
@@ -352,7 +380,7 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
             if not re.search(r"gerente|coordenador|supervisor|diretor|gestor|manager|director|lead|especialista|specialist|analista|analyst", role):
                 continue
             # Industrial context and role must be explicit in the advertised title.
-            if not re.search(r"manufatur|manufactur|produ[cç][aã]o|production|industrial|f[aá]brica|factory|plant|automotiv", role):
+            if not industrial_role and not re.search(r"manufatur|manufactur|produ[cç][aã]o|production|industrial|f[aá]brica|factory|plant|automotiv", role):
                 continue
             # Manufacturing listings should not be broad engineering/QA job advertisements.
             if re.search(r"\b(?:qa|sdet|software quality|quality engineer)\b", title.casefold()):
