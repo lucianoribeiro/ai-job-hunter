@@ -84,7 +84,9 @@ def canonical(url: str) -> str:
 
 def qualify(job: dict) -> dict | None:
     title = job["title"]
-    if not (TITLE.search(title) and LEVEL.search(title)) or EXCLUDE.search(title):
+    from src.recruiter_monitor import industrial_project_role
+    industrial_match = industrial_project_role(title, str(job.get("description") or ""))
+    if not ((TITLE.search(title) and LEVEL.search(title)) or industrial_match) or EXCLUDE.search(title):
         return None
     location = job.get("location", "")
     details = job.get("description", "")[:2500]
