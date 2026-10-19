@@ -11,6 +11,7 @@ from src.monica_verify import verify
 from src.monica_local import read_cv, structured_profile
 from src.monica_location import location_category
 from src.monica_job_enrichment import enrich
+from src.monica_evidence import explain
 
 def collect(project_path, qa_path=None):
     document = json.loads(Path(project_path).read_text(encoding="utf-8"))
@@ -42,6 +43,7 @@ def build(profile, jobs, check_links=False, verifier=verify, enrich_links=False,
                         "Apply for this job" if verification["status"] == "apply_indicated" else "",
                         verification["status"] != "unverified")
         result["verification_reason"] = verification.get("reason", "")
+        result["requirement_analysis"] = explain(job, profile)
         result["location_class"] = location_class
         result["location_evidence"] = job.get("location_evidence", "unverified")
         result["tier"] = ("recommended" if result["score"] >= 70 else "review" if result["score"] >= 50 else "low")
