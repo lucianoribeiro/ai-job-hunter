@@ -39,6 +39,24 @@ def render(data):
                 cards.append('<article class="regional-card" style="padding:15px"><strong>'+esc(j.get("title"))+
                     '</strong><p>'+esc(j.get("company"))+' · '+esc(j.get("location"))+'</p><p>'+state+
                     ' · Data não informada</p><p>Match CV × Vaga: aguardando perfil privado.</p>'+link+'</article>')
+    # Show the four reviewed public advertisements directly in the regional dashboard,
+    # including when the private CV profile is not configured in GitHub Actions.
+    reviewed=Path("data/monica_regional_reviewed.json")
+    if reviewed.is_file():
+        existing=set()
+        for job in items:
+            existing.add(str(job.get("url") or "").rstrip("/").lower())
+        for job in json.loads(reviewed.read_text(encoding="utf-8")).get("jobs",[]):
+            url=str(job.get("url") or "")
+            if not url.startswith("https://") or url.rstrip("/").lower() in existing:
+                continue
+            existing.add(url.rstrip("/").lower())
+            cards.append('<article class="regional-card" style="padding:15px"><strong>'+
+                esc(job.get("title"))+'</strong><p>'+esc(job.get("company"))+' · '+
+                esc(job.get("location"))+'</p><p>Origem: '+esc(job.get("source"))+
+                '</p><p>Candidatura não verificada · anúncio previamente identificado</p>'+
+                '<p>Match CV × Vaga: avaliação preliminar; não é pontuação calculada nesta coleta.</p>'+
+                '<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Consultar anúncio ↗</a></article>')
     notice=('<p>Nenhuma oportunidade elegível foi publicada nesta execução. '
             'A lista depende das fontes disponíveis e do perfil configurado.</p>')
     return ('<section id="monica-inline" aria-labelledby="monica-inline-title" style="margin:20px 0">'
