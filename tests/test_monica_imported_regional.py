@@ -13,6 +13,12 @@ class ImportedRegionalJobsTests(unittest.TestCase):
         self.assertIn("anúncio previamente identificado",html)
         self.assertLess(html.index("VRH Consultoria"),html.index("AB InBev") if "AB InBev" in html else len(html))
         self.assertIn("Vaga importada · Região de Nova Odessa",html)
+    def test_total_matches_all_rendered_cards(self):
+        html=render({"jobs":[]})
+        self.assertEqual(html.count('<article class="regional-card"'), 17)
+        self.assertIn('id="monica-total-cards">17</strong>', html)
+        self.assertIn('Fim da lista · 17 cartões exibidos', html)
+
     def test_not_duplicated_when_cv_feed_contains_listing(self):
         job={"url":"https://www.netvagas.com.br/empresa/anuncios/a1724116/gerente-de-projetos/",
              "title":"Gerente de Projetos","company":"VRH Consultoria",
