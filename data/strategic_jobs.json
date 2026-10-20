@@ -1,17 +1,6 @@
 {
-  "generated_at": "2026-10-18T19:09:14.992784+00:00",
+  "generated_at": "2026-10-20T15:08:32.942647+00:00",
   "jobs": [
-    {
-      "company": "Honda Brasil",
-      "title": "Analista Compliance Pleno São Paulo - SP e Híbrido Efetivo",
-      "location": "Não informado",
-      "url": "https://honda.gupy.io/jobs/12198670",
-      "source": "Portal oficial",
-      "published": "",
-      "regional": false,
-      "target_role": false,
-      "verification": "Dados parciais; confirmar detalhes no anúncio"
-    },
     {
       "company": "Honda Brasil",
       "title": "Analista Dados PL | Foco em Planejamento Comercial São Paulo - SP e Híbrido Efetivo",
@@ -110,6 +99,226 @@
       "regional": false,
       "target_role": false,
       "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Honda Brasil",
+      "title": "Assistente Expatriação Sumaré - SP e Híbrido Efetivo",
+      "location": "Sumaré",
+      "url": "https://honda.gupy.io/jobs/12600011",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Solutions Architect, Sumaré/SP",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Solutions-Architect--Sumar-SP_R01170420",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Project Manager – Sumare, Brasil",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Project-Manager---Sumare--Brasil_R01170719",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": true,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Accounting Specialist, Sumaré/SP",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Accounting-Specialist--Sumar-SP_R01171324",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Marketing Performance Analyst / Sumaré SP",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Marketing-Performance-Analytics-Sr-Specialist---Sumar-SP_R01167655",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Full-Stack Developer - Sumare, Brasil.",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Full-Stack-Developer---Sumare--Brasil_R01169919",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Senior Data Analyst, Sumaré/SP",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Senior-Data-Analyst--Sumar-SP_R01170419",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Data Engineering Specialist, Sumaré/SP",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Data-Engineering-Specialist--Sumar-SP_R01170414",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Senior Data Engineering, Sumaré/SP",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Senior-Data-Engineering--Sumar-SP_R01170157",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Country Activation Marketer, Sumaré/SP",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Country-Activation-Marketer--Sumar-SP_R01171306-1",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Especialista de Aplicações, Sumaré/SP",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Especialista-de-Aplicaes--Sumar-SP_R01171687",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Customer Success Engineering Specialist, Sumaré/SP",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Customer-Success-Engineering-Specialist--Sumar-SP_R01170325",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Platform Integration Engineering Specialist, Sumaré/SP",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Platform-Integration-Engineering-Specialist--Sumar-SP_R01170326",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Executivo(a) de Vendas - Fitas e Adesivos Industriais, Minas Gerais",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-SUMARE-VIRTUAL/Executivo-a--de-Vendas---Fitas-e-Adesivos-Industriais--Minas-Gerais_R01171275-1",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Principal Data Engineering",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Principal-Data-Engineering_R01162545",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Executivo(a) de Vendas de Abrasivos (Passo Fundo/RS)",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Executivo-a--de-Vendas-de-Abrasivos--Passo-Fundo-RS-_R01167546",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Sr Data Scientist",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Sr-Data-Scientist_R01169811",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Application Development Specialist - Personal Safety Division",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Application-Development-Specialist---Personal-Safety-Division_R01170725",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Especialista em Engenharia de Embalagens",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Especialista-em-Engenharia-de-Embalagens_R01170006",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Executivo(a) de Vendas de Abrasivos (Londrina/PR e região)",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Executivo-a--de-Vendas-de-Abrasivos--Londrina-PR-e-regio-_R01171950",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
     },
     {
       "company": "Villares Metals",
@@ -223,31 +432,42 @@
     },
     {
       "company": "Rhodia / Solvay",
+      "title": "Técnico de Inspeção Especialista (H/M/X)",
+      "location": "Paulínia",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-T%C3%A9cnico-de-Inspe%C3%A7%C3%A3o-Especialista-%28HMX%29-13148-914/1374475057/",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Rhodia / Solvay",
+      "title": "Aprendiz (H/M/X) - Guardinha",
+      "location": "Paulínia",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Aprendiz-%28HMX%29-Guardinha-13148-914/1374894557/",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Rhodia / Solvay",
+      "title": "Estágio Superior em Engenharia Química (H/M/X)",
+      "location": "Paulínia",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Est%C3%A1gio-Superior-em-Engenharia-Qu%C3%ADmica-%28HMX%29-13148-914/1372331557/",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Rhodia / Solvay",
       "title": "Estágio em Supply Chain (H/M/X)",
       "location": "Paulínia",
       "url": "https://careers.solvay.com/job/Brazil-Paulinia-Est%C3%A1gio-em-Supply-Chain-%28HMX%29-13148-914/1374455457/",
-      "source": "Portal oficial",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Dados parciais; confirmar detalhes no anúncio"
-    },
-    {
-      "company": "Rhodia / Solvay",
-      "title": "Operador de Acabamento - Vaga Afirmativa para Pessoas com Deficiência (H/M/X)",
-      "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Operador-de-Acabamento-Vaga-Afirmativa-para-Pessoas-com-Defici%C3%AAncia-%28HMX%29-13148-914/1374756057/",
-      "source": "Portal oficial",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Dados parciais; confirmar detalhes no anúncio"
-    },
-    {
-      "company": "Rhodia / Solvay",
-      "title": "Técnico de Planejamento Sênior (H/M/X)",
-      "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-T%C3%A9cnico-de-Planejamento-S%C3%AAnior-%28HMX%29-13148-914/1374452657/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -264,17 +484,6 @@
       "regional": true,
       "target_role": false,
       "verification": "Dados parciais; confirmar detalhes no anúncio"
-    },
-    {
-      "company": "Rhodia / Solvay",
-      "title": "Técnico de Inspeção Especialista (H/M/X)",
-      "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-T%C3%A9cnico-de-Inspe%C3%A7%C3%A3o-Especialista-%28HMX%29-13148-914/1374475057/",
-      "source": "Portal oficial",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Dados parciais; confirmar detalhes no anúncio"
     }
   ],
   "sources": [
@@ -283,56 +492,77 @@
       "state": "ok",
       "found": 10,
       "city": "Sumaré",
-      "url": "https://honda.gupy.io/"
+      "url": "https://honda.gupy.io/",
+      "career_links": []
     },
     {
       "company": "3M Brasil",
+      "state": "ok",
+      "found": 19,
       "city": "Sumaré",
-      "url": "",
-      "state": "manual",
-      "found": 0
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search",
+      "career_links": []
     },
     {
       "company": "Villares Metals",
       "state": "ok",
       "found": 10,
       "city": "Sumaré",
-      "url": "https://villaresmetals.gupy.io/"
+      "url": "https://villaresmetals.gupy.io/",
+      "career_links": []
     },
     {
       "company": "PPG",
+      "state": "needs_connector",
+      "found": 0,
       "city": "Sumaré",
-      "url": "",
-      "state": "manual",
-      "found": 0
+      "url": "https://careers.ppg.com/br/pt/search-results",
+      "career_links": []
     },
     {
       "company": "Petrobras / Replan",
+      "state": "no_open_registration",
+      "found": 0,
       "city": "Paulínia",
-      "url": "https://petrobras.com.br/quem-somos/refinaria-de-paulinia",
-      "state": "manual",
-      "found": 0
+      "url": "https://petrobras.com.br/quem-somos/concursos",
+      "career_links": []
     },
     {
       "company": "Rhodia / Solvay",
       "state": "ok",
       "found": 5,
       "city": "Paulínia",
-      "url": "https://careers.solvay.com/search/?q=&locationsearch=Paulinia"
+      "url": "https://careers.solvay.com/search/?q=&locationsearch=Paulinia",
+      "career_links": []
     },
     {
       "company": "Braskem",
+      "state": "portal_only",
+      "found": 0,
       "city": "Paulínia",
-      "url": "https://www.braskem.com.br/braskemsaopaulo-homolog",
-      "state": "manual",
-      "found": 0
+      "url": "https://www.braskem.com.br/carreira",
+      "career_links": [
+        "https://www.braskem.com.br/carreira",
+        "https://www.braskem.com.br/careers",
+        "https://www.braskem.com.br/estagio-universitario",
+        "https://www.braskem.com.br/estagio-tecnico",
+        "https://www.braskem.com.br/carreiras-jovem-operador",
+        "https://epiw.fa.la1.oraclecloud.com/hcmUI/CandidateExperience/pt-BR/sites/CX_1001",
+        "https://www.braskem.com.br/carreira#topo"
+      ]
     },
     {
       "company": "Goodyear",
+      "state": "portal_only",
+      "found": 0,
       "city": "Americana",
       "url": "https://www.goodyear.com.br/trabalhe-conosco/",
-      "state": "manual",
-      "found": 0
+      "career_links": [
+        "https://www.goodyear.com.br/informacoes-corporativas",
+        "https://corporate.goodyear.com",
+        "https://jobs.goodyear.com/?locale=pt_BR",
+        "https://corporate.goodyear.com/en-US/"
+      ]
     }
   ],
   "note": "Only publicly exposed links; zero results do not prove no openings. ATS APIs may require authentication."
