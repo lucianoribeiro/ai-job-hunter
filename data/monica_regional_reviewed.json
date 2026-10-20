@@ -1,0 +1,51 @@
+{
+  "source": "Curadoria regional de anúncios públicos",
+  "snapshot_date": "2026-10-19",
+  "notes": "Quatro oportunidades avaliadas na conversa. Não pressupor anúncio novo nem candidatura aberta. Não é coletor automático dessas fontes.",
+  "jobs": [
+    {
+      "company": "VRH Consultoria",
+      "title": "Gerente de Projetos",
+      "location": "Paulínia, SP",
+      "url": "https://www.netvagas.com.br/empresa/anuncios/a1724116/gerente-de-projetos/",
+      "source": "Netvagas / ABLER",
+      "description": "Planejamento e controle de custos, cronogramas, liderança interdisciplinar, projetos industriais e manufatura. Formação Administração/Engenharia ou correlatas; SAP ou similar; Lean Six Sigma desejável.",
+      "application_status": "unverified",
+      "verification_note": "Anúncio público localizado; candidatura final não confirmada",
+      "published_at": null
+    },
+    {
+      "company": "LGS Engenharia",
+      "title": "Coordenador de Projetos",
+      "location": "Nova Odessa, SP",
+      "url": "https://www.bne.com.br/vaga-de-emprego-na-area-informatica-em-nova-odessa-sp/coordenador-de-projetos/4321063",
+      "source": "BNE",
+      "description": "Coordenação de projetos, experiência como coordenador(a) e disponibilidade para Nova Odessa ou região. Requisitos detalhados não disponíveis.",
+      "application_status": "unverified",
+      "verification_note": "Anúncio público localizado; candidatura final não confirmada",
+      "published_at": null
+    },
+    {
+      "company": "Stefanini",
+      "title": "Gerente Projetos III",
+      "location": "Jaguariúna, SP",
+      "url": "https://empregandobrasil.com.br/vagas/gerente-projetos-iii-jaguariuna-sp/",
+      "source": "Empregando Brasil",
+      "description": "Projetos estratégicos de tecnologia, transformação digital, cronogramas, orçamento, riscos, escopo, governança, stakeholders, MS Project e Azure DevOps.",
+      "application_status": "unverified",
+      "verification_note": "Anúncio agregado; candidatura final não confirmada",
+      "published_at": "2026-09-22"
+    },
+    {
+      "company": "Stefanini",
+      "title": "Gerente Projetos (PMO)",
+      "location": "Jaguariúna, SP",
+      "url": "https://employed.com.br/vagas/jaguariuna/outros/gerente-projetos/588229/",
+      "source": "Employed",
+      "description": "PMO, governança, acompanhamento de benefícios dos projetos de inovação, Jira, ferramentas de IA e stakeholders. Não foi confirmada eventual republicação em outra fonte.",
+      "application_status": "unverified",
+      "verification_note": "Anúncio agregado; candidatura final não confirmada",
+      "published_at": null
+    }
+  ]
+}
