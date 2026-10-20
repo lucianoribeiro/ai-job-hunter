@@ -48,7 +48,7 @@ class RegionalCatalogTests(unittest.TestCase):
         self.assertIn("Vagas coletadas: 1", page)
         self.assertIn("Sumaré (1)", page)
 
-    def test_manufacturing_leadership_alert_for_strategic_company(self):
+    def test_inline_monica_replaces_old_alert_without_removing_regional_jobs(self):
         report = {
             "jobs": [
                 {"title": "Coordenador de Manufatura Sumaré - SP", "company": "Villares Metals",
@@ -59,10 +59,10 @@ class RegionalCatalogTests(unittest.TestCase):
             "sources": [{"company": "Villares Metals", "city": "Sumaré", "state": "ok"}],
         }
         page = render({"jobs": []}, [], strategic=report)
-        alert = page.split('id="manufacturingLeadershipAlert"', 1)[1].split('</aside>', 1)[0]
-        self.assertIn("1 alerta(s) ativo(s)", alert)
-        self.assertIn("Coordenador de Manufatura", alert)
-        self.assertNotIn("Analista de Produção", alert)
+        self.assertNotIn('id="manufacturingLeadershipAlert"', page)
+        self.assertIn("<!-- MONICA_OPPORTUNITIES_SLOT -->", page)
+        self.assertIn("Coordenador de Manufatura", page)
+        self.assertIn("Analista de Produção", page)
 
     def test_manufacturing_alert_title_criteria(self):
         self.assertTrue(manufacturing_leadership_alert("Gerente de Produção"))
