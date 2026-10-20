@@ -13,6 +13,7 @@ def render(data):
         return (day is None, -(int(day.replace("-","")) if day else 0), -int(j.get("score") or 0))
     items.sort(key=sort)
     cards=[]
+    priority_count=0
     for j in items:
         url=str(j.get("url") or "")
         if not url.startswith("https://"):continue
@@ -21,11 +22,13 @@ def render(data):
         if not skills: skills="<li>Requisitos ainda não comprovados no texto disponível</li>"
         status="Candidatura indicada" if j.get("application_status")=="apply_indicated" else "Inscrição a confirmar"
         location=j.get("location") or "Local não informado"
+        score=j.get('score')
+        if isinstance(score,(int,float)) and score>=80: priority_count+=1
         cards.append('<article class="regional-card" style="padding:15px">'
            +'<strong>'+esc(j.get("title"))+'</strong>'
            +'<p>'+esc(j.get("company"))+' · '+esc(location)+'</p>'
            +'<p>Publicação: '+display_date(j.get("published_at") or j.get("published"))+'</p>'
-           +'<p>Aderência heurística: '+esc(j.get("score"))+'/100 · '+esc(status)+'</p>'
+           +'<p><strong>Aderência calculada: '+esc(j.get("score"))+'/100</strong> · '+esc(status)+'</p>'
            +'<strong>Competências alinhadas</strong><ul>'+skills+'</ul>'
            +'<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Ver anúncio original ↗</a></article>')
     if not cards:
@@ -52,11 +55,13 @@ def render(data):
             if not url.startswith("https://") or url.rstrip("/").lower() in existing:
                 continue
             existing.add(url.rstrip("/").lower())
+            preliminary=job.get('preliminary_match_score')
+            if isinstance(preliminary,(int,float)) and preliminary>=80: priority_count+=1
             imported_cards.append('<article class="regional-card" style="padding:15px"><strong>'+
                 esc(job.get("title"))+'</strong><p>'+esc(job.get("company"))+' · '+
                 esc(job.get("location"))+'</p><p>Origem: '+esc(job.get("source"))+
                 '</p><p><strong>Vaga importada · Região de Nova Odessa</strong></p><p>Candidatura não verificada · anúncio previamente identificado</p>'+
-                '<p>Match CV × Vaga: avaliação preliminar; não é pontuação calculada nesta coleta.</p>'+
+                '<p><strong>Aderência preliminar: '+esc(preliminary)+'/100</strong> · estimativa da revisão manual; ainda não recalculada pelo agente.</p>'+
                 '<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Consultar anúncio ↗</a></article>')
         cards=imported_cards+cards
     # Count the exact HTML cards built, rather than feed records.
@@ -74,6 +79,7 @@ def render(data):
         'identifica competências comprovadas no currículo e compara com os requisitos declarados '
         'em cada anúncio. A pontuação é uma estimativa heurística, não chance de contratação. '
         'Vagas encerradas são descartadas; candidaturas não verificadas permanecem sinalizadas.</p>'
+        '<p role="status" id="monica-priority-alert" style="border:1px solid #b9914f;border-radius:10px;padding:12px;margin:12px 0">'+str(priority_count)+' vaga(s) com aderência de 80/100 ou mais para priorizar. Pontuações preliminares exigem confirmação do CV e da candidatura; não geram e-mail automático sem verificação.</p>'
         '<p><strong id="monica-total-cards">'+str(rendered_count)+'</strong> cartão(ões) de vagas disponível(is) nesta página. '
         'Exibição da publicação mais recente primeiro quando a data é conhecida.</p>'
         '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:12px">'
