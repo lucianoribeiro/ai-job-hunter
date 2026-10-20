@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from src.monica_match import norm, REGIONAL
 from src.monica_location import location_category
+from src.monica_dates import publication_date, display_date
 
 def eligible(item, minimum=50):
     loc = item.get("location_class") or location_category(item)
@@ -16,7 +17,10 @@ def eligible(item, minimum=50):
 def render(data, minimum=50):
     esc=lambda x:html.escape(str(x if x is not None else ""),quote=True)
     rows=[item for item in data.get("jobs",[]) if isinstance(item,dict) and eligible(item,minimum)]
-    rows=sorted(rows,key=lambda item:(-int(item.get("score") or 0),item.get("title","")))
+    def order(row):
+        posted=publication_date(row.get("published_at") or row.get("published"))
+        return (posted is None, -(int(posted.replace("-", "")) if posted else 0), -int(row.get("score") or 0), row.get("title", ""))
+    rows=sorted(rows,key=order)
     pending=[item for item in data.get("jobs",[]) if isinstance(item,dict) and (item.get("location_class") or location_category(item))=="unknown" and int(item.get("score") or 0)>=minimum and item.get("application_status")!="closed"]
     high=sum(int(item.get("score") or 0)>=70 for item in rows)
     review=len(rows)-high
@@ -25,6 +29,7 @@ def render(data, minimum=50):
         url=esc(j.get("url") or "")
         if not url.startswith("https://"):continue
         score=int(j.get("score") or 0)
+        posted=display_date(j.get("published_at") or j.get("published"))
         summary="; ".join(j.get("evidence") or []) or "Aderência identificada; requisitos precisam de confirmação."
         warnings="; ".join(j.get("gaps") or []) or "Verificar requisitos completos na fonte oficial."
         assessment=j.get("requirement_analysis") or {}
@@ -39,7 +44,7 @@ def render(data, minimum=50):
         band="Recomendada" if score>=70 else "Para avaliação"
         status="Candidatura indicada" if j.get("application_status")=="apply_indicated" else "A confirmar"
         cards.append(f'<article><div class="heading"><h2>{esc(j.get("title"))}</h2><strong>{score}/100</strong></div>'
-                     f'<p class="meta">{esc(j.get("company"))} · {esc(j.get("location"))}</p>'
+                     f'<p class="meta">{esc(j.get("company"))} · {esc(j.get("location"))}</p><p class="meta">Publicada em: {posted}</p>'
                      f'<p class="status">{band} · {status}</p><p><b>Competências alinhadas ao perfil:</b></p>{skills_html}'
                      f'<details><summary>Requisitos a confirmar</summary><p>{esc(warnings)}</p></details>'
                      f'<p><a href="{url}" target="_blank" rel="noopener noreferrer">Ver candidatura ↗</a></p></article>')
