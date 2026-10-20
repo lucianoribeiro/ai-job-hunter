@@ -22,6 +22,14 @@ class ImportedRegionalJobsTests(unittest.TestCase):
         self.assertIn('id="monica-total-cards">17</strong>', html)
         self.assertIn('Fim da lista · 17 cartões exibidos', html)
 
+    def test_score_labels_and_priority_message(self):
+        html=render({"jobs":[]})
+        self.assertIn("Aderência: 88/100",html)
+        self.assertIn("Aderência: 84/100",html)
+        self.assertIn("Aderência: a calcular",html)
+        self.assertIn("Prioridade para Mônica: 2 oportunidades",html)
+        self.assertIn("revisão manual",html)
+
     def test_not_duplicated_when_cv_feed_contains_listing(self):
         job={"url":"https://www.netvagas.com.br/empresa/anuncios/a1724116/gerente-de-projetos/",
              "title":"Gerente de Projetos","company":"VRH Consultoria",
