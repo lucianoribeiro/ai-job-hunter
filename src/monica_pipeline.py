@@ -82,7 +82,7 @@ def main():
     # Use the existing official regional company watcher when its feed is present.
     # No data is invented when monitoring returns an empty list.
     regional_feed = Path("data/strategic_jobs.json")
-    extras = [regional_feed, args.linkedin] + args.extra_jobs
+    extras = [regional_feed, args.linkedin, Path("data/monica_regional_reviewed.json")] + args.extra_jobs
     for extra in extras:
         if extra.is_file():
             jobs.extend(collect(extra))
