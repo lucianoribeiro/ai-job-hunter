@@ -28,6 +28,17 @@ def render(data):
            +'<p>Aderência heurística: '+esc(j.get("score"))+'/100 · '+esc(status)+'</p>'
            +'<strong>Competências alinhadas</strong><ul>'+skills+'</ul>'
            +'<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Ver anúncio original ↗</a></article>')
+    if not cards:
+        archive=Path("data/monica_linkedin_jobs.json")
+        if archive.is_file():
+            for j in json.loads(archive.read_text(encoding="utf-8")).get("jobs",[]):
+                url=str(j.get("url") or "")
+                state="Encerrada" if j.get("application_status")=="closed" else "Candidatura não verificada"
+                link=('<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Consultar anúncio ↗</a>'
+                      if url.startswith("https://") and not j.get("source_listing_only") else "Link individual pendente")
+                cards.append('<article class="regional-card" style="padding:15px"><strong>'+esc(j.get("title"))+
+                    '</strong><p>'+esc(j.get("company"))+' · '+esc(j.get("location"))+'</p><p>'+state+
+                    ' · Data não informada</p><p>Match CV × Vaga: aguardando perfil privado.</p>'+link+'</article>')
     notice=('<p>Nenhuma oportunidade elegível foi publicada nesta execução. '
             'A lista depende das fontes disponíveis e do perfil configurado.</p>')
     return ('<section id="monica-inline" aria-labelledby="monica-inline-title" style="margin:20px 0">'
