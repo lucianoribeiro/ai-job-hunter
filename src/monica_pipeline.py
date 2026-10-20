@@ -12,6 +12,7 @@ from src.monica_local import read_cv, structured_profile
 from src.monica_location import location_category
 from src.monica_job_enrichment import enrich
 from src.monica_evidence import explain
+from src.monica_dates import publication_date
 
 def collect(project_path, qa_path=None):
     document = json.loads(Path(project_path).read_text(encoding="utf-8"))
@@ -44,6 +45,7 @@ def build(profile, jobs, check_links=False, verifier=verify, enrich_links=False,
                         "Não aceita mais candidaturas" if verification["status"] == "closed" else
                         "Apply for this job" if verification["status"] == "apply_indicated" else "",
                         verification["status"] != "unverified")
+        result["published_at"] = publication_date(job.get("published_at") or job.get("published") or job.get("date_posted"))
         result["verification_reason"] = verification.get("reason", "")
         result["requirement_analysis"] = explain(job, profile)
         result["location_class"] = location_class
@@ -58,7 +60,7 @@ def build(profile, jobs, check_links=False, verifier=verify, enrich_links=False,
         # Do not claim a posting is open without inspecting the official live page.
         # These entries are intentionally shown as unverified until validation exists.
         output.append(result)
-    return sorted(output, key=lambda x: (-x["score"], x["title"]))[:100]
+    return sorted(output, key=lambda x: (x["published_at"] is None, -(int(x["published_at"].replace("-", "")) if x["published_at"] else 0), -x["score"], x["title"]))[:100]
 
 def main():
     parser = argparse.ArgumentParser()
