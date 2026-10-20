@@ -9,3 +9,7 @@ app/tsconfig.tsbuildinfo
 # Private email exports and local secrets
 *.eml
 *.msg
+
+# Local CVs, private profiles and outputs
+private/
+*.private.json

@@ -1,0 +1,87 @@
+"""Focused, publicly safe career opportunities page for Monica."""
+import argparse
+import html
+import json
+from pathlib import Path
+from src.monica_match import norm, REGIONAL
+from src.monica_location import location_category
+from src.monica_dates import publication_date, display_date
+
+def eligible(item, minimum=50):
+    loc = item.get("location_class") or location_category(item)
+    return (loc in ("regional", "remote_br", "remote_review")
+            and int(item.get("score") or 0) >= minimum
+            and item.get("application_status") != "closed")
+
+
+def render(data, minimum=50):
+    esc=lambda x:html.escape(str(x if x is not None else ""),quote=True)
+    rows=[item for item in data.get("jobs",[]) if isinstance(item,dict) and eligible(item,minimum)]
+    def order(row):
+        posted=publication_date(row.get("published_at") or row.get("published"))
+        return (posted is None, -(int(posted.replace("-", "")) if posted else 0), -int(row.get("score") or 0), row.get("title", ""))
+    rows=sorted(rows,key=order)
+    pending=[item for item in data.get("jobs",[]) if isinstance(item,dict) and (item.get("location_class") or location_category(item))=="unknown" and int(item.get("score") or 0)>=minimum and item.get("application_status")!="closed"]
+    high=sum(int(item.get("score") or 0)>=70 for item in rows)
+    review=len(rows)-high
+    cards=[]
+    for j in rows:
+        url=esc(j.get("url") or "")
+        if not url.startswith("https://"):continue
+        score=int(j.get("score") or 0)
+        posted=display_date(j.get("published_at") or j.get("published"))
+        summary="; ".join(j.get("evidence") or []) or "Aderência identificada; requisitos precisam de confirmação."
+        warnings="; ".join(j.get("gaps") or []) or "Verificar requisitos completos na fonte oficial."
+        assessment=j.get("requirement_analysis") or {}
+        if assessment:
+            found=assessment.get("matched_requirements") or []
+            missing=assessment.get("requirements_to_confirm") or []
+            summary="; ".join(x["requirement"] for x in found) or "Sem competências comprovadas no texto disponível"
+            warnings="; ".join(x["requirement"] for x in missing) or warnings
+        # Show short evidence-based skills rather than a semicolon paragraph.
+        skills = [str(x.get("requirement") or "") for x in (assessment.get("matched_requirements") or [])][:4]
+        skills_html = ("<ul class=\"skills\">" + "".join("<li>"+esc(x)+"</li>" for x in skills) + "</ul>") if skills else "<p class=\"meta\">Competências ainda não comprovadas na descrição disponível.</p>"
+        band="Recomendada" if score>=70 else "Para avaliação"
+        status="Candidatura indicada" if j.get("application_status")=="apply_indicated" else "A confirmar"
+        cards.append(f'<article><div class="heading"><h2>{esc(j.get("title"))}</h2><strong>{score}/100</strong></div>'
+                     f'<p class="meta">{esc(j.get("company"))} · {esc(j.get("location"))}</p><p class="meta">Publicada em: {posted}</p>'
+                     f'<p class="status">{band} · {status}</p><p><b>Competências alinhadas ao perfil:</b></p>{skills_html}'
+                     f'<details><summary>Requisitos a confirmar</summary><p>{esc(warnings)}</p></details>'
+                     f'<p><a href="{url}" target="_blank" rel="noopener noreferrer">Ver candidatura ↗</a></p></article>')
+    pending_note = (f'<details class="pending"><summary>{len(pending)} vagas com localização não confirmada — revisar fontes</summary>'
+                    + ''.join(f'<p>{esc(j.get("title"))} · {esc(j.get("company"))} — localização não comprovada</p>' for j in pending[:30])
+                    + '</details>') if pending else ""
+    history=data.get("linkedin_history") or []
+    historical_rows=[]
+    for entry in history:
+        label=esc(entry.get("title"))+" · "+esc(entry.get("company"))
+        status=entry.get("status","unverified")
+        status_label={"closed":"Encerrada","listing_only":"Link individual pendente","unverified":"Candidatura não verificada"}.get(status,status)
+        url=str(entry.get("url") or "")
+        linked=('<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+label+'</a>'
+                if status!="listing_only" and url.startswith("https://") else label)
+        historical_rows.append('<li>'+linked+' — '+esc(entry.get("location"))+' — '+status_label+'</li>')
+    history_html=('<details><summary>Histórico LinkedIn: '+str(len(history))+
+                  ' anúncios analisados (não são candidaturas confirmadas)</summary><ol>'+
+                  ''.join(historical_rows)+'</ol></details>') if history else ""
+    body="".join(cards) or "<p>Nenhuma vaga atendeu aos critérios de aderência, localização e verificação nesta coleta. Não significa ausência de oportunidades no mercado.</p>"
+    return f"""<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Oportunidades para Mônica | AI Job Hunter</title>
+<style>:root{{color-scheme:dark;font-family:system-ui}}body{{background:#0e1520;color:#ecf4fc;margin:auto;max-width:960px;padding:30px 18px}}
+a{{color:#92ddd7}}.meta,footer{{color:#a5b6c6}}.heading{{display:flex;gap:18px;justify-content:space-between}}strong{{white-space:nowrap;color:#92ddd7}}
+main{{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}}article{{background:#1d2531;border:1px solid #394657;border-radius:14px;padding:20px}}
+.skills{{padding-left:20px;margin-top:5px}}.skills li{{margin:5px 0}}h2{{font-size:1.06rem;margin:0}}.status{{color:#efc778}}details{{margin-top:12px}}footer{{margin-top:24px;font-size:.85rem}}</style>
+<header><p><a href="./">← AI Job Hunter</a></p><h1>Oportunidades para Mônica</h1>
+<p>Gestão de Projetos · NPI · Manufatura</p><p>{len(cards)} oportunidade(s) selecionada(s) · {high} recomendada(s) · {review} para avaliação · nota mínima {minimum}/100</p></header>
+<main>{body}</main>{pending_note}{history_html}<footer>Aderência heurística, não probabilidade de contratação. Inscrição indicada não garante disponibilidade final. Vagas encerradas são excluídas.</footer></html>"""
+
+def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument("--input",type=Path,default=Path("site/monica-opportunities.json"))
+    parser.add_argument("--output",type=Path,default=Path("site/monica.html"))
+    parser.add_argument("--min-score",type=int,default=50)
+    args=parser.parse_args()
+    data=json.loads(args.input.read_text(encoding="utf-8")) if args.input.exists() else {"jobs":[]}
+    args.output.parent.mkdir(parents=True,exist_ok=True)
+    args.output.write_text(render(data,args.min_score),encoding="utf-8")
+if __name__=="__main__":main()

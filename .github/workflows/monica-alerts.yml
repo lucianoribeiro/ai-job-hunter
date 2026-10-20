@@ -1,0 +1,63 @@
+name: Monica Career Alerts (3x daily)
+on:
+  workflow_dispatch:
+  schedule:
+    # America/Sao_Paulo (UTC-3): 08:00, 15:00, 21:00
+    - cron: '0 11,18 * * *'
+    - cron: '0 0 * * *'
+permissions:
+  contents: read
+concurrency:
+  group: monica-alert-email
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Restore delivery history (never includes CV)
+        uses: actions/cache/restore@v4
+        with:
+          path: .alert-state
+          key: monica-alert-v1-${{ github.run_id }}
+          restore-keys: |
+            monica-alert-v1-
+      - name: Check new vacancies and optionally email
+        env:
+          MONICA_PROFILE_JSON: ${{ secrets.MONICA_PROFILE_JSON }}
+          MONICA_ALERT_TO: ${{ secrets.MONICA_ALERT_TO }}
+          SMTP_HOST: ${{ secrets.MONICA_SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.MONICA_SMTP_PORT }}
+          SMTP_USERNAME: ${{ secrets.MONICA_SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.MONICA_SMTP_PASSWORD }}
+          SMTP_FROM: ${{ secrets.MONICA_SMTP_FROM }}
+          MONICA_EMAIL_ENABLED: ${{ vars.MONICA_EMAIL_ENABLED }}
+        run: |
+          set -euo pipefail
+          mkdir -p site .alert-state
+          if [ -z "${MONICA_PROFILE_JSON:-}" ]; then
+            echo "Monica profile secret missing. No CV and no notification sent."
+            exit 0
+          fi
+          profile_path="$(mktemp)"
+          trap 'rm -f "$profile_path"' EXIT
+          chmod 600 "$profile_path"
+          printf '%s' "$MONICA_PROFILE_JSON" > "$profile_path"
+          python -m src.project_jobs_poc --config config/project_boards.example.json --output data/project_jobs_poc.json
+          python -m src.strategic_companies --output data/strategic_jobs.json
+          python -m src.monica_pipeline --profile "$profile_path" --projects data/project_jobs_poc.json --linkedin data/monica_linkedin_jobs.json --check-links --enrich-links --output site/monica-opportunities.json
+          if [ "${MONICA_EMAIL_ENABLED:-false}" = "true" ] && [ -n "${MONICA_ALERT_TO:-}" ] && [ -n "${SMTP_PASSWORD:-}" ]; then
+            python -m src.monica_alert_email --feed site/monica-opportunities.json --state .alert-state/seen.json --send
+          else
+            echo "Email sending disabled; preview-only."
+            python -m src.monica_alert_email --feed site/monica-opportunities.json --state .alert-state/seen.json
+          fi
+      - name: Save delivery history
+        if: success()
+        uses: actions/cache/save@v4
+        with:
+          path: .alert-state
+          key: monica-alert-v1-${{ github.run_id }}
