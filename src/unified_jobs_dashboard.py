@@ -819,7 +819,7 @@ const filterIds=panelId==='mainPanelGeneral'?['q','area','mode','source','region
 render();
 }
 setupPager('mainPanelGeneral','#jobs-table tbody tr');
-setupPager('mainPanelRegional','.regional-card');
+setupPager('mainPanelRegional','#regionalCards .regional-card');
 })();
 </script><script>
 (()=>{
