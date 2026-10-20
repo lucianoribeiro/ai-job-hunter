@@ -41,7 +41,7 @@ def render(data):
                       if url.startswith("https://") and not j.get("source_listing_only") else "Link individual pendente")
                 cards.append('<article class="regional-card" style="padding:15px"><strong>'+esc(j.get("title"))+
                     '</strong><p>'+esc(j.get("company"))+' · '+esc(j.get("location"))+'</p><p>'+state+
-                    ' · Data não informada</p><p>Match CV × Vaga: aguardando perfil privado.</p>'+link+'</article>')
+                    ' · Data não informada</p><p><strong>Aderência: a calcular</strong> · aguardando configuração do perfil privado.</p>'+link+'</article>')
     # Show the four reviewed public advertisements directly in the regional dashboard,
     # including when the private CV profile is not configured in GitHub Actions.
     reviewed=Path("data/monica_regional_reviewed.json")
