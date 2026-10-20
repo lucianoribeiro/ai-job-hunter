@@ -1,0 +1,54 @@
+name: AI-Assisted Recovery Proposal
+on:
+  workflow_dispatch:
+    inputs:
+      failed_run_id:
+        description: "Failed GitHub Pages workflow run ID"
+        required: true
+        type: string
+permissions:
+  contents: read
+  actions: read
+jobs:
+  propose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate failed run and collect diagnostics
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ inputs.failed_run_id }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mkdir -p diagnostics
+          gh api "repos/$REPO/actions/runs/$RUN_ID" > diagnostics/run.json
+          python - <<'PY'
+          import json,os
+          run=json.load(open('diagnostics/run.json'))
+          if run.get('conclusion')!='failure' or run.get('head_branch')!='main':
+              raise SystemExit('Only failed builds on main are accepted')
+          if run.get('path')!='.github/workflows/pages.yml':
+              raise SystemExit('Only GitHub Pages workflow may be diagnosed')
+          PY
+          gh api "repos/$REPO/actions/runs/$RUN_ID/jobs" --jq '.jobs[] | select(.conclusion == "failure") | .id' > diagnostics/jobs.txt
+          while read -r job; do
+            test -n "$job" || continue
+            gh api "repos/$REPO/actions/jobs/$job/logs" | tail -n 1000 >> diagnostics/failure.log || true
+          done < diagnostics/jobs.txt
+          test -s diagnostics/failure.log
+          python -m src.ci_recovery < diagnostics/failure.log > diagnostics/decision.json
+      - name: Validate unit tests locally
+        run: python -m unittest discover -s tests
+      - name: Publish sanitized diagnostic artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-recovery-proposal-${{ inputs.failed_run_id }}
+          path: diagnostics/decision.json
+          retention-days: 7
