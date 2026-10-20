@@ -13,7 +13,7 @@ def key(job):
 def qualified(job):
     return (job.get("application_status")=="apply_indicated"
             and job.get("location_class") in ("regional","remote_br")
-            and int(job.get("score") or 0)>=70
+            and int(job.get("score") or 0)>=80
             and str(job.get("url") or "").startswith("https://"))
 def new_jobs(jobs,seen):
     return [j for j in jobs if qualified(j) and key(j) not in seen]
