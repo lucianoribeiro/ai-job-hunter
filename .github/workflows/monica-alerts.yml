@@ -1,10 +1,12 @@
-name: Monica Career Alerts (3x daily)
+name: Monica Career Monitor (30min + 3 digests)
 on:
   workflow_dispatch:
   schedule:
-    # America/Sao_Paulo (UTC-3): 08:00, 15:00, 21:00
-    - cron: '0 11,18 * * *'
-    - cron: '0 0 * * *'
+    # 48 checks/day, including weekends (UTC)
+    # Digests 08:00, 15:00, 21:00 BRT -> 11:00, 18:00, 00:00 UTC
+    - cron: '30 * * * *'
+    - cron: '0 1-10,12-17,19-23 * * *'
+    - cron: '0 0,11,18 * * *'
 permissions:
   contents: read
 concurrency:
@@ -22,10 +24,11 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: .alert-state
-          key: monica-alert-v1-${{ github.run_id }}
+          key: monica-halfhour-v2-${{ github.run_id }}
           restore-keys: |
-            monica-alert-v1-
-      - name: Check new vacancies and optionally email
+            monica-halfhour-v2-
+      - name: Collect vacancies and optionally send scheduled digest
+        timeout-minutes: 20
         env:
           MONICA_PROFILE_JSON: ${{ secrets.MONICA_PROFILE_JSON }}
           MONICA_ALERT_TO: ${{ secrets.MONICA_ALERT_TO }}
@@ -46,15 +49,19 @@ jobs:
           trap 'rm -f "$profile_path"' EXIT
           chmod 600 "$profile_path"
           printf '%s' "$MONICA_PROFILE_JSON" > "$profile_path"
-          python -m src.project_jobs_poc --config config/project_boards.example.json --output data/project_jobs_poc.json
-          python -m src.strategic_companies --output data/strategic_jobs.json
+          timeout 420s python -m src.project_jobs_poc --config config/project_boards.example.json --output data/project_jobs_poc.json
+          timeout 420s python -m src.strategic_companies --output data/strategic_jobs.json
           python -m src.monica_pipeline --profile "$profile_path" --projects data/project_jobs_poc.json --linkedin data/monica_linkedin_jobs.json --check-links --enrich-links --output site/monica-opportunities.json
-          if [ "${MONICA_EMAIL_ENABLED:-false}" = "true" ] && [ -n "${MONICA_ALERT_TO:-}" ] && [ -n "${SMTP_PASSWORD:-}" ]; then
-            python -m src.monica_alert_email --feed site/monica-opportunities.json --state .alert-state/seen.json --send
+          flags=()
+          case "${{ github.event.schedule }}" in
+            "0 0,11,18 * * *") flags+=(--digest) ;;
+          esac
+          if [ "${MONICA_EMAIL_ENABLED:-false}" = "true" ] && [ -n "${MONICA_ALERT_TO:-}" ] && [ -n "${SMTP_HOST:-}" ] && [ -n "${SMTP_PORT:-}" ] && [ -n "${SMTP_USERNAME:-}" ] && [ -n "${SMTP_PASSWORD:-}" ] && [ -n "${SMTP_FROM:-}" ]; then
+            flags+=(--send)
           else
-            echo "Email sending disabled; preview-only."
-            python -m src.monica_alert_email --feed site/monica-opportunities.json --state .alert-state/seen.json
+            echo "Email disabled or credentials incomplete; preserve pending opportunities."
           fi
+          python -m src.monica_digest --feed site/monica-opportunities.json --state .alert-state/digest.json "${flags[@]}"
       - name: Save delivery history
         if: success()
         uses: actions/cache/save@v4
