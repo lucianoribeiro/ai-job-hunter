@@ -61,7 +61,7 @@ def render(data):
                 esc(job.get("title"))+'</strong><p>'+esc(job.get("company"))+' · '+
                 esc(job.get("location"))+'</p><p>Origem: '+esc(job.get("source"))+
                 '</p><p><strong>Vaga importada · Região de Nova Odessa</strong></p><p>Candidatura não verificada · anúncio previamente identificado</p>'+
-                '<p><strong>Aderência preliminar: '+esc(preliminary)+'/100</strong> · estimativa da revisão manual; ainda não recalculada pelo agente.</p>'+
+                '<p style="font-size:15px;color:#e8bd78"><strong>Aderência: '+esc(preliminary)+'/100</strong></p><p>Estimativa preliminar da análise do currículo; ainda não recalculada automaticamente.</p>'+
                 '<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Consultar anúncio ↗</a></article>')
         cards=imported_cards+cards
     # Count the exact HTML cards built, rather than feed records.
@@ -79,7 +79,7 @@ def render(data):
         'identifica competências comprovadas no currículo e compara com os requisitos declarados '
         'em cada anúncio. A pontuação é uma estimativa heurística, não chance de contratação. '
         'Vagas encerradas são descartadas; candidaturas não verificadas permanecem sinalizadas.</p>'
-        '<p role="status" id="monica-priority-alert" style="border:1px solid #b9914f;border-radius:10px;padding:12px;margin:12px 0">'+str(priority_count)+' vaga(s) com aderência de 80/100 ou mais para priorizar. Pontuações preliminares exigem confirmação do CV e da candidatura; não geram e-mail automático sem verificação.</p>'
+        '<div role="status" id="monica-priority-alert" style="border:1px solid #b9914f;border-radius:10px;padding:12px;margin:12px 0"><strong>Prioridade para Mônica: '+str(priority_count)+' oportunidades com aderência estimada de pelo menos 80/100.</strong><p>Essas vagas merecem ser analisadas primeiro porque apresentam maior compatibilidade com a experiência profissional dela. As notas preliminares vêm de uma revisão manual. O envio automático por e-mail ocorre apenas para vagas novas, com candidatura verificável e nota calculada pelo agente.</p></div>'
         '<p><strong id="monica-total-cards">'+str(rendered_count)+'</strong> cartão(ões) de vagas disponível(is) nesta página. '
         'Exibição da publicação mais recente primeiro quando a data é conhecida.</p>'
         '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:12px">'
