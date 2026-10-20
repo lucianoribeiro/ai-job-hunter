@@ -43,6 +43,9 @@ def render(data):
             'A lista depende das fontes disponíveis e do perfil configurado.</p>')
     return ('<section id="monica-inline" aria-labelledby="monica-inline-title" style="margin:20px 0">'
         '<h2 id="monica-inline-title">Oportunidades para Mônica</h2>'
+        '<div style="display:flex;gap:12px;align-items:center;margin:12px 0">'
+        '<button type="button" id="monica-bell" style="background:#2a261f;border:1px solid #b9914f;border-radius:12px;padding:8px 12px;color:#ffe1a8;cursor:pointer" aria-label="Novas vagas da Mônica">&#128276; <span id="monica-new-count" aria-live="polite">0</span> novas</button>'
+        '<small id="monica-bell-hint">Novas desde a última visita neste navegador</small></div>'
         '<p><strong>Como funciona o match CV × Vaga:</strong> o agente lê um perfil profissional privado, '
         'identifica competências comprovadas no currículo e compara com os requisitos declarados '
         'em cada anúncio. A pontuação é uma estimativa heurística, não chance de contratação. '
