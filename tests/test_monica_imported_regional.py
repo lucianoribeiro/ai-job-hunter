@@ -11,6 +11,9 @@ class ImportedRegionalJobsTests(unittest.TestCase):
         self.assertIn("coordenador-de-projetos/4321063",html)
         self.assertIn("Candidatura não verificada",html)
         self.assertIn("anúncio previamente identificado",html)
+        self.assertIn("Aderência preliminar: 88/100",html)
+        self.assertIn("Aderência preliminar: 84/100",html)
+        self.assertIn("2 vaga(s) com aderência de 80/100 ou mais",html)
         self.assertLess(html.index("VRH Consultoria"),html.index("AB InBev") if "AB InBev" in html else len(html))
         self.assertIn("Vaga importada · Região de Nova Odessa",html)
     def test_total_matches_all_rendered_cards(self):
