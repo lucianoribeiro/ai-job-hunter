@@ -46,7 +46,7 @@ class PagesVisibilityTests(unittest.TestCase):
         self.assertIn("setupPager('mainPanelGeneral','#jobs-table tbody tr')",page)
         self.assertIn("document.querySelectorAll('#jobs-table tbody tr')",page)
         self.assertNotIn("document.querySelectorAll('tbody tr')",page)
-        self.assertIn("setupPager('mainPanelRegional','.regional-card')",page)
+        self.assertIn("setupPager('mainPanelRegional','#regionalCards .regional-card')",page)
         self.assertIn("selectTab(0,false)",page)
         self.assertIn("panel.style.display=active?'':'none'",page)
         table_body = page.split("<tbody>", 1)[1].split("</tbody>", 1)[0]
