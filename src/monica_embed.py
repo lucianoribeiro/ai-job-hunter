@@ -59,6 +59,10 @@ def render(data):
                 '<p>Match CV × Vaga: avaliação preliminar; não é pontuação calculada nesta coleta.</p>'+
                 '<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Consultar anúncio ↗</a></article>')
         cards=imported_cards+cards
+    # Count the exact HTML cards built, rather than feed records.
+    rendered_count=sum(card.count('<article class="regional-card"') for card in cards)
+    if rendered_count != len(cards):
+        raise ValueError("Monica card total differs from generated HTML")
     notice=('<p>Nenhuma oportunidade elegível foi publicada nesta execução. '
             'A lista depende das fontes disponíveis e do perfil configurado.</p>')
     return ('<section id="monica-inline" aria-labelledby="monica-inline-title" style="margin:20px 0">'
@@ -70,10 +74,11 @@ def render(data):
         'identifica competências comprovadas no currículo e compara com os requisitos declarados '
         'em cada anúncio. A pontuação é uma estimativa heurística, não chance de contratação. '
         'Vagas encerradas são descartadas; candidaturas não verificadas permanecem sinalizadas.</p>'
-        '<p>'+str(len(cards))+' vaga(s) selecionada(s) nesta coleta. '
+        '<p><strong id="monica-total-cards">'+str(rendered_count)+'</strong> cartão(ões) de vagas disponível(is) nesta página. '
         'Exibição da publicação mais recente primeiro quando a data é conhecida.</p>'
         '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:12px">'
-        +("".join(cards) if cards else notice)+'</div></section>')
+        +("".join(cards) if cards else notice)+'</div>'
+        '<p id="monica-end-of-list" style="padding:14px 0;color:#bbc3cc">Fim da lista · '+str(rendered_count)+' cartões exibidos.</p></section>')
 
 def main():
     import argparse
