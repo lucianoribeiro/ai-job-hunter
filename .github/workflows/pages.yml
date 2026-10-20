@@ -76,6 +76,7 @@ jobs:
             printf '{"profile_id":"monica","jobs":[],"privacy":"public_job_metadata_only"}\n' > site/monica-opportunities.json
           fi
           python -m src.monica_page --input site/monica-opportunities.json --output site/monica.html
+          python -m src.monica_embed --dashboard site/index.html --feed site/monica-opportunities.json
           python - <<'PY'
           from pathlib import Path
           html = Path("site/index.html")
@@ -119,7 +120,7 @@ jobs:
           grep -q 'DASHBOARD PREMIUM' site/index.html
           grep -q 'id="regionalCompany"' site/index.html
           grep -q 'id="regionalCards"' site/index.html
-          grep -q 'id="manufacturingLeadershipAlert"' site/index.html
+          grep -q 'id="monica-inline"' site/index.html
           grep -q 'id="market-recruiter-current"' site/index.html
           grep -q 'id="mainTabFinance"' site/index.html
           grep -q 'id="mainPanelFinance"' site/index.html
