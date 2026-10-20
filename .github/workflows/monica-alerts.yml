@@ -51,7 +51,8 @@ jobs:
           printf '%s' "$MONICA_PROFILE_JSON" > "$profile_path"
           timeout 420s python -m src.project_jobs_poc --config config/project_boards.example.json --output data/project_jobs_poc.json
           timeout 420s python -m src.strategic_companies --output data/strategic_jobs.json
-          python -m src.monica_pipeline --profile "$profile_path" --projects data/project_jobs_poc.json --linkedin data/monica_linkedin_jobs.json --check-links --enrich-links --output site/monica-opportunities.json
+          python -m src.monica_regional_discovery --sources data/project_jobs_poc.json data/strategic_jobs.json --output data/monica_regional_sp.json --limit 300
+          python -m src.monica_pipeline --profile "$profile_path" --projects data/project_jobs_poc.json --linkedin data/monica_linkedin_jobs.json --extra-jobs data/monica_regional_sp.json --check-links --enrich-links --output site/monica-opportunities.json
           flags=()
           case "${{ github.event.schedule }}" in
             "0 0,11,18 * * *") flags+=(--digest) ;;
@@ -67,4 +68,4 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: .alert-state
-          key: monica-alert-v1-${{ github.run_id }}
+          key: monica-halfhour-v2-${{ github.run_id }}
