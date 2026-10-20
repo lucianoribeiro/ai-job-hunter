@@ -77,6 +77,15 @@ jobs:
           fi
           python -m src.monica_page --input site/monica-opportunities.json --output site/monica.html
           python -m src.monica_embed --dashboard site/index.html --feed site/monica-opportunities.json
+          cp src/monica_bell.js site/monica_bell.js
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('site/index.html')
+          text=p.read_text(encoding='utf-8')
+          assert 'id="monica-bell"' in text
+          text=text.replace('</body>', '<script src="monica_bell.js" defer></script></body>', 1)
+          p.write_text(text,encoding='utf-8')
+          PY
           python - <<'PY'
           from pathlib import Path
           html = Path("site/index.html")
