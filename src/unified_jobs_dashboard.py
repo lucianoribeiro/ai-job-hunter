@@ -343,13 +343,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         '. Cidades são as informadas nos anúncios, nunca deduzidas pela sede da empresa.</p>'
         '<p class="regional-filter-note">O filtro Empresa mostra somente empresas com vagas encontradas na coleta atual. '
         'A lista Empresas acompanhadas inclui também empresas sem resultados ou com fontes ainda não integradas.</p>'
-        + alert_html +
-        '<aside class="job-alert" aria-label="Alertas de oportunidades para Mônica">'
-        '<p class="alert-kicker">AI CAREER HUNTER</p><h3>Oportunidades para Mônica</h3>'
-        '<p>Gestão de Projetos, NPI e manufatura. Verificações programadas pela manhã, tarde e noite; '
-        'inscrições não confirmadas aparecem identificadas para revisão.</p>'
-        '<p><a href="monica.html">Consultar análise CV × Vaga e alertas ↗</a></p>'
-        '<small>Notificações por e-mail dependem de ativação e configuração segura.</small></aside>' +
+        + '<!-- MONICA_OPPORTUNITIES_SLOT -->' +
         '<div class="regional-filters"><label>Empresa<select id="regionalCompany"><option value="">Todas as empresas com vagas</option>' +
         company_options + '</select></label><label>Cidade<select id="regionalCity"><option value="">Todas as cidades</option>'
         '<option value="Sumaré">Sumaré (' + str(city_counts["Sumaré"]) + ')</option>'
