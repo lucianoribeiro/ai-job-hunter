@@ -12,7 +12,9 @@
       "description": "Planejamento e controle de custos, cronogramas, liderança interdisciplinar, projetos industriais e manufatura. Formação Administração/Engenharia ou correlatas; SAP ou similar; Lean Six Sigma desejável.",
       "application_status": "unverified",
       "verification_note": "Anúncio público localizado; candidatura final não confirmada",
-      "published_at": null
+      "published_at": null,
+      "preliminary_match_score": 88,
+      "score_source": "manual_preliminary_review"
     },
     {
       "company": "LGS Engenharia",
@@ -23,7 +25,9 @@
       "description": "Coordenação de projetos, experiência como coordenador(a) e disponibilidade para Nova Odessa ou região. Requisitos detalhados não disponíveis.",
       "application_status": "unverified",
       "verification_note": "Anúncio público localizado; candidatura final não confirmada",
-      "published_at": null
+      "published_at": null,
+      "preliminary_match_score": 84,
+      "score_source": "manual_preliminary_review"
     },
     {
       "company": "Stefanini",
@@ -34,7 +38,9 @@
       "description": "Projetos estratégicos de tecnologia, transformação digital, cronogramas, orçamento, riscos, escopo, governança, stakeholders, MS Project e Azure DevOps.",
       "application_status": "unverified",
       "verification_note": "Anúncio agregado; candidatura final não confirmada",
-      "published_at": "2026-09-22"
+      "published_at": "2026-09-22",
+      "preliminary_match_score": 77,
+      "score_source": "manual_preliminary_review"
     },
     {
       "company": "Stefanini",
@@ -45,7 +51,9 @@
       "description": "PMO, governança, acompanhamento de benefícios dos projetos de inovação, Jira, ferramentas de IA e stakeholders. Não foi confirmada eventual republicação em outra fonte.",
       "application_status": "unverified",
       "verification_note": "Anúncio agregado; candidatura final não confirmada",
-      "published_at": null
+      "published_at": null,
+      "preliminary_match_score": 70,
+      "score_source": "manual_preliminary_review"
     }
   ]
 }
