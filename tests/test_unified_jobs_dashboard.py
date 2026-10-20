@@ -2,6 +2,12 @@ import unittest
 from src.unified_jobs_dashboard import normalize, render, published_iso, region_city
 
 class UnifiedDashboardTests(unittest.TestCase):
+    def test_regional_pager_does_not_hide_monica_cards(self):
+        from src.unified_jobs_dashboard import render
+        page = render({"jobs": []}, [], strategic={"jobs": [], "sources": []})
+        self.assertIn("setupPager('mainPanelRegional','#regionalCards .regional-card');", page)
+        self.assertNotIn("setupPager('mainPanelRegional','.regional-card');", page)
+
     def test_qa_and_projects_and_remote_labels(self):
         projects = {"jobs": [{"title": "Project Manager", "company": "Real Co",
             "url": "https://example.com/project", "remote_evidence": "explicit",
