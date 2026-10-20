@@ -1,0 +1,52 @@
+name: Email on AI Job Hunter Build Failure
+on:
+  workflow_run:
+    workflows:
+      - Publish AI Job Hunter Premium (GitHub Pages)
+    types: [completed]
+permissions:
+  contents: read
+jobs:
+  notify:
+    if: ${{ github.event.workflow_run.conclusion == 'failure' && github.event.workflow_run.head_branch == 'main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send failure email
+        env:
+          BUILD_FAILURE_RUN_JSON: ${{ toJSON(github.event.workflow_run) }}
+          BUILD_FAILURE_EMAIL_TO: ${{ secrets.BUILD_FAILURE_EMAIL_TO }}
+          SMTP_HOST: ${{ secrets.MONICA_SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.MONICA_SMTP_PORT }}
+          SMTP_USERNAME: ${{ secrets.MONICA_SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.MONICA_SMTP_PASSWORD }}
+          SMTP_FROM: ${{ secrets.MONICA_SMTP_FROM }}
+        run: |
+          set -euo pipefail
+          if [ -z "${BUILD_FAILURE_EMAIL_TO:-}" ] || [ -z "${SMTP_HOST:-}" ] || [ -z "${SMTP_PASSWORD:-}" ]; then
+            echo "::warning::Build-failure email inactive. Configure BUILD_FAILURE_EMAIL_TO and SMTP secrets."
+            exit 0
+          fi
+          python - <<'PY'
+          import json, os, smtplib
+          from email.message import EmailMessage
+          run=json.loads(os.environ['BUILD_FAILURE_RUN_JSON'])
+          if run.get('conclusion') != 'failure':
+              raise SystemExit(0)
+          required=['SMTP_HOST','SMTP_PORT','SMTP_USERNAME','SMTP_PASSWORD','SMTP_FROM','BUILD_FAILURE_EMAIL_TO']
+          missing=[x for x in required if not os.getenv(x)]
+          if missing:
+              raise SystemExit('Missing configuration: '+', '.join(missing))
+          msg=EmailMessage()
+          msg['From']=os.environ['SMTP_FROM']
+          msg['To']=os.environ['BUILD_FAILURE_EMAIL_TO']
+          msg['Subject']='[AI Job Hunter] Falha no deploy #'+str(run.get('run_number','?'))
+          msg.set_content('A publicação automática do AI Job Hunter falhou.\n\n'
+                          'Workflow: '+str(run.get('name',''))+'\n'
+                          'Branch: '+str(run.get('head_branch',''))+'\n'
+                          'Commit: '+str(run.get('head_sha',''))+'\n'
+                          'Logs: '+str(run.get('html_url',''))+'\n')
+          with smtplib.SMTP_SSL(os.environ['SMTP_HOST'],int(os.environ['SMTP_PORT']),timeout=20) as smtp:
+              smtp.login(os.environ['SMTP_USERNAME'],os.environ['SMTP_PASSWORD'])
+              smtp.send_message(msg)
+          print('Build failure email sent.')
+          PY
