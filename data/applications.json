@@ -1,4 +1,34 @@
 {
+  "05e04f2b4693be90": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "MicroSourcing",
+    "created_at": "2026-10-21",
+    "job_id": "05e04f2b4693be90",
+    "notes": "",
+    "score": 65,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-21",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-21",
+    "title": "QA Tester - Agentic Web Application (Senior)",
+    "url": "https://himalayas.app/companies/microsourcing/jobs/qa-tester-agentic-web-application-senior?utm_source=api"
+  },
   "0fa251705db02ff9": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -28,6 +58,36 @@
     "status_updated_at": "2026-10-20",
     "title": "QA Automation Engineer",
     "url": "https://himalayas.app/companies/juakali/jobs/qa-automation-engineer?utm_source=api"
+  },
+  "14a60a9998e3daa1": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Welo Global",
+    "created_at": "2026-10-21",
+    "job_id": "14a60a9998e3daa1",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-21",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-21",
+    "title": "Bulgarian Localization QA Tester / Proofreader",
+    "url": "https://himalayas.app/companies/welo-global/jobs/bulgarian-localization-qa-tester-proofreader?utm_source=api"
   },
   "1718efd19ea573c1": {
     "assessment": {
@@ -175,6 +235,36 @@
     "status_updated_at": "2026-10-20",
     "title": "Systems Analyst/ IT Project Manager as Freelancer (all genders)",
     "url": "https://www.arbeitnow.com/jobs/companies/vexcash-ag/systems-analyst-it-project-manager-as-freelancer-all-genders-berlin-466967"
+  },
+  "29ae824a9eb3f64b": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Shield AI",
+    "created_at": "2026-10-21",
+    "job_id": "29ae824a9eb3f64b",
+    "notes": "",
+    "score": 70,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-21",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-21",
+    "title": "Senior Technical Program Manager (R6371)",
+    "url": "https://himalayas.app/companies/shield-ai/jobs/senior-technical-program-manager-r6371?utm_source=api"
   },
   "2a4d54ac15ae0f95": {
     "assessment": {
@@ -531,6 +621,67 @@
     "title": "QA Engineer - Backend (Golang) Middle [Identity]",
     "url": "https://himalayas.app/companies/banco-plata-s-a-institucion-de-banca-multiple/jobs/qa-engineer-backend-golang-middle-identity?utm_source=api"
   },
+  "55ac9befabf635ae": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "USD compensation indicated in the listing",
+        "Contract/freelance terms detected; confirm daily hours"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "freelance",
+    "company": "Trilogy Federal",
+    "created_at": "2026-10-21",
+    "job_id": "55ac9befabf635ae",
+    "notes": "",
+    "score": 100,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-21",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-21",
+    "title": "Program Manager, Part-Time",
+    "url": "https://himalayas.app/companies/trilogy-federal/jobs/program-manager-part-time?utm_source=api"
+  },
+  "55cc387024ffd886": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "SQA Solution",
+    "created_at": "2026-10-21",
+    "job_id": "55cc387024ffd886",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-21",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-21",
+    "title": "QA Engineer",
+    "url": "https://himalayas.app/companies/sqa-solution/jobs/qa-engineer?utm_source=api"
+  },
   "57cfa83c2f97314c": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -738,6 +889,34 @@
     "status_updated_at": "2026-10-18",
     "title": "GIS Software Quality Assurance Engineer",
     "url": "https://himalayas.app/companies/mano-lani-llc/jobs/gis-software-quality-assurance-engineer"
+  },
+  "7072b3bbde8b0596": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "mi.ro Personalvermittlung",
+    "created_at": "2026-10-21",
+    "job_id": "7072b3bbde8b0596",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-21",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-21",
+    "title": "Microsoft Principle Project Manager (m/w/d)",
+    "url": "https://www.arbeitnow.com/jobs/companies/miro-personalvermittlung/microsoft-principle-project-manager-berlin-312463"
   },
   "7209cc9ebd131553": {
     "assessment": {
@@ -1012,6 +1191,37 @@
     "title": "Senior Technical Project Manager",
     "url": "https://himalayas.app/companies/nanosoft-consulting-talent-page/jobs/senior-technical-project-manager"
   },
+  "8b83c18664ebf5dc": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "Contract/freelance terms detected; confirm daily hours"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "freelance",
+    "company": "NTT DATA",
+    "created_at": "2026-10-21",
+    "job_id": "8b83c18664ebf5dc",
+    "notes": "",
+    "score": 85,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-21",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-21",
+    "title": "Developer or Technical Lead (Niche or Regular), Cloud Consultants, QA Tester, QA",
+    "url": "https://himalayas.app/companies/nttdata/jobs/developer-or-technical-lead-niche-or-regular-cloud-consultants-qa-tester-qa?utm_source=api"
+  },
   "8d51ab520b574265": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -1127,6 +1337,36 @@
     "status_updated_at": "2026-10-18",
     "title": "Project Coordinator",
     "url": "https://himalayas.app/companies/pavago/jobs/project-coordinator-1177994446"
+  },
+  "a4e76914e18d833c": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Brightspeed",
+    "created_at": "2026-10-21",
+    "job_id": "a4e76914e18d833c",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-21",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-21",
+    "title": "Quality Assurance Lead",
+    "url": "https://himalayas.app/companies/brightspeed/jobs/quality-assurance-lead?utm_source=api"
   },
   "a72f4df9827fe4b1": {
     "assessment": {
@@ -1248,6 +1488,37 @@
     "title": "Software Test Engineer",
     "url": "https://www.arbeitnow.ch/jobs/companies/swisspeak-partners-gmbh/remote-software-test-engineer-bern-226881"
   },
+  "afc0605a402e4dce": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "Contract/freelance terms detected; confirm daily hours"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "freelance",
+    "company": "Astra Group",
+    "created_at": "2026-10-21",
+    "job_id": "afc0605a402e4dce",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-21",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-21",
+    "title": "Analista QA",
+    "url": "https://himalayas.app/companies/astra-group/jobs/analista-qa?utm_source=api"
+  },
   "aff65ca66a99643f": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -1338,6 +1609,62 @@
     "status_updated_at": "2026-10-20",
     "title": "Senior Clinical QA Specialist, AI",
     "url": "https://jobicy.com/jobs/155922-senior-clinical-qa-specialist-ai"
+  },
+  "c582ed2b7874c6f7": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "AmerisourceBergen",
+    "created_at": "2026-10-21",
+    "job_id": "c582ed2b7874c6f7",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-21",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-21",
+    "title": "Associate Program Manager",
+    "url": "https://himalayas.app/companies/amerisourcebergen/jobs/associate-program-manager-4456983463?utm_source=api"
+  },
+  "c5b2ffef7489d183": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Smartling",
+    "created_at": "2026-10-21",
+    "job_id": "c5b2ffef7489d183",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-21",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-21",
+    "title": "Localisation Project Manager",
+    "url": "https://jobicy.com/jobs/156175-localisation-project-manager"
   },
   "c60f66f634536a6e": {
     "assessment": {
@@ -1454,6 +1781,64 @@
     "status_updated_at": "2026-10-20",
     "title": "Quality Engineer",
     "url": "https://jobicy.com/jobs/155930-quality-engineer-3"
+  },
+  "d7aafd30d82bf7f8": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "OpenAI",
+    "created_at": "2026-10-21",
+    "job_id": "d7aafd30d82bf7f8",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-21",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-21",
+    "title": "Senior Technical Program Manager - Security",
+    "url": "https://jobicy.com/jobs/151221-senior-technical-program-manager-security"
+  },
+  "d9b280116a918f7f": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Harris",
+    "created_at": "2026-10-21",
+    "job_id": "d9b280116a918f7f",
+    "notes": "",
+    "score": 70,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-21",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-21",
+    "title": "Project Manager",
+    "url": "https://himalayas.app/companies/harris/jobs/project-manager-9733311005?utm_source=api"
   },
   "dc4a5f6bb2b57e5e": {
     "assessment": {

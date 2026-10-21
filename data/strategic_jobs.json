@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T15:08:32.942647+00:00",
+  "generated_at": "2026-10-21T15:18:49.976525+00:00",
   "jobs": [
     {
       "company": "Honda Brasil",
@@ -91,9 +91,9 @@
     },
     {
       "company": "Honda Brasil",
-      "title": "ASSISTENTE CONTABIL São Paulo - SP Efetivo",
+      "title": "Analista Tesouraria PL  São Paulo - SP e Híbrido Efetivo",
       "location": "Não informado",
-      "url": "https://honda.gupy.io/jobs/12440261",
+      "url": "https://honda.gupy.io/jobs/11921423",
       "source": "Portal oficial",
       "published": "",
       "regional": false,
@@ -102,12 +102,12 @@
     },
     {
       "company": "Honda Brasil",
-      "title": "Assistente Expatriação Sumaré - SP e Híbrido Efetivo",
-      "location": "Sumaré",
-      "url": "https://honda.gupy.io/jobs/12600011",
+      "title": "ASSISTENTE CONTABIL São Paulo - SP Efetivo",
+      "location": "Não informado",
+      "url": "https://honda.gupy.io/jobs/12440261",
       "source": "Portal oficial",
       "published": "",
-      "regional": true,
+      "regional": false,
       "target_role": false,
       "verification": "Dados parciais; confirmar detalhes no anúncio"
     },
@@ -237,6 +237,17 @@
       "title": "Platform Integration Engineering Specialist, Sumaré/SP",
       "location": "Sumaré",
       "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Platform-Integration-Engineering-Specialist--Sumar-SP_R01170326",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Senior Marketing Science Specialist, Sumaré/SP",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Senior-Marketing-Science-Specialist--Sumar-SP_R01172147",
       "source": "Workday público",
       "published": "",
       "regional": true,
@@ -377,17 +388,6 @@
     },
     {
       "company": "Villares Metals",
-      "title": "Analista de Custo - Foco em Despesas  Sumaré - SP Efetivo",
-      "location": "Sumaré",
-      "url": "https://villaresmetals.gupy.io/jobs/5632751",
-      "source": "Portal oficial",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Dados parciais; confirmar detalhes no anúncio"
-    },
-    {
-      "company": "Villares Metals",
       "title": "Analista de Custos Pl - Gestão de Estoque/Inventário Sumaré - SP e Híbrido Efetivo",
       "location": "Sumaré",
       "url": "https://villaresmetals.gupy.io/jobs/12636347",
@@ -431,32 +431,10 @@
       "verification": "Dados parciais; confirmar detalhes no anúncio"
     },
     {
-      "company": "Rhodia / Solvay",
-      "title": "Técnico de Inspeção Especialista (H/M/X)",
-      "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-T%C3%A9cnico-de-Inspe%C3%A7%C3%A3o-Especialista-%28HMX%29-13148-914/1374475057/",
-      "source": "Portal oficial",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Dados parciais; confirmar detalhes no anúncio"
-    },
-    {
-      "company": "Rhodia / Solvay",
-      "title": "Aprendiz (H/M/X) - Guardinha",
-      "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Aprendiz-%28HMX%29-Guardinha-13148-914/1374894557/",
-      "source": "Portal oficial",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Dados parciais; confirmar detalhes no anúncio"
-    },
-    {
-      "company": "Rhodia / Solvay",
-      "title": "Estágio Superior em Engenharia Química (H/M/X)",
-      "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Est%C3%A1gio-Superior-em-Engenharia-Qu%C3%ADmica-%28HMX%29-13148-914/1372331557/",
+      "company": "Villares Metals",
+      "title": "Líder Produção - CS&S Sumaré - SP Efetivo",
+      "location": "Sumaré",
+      "url": "https://villaresmetals.gupy.io/jobs/12724224",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -476,9 +454,42 @@
     },
     {
       "company": "Rhodia / Solvay",
+      "title": "Operador de Acabamento - Vaga Afirmativa para Pessoas com Deficiência (H/M/X)",
+      "location": "Paulínia",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Operador-de-Acabamento-Vaga-Afirmativa-para-Pessoas-com-Defici%C3%AAncia-%28HMX%29-13148-914/1374756057/",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Rhodia / Solvay",
+      "title": "Técnico de Planejamento Sênior (H/M/X)",
+      "location": "Paulínia",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-T%C3%A9cnico-de-Planejamento-S%C3%AAnior-%28HMX%29-13148-914/1374452657/",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Rhodia / Solvay",
       "title": "Técnico de Manutenção Especialista - Planejamento (H/M/X)",
       "location": "Paulínia",
       "url": "https://careers.solvay.com/job/Brazil-Paulinia-T%C3%A9cnico-de-Manuten%C3%A7%C3%A3o-Especialista-Planejamento-%28HMX%29-13148-914/1374451757/",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Rhodia / Solvay",
+      "title": "Estágio Superior em Engenharia Química (H/M/X)",
+      "location": "Paulínia",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Est%C3%A1gio-Superior-em-Engenharia-Qu%C3%ADmica-%28HMX%29-13148-914/1374865557/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -498,7 +509,7 @@
     {
       "company": "3M Brasil",
       "state": "ok",
-      "found": 19,
+      "found": 20,
       "city": "Sumaré",
       "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search",
       "career_links": []

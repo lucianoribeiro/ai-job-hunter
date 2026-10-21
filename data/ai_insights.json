@@ -4,6 +4,13 @@
   "summary": "Ranking preliminar por critérios objetivos. A avaliação por modelo de IA ainda não está configurada. Confirme reputação da empresa, elegibilidade no Brasil, remuneração em USD e horas disponíveis.",
   "recommendations": [
     {
+      "title": "Program Manager, Part-Time",
+      "company": "Trilogy Federal",
+      "url": "https://himalayas.app/companies/trilogy-federal/jobs/program-manager-part-time?utm_source=api",
+      "score": 100,
+      "reason": "Contrato flexível potencial: confirmar carga horária | Moeda não confirmada em USD; Elegibilidade para residentes no Brasil não verificada"
+    },
+    {
       "title": "SNAP EBT Test Lead",
       "company": "Dhaka Technologies Limited Company",
       "url": "https://himalayas.app/companies/dhaka-technologies-limited-company/jobs/snap-ebt-test-lead",
@@ -11,19 +18,12 @@
       "reason": "Contrato flexível potencial: confirmar carga horária | Moeda não confirmada em USD; Elegibilidade para residentes no Brasil não verificada"
     },
     {
-      "title": "Clinical Trials Associate Project Manager",
-      "company": "Rochester Regional Health",
-      "url": "https://himalayas.app/companies/rochester-regional-health/jobs/clinical-trials-associate-project-manager",
-      "score": 80,
-      "reason": "Compatibilidade preliminar: validar requisitos. | Moeda não confirmada em USD; Elegibilidade para residentes no Brasil não verificada"
-    },
-    {
-      "title": "Systems Analyst/ IT Project Manager as Freelancer (all genders)",
-      "company": "Vexcash AG",
-      "url": "https://www.arbeitnow.com/jobs/companies/vexcash-ag/systems-analyst-it-project-manager-as-freelancer-all-genders-berlin-466967",
-      "score": 75,
+      "title": "Developer or Technical Lead (Niche or Regular), Cloud Consultants, QA Tester, QA",
+      "company": "NTT DATA",
+      "url": "https://himalayas.app/companies/nttdata/jobs/developer-or-technical-lead-niche-or-regular-cloud-consultants-qa-tester-qa?utm_source=api",
+      "score": 85,
       "reason": "Contrato flexível potencial: confirmar carga horária | Moeda não confirmada em USD; Elegibilidade para residentes no Brasil não verificada"
     }
   ],
-  "generated_at": "2026-10-20T15:08:15.570467+00:00"
+  "generated_at": "2026-10-21T15:18:39.014914+00:00"
 }
