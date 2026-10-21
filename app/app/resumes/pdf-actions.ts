@@ -23,7 +23,7 @@ export async function uploadResumePdf(form: FormData) {
  if(lookupError) throw new Error("Falha ao consultar os currículos existentes.");
  // Immutable objects prevent replacing the previous PDF before the DB operation succeeds.
  const key = user.id + "/" + crypto.randomUUID() + ".pdf";
- const {error:uploadError} = await supabase.storage.from(BUCKET).upload(key,bytes,{contentType:"application/pdf",upsert:false,cacheControl:"private, no-store"});
+ const {error:uploadError} = await supabase.storage.from(BUCKET).upload(key,bytes,{contentType:"application/pdf",upsert:false,cacheControl:"0"});
  if(uploadError) throw new Error("Falha ao guardar o PDF privado. Verifique se a migração Supabase foi executada.");
  const metadata = {user_id:user.id,language,label:language === "en-US" ? "Executive Resume – English" : "Currículo Executivo – Português",object_path:key,original_name:file.name.slice(0,180),bytes:file.size};
  const save = old
@@ -45,10 +45,11 @@ export async function deleteResumePdf(form: FormData) {
  if(!/^[0-9a-f-]{36}$/i.test(id)) throw new Error("ID inválido.");
  const {data:record,error}=await supabase.from("resume_files").select("object_path").eq("id",id).eq("user_id",user.id).single();
  if(error||!record) throw new Error("Currículo não encontrado.");
- const deletion=await supabase.storage.from(BUCKET).remove([record.object_path]);
- if(deletion.error) throw new Error("Falha ao apagar o arquivo.");
  const result=await supabase.from("resume_files").delete().eq("id",id).eq("user_id",user.id);
  if(result.error) throw new Error("Falha ao atualizar registro do arquivo.");
+ // After removing database access, object cleanup is best effort; never leave a live reference to a deleted object.
+ const deletion=await supabase.storage.from(BUCKET).remove([record.object_path]);
+ if(deletion.error) console.error("Private CV orphaned; storage cleanup required",id);
  revalidatePath("/resumes");
  redirect("/resumes");
 }
