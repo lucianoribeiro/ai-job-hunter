@@ -25,7 +25,7 @@ export default async function Applications(){
  const review=drafts.some(d=>d.status==="pending_review"||d.status==="approved");
  const sent=app?.status==="applied";
  return <article className="tile" key={job.id}><h3>{job.title}</h3><p>{job.company} · {job.location_text??"Localização não informada"}</p>
- <p role="status"><strong>{sent?"Candidatura registrada como enviada":drafted?"Rascunho criado no Gmail — não enviado":review?"E-mail aguardando revisão":"CV não enviado"}</strong></p>
+ <p role="status"><strong>{sent?"Candidatura marcada como enviada — confirmação pendente":drafted?"Rascunho criado no Gmail — não enviado":review?"E-mail aguardando revisão":"CV não enviado"}</strong></p>
  {drafts.length>0&&<small>Destinatário: {drafts[0].recipient_email}</small>}
  {app&&<small> · Status do processo: {app.status}</small>}
  <div className="controls"><Link href={`/applications/outreach?job=${encodeURIComponent(job.id)}`}>Preparar e-mail ao recrutador →</Link><a href={job.listing_url} rel="noopener noreferrer" target="_blank">Candidatar-me no site da empresa ↗</a>
