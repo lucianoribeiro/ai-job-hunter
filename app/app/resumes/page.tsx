@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getSupabase } from "@/lib/supabase";
 import { approveVersion, createResume, createVersion } from "./actions";
+import { uploadResumePdf, deleteResumePdf } from "./pdf-actions";
 type Resume={id:string;title:string;language:string;summary:string;experience:string;skills:string;education:string};
 type Version={id:string;resume_id:string;label:string;target_role:string;content:string;status:string};
 export default async function ResumeStudio(){
@@ -13,6 +14,9 @@ export default async function ResumeStudio(){
   supabase.from("resume_versions").select("id,resume_id,label,target_role,content,status").order("created_at",{ascending:false})
  ]);
  const resumes=(resumeRows||[]) as Resume[],versions=(versionRows||[]) as Version[];
+ const {data:pdfRows,error:pdfError}=await supabase.from("resume_files")
+   .select("id,label,language,original_name,bytes,created_at").eq("user_id",user.id).order("created_at",{ascending:false});
+ const pdfs=(pdfRows||[]) as {id:string;label:string;language:string;original_name:string;bytes:number;created_at:string}[];
  return <main className="shell"><header className="top"><span className="logo">✦ AI Job Hunter</span><Link href="/dashboard">← Dashboard</Link></header>
  <section className="panel"><span className="eyebrow">AI RESUME STUDIO</span><p><Link href="/resumes/import">Importar currículo PDF/DOCX →</Link></p><h1>Seus currículos</h1>
  <p>Crie um currículo principal e versões específicas para diferentes cargos. Revise as informações antes de aprovar.</p>
@@ -22,6 +26,20 @@ export default async function ResumeStudio(){
  <p>{r.summary.slice(0,180)}{r.summary.length>180?"…":""}</p>
  <small>Versões: {versions.filter(v=>v.resume_id===r.id).length}</small><p><a href={`/resumes/${r.id}/export?format=html`}>Baixar currículo ATS (HTML)</a> · <a href={`/resumes/${r.id}/export?format=txt`}>Texto</a></p>
  </article>)}</div></section>
+ <section className="panel"><h2>Arquivos PDF privados</h2>
+ <p>Armazene seu CV em português e em inglês. Os arquivos são acessíveis somente pela sua conta e não são publicados no GitHub. O envio por e-mail não é automático.</p>
+ {pdfError&&<p role="alert">Armazenamento PDF ainda indisponível. Execute a migração do Supabase para ativar.</p>}
+ <div className="cards">{pdfs.map(p=><article className="tile" key={p.id}>
+ <h3>{p.label}</h3><p>{p.original_name}</p><small>{(p.bytes/1024).toFixed(0)} KB · {p.language==="en-US"?"Inglês":"Português"}</small>
+ <div className="controls"><a href={`/resumes/download?id=${encodeURIComponent(p.id)}`}>Baixar PDF</a>
+ <form action={deleteResumePdf}><input type="hidden" name="id" value={p.id}/><button>Excluir PDF</button></form></div>
+ </article>)}</div>
+ <form action={uploadResumePdf} className="form">
+ <label>Idioma<select name="language" required defaultValue="en-US"><option value="en-US">Inglês (EN)</option><option value="pt-BR">Português (PT-BR)</option></select></label>
+ <label>Arquivo PDF (máx. 5 MB)<input name="file" type="file" accept="application/pdf,.pdf" required/></label>
+ <p className="note">Um PDF por idioma. Um novo upload substitui o arquivo anterior somente após salvar a nova versão.</p>
+ <button className="primary" type="submit">Salvar PDF privado</button></form>
+ </section>
  <section className="panel"><h2>Criar currículo principal</h2>
  <p>Preencha somente experiências reais. É possível copiar as informações de um PDF exportado do LinkedIn e revisar antes de salvar.</p>
  <form className="form" action={createResume}>

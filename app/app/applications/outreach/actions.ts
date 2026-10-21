@@ -7,7 +7,7 @@ export async function createOutreachDraft(form:FormData){
  const {supabase,user}=await auth();
  const opportunityId=str(form,"opportunity_id",40),recipient=str(form,"recipient",254).toLowerCase(),
  subject=str(form,"subject",250),body=str(form,"body",12000),resumeId=str(form,"resume_version_id",40),
- listingUrl=str(form,"listing_url",2000),listingTitle=str(form,"listing_title",240);
+ listingUrl=str(form,"listing_url",2000),listingTitle=str(form,"listing_title",240),resumeFileId=str(form,"resume_file_id",40);
  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipient)||!subject||!body)
    throw new Error("Confira os dados da candidatura");
  let job:{id:string}|null=null;
@@ -25,7 +25,17 @@ export async function createOutreachDraft(form:FormData){
   if(!data||data.status!=="approved")throw new Error("Escolha uma versão de CV aprovada");
   version=data.id;
  }
- const {error}=await supabase.from("recruiter_drafts").insert({user_id:user.id,opportunity_id:job.id,
+ let fileId:string|null=null;
+ if(resumeFileId){
+  if(!/^[a-f0-9-]{36}$/i.test(resumeFileId))throw new Error("PDF inválido");
+  const {data:pdf}=await supabase.from("resume_files").select("id").eq("id",resumeFileId).eq("user_id",user.id).single();
+  if(!pdf)throw new Error("PDF não pertence a este usuário");
+  fileId=pdf.id;
+ }
+ if(!version&&!fileId) throw new Error("Selecione um CV para anexar.");
+ const {data:prior}=await supabase.from("recruiter_drafts").select("id,status").eq("user_id",user.id).eq("opportunity_id",job.id).eq("recipient_email",recipient).in("status",["pending_review","approved","drafted"]).limit(1);
+ if(prior?.length)throw new Error("Já existe uma candidatura para esta vaga e destinatário. Verifique o histórico antes de criar outra.");
+ const {error}=await supabase.from("recruiter_drafts").insert({user_id:user.id,opportunity_id:job.id,resume_file_id:fileId,
   resume_version_id:version,recipient_email:recipient,subject,body,status:"pending_review"});
  if(error)throw new Error("Não foi possível preparar o rascunho");
  redirect("/applications/outreach");
