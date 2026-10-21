@@ -622,7 +622,7 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 <div id="mainPanelRegional" class="primary-panel" role="tabpanel" aria-labelledby="mainTabRegional" hidden>""" + strategic_html + """</div>
 <div id="mainPanelAI" class="primary-panel" role="tabpanel" aria-labelledby="mainTabAI" hidden>
 <div class="career-hub">
-<div class="career-hub-tabs" role="tablist" aria-label="Currículos e candidaturas"><button type="button" id="careerHubCV" role="tab" aria-controls="careerHubCVPanel" aria-selected="true">Meu CV</button><button type="button" id="careerHubApplications" role="tab" aria-controls="careerHubApplicationsPanel" aria-selected="false">Minhas Candidaturas</button></div>
+<nav class="career-hub-tabs" role="tablist" aria-label="Currículos e candidaturas" style="display:flex!important;flex-wrap:wrap;gap:12px;padding:12px;margin:0 0 18px;border:1px solid #55677b;border-radius:14px;background:#202a34"><button type="button" id="careerHubCV" role="tab" aria-controls="careerHubCVPanel" aria-selected="true" style="flex:1;min-width:180px;min-height:50px;background:#397d70;color:#fff;border:1px solid #8acdbb;border-radius:9px;font-weight:750;cursor:pointer">Meu CV</button><button type="button" id="careerHubApplications" role="tab" aria-controls="careerHubApplicationsPanel" aria-selected="false" style="flex:1;min-width:180px;min-height:50px;background:#283848;color:#fff;border:1px solid #66778c;border-radius:9px;font-weight:750;cursor:pointer">Minhas Candidaturas</button></nav>
 <section id="careerHubCVPanel" role="tabpanel" aria-labelledby="careerHubCV"><p class="career-hub-note">Importe e prepare seu CV. O upload privado ainda requer integração à aplicação autenticada.</p>""" + studio_html + """</section>
 <section id="careerHubApplicationsPanel" role="tabpanel" aria-labelledby="careerHubApplications" hidden><h2>Minhas Candidaturas</h2><p>Prepare uma mensagem para um recrutador. Esta página pública não armazena CVs ou histórico pessoal e não envia e-mails.</p>
 <div class="career-hub-form"><label for="careerJobRole">Cargo e empresa</label><input id="careerJobRole" maxlength="180" placeholder="Ex.: QA Lead — Empresa">
@@ -816,7 +816,7 @@ catch(_){status.textContent='Abra a vaga diretamente na lista acima para copiar 
 (()=>{'use strict';
 (()=>{
 const cv=document.getElementById('careerHubCV'),apps=document.getElementById('careerHubApplications'),cvPanel=document.getElementById('careerHubCVPanel'),appsPanel=document.getElementById('careerHubApplicationsPanel');
-function show(app){cv.setAttribute('aria-selected',String(!app));apps.setAttribute('aria-selected',String(app));cvPanel.hidden=app;appsPanel.hidden=!app;}
+function show(app){cv.setAttribute('aria-selected',String(!app));apps.setAttribute('aria-selected',String(app));cv.style.background=app?'#283848':'#397d70';apps.style.background=app?'#397d70':'#283848';cvPanel.hidden=app;appsPanel.hidden=!app;cvPanel.style.display=app?'none':'block';appsPanel.style.display=app?'block':'none';}
 cv.addEventListener('click',()=>show(false));apps.addEventListener('click',()=>show(true));
 const button=document.getElementById('careerPrepare'),copy=document.getElementById('careerCopy'),result=document.getElementById('careerDraftBody'),status=document.getElementById('careerDraftStatus');
 button.addEventListener('click',()=>{const role=document.getElementById('careerJobRole').value.trim(),email=document.getElementById('careerRecruiter'),exp=document.getElementById('careerExperience').value.trim(),en=document.getElementById('careerLanguage').value==='en';
