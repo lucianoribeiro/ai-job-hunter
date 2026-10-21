@@ -17,7 +17,7 @@ export async function createApprovedGmailDraft(form:FormData){
   const {data:blob,error:storageError}=await supabase.storage.from("private-resumes").download(file.object_path);
   if(storageError||!blob)throw new Error("Could not download private CV");
   pdf=new Uint8Array(await blob.arrayBuffer());
-  filename=file.language==="en-US"?"Luciano_Ribeiro_Resume_EN.pdf":"Luciano_Ribeiro_Curriculo_PTBR.pdf";
+  filename=file.language==="en-US"?"Resume_EN.pdf":"Curriculo_PTBR.pdf";
  }else{
   const {data:version}=await supabase.from("resume_versions").select("content,status,target_role,label").eq("id",draft.resume_version_id).eq("user_id",user.id).single();
   if(!version||version.status!=="approved")throw new Error("Approved resume required");
