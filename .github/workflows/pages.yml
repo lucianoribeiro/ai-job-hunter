@@ -135,6 +135,9 @@ jobs:
           grep -q 'id="mainPanelFinance"' site/index.html
           grep -q 'id="mainTabRecruiter"' site/index.html
           grep -q 'id="mainPanelRecruiter"' site/index.html
+          grep -q 'id="careerHubCV"' site/index.html
+          grep -q 'id="careerHubApplications"' site/index.html
+          grep -q 'id="careerHubApplicationsPanel"' site/index.html
           grep -q 'id="usdFilter"' site/index.html
           grep -q 'id="fc-salary"' site/index.html
           grep -q 'Ver informações da vaga' src/unified_jobs_dashboard.py
