@@ -4,15 +4,17 @@ import {getSupabase} from "@/lib/supabase";
 import {createOutreachDraft,approveOutreachDraft} from "./actions";
 type Job={id:string;title:string;company:string;listing_url:string};
 type Version={id:string;label:string;target_role:string};
-type Draft={id:string;recipient_email:string;subject:string;body:string;status:string;resume_version_id:string|null};
+type Pdf={id:string;label:string;language:string};
+type Draft={id:string;recipient_email:string;subject:string;body:string;status:string;resume_version_id:string|null;resume_file_id:string|null};
 export default async function Outreach({searchParams}:{searchParams:Promise<{job?:string;recipient?:string;title?:string;source?:string}>}){
  const supabase=await getSupabase();const {data:{user}}=await supabase.auth.getUser();if(!user)redirect("/");
- const [{data:jobsRows},{data:versionsRows},{data:draftsRows}]=await Promise.all([
+ const [{data:jobsRows},{data:versionsRows},{data:draftsRows},{data:pdfRows}]=await Promise.all([
  supabase.from("opportunities").select("id,title,company,listing_url").order("created_at",{ascending:false}),
  supabase.from("resume_versions").select("id,label,target_role").eq("status","approved").order("created_at",{ascending:false}),
- supabase.from("recruiter_drafts").select("id,recipient_email,subject,body,status,resume_version_id").order("created_at",{ascending:false})
+ supabase.from("recruiter_drafts").select("id,recipient_email,subject,body,status,resume_version_id,resume_file_id").order("created_at",{ascending:false}),
+ supabase.from("resume_files").select("id,label,language").eq("user_id",user.id)
  ]);
- const jobs=(jobsRows??[]) as Job[],versions=(versionsRows??[]) as Version[],drafts=(draftsRows??[]) as Draft[];
+ const jobs=(jobsRows??[]) as Job[],versions=(versionsRows??[]) as Version[],drafts=(draftsRows??[]) as Draft[],pdfs=(pdfRows??[]) as Pdf[];
  const params=await searchParams,external=/^https:\/\//i.test(params.source||"")&&!!params.title;
  const selected=jobs.find(j=>j.id===params.job||j.listing_url===params.source)??jobs[0];
  const displayTitle=(params.title||selected?.title||"oportunidade").slice(0,160),displayCompany=selected?.company||"empresa";
@@ -29,8 +31,9 @@ export default async function Outreach({searchParams}:{searchParams:Promise<{job
  <label>E-mail divulgado pelo recrutador<input name="recipient" type="email" required maxLength={254} defaultValue={params.recipient||""} placeholder="recrutamento@empresa.com"/></label>
  <label>Assunto<input name="subject" required maxLength={250} defaultValue={defaultSubject}/></label>
  <label>Mensagem<textarea name="body" required rows={10} maxLength={12000} defaultValue={defaultBody}/></label>
- <label>CV aprovado para anexar<select name="resume_version_id" required><option value="">Selecione o currículo</option>{versions.map(v=><option key={v.id} value={v.id}>{v.label} — {v.target_role}</option>)}</select></label>
- <p className="note">O CV selecionado será convertido no template PDF profissional e anexado somente após sua aprovação e autorização Gmail.</p>
+ <label>PDF privado para anexar<select name="resume_file_id"><option value="">Usar currículo gerado pelo Resume Studio</option>{pdfs.map(p=><option key={p.id} value={p.id}>{p.label} ({p.language})</option>)}</select></label>
+ <label>Alternativa: versão aprovada do Resume Studio<select name="resume_version_id"><option value="">Selecione o currículo</option>{versions.map(v=><option key={v.id} value={v.id}>{v.label} — {v.target_role}</option>)}</select></label>
+ <p className="note">Se escolher um PDF privado, ele terá prioridade sobre a versão gerada. A aprovação apenas prepara um rascunho no Gmail; não envia a candidatura.</p>
  <button className="primary">Salvar para revisão</button></form>}
  </section><section className="panel"><h2>Mensagens preparadas</h2>
  {!drafts.length&&<p>Nenhuma mensagem preparada.</p>}
