@@ -229,6 +229,29 @@ def usajobs() -> list[dict]:
                      "source": "USAJOBS", "published": j.get("PublicationStartDate", "")})
     return jobs
 
+def greenhouse_role(title: str) -> str | None:
+    """Classify target jobs by title, not by incidental description keywords."""
+    title = plain(title).casefold()
+    if re.search(r"\\b(?:qa|sdet|quality assurance|software quality|software test(?:er|ing)?|test automation|automation test(?:er|ing)?|test engineer|quality engineering)\\b", title):
+        return "QA"
+    if re.search(r"\\b(?:analista de projetos?|project analyst|project specialist|especialista de projetos?)\\b", title):
+        return "Analista de Projetos"
+    if re.search(r"\\b(?:gerente de projetos?|project manager|program manager|gestor de projetos?)\\b", title) and not re.search(r"\\b(?:product manager|account manager|sales manager)\\b", title):
+        return "Gerente de Projetos"
+    if re.search(r"\\b(?:coordenador(?:a)? de projetos?|project coordinator)\\b", title):
+        return "Coordenador de Projetos"
+    return None
+
+
+def greenhouse_project_location(location: str) -> bool:
+    """Allow regional project listings; never infer eligibility for generic remote jobs."""
+    return bool(re.search(
+        r"\\b(?:brazil|brasil|s[aã]o paulo|campinas|sumar[eé]|paul[ií]nia|americana|nova odessa|"
+        r"jaguari[uú]na|hortol[aâ]ndia|indaiatuba|santa b[aá]rbara|mog[ií] gua[cç]u)\\b",
+        location.casefold(),
+    ))
+
+
 def classify(job: dict, config: dict) -> dict | None:
     title = str(job.get("title") or "").lower()
     location = str(job.get("location") or "").lower()
@@ -238,13 +261,15 @@ def classify(job: dict, config: dict) -> dict | None:
         return None
     # QA terms in descriptions do not establish that a role itself is in QA.
     allowed = config["full_time_keywords"] + config.get("freelance_keywords", [])
-    if not any(term in title for term in allowed):
+    if not any(term in title for term in allowed) and not (job.get("source") == "Greenhouse" and greenhouse_role(title)):
         return None
     context = title + " " + location + " " + job_type
     negative = bool(re.search(r"\b(not remote|no remote|on.site|onsite|on site|in.office|office.based|hybrid)\b", context))
     explicit_remote = bool(job.get("remote")) or bool(re.search(r"\b(remote|worldwide remote|work from anywhere|distributed)\b", context))
     remote = explicit_remote and not negative
-    if config["remote_required"] and not remote:
+    greenhouse_role_name = greenhouse_role(title) if job.get("source") == "Greenhouse" else None
+    regional_project = bool(greenhouse_role_name and greenhouse_role_name != "QA" and greenhouse_project_location(location))
+    if config["remote_required"] and not (remote or regional_project):
         return None
     contract = bool(re.search(r"\b(freelanc\w*|independent contractor|contractor|contract|part.time|hourly|project.based)\b", title + " " + job_type))
     category = "freelance" if contract else "full-time/unspecified"
@@ -255,7 +280,7 @@ def classify(job: dict, config: dict) -> dict | None:
     senior = bool(re.search(r"\b(lead|manager|head|principal|senior|staff)\b", title))
     score = min(100, 30 + (20 if senior else 0) + (20 if contract else 0) + (15 if usd else 0) + (10 if flexible else 0) + (5 if remote else 0))
     result = dict(job)
-    result.update(score=score, category=category, remote=remote, usd_confirmed=usd,
+    result.update(score=score, category=category, remote=remote, role=greenhouse_role_name or "", usd_confirmed=usd,
                   flexibility_mentioned=flexible, two_hours_confirmed=hours)
     result.pop("description", None)
     return result
@@ -290,7 +315,7 @@ def collect(config: dict) -> tuple[list[dict], list[str]]:
     return ranked[: config.get("max_results", 100)], errors
 
 
-FIELDS = ["score", "category", "title", "company", "location", "salary", "type",
+FIELDS = ["score", "category", "role", "title", "company", "location", "salary", "type",
           "remote", "usd_confirmed", "flexibility_mentioned", "two_hours_confirmed",
           "published", "source", "url", "id"]
 
