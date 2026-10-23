@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T15:19:49.050452+00:00",
+  "generated_at": "2026-10-23T15:08:15.987542+00:00",
   "jobs": [
     {
       "company": "Honda Brasil",
@@ -432,9 +432,20 @@
     },
     {
       "company": "Villares Metals",
-      "title": "Líder Produção - CS&S Sumaré - SP Efetivo",
+      "title": "Líder de Produção - Forjaria Sumaré - SP Efetivo",
       "location": "Sumaré",
-      "url": "https://villaresmetals.gupy.io/jobs/12724224",
+      "url": "https://villaresmetals.gupy.io/jobs/12768871",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Rhodia / Solvay",
+      "title": "Estágio em Supply Chain (H/M/X)",
+      "location": "Paulínia",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Est%C3%A1gio-em-Supply-Chain-%28HMX%29-13148-914/1374455457/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -454,9 +465,9 @@
     },
     {
       "company": "Rhodia / Solvay",
-      "title": "Estágio Superior em Engenharia Química (H/M/X)",
+      "title": "Técnico de Planejamento Sênior (H/M/X)",
       "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Est%C3%A1gio-Superior-em-Engenharia-Qu%C3%ADmica-%28HMX%29-13148-914/1373624257/",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-T%C3%A9cnico-de-Planejamento-S%C3%AAnior-%28HMX%29-13148-914/1374452657/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -465,20 +476,9 @@
     },
     {
       "company": "Rhodia / Solvay",
-      "title": "Operador de Controle de Emergências (H/M/X)",
+      "title": "Técnico de Inspeção Especialista (H/M/X)",
       "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Operador-de-Controle-de-Emerg%C3%AAncias-%28HMX%29-13148-914/1373629857/",
-      "source": "Portal oficial",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Dados parciais; confirmar detalhes no anúncio"
-    },
-    {
-      "company": "Rhodia / Solvay",
-      "title": "Aprendiz (H/M/X)",
-      "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Aprendiz-%28HMX%29-13148-914/1374894557/",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-T%C3%A9cnico-de-Inspe%C3%A7%C3%A3o-Especialista-%28HMX%29-13148-914/1374475057/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -489,7 +489,7 @@
       "company": "Rhodia / Solvay",
       "title": "Estágio Superior em Engenharia Química (H/M/X)",
       "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Est%C3%A1gio-Superior-em-Engenharia-Qu%C3%ADmica-%28HMX%29-13148-914/1372331557/",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Est%C3%A1gio-Superior-em-Engenharia-Qu%C3%ADmica-%28HMX%29-13148-914/1374865557/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
