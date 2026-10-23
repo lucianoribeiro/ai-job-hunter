@@ -50,6 +50,15 @@
     "title": "Senior QA Automation Engineer (AI-Focused)",
     "url": "https://himalayas.app/companies/workmotion/jobs/senior-qa-automation-engineer-ai-focused?utm_source=api"
   },
+  "0a9360911da2a94d36da2e2b": {
+    "company": "BSC Analytics",
+    "first_seen": "2026-10-23",
+    "last_seen": "2026-10-23",
+    "published": "1792744597",
+    "source": "Himalayas",
+    "title": "Product Support Engineer (SRE, QA)",
+    "url": "https://himalayas.app/companies/bsc-analytics/jobs/product-support-engineer-sre-qa?utm_source=api"
+  },
   "0e058e31b64aaa433778b0e4": {
     "company": "Builders FirstSource",
     "first_seen": "2026-10-22",
@@ -81,6 +90,15 @@
     "source": "Jobicy",
     "title": "Senior QA Engineer",
     "url": "https://jobicy.com/jobs/155766-senior-qa-engineer-3"
+  },
+  "11bfc7e2ccacf7cb3b6e4698": {
+    "company": "Sunrun",
+    "first_seen": "2026-10-23",
+    "last_seen": "2026-10-23",
+    "published": "1792753384",
+    "source": "Himalayas",
+    "title": "Manufacturing and Quality Engineer",
+    "url": "https://himalayas.app/companies/sunrun/jobs/manufacturing-and-quality-engineer?utm_source=api"
   },
   "11e88f1ee8e4fa2870a7129b": {
     "company": "Clario",
@@ -218,7 +236,7 @@
   "1718efd19ea573c12f0b4add": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-22",
+    "last_seen": "2026-10-23",
     "published": "2026-10-15T15:24:46-04:00",
     "source": "Greenhouse",
     "title": "Staff Program Manager, CCO Programs",
@@ -330,6 +348,15 @@
     "published": "2026-10-23T03:50:15+00:00",
     "salary": "",
     "score": 55,
+    "source": "Jobicy",
+    "title": "Technical Program Manager",
+    "url": "https://jobicy.com/jobs/153901-technical-program-manager-5"
+  },
+  "1fbfaf3071a35750484e265c": {
+    "company": "Playson",
+    "first_seen": "2026-10-23",
+    "last_seen": "2026-10-23",
+    "published": "2026-10-23T03:50:15+00:00",
     "source": "Jobicy",
     "title": "Technical Program Manager",
     "url": "https://jobicy.com/jobs/153901-technical-program-manager-5"
@@ -447,7 +474,7 @@
   "2a4d54ac15ae0f954aa499bf": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-22",
+    "last_seen": "2026-10-23",
     "published": "2026-10-15T15:24:46-04:00",
     "source": "Greenhouse",
     "title": "Senior Program Manager, Enterprise Technology and AI",
@@ -515,7 +542,7 @@
   "34ba7449e4691e4f7055face": {
     "company": "Spiralyze",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-22",
+    "last_seen": "2026-10-23",
     "published": "2026-10-06T19:35:42+00:00",
     "source": "Remote OK",
     "title": "Project Manager",
@@ -632,6 +659,15 @@
     "published": "2026-10-22T20:38:09+00:00",
     "salary": "",
     "score": 55,
+    "source": "Jobicy",
+    "title": "Manager Software Test Automation",
+    "url": "https://jobicy.com/jobs/156466-manager-software-test-automation"
+  },
+  "439ab77abff99caf7b0be266": {
+    "company": "Veracyte",
+    "first_seen": "2026-10-23",
+    "last_seen": "2026-10-23",
+    "published": "2026-10-22T20:38:09+00:00",
     "source": "Jobicy",
     "title": "Manager Software Test Automation",
     "url": "https://jobicy.com/jobs/156466-manager-software-test-automation"
@@ -771,7 +807,7 @@
   "51faec0bcc5c06023b6659e1": {
     "company": "Ace IT Careers",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-22",
+    "last_seen": "2026-10-23",
     "published": "2026-08-15T00:00:25+00:00",
     "source": "Remote OK",
     "title": "QA Tester Entry Level",
@@ -983,6 +1019,15 @@
     "title": "Commercial Strategy & Project Manager (m/w/d)",
     "url": "https://www.arbeitnow.com/jobs/companies/emotion-gmbh/commercial-strategy-project-manager-berlin-435738"
   },
+  "612e0daed622b692cbec772c": {
+    "company": "emotion GmbH",
+    "first_seen": "2026-10-23",
+    "last_seen": "2026-10-23",
+    "published": "1792746056",
+    "source": "Arbeitnow",
+    "title": "Commercial Strategy & Project Manager (m/w/d)",
+    "url": "https://www.arbeitnow.com/jobs/companies/emotion-gmbh/commercial-strategy-project-manager-berlin-435738"
+  },
   "62e4d0bbf74973764abfe713": {
     "company": "JLL",
     "first_seen": "2026-10-18",
@@ -1096,6 +1141,15 @@
     "source": "Himalayas",
     "title": "Quality Operations Program Manager - Document Control",
     "url": "https://himalayas.app/companies/lifelancer/jobs/quality-operations-program-manager-document-control-829489968?utm_source=api"
+  },
+  "6fd0ff9218c839b619c616c6": {
+    "company": "Metasys",
+    "first_seen": "2026-10-23",
+    "last_seen": "2026-10-23",
+    "published": "1792744457",
+    "source": "Himalayas",
+    "title": "Automation QA Engineer Internship",
+    "url": "https://himalayas.app/companies/metasys/jobs/automation-qa-engineer-internship?utm_source=api"
   },
   "7072b3bbde8b0596": {
     "company": "mi.ro Personalvermittlung",
@@ -1291,6 +1345,15 @@
     "published": "1792750808",
     "salary": "",
     "score": 35,
+    "source": "Arbeitnow",
+    "title": "Test Automation Engineer",
+    "url": "https://www.arbeitnow.fr/jobs/companies/european-dynamics/remote-test-automation-engineer-strasbourg-449366"
+  },
+  "7792d413f1782662a231132f": {
+    "company": "European Dynamics",
+    "first_seen": "2026-10-23",
+    "last_seen": "2026-10-23",
+    "published": "1792750808",
     "source": "Arbeitnow",
     "title": "Test Automation Engineer",
     "url": "https://www.arbeitnow.fr/jobs/companies/european-dynamics/remote-test-automation-engineer-strasbourg-449366"
@@ -1637,7 +1700,7 @@
   "9f5d7fcbc28da96653b684a7": {
     "company": "Ramp",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-22",
+    "last_seen": "2026-10-23",
     "published": "2026-10-16T18:04:33.419+00:00",
     "source": "Ashby",
     "title": "Senior Technical Program Manager",
@@ -1651,6 +1714,15 @@
     "source": "Himalayas",
     "title": "Project Coordinator",
     "url": "https://himalayas.app/companies/pavago/jobs/project-coordinator-1177994446"
+  },
+  "a245efb12bc67dc7b5728bb9": {
+    "company": "H&R Block",
+    "first_seen": "2026-10-23",
+    "last_seen": "2026-10-23",
+    "published": "1792760646",
+    "source": "Himalayas",
+    "title": "Quality Assurance Analyst",
+    "url": "https://himalayas.app/companies/h-r-block/jobs/quality-assurance-analyst?utm_source=api"
   },
   "a4e76914e18d833c": {
     "company": "Brightspeed",
@@ -1771,6 +1843,15 @@
     "title": "Software Test Engineer",
     "url": "https://www.arbeitnow.ch/jobs/companies/swisspeak-partners-gmbh/remote-software-test-engineer-bern-226881"
   },
+  "ac92aad3f7394ff8e094d609": {
+    "company": "HII",
+    "first_seen": "2026-10-23",
+    "last_seen": "2026-10-23",
+    "published": "1792756595",
+    "source": "Himalayas",
+    "title": "LOGIX Project Manager- Crane, IN (Mgr Project Management 1)- 30821 (Crane, IN, R",
+    "url": "https://himalayas.app/companies/hii/jobs/logix-project-manager-crane-in-mgr-project-management-1-30821-crane-in-r?utm_source=api"
+  },
   "afc0605a402e4dce": {
     "company": "Astra Group",
     "description": "",
@@ -1794,6 +1875,15 @@
     "title": "Test Automation Engineer",
     "url": "https://himalayas.app/companies/bright-vision-technologies/jobs/test-automation-engineer-3645864695"
   },
+  "b1c73d322b9e711caeed6eed": {
+    "company": "Enverus",
+    "first_seen": "2026-10-23",
+    "last_seen": "2026-10-23",
+    "published": "1792764354",
+    "source": "Himalayas",
+    "title": "Senior Project Manager - 26409",
+    "url": "https://himalayas.app/companies/enverus/jobs/senior-project-manager-26409?utm_source=api"
+  },
   "b23e68b13f80c2cb": {
     "company": "Playson",
     "description": "",
@@ -1804,6 +1894,15 @@
     "published": "2026-10-23T09:12:15+00:00",
     "salary": "",
     "score": 35,
+    "source": "Jobicy",
+    "title": "Manual QA Engineer (Game Client)",
+    "url": "https://jobicy.com/jobs/156544-manual-qa-engineer-game-client"
+  },
+  "b23e68b13f80c2cb53422aca": {
+    "company": "Playson",
+    "first_seen": "2026-10-23",
+    "last_seen": "2026-10-23",
+    "published": "2026-10-23T09:12:15+00:00",
     "source": "Jobicy",
     "title": "Manual QA Engineer (Game Client)",
     "url": "https://jobicy.com/jobs/156544-manual-qa-engineer-game-client"
@@ -1894,6 +1993,15 @@
     "source": "Himalayas",
     "title": "Quality Assurance Specialist",
     "url": "https://himalayas.app/companies/medical-solutions/jobs/quality-assurance-specialist?utm_source=api"
+  },
+  "c086cbcd873b7c6ac594c215": {
+    "company": "Prism Studio",
+    "first_seen": "2026-10-23",
+    "last_seen": "2026-10-23",
+    "published": "1792763360",
+    "source": "Himalayas",
+    "title": "Senior QA Engineer",
+    "url": "https://himalayas.app/companies/prism-studio/jobs/senior-qa-engineer-5370847661?utm_source=api"
   },
   "c30120a5b4bf213e": {
     "company": "BetterHelp",
@@ -2022,7 +2130,7 @@
   "c643ca1ab0148a831a238994": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-22",
+    "last_seen": "2026-10-23",
     "published": "2026-10-15T15:24:46-04:00",
     "source": "Greenhouse",
     "title": "Principal Technical Program Manager",
@@ -2114,6 +2222,15 @@
     "source": "Himalayas",
     "title": "Dayforce Project Manager",
     "url": "https://himalayas.app/companies/hrchitect/jobs/dayforce-project-manager?utm_source=api"
+  },
+  "d08fe44fe55aa2c853a4ce08": {
+    "company": "Nscale",
+    "first_seen": "2026-10-23",
+    "last_seen": "2026-10-23",
+    "published": "1792765565",
+    "source": "Himalayas",
+    "title": "Project Manager, Low Voltage Deployment",
+    "url": "https://himalayas.app/companies/nscale/jobs/project-manager-low-voltage-deployment?utm_source=api"
   },
   "d0ecb3e5858e601dadbe3d7f": {
     "company": "Worldwide Clinical Trials",
@@ -2241,6 +2358,15 @@
     "source": "Himalayas",
     "title": "Senior Project Manager cyber projects",
     "url": "https://himalayas.app/companies/softtest-pays-pty-ltd/jobs/senior-project-manager-cyber-projects?utm_source=api"
+  },
+  "dda978dd0ccd1ef731be4b8c": {
+    "company": "Hazelcast",
+    "first_seen": "2026-10-23",
+    "last_seen": "2026-10-23",
+    "published": "1792756258",
+    "source": "Himalayas",
+    "title": "Senior Software Engineer in Test (SDET)",
+    "url": "https://himalayas.app/companies/hazelcast/jobs/senior-software-engineer-in-test-sdet?utm_source=api"
   },
   "ddfa10e75b36a9d5f06fe402": {
     "company": "Banco Plata, S.A., Institución de Banca Múltiple",
