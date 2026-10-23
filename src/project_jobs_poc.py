@@ -84,16 +84,18 @@ def canonical(url: str) -> str:
 
 def qualify(job: dict) -> dict | None:
     title = job["title"]
+    from src.hunter import greenhouse_role
     from src.recruiter_monitor import industrial_project_role
+    role = greenhouse_role(title) if job.get("source") == "Greenhouse" else None
     industrial_match = industrial_project_role(title, str(job.get("description") or ""))
-    if not ((TITLE.search(title) and LEVEL.search(title)) or industrial_match) or EXCLUDE.search(title):
+    if not (role or (TITLE.search(title) and LEVEL.search(title)) or industrial_match) or EXCLUDE.search(title):
         return None
     location = job.get("location", "")
     details = job.get("description", "")[:2500]
     remote_text = bool(REMOTE.search(title + " " + location))
     remote_description = bool(REMOTE.search(details))
     remote = "explicit" if remote_text else ("description_only" if remote_description else "unknown")
-    job = {**job, "remote_evidence": remote, "brazil_eligible": "unverified",
+    job = {**job, "area": "QA" if role == "QA" else "Projetos", "remote_evidence": remote, "brazil_eligible": "unverified",
            "publication_date_verified": False, "application": "external_link_only"}
     return job
 
