@@ -18,7 +18,7 @@ from src.hunter import plain
 
 ROOT = Path(__file__).resolve().parents[1]
 TITLE = re.compile(r"\b(project|program|portfolio|projetos?|programas?|proyectos?|pm o|pmo)\b", re.I)
-LEVEL = re.compile(r"\b(manager|management|coordinat(?:or|ion)|gerente|gest(?:a|ã)o|coordenad(?:or|ora)|lead|diretor|director)\b", re.I)
+LEVEL = re.compile(r"\b(manager|management|coordinat(?:or|ion)|gerente|gest(?:a|ã)o|coordenad(?:or|ora)|analista|analyst|specialist|especialista|lead|diretor|director)\b", re.I)
 EXCLUDE = re.compile(r"\b(software engineer|developer|product manager|sales manager|account manager)\b", re.I)
 REMOTE = re.compile(r"\b(remote|remoto|remota|home.office|work from anywhere)\b", re.I)
 
@@ -42,7 +42,7 @@ def greenhouse(company: str, board: str, getter=load_json) -> list[dict]:
         "id": "greenhouse:" + slug + ":" + str(j["id"]),
         "source": "Greenhouse", "company": company, "title": plain(j.get("title")),
         "url": str(j.get("absolute_url") or ""), "location": plain((j.get("location") or {}).get("name")),
-        "description": plain(j.get("content")), "published": None,
+        "description": plain(j.get("content")), "published": j.get("first_published"),
         "updated": j.get("updated_at"), "employment_type": "not stated",
     } for j in payload.get("jobs", [])]
 
