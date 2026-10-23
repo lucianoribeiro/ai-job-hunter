@@ -34,6 +34,31 @@
       "source": "smartrecruiters",
       "company": "Bosch Group",
       "slug": "BoschGroup"
+    },
+    {
+      "source": "greenhouse",
+      "company": "Arena.im",
+      "slug": "arenaim"
+    },
+    {
+      "source": "greenhouse",
+      "company": "MSQ DX (Arke)",
+      "slug": "arke"
+    },
+    {
+      "source": "greenhouse",
+      "company": "Upgrade",
+      "slug": "upgrade"
+    },
+    {
+      "source": "greenhouse",
+      "company": "AB InBev",
+      "slug": "abinbev"
+    },
+    {
+      "source": "greenhouse",
+      "company": "Caylent",
+      "slug": "caylent"
     }
   ]
 }
