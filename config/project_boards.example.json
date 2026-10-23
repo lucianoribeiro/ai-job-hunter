@@ -1,6 +1,11 @@
 {
   "boards": [
     {
+      "source": "greenhouse",
+      "company": "GitLab",
+      "slug": "gitlab"
+    },
+    {
       "source": "ashby",
       "company": "Ashby",
       "slug": "Ashby"
