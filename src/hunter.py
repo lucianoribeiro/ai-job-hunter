@@ -232,13 +232,13 @@ def usajobs() -> list[dict]:
 def greenhouse_role(title: str) -> str | None:
     """Classify target jobs by title, not by incidental description keywords."""
     title = plain(title).casefold()
-    if re.search(r"\\b(?:qa|sdet|quality assurance|software quality|software test(?:er|ing)?|test automation|automation test(?:er|ing)?|test engineer|quality engineering)\\b", title):
+    if re.search(r"\b(?:qa|sdet|quality assurance|software quality|software test(?:er|ing)?|test automation|automation test(?:er|ing)?|test engineer|quality engineering|qa tech lead|tech lead qa|technical lead qa|qa technical lead)\b", title):
         return "QA"
-    if re.search(r"\\b(?:analista de projetos?|project analyst|project specialist|especialista de projetos?)\\b", title):
+    if re.search(r"\b(?:analista de projetos?|project analyst|project specialist|especialista de projetos?)\b", title):
         return "Analista de Projetos"
-    if re.search(r"\\b(?:gerente de projetos?|project manager|program manager|gestor de projetos?)\\b", title) and not re.search(r"\\b(?:product manager|account manager|sales manager)\\b", title):
+    if re.search(r"\b(?:gerente de projetos?|project manager|program manager|gestor de projetos?)\b", title) and not re.search(r"\b(?:product manager|account manager|sales manager)\b", title):
         return "Gerente de Projetos"
-    if re.search(r"\\b(?:coordenador(?:a)? de projetos?|project coordinator)\\b", title):
+    if re.search(r"\b(?:coordenador(?:a)? de projetos?|project coordinator)\b", title):
         return "Coordenador de Projetos"
     return None
 
@@ -246,8 +246,8 @@ def greenhouse_role(title: str) -> str | None:
 def greenhouse_project_location(location: str) -> bool:
     """Allow regional project listings; never infer eligibility for generic remote jobs."""
     return bool(re.search(
-        r"\\b(?:brazil|brasil|s[aã]o paulo|campinas|sumar[eé]|paul[ií]nia|americana|nova odessa|"
-        r"jaguari[uú]na|hortol[aâ]ndia|indaiatuba|santa b[aá]rbara|mog[ií] gua[cç]u)\\b",
+        r"\b(?:brazil|brasil|s[aã]o paulo|campinas|sumar[eé]|paul[ií]nia|americana|nova odessa|"
+        r"jaguari[uú]na|hortol[aâ]ndia|indaiatuba|santa b[aá]rbara|mog[ií] gua[cç]u)\b",
         location.casefold(),
     ))
 
