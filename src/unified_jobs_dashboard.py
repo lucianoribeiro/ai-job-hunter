@@ -180,8 +180,9 @@ def usd_monthly_floor(job):
 
 def normalize(project_report, qa_jobs, linkedin_jobs=None, remote_jobs=None):
     rows, seen = [], set()
-    for area, jobs in (("Projetos", project_report.get("jobs", [])), ("QA", qa_jobs)):
+    for default_area, jobs in (("Projetos", project_report.get("jobs", [])), ("QA", qa_jobs)):
         for job in jobs:
+            area = job.get("area") if job.get("area") in ("QA", "Projetos") else default_area
             if area == "QA" and not QA_TITLE.search(str(job.get("title", ""))):
                 continue
             url = safe_url(job.get("url"))
