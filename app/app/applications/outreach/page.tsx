@@ -1,3 +1,4 @@
+import {recruiterMessage} from "@/lib/recruiter-template";
 import Link from "next/link";
 import {redirect} from "next/navigation";
 import {getSupabase} from "@/lib/supabase";
@@ -19,8 +20,9 @@ export default async function Outreach({searchParams}:{searchParams:Promise<{job
  const selected=jobs.find(j=>j.id===params.job||j.listing_url===params.source)??jobs[0];
  const displayTitle=(params.title||selected?.title||"oportunidade").slice(0,160),displayCompany=selected?.company||"empresa";
  const person=String(user.user_metadata?.full_name||user.user_metadata?.name||"").trim();
- const defaultSubject=`Candidatura | ${displayTitle}`;
- const defaultBody=`Olá,\n\nTenho interesse na oportunidade de ${displayTitle}${displayCompany!=="empresa"?` na ${displayCompany}`:""} e gostaria de participar do processo seletivo.\n\nEncaminho meu currículo atualizado em anexo para sua avaliação. Fico à disposição para conversar sobre minha experiência e os requisitos da posição.\n\nAtenciosamente,\n${person||"[Seu nome]"}`;
+ const template=recruiterMessage({title:displayTitle,company:displayCompany==="empresa"?"":displayCompany,name:person,language:/\b(QA|SDET|Engineer|Manager|Lead|Project|Analyst)\b/i.test(displayTitle)?"en":"pt"});
+ const defaultSubject=template.subject;
+ const defaultBody=template.body;
  return <main className="shell"><header className="top"><span className="logo">✦ AI Job Hunter</span><Link href="/applications">← Minhas candidaturas</Link></header>
  <section className="panel"><span className="eyebrow">RECRUITER OUTREACH</span><h1>Preparar mensagem ao recrutador</h1>
  <p>Use somente um endereço profissional divulgado explicitamente para receber candidaturas. Confira a vaga e revise a mensagem antes de aprovar.</p>
