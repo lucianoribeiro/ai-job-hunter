@@ -424,7 +424,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             "post_origin": "Empresa", "contract_type": "Não informado",
             "salary_usd": None, "freelance_qa": "no", "source_kind": "curated" if job.get("curated") else "ats",
         })
-    app_base = os.environ.get("CAREER_APP_URL", "").rstrip("/")
+    app_base = os.environ.get("CAREER_APP_URL", "https://ai-job-hunter-lucianoribeiro.vercel.app").rstrip("/")
     if app_base and safe_url(app_base) == "#":
         app_base = ""
     monitor_cards = []
