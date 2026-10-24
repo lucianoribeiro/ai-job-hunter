@@ -33,7 +33,7 @@ export async function createOutreachDraft(form:FormData){
   fileId=pdf.id;
  }
  if(!version&&!fileId) throw new Error("Selecione um CV para anexar.");
- const {data:prior}=await supabase.from("recruiter_drafts").select("id,status").eq("user_id",user.id).eq("opportunity_id",job.id).eq("recipient_email",recipient).in("status",["pending_review","approved","drafted"]).limit(1);
+ const {data:prior}=await supabase.from("recruiter_drafts").select("id,status").eq("user_id",user.id).eq("opportunity_id",job.id).eq("recipient_email",recipient).in("status",["pending_review","approved","drafted","sending","sent"]).limit(1);
  if(prior?.length)throw new Error("Já existe uma candidatura para esta vaga e destinatário. Verifique o histórico antes de criar outra.");
  const {error}=await supabase.from("recruiter_drafts").insert({user_id:user.id,opportunity_id:job.id,resume_file_id:fileId,
   resume_version_id:version,recipient_email:recipient,subject,body,status:"pending_review"});
