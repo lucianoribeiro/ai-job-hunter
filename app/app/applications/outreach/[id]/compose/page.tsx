@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {redirect,notFound} from "next/navigation";
 import {getSupabase} from "@/lib/supabase";
+import {gmailAuthorization} from "@/lib/gmail-auth";
 import {connectGmail} from "@/app/actions";
 import {createApprovedGmailDraft,sendApprovedRecruiterEmail} from "./actions";
 type Draft={id:string;recipient_email:string;subject:string;body:string;status:string;resume_version_id:string|null;resume_file_id:string|null;opportunity_id:string};
@@ -19,6 +20,8 @@ export default async function Compose({params,searchParams}:{params:Promise<{id:
   const {data:v}=await supabase.from("resume_versions").select("status").eq("id",draft.resume_version_id).eq("user_id",user.id).single();
   versionStatus=v?.status;
  }
+ const {data:sessionInfo}=await supabase.auth.getSession();
+ const gmailAuth=await gmailAuthorization(sessionInfo.session?.provider_token);
  const canDownload=!!draft.resume_file_id || (!!draft.resume_version_id&&versionStatus==="approved");
  const gmail=(await searchParams).gmail;
  return <main className="shell"><header className="top"><span className="logo">✦ AI Job Hunter</span><Link href="/applications/outreach">← Revisar candidaturas</Link></header>
@@ -26,9 +29,11 @@ export default async function Compose({params,searchParams}:{params:Promise<{id:
  <p>Confira destinatário, texto e CV. Você pode criar um rascunho ou autorizar explicitamente o envio da candidatura. Nenhum e-mail é enviado ao carregar a página.</p>
  <div className="tile"><p><strong>Destinatário:</strong> {draft.recipient_email}</p><p><strong>Assunto:</strong> {draft.subject}</p>
  <details open><summary>Mensagem aprovada</summary><pre style={{whiteSpace:"pre-wrap",overflowWrap:"anywhere"}}>{draft.body}</pre></details></div>
- {gmail==="connect"&&<form action={connectGmail}><input type="hidden" name="next" value={`/applications/outreach/${draft.id}/compose`}/><p role="status">Autorize o acesso restrito para criar rascunhos no Gmail.</p><button className="primary">Conectar Gmail com OAuth</button></form>}
- {draft.status==="sent"?<p role="status">✅ CV enviado pelo Gmail e registrado. Não reenvie para o mesmo recrutador.</p>:draft.status==="sending"?<p role="alert">Envio em verificação. Confira o Gmail antes de tentar outra candidatura.</p>:gmail==="created"||draft.status==="drafted"?<p role="status">Rascunho criado com o CV em PDF anexado. Revise-o no Gmail antes de enviar.</p>:canDownload&&<form action={createApprovedGmailDraft}><input type="hidden" name="draft_id" value={draft.id}/><button className="primary">Criar rascunho no Gmail com CV</button></form>}
- {draft.status==="approved"&&canDownload&&<form action={sendApprovedRecruiterEmail}><input type="hidden" name="draft_id" value={draft.id}/><button className="primary">Confirmar e enviar e-mail com CV</button><p className="note">Esta ação envia realmente o e-mail ao destinatário informado.</p></form>}
+ {!gmailAuth.canSend&&<form action={connectGmail}><input type="hidden" name="next" value={`/applications/outreach/${draft.id}/compose`}/><p role="status">Conecte sua conta Google e autorize Gmail para rascunhos e envio. Você verá a tela de consentimento do Google.</p><button className="primary">Conectar Gmail e autorizar envio</button></form>}
+ {draft.status==="sent"?<p role="status">✅ CV enviado pelo Gmail e registrado. Não reenvie para o mesmo recrutador.</p>:draft.status==="sending"?<p role="alert">Envio em verificação. Confira o Gmail antes de tentar outra candidatura.</p>:gmail==="created"||draft.status==="drafted"?<p role="status">Rascunho criado com o CV em PDF anexado. Revise-o no Gmail antes de enviar.</p>:false&&<form action={createApprovedGmailDraft}><input type="hidden" name="draft_id" value={draft.id}/><button className="primary">Criar rascunho no Gmail com CV</button></form>}
+ <p role="status">{gmailAuth.canSend?"✅ Gmail conectado e permissão de envio verificada":"Gmail não autorizado para envio. Conecte a conta acima antes de continuar."}</p>
+ {draft.status==="approved"&&canDownload&&gmailAuth.canCompose&&<form action={createApprovedGmailDraft}><input type="hidden" name="draft_id" value={draft.id}/><button>Criar rascunho com CV</button></form>}
+ {draft.status==="approved"&&canDownload&&gmailAuth.canSend&&<form action={sendApprovedRecruiterEmail}><input type="hidden" name="draft_id" value={draft.id}/><button className="primary">Confirmar e enviar e-mail com CV</button><p className="note">Esta ação envia realmente o e-mail ao destinatário informado.</p></form>}
  <div className="controls">{(gmail==="created"||draft.status==="drafted")&&<a className="primary" href="https://mail.google.com/mail/u/0/#drafts" target="_blank" rel="noopener noreferrer">Abrir rascunhos no Gmail ↗</a>}
  {draft.resume_file_id&&<p>O PDF privado selecionado será anexado ao rascunho.</p>}
  {draft.resume_version_id&&versionStatus==="approved"&&!draft.resume_file_id&&<a href={`/resumes/${draft.resume_version_id}/version`}>Baixar CV profissional (PDF) ↓</a>}</div>
