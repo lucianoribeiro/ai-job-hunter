@@ -14,17 +14,21 @@ class RecruiterOutreachGmailTests(unittest.TestCase):
     def test_monitor_card_signals_email_and_uses_configured_authenticated_app(self):
         # The rendered monitor reads its public feed from data; verify the handoff implementation itself remains scoped.
         source = Path("src/unified_jobs_dashboard.py").read_text(encoding="utf-8")
-        self.assertIn("E-mail profissional identificado", source)
+        self.assertIn("E-mail identificado · CV não enviado", source)
         self.assertIn("CAREER_APP_URL", source)
         self.assertIn("Preparar rascunho com CV no Gmail", source)
         self.assertIn('"recipient": contact', source)
 
-    def test_gmail_flow_is_draft_only_with_pdf_attachment(self):
+    def test_gmail_flow_has_explicit_send_and_draft_with_pdf_attachment(self):
         gmail = Path("app/lib/gmail-api.ts").read_text(encoding="utf-8")
         action = Path("app/app/applications/outreach/[id]/compose/actions.ts").read_text(encoding="utf-8")
         oauth = Path("app/app/actions.ts").read_text(encoding="utf-8")
         self.assertIn("/gmail/v1/users/me/drafts", gmail)
-        self.assertNotIn("/messages/send", gmail)
+        self.assertIn("/messages/send", gmail)
+        self.assertIn("sendApprovedRecruiterEmail", action)
+        self.assertIn("gmail.send", oauth)
+        self.assertIn('status:"sent"', action)
+        self.assertIn('status:"sending"', action)
         self.assertIn("application/pdf", gmail)
         self.assertIn("gmail.compose", oauth)
         self.assertIn("professionalResumePdf", action)
