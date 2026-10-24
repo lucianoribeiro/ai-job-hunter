@@ -91,6 +91,36 @@
     "title": "SDET I",
     "url": "https://himalayas.app/companies/modivcare/jobs/sdet-i?utm_source=api"
   },
+  "0e4a9d7809f5ee1f": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "PhoenixTeam",
+    "created_at": "2026-10-24",
+    "job_id": "0e4a9d7809f5ee1f",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-24",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-24",
+    "title": "Manual Tester",
+    "url": "https://himalayas.app/companies/phoenixteam/jobs/manual-tester?utm_source=api"
+  },
   "0fa251705db02ff9": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -182,6 +212,38 @@
     "status_updated_at": "2026-10-22",
     "title": "QA Engineer (12-Month Contract)",
     "url": "https://himalayas.app/companies/insense/jobs/qa-engineer-12-month-contract?utm_source=api"
+  },
+  "12fd3b32b586f99f": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "USD compensation indicated in the listing",
+        "Contract/freelance terms detected; confirm daily hours"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "freelance",
+    "company": "Onfleet",
+    "created_at": "2026-10-24",
+    "job_id": "12fd3b32b586f99f",
+    "notes": "",
+    "score": 90,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-24",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-24",
+    "title": "Senior SDET, Agentic Quality",
+    "url": "https://himalayas.app/companies/onfleet/jobs/senior-sdet-agentic-quality?utm_source=api"
   },
   "134691f4473492ca": {
     "assessment": {
@@ -599,6 +661,37 @@
     "title": "Clinical Trials Associate Project Manager",
     "url": "https://himalayas.app/companies/rochester-regional-health/jobs/clinical-trials-associate-project-manager"
   },
+  "2ec1ec592f52b139": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Ovation Law Firm",
+    "created_at": "2026-10-24",
+    "job_id": "2ec1ec592f52b139",
+    "notes": "",
+    "score": 50,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-24",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-24",
+    "title": "Intake QA Specialist (LATAM)",
+    "url": "https://himalayas.app/companies/ovation-law-firm/jobs/intake-qa-specialist-latam-1125782346?utm_source=api"
+  },
   "3261c61f91975e38": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -628,6 +721,34 @@
     "status_updated_at": "2026-10-22",
     "title": "Project Manager, Enterprise Merchandise",
     "url": "https://himalayas.app/companies/quince/jobs/project-manager-enterprise-merchandise?utm_source=api"
+  },
+  "3550576dbd8c2e16": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Echodyne",
+    "created_at": "2026-10-24",
+    "job_id": "3550576dbd8c2e16",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-24",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-24",
+    "title": "Project Manager",
+    "url": "https://jobicy.com/jobs/156677-project-manager-6"
   },
   "385235c67aa34bc6": {
     "assessment": {
@@ -779,6 +900,69 @@
     "title": "Kazakh Localization QA Tester / Proofreader",
     "url": "https://jobicy.com/jobs/155929-kazakh-localization-qa-tester-proofreader"
   },
+  "403a5cc5cfdc69f2": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Reality Defender",
+    "created_at": "2026-10-24",
+    "job_id": "403a5cc5cfdc69f2",
+    "notes": "",
+    "score": 50,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-24",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-24",
+    "title": "Quality Assurance Engineer",
+    "url": "https://himalayas.app/companies/reality-defender/jobs/quality-assurance-engineer?utm_source=api"
+  },
+  "41df9696d1ab0804": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "Location text may include Brazil; confirm eligibility",
+        "Contract/freelance terms detected; confirm daily hours"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "freelance",
+    "company": "AffinityClick Inc.",
+    "created_at": "2026-10-24",
+    "job_id": "41df9696d1ab0804",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-24",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-24",
+    "title": "QA Engineer",
+    "url": "https://himalayas.app/companies/affinityclick-inc/jobs/qa-engineer-2123690654?utm_source=api"
+  },
   "433096aedaead790": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -867,6 +1051,37 @@
     "title": "Project Manager",
     "url": "https://himalayas.app/companies/beecruit-pte-ltd/jobs/project-manager"
   },
+  "47e459a13df44369": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "Contract/freelance terms detected; confirm daily hours"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "freelance",
+    "company": "Ryze Claim Solutions",
+    "created_at": "2026-10-24",
+    "job_id": "47e459a13df44369",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-24",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-24",
+    "title": "QA Examiner/File Review Positions",
+    "url": "https://himalayas.app/companies/ryze-claim-solutions/jobs/qa-examiner-file-review-positions-9288444372?utm_source=api"
+  },
   "4918cd754ba2d03d": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -896,6 +1111,36 @@
     "status_updated_at": "2026-10-20",
     "title": "Senior Performance QA",
     "url": "https://himalayas.app/companies/finaccel/jobs/senior-performance-qa?utm_source=api"
+  },
+  "4af160eaab5025e1": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Ascendix Technologies",
+    "created_at": "2026-10-24",
+    "job_id": "4af160eaab5025e1",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-24",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-24",
+    "title": "QA Engineer (AI products)",
+    "url": "https://himalayas.app/companies/ascendix-technologies/jobs/qa-engineer-ai-products?utm_source=api"
   },
   "4bd23371cdd3fd94": {
     "assessment": {
@@ -1309,6 +1554,36 @@
     "status_updated_at": "2026-10-20",
     "title": "Senior Project Manager, Engineering Operations",
     "url": "https://himalayas.app/companies/sqa-solution/jobs/senior-project-manager-engineering-operations?utm_source=api"
+  },
+  "692a0812fade6fbe": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "1VALET",
+    "created_at": "2026-10-24",
+    "job_id": "692a0812fade6fbe",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-24",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-24",
+    "title": "Junior QA Engineer",
+    "url": "https://himalayas.app/companies/1valet/jobs/junior-qa-engineer?utm_source=api"
   },
   "6a13a6e930fb5ecd": {
     "assessment": {
@@ -1734,6 +2009,66 @@
     "title": "Medical Quality Assurance Specialist",
     "url": "https://himalayas.app/companies/microsourcing/jobs/medical-quality-assurance-specialist?utm_source=api"
   },
+  "848ad17f09de0dd2": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Ziply Fiber",
+    "created_at": "2026-10-24",
+    "job_id": "848ad17f09de0dd2",
+    "notes": "",
+    "score": 80,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-24",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-24",
+    "title": "Project Manager, OSP Construction & Engineering",
+    "url": "https://himalayas.app/companies/ziply-fiber/jobs/project-manager-osp-construction-engineering-2027685616?utm_source=api"
+  },
+  "883b8bfbf65f78b0": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "PhoenixTeam",
+    "created_at": "2026-10-24",
+    "job_id": "883b8bfbf65f78b0",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-24",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-24",
+    "title": "AI Quality Engineer",
+    "url": "https://himalayas.app/companies/phoenixteam/jobs/ai-quality-engineer-818313360?utm_source=api"
+  },
   "888000b8be6fb629": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -1853,6 +2188,36 @@
     "title": "Developer or Technical Lead (Niche or Regular), Cloud Consultants, QA Tester, QA",
     "url": "https://himalayas.app/companies/nttdata/jobs/developer-or-technical-lead-niche-or-regular-cloud-consultants-qa-tester-qa?utm_source=api"
   },
+  "8c29f82391b75576": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Codest Ltd. Company No. 12590542, VAT number: GB363431020",
+    "created_at": "2026-10-24",
+    "job_id": "8c29f82391b75576",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-24",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-24",
+    "title": "Senior QA Automation Engineer",
+    "url": "https://himalayas.app/companies/codest-ltd-company-no-12590542-vat-number-gb363431020/jobs/senior-qa-automation-engineer-9564863176?utm_source=api"
+  },
   "8d51ab520b574265": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -1941,6 +2306,36 @@
     "status_updated_at": "2026-10-22",
     "title": "Software Test Engineer",
     "url": "https://himalayas.app/companies/bright-vision-technologies/jobs/software-test-engineer-78690010?utm_source=api"
+  },
+  "95f87e75aafeea1d": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Location text may include Brazil; confirm eligibility"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Canonical",
+    "created_at": "2026-10-24",
+    "job_id": "95f87e75aafeea1d",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-24",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-24",
+    "title": "Enterprise Project Manager",
+    "url": "https://jobicy.com/jobs/149549-enterprise-project-manager"
   },
   "963ce1493601afcb": {
     "assessment": {
@@ -2480,6 +2875,36 @@
     "title": "Program Manager",
     "url": "https://himalayas.app/companies/venbrook/jobs/program-manager?utm_source=api"
   },
+  "bc4a80591faf4d04": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "SEAhub Asia",
+    "created_at": "2026-10-24",
+    "job_id": "bc4a80591faf4d04",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-24",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-24",
+    "title": "QA & Training Executive",
+    "url": "https://himalayas.app/companies/seahub-asia/jobs/qa-training-executive?utm_source=api"
+  },
   "c30120a5b4bf213e": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -2711,6 +3136,65 @@
     "status_updated_at": "2026-10-20",
     "title": "Quality Engineer",
     "url": "https://jobicy.com/jobs/155930-quality-engineer-3"
+  },
+  "cfa784c21a628117": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Tyfone, Inc.",
+    "created_at": "2026-10-24",
+    "job_id": "cfa784c21a628117",
+    "notes": "",
+    "score": 70,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-24",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-24",
+    "title": "Principal Quality Engineer and Technical Integrations Lead",
+    "url": "https://himalayas.app/companies/tyfone-inc/jobs/principal-quality-engineer-and-technical-integrations-lead?utm_source=api"
+  },
+  "d126761369c3ae88": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Swanky (Shopify Platinum Partner)",
+    "created_at": "2026-10-24",
+    "job_id": "d126761369c3ae88",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-24",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-24",
+    "title": "Project Manager - Ecommerce | Australia",
+    "url": "https://himalayas.app/companies/swanky-shopify-platinum-partner/jobs/project-manager-ecommerce-australia-1241343906?utm_source=api"
   },
   "d7aafd30d82bf7f8": {
     "assessment": {
@@ -3071,6 +3555,36 @@
     "title": "SNAP EBT Test Lead",
     "url": "https://himalayas.app/companies/dhaka-technologies-limited-company/jobs/snap-ebt-test-lead"
   },
+  "f3254c8a5783ec0b": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "TerraGraphics Environmental Engineering",
+    "created_at": "2026-10-24",
+    "job_id": "f3254c8a5783ec0b",
+    "notes": "",
+    "score": 70,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-24",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-24",
+    "title": "Program Manager – Washington, D.C./National Capital Region",
+    "url": "https://himalayas.app/companies/terragraphics-environmental-engineering/jobs/program-manager-washington-d-c-national-capital-region?utm_source=api"
+  },
   "f3c77200f08092a7": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -3098,6 +3612,37 @@
     "status_updated_at": "2026-10-18",
     "title": "Demand Generation Program Manager | Canada | Remote",
     "url": "https://jobicy.com/jobs/153420-demand-generation-program-manager-canada-remote"
+  },
+  "fadb0929840177ba": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "Contract/freelance terms detected; confirm daily hours"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "freelance",
+    "company": "Circular Materials",
+    "created_at": "2026-10-24",
+    "job_id": "fadb0929840177ba",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-24",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-24",
+    "title": "QA Tester, Data Integration - Canada Remote 12 Month Contract",
+    "url": "https://himalayas.app/companies/circular-materials/jobs/qa-tester-data-integration-canada-remote-12-month-contract?utm_source=api"
   },
   "fb5c6db9c542fe5d": {
     "assessment": {
