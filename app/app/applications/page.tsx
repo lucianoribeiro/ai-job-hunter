@@ -4,13 +4,13 @@ import {getSupabase} from "@/lib/supabase";
 import {queueApplication} from "../jobs/actions";
 type Opportunity={id:string;title:string;company:string;listing_url:string;location_text:string|null;source:string};
 type Application={opportunity_id:string;status:string};
-type Outreach={opportunity_id:string;status:string;recipient_email:string;gmail_created_at:string|null};
+type Outreach={opportunity_id:string;status:string;recipient_email:string;gmail_created_at:string|null;gmail_message_id:string|null;sent_at:string|null};
 export default async function Applications(){
  const supabase=await getSupabase();const {data:{user}}=await supabase.auth.getUser();if(!user)redirect("/");
  const [{data:rows,error},{data:appRows},{data:outreachRows}]=await Promise.all([
  supabase.from("opportunities").select("id,title,company,listing_url,location_text,source").order("created_at",{ascending:false}),
  supabase.from("applications").select("opportunity_id,status"),
- supabase.from("recruiter_drafts").select("opportunity_id,status,recipient_email,gmail_created_at").eq("user_id",user.id)
+ supabase.from("recruiter_drafts").select("opportunity_id,status,recipient_email,gmail_created_at,gmail_message_id,sent_at").eq("user_id",user.id)
  ]);
  const opportunities=(rows??[]) as Opportunity[],apps=(appRows??[]) as Application[],outreach=(outreachRows??[]) as Outreach[];
  return <main className="shell"><header className="top"><span className="logo">✦ AI Job Hunter</span><Link href="/jobs">← Explorar vagas</Link></header>
@@ -23,9 +23,10 @@ export default async function Applications(){
  const drafts=outreach.filter(d=>d.opportunity_id===job.id);
  const drafted=drafts.some(d=>d.status==="drafted");
  const review=drafts.some(d=>d.status==="pending_review"||d.status==="approved");
+ const confirmedSent=drafts.find(d=>d.status==="sent"&&d.gmail_message_id&&d.sent_at);
  const sent=app?.status==="applied";
  return <article className="tile" key={job.id}><h3>{job.title}</h3><p>{job.company} · {job.location_text??"Localização não informada"}</p>
- <p role="status"><strong>{sent?"Candidatura marcada como enviada — confirmação pendente":drafted?"Rascunho criado no Gmail — não enviado":review?"E-mail aguardando revisão":"CV não enviado"}</strong></p>
+ <p role="status"><strong>{confirmedSent?"✅ CV enviado pelo Gmail · "+new Date(confirmedSent.sent_at!).toLocaleString("pt-BR"):sent?"Candidatura marcada manualmente — confirmação pendente":drafted?"Rascunho criado no Gmail — não enviado":review?"E-mail aguardando revisão":"CV não enviado"}</strong></p>
  {drafts.length>0&&<small>Destinatário: {drafts[0].recipient_email}</small>}
  {app&&<small> · Status do processo: {app.status}</small>}
  <div className="controls"><Link href={`/applications/outreach?job=${encodeURIComponent(job.id)}`}>Preparar e-mail ao recrutador →</Link><a href={job.listing_url} rel="noopener noreferrer" target="_blank">Candidatar-me no site da empresa ↗</a>
