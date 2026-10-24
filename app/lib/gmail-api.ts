@@ -17,3 +17,18 @@ export async function createGmailDraft(token:string,raw:string){
  if(!response.ok){const detail=await response.text();throw new Error(response.status===401||response.status===403?"Gmail authorization required":`Gmail draft failed (${response.status}): ${detail.slice(0,120)}`)}
  return response.json() as Promise<{id:string;message?:{id:string}}>;
 }
+
+/** Gmail's send endpoint returns a message id only after successful acceptance. */
+export async function sendGmailMessage(token:string,raw:string){
+ const response=await fetch("https://gmail.googleapis.com/gmail/v1/users/me/messages/send",{
+  method:"POST",headers:{Authorization:`Bearer ${token}`,"Content-Type":"application/json"},
+  body:JSON.stringify({raw}),cache:"no-store"
+ });
+ if(!response.ok){
+  const detail=await response.text();
+  throw new Error(response.status===401||response.status===403?"Gmail send authorization required":`Gmail send failed (${response.status}): ${detail.slice(0,120)}`);
+ }
+ const result=await response.json() as {id?:string;threadId?:string};
+ if(!result.id)throw new Error("Gmail did not confirm a message identifier");
+ return result;
+}
