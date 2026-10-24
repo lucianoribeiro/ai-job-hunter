@@ -1,3 +1,4 @@
+import {gmailAuthorization} from "@/lib/gmail-auth";
 "use server";
 import {redirect} from "next/navigation";
 import {getSupabase} from "@/lib/supabase";
@@ -8,6 +9,7 @@ export async function createApprovedGmailDraft(form:FormData){
  const id=String(form.get("draft_id")||"");if(!/^[a-f0-9-]{36}$/i.test(id))throw new Error("Invalid draft");
  const supabase=await getSupabase();const [{data:{user}},{data:sessionData}]=await Promise.all([supabase.auth.getUser(),supabase.auth.getSession()]);
  if(!user)redirect("/");const token=sessionData.session?.provider_token;if(!token)redirect(`/applications/outreach/${id}/compose?gmail=connect`);
+ const auth=await gmailAuthorization(token);if(!auth.canCompose)redirect(`/applications/outreach/${id}/compose?gmail=connect`);
  const {data:draft}=await supabase.from("recruiter_drafts").select("id,recipient_email,subject,body,status,resume_version_id,resume_file_id").eq("id",id).eq("user_id",user.id).single();
  if(!draft||draft.status!=="approved"||(!draft.resume_version_id&&!draft.resume_file_id))throw new Error("Approved draft and resume required");
  let pdf:Uint8Array,filename:string;
@@ -40,6 +42,8 @@ export async function sendApprovedRecruiterEmail(form:FormData){
  if(!user)redirect("/");
  const token=sessionData.session?.provider_token;
  if(!token)redirect(`/applications/outreach/${id}/compose?gmail=connect`);
+ const authorization=await gmailAuthorization(token);
+ if(!authorization.canSend)redirect(`/applications/outreach/${id}/compose?gmail=connect`);
  const {data:draft}=await supabase.from("recruiter_drafts")
   .select("id,user_id,opportunity_id,recipient_email,subject,body,status,resume_version_id,resume_file_id,gmail_message_id")
   .eq("id",id).eq("user_id",user.id).single();
