@@ -1,11 +1,11 @@
 "use server";
 import { redirect } from "next/navigation";
 import { getSupabase } from "@/lib/supabase";
+import { applicationOrigin } from "@/lib/application-origin";
 
 export async function signIn() {
   const supabase = await getSupabase();
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
-  if (!siteUrl) throw new Error("Set NEXT_PUBLIC_SITE_URL to your deployed origin");
+  const siteUrl = applicationOrigin();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: { redirectTo: new URL("/auth/callback", siteUrl).toString() }
@@ -15,8 +15,7 @@ export async function signIn() {
 }
 
 export async function connectGmail(form:FormData) {
-  const supabase=await getSupabase(),siteUrl=process.env.NEXT_PUBLIC_SITE_URL;
-  if(!siteUrl)throw new Error("Set NEXT_PUBLIC_SITE_URL to your deployed origin");
+  const supabase=await getSupabase(),siteUrl=applicationOrigin();
   const next=String(form.get("next")||"/applications/outreach");
   const safeNext=/^\/applications\/outreach(?:\/[a-f0-9-]+\/compose)?$/i.test(next)?next:"/applications/outreach";
   const callback=new URL("/auth/callback",siteUrl);callback.searchParams.set("next",safeNext);
