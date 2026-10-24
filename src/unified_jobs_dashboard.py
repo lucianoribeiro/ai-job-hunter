@@ -502,7 +502,9 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
                 extra += '<span class="recruiter-tag">Prazo informado vencido — verificar</span>'
             extra += '<details class="recruiter-original"><summary>Ver publicação original</summary><p>' + e(raw_title) + '</p></details>'
         if contact:
-            extra += '<span class="recruiter-tag">E-mail profissional identificado</span>'
+            # The public Pages site cannot verify Gmail delivery or access a private CV.
+            # Explicitly distinguish recruiter contact availability from an actual send.
+            extra += '<span class="recruiter-tag" aria-label="E-mail identificado; currículo ainda não enviado">✉ E-mail identificado · CV não enviado</span>'
             if app_base:
                 outreach = app_base + "/applications/outreach?" + urlencode({"recipient": contact, "title": raw_title[:160], "source": item.get("url", "")})
                 extra += '<p><a class="recruiter-outreach" href="' + e(outreach) + '">Preparar rascunho com CV no Gmail →</a></p>'
