@@ -45,7 +45,7 @@ export async function sendApprovedRecruiterEmail(form:FormData){
   .eq("id",id).eq("user_id",user.id).single();
  if(!draft||draft.status!=="approved"||draft.gmail_message_id||(!draft.resume_file_id&&!draft.resume_version_id))
   throw new Error("Only approved, unsent outreach with a CV can be sent");
- if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(draft.recipient_email))
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(draft.recipient_email))
   throw new Error("Recipient address invalid");
  // Ensure one sender action owns this approved draft before any external side effect.
  const {data:claimed,error:claimError}=await supabase.from("recruiter_drafts")
@@ -76,10 +76,10 @@ export async function sendApprovedRecruiterEmail(form:FormData){
    .update({status:"sent",gmail_message_id:gmail.id,sent_at:new Date().toISOString()})
    .eq("id",id).eq("user_id",user.id).eq("status","sending");
   if(saved)throw new Error("Gmail confirmed sending, but saving the receipt failed. Do not resend; reconcile with Gmail Sent");
-  redirect(`/applications/outreach/${id}/compose?gmail=sent`);
  }catch(error){
   // Never silently retry after an ambiguous Gmail response; may have been delivered.
   // The 'sending' state requires manual reconciliation to avoid duplicate applications.
   throw error;
  }
+ redirect(`/applications/outreach/${id}/compose?gmail=sent`);
 }
