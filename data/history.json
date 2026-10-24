@@ -1,4 +1,13 @@
 {
+  "0244e58842a76329dd90a8c2": {
+    "company": "Circular Materials",
+    "first_seen": "2026-10-24",
+    "last_seen": "2026-10-24",
+    "published": "1792824142",
+    "source": "Himalayas",
+    "title": "QA Tester, Data Integration - Canada Remote 12 Month Contract",
+    "url": "https://himalayas.app/companies/circular-materials/jobs/qa-tester-data-integration-canada-remote-12-month-contract?utm_source=api"
+  },
   "05e04f2b4693be90": {
     "company": "MicroSourcing",
     "description": "",
@@ -273,7 +282,7 @@
   "1718efd19ea573c12f0b4add": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-23",
+    "last_seen": "2026-10-24",
     "published": "2026-10-15T15:24:46-04:00",
     "source": "Greenhouse",
     "title": "Staff Program Manager, CCO Programs",
@@ -292,6 +301,15 @@
     "source": "Himalayas",
     "title": "Quality Assurance Analyst",
     "url": "https://himalayas.app/companies/h-r-block/jobs/quality-assurance-analyst?utm_source=api"
+  },
+  "185749f6056e18f106afe944": {
+    "company": "Ovation Law Firm",
+    "first_seen": "2026-10-24",
+    "last_seen": "2026-10-24",
+    "published": "1792839758",
+    "source": "Himalayas",
+    "title": "Intake QA Specialist (LATAM)",
+    "url": "https://himalayas.app/companies/ovation-law-firm/jobs/intake-qa-specialist-latam-1125782346?utm_source=api"
   },
   "1a88a5cb0d97ef1f": {
     "company": "Oddball",
@@ -425,6 +443,15 @@
     "title": "Senior QA Analyst, AI Solutions",
     "url": "https://himalayas.app/companies/sword-com/jobs/senior-qa-analyst-ai-solutions?utm_source=api"
   },
+  "24f12c871b643e5bee75f84f": {
+    "company": "Ehvert Engineering Inc.",
+    "first_seen": "2026-10-24",
+    "last_seen": "2026-10-24",
+    "published": "1792841070",
+    "source": "Himalayas",
+    "title": "Assistant to Data Center Deign Project Manager",
+    "url": "https://himalayas.app/companies/ehvert-engineering-inc/jobs/assistant-to-data-center-deign-project-manager?utm_source=api"
+  },
   "25b3ba3d77f7c4cded8df7a3": {
     "company": "Vied Technologies,Inc.",
     "first_seen": "2026-10-22",
@@ -520,7 +547,7 @@
   "2a4d54ac15ae0f954aa499bf": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-23",
+    "last_seen": "2026-10-24",
     "published": "2026-10-15T15:24:46-04:00",
     "source": "Greenhouse",
     "title": "Senior Program Manager, Enterprise Technology and AI",
@@ -602,7 +629,7 @@
   "34ba7449e4691e4f7055face": {
     "company": "Spiralyze",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-23",
+    "last_seen": "2026-10-24",
     "published": "2026-10-06T19:35:42+00:00",
     "source": "Remote OK",
     "title": "Project Manager",
@@ -618,6 +645,15 @@
     "published": "2026-10-23T18:57:33+00:00",
     "salary": "",
     "score": 55,
+    "source": "Jobicy",
+    "title": "Project Manager",
+    "url": "https://jobicy.com/jobs/156677-project-manager-6"
+  },
+  "3550576dbd8c2e16f4d7c2e8": {
+    "company": "Echodyne",
+    "first_seen": "2026-10-24",
+    "last_seen": "2026-10-24",
+    "published": "2026-10-23T18:57:33+00:00",
     "source": "Jobicy",
     "title": "Project Manager",
     "url": "https://jobicy.com/jobs/156677-project-manager-6"
@@ -685,6 +721,15 @@
     "source": "Himalayas",
     "title": "Automation QA Engineer Internship",
     "url": "https://himalayas.app/companies/metasys/jobs/automation-qa-engineer-internship?utm_source=api"
+  },
+  "3c35524f570cb2efb459502e": {
+    "company": "Codest Ltd. Company No. 12590542, VAT number: GB363431020",
+    "first_seen": "2026-10-24",
+    "last_seen": "2026-10-24",
+    "published": "1792841846",
+    "source": "Himalayas",
+    "title": "Senior QA Automation Engineer",
+    "url": "https://himalayas.app/companies/codest-ltd-company-no-12590542-vat-number-gb363431020/jobs/senior-qa-automation-engineer-9564863176?utm_source=api"
   },
   "3cc53eba52139e71c6a99c3f": {
     "company": "InvestEngine",
@@ -759,6 +804,15 @@
     "source": "Himalayas",
     "title": "Automation QA Engineer",
     "url": "https://himalayas.app/companies/digitall-nature-corp/jobs/automation-qa-engineer?utm_source=api"
+  },
+  "43806ef6e99923c29ff57525": {
+    "company": "Ascendix Technologies",
+    "first_seen": "2026-10-24",
+    "last_seen": "2026-10-24",
+    "published": "1792842814",
+    "source": "Himalayas",
+    "title": "QA Engineer (AI products)",
+    "url": "https://himalayas.app/companies/ascendix-technologies/jobs/qa-engineer-ai-products?utm_source=api"
   },
   "439ab77abff99caf": {
     "company": "Veracyte",
@@ -964,7 +1018,7 @@
   "51faec0bcc5c06023b6659e1": {
     "company": "Ace IT Careers",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-23",
+    "last_seen": "2026-10-24",
     "published": "2026-08-15T00:00:25+00:00",
     "source": "Remote OK",
     "title": "QA Tester Entry Level",
@@ -1052,6 +1106,15 @@
     "source": "Jobicy",
     "title": "Senior Program Manager",
     "url": "https://jobicy.com/jobs/155920-senior-program-manager-2"
+  },
+  "58ae051e7b51898ad77cbfb1": {
+    "company": "California FAIR Plan Association",
+    "first_seen": "2026-10-24",
+    "last_seen": "2026-10-24",
+    "published": "1792847253",
+    "source": "Himalayas",
+    "title": "IT Applications Test Engineer",
+    "url": "https://himalayas.app/companies/california-fair-plan-association/jobs/it-applications-test-engineer-7743000531?utm_source=api"
   },
   "5920a186f98ebce228d8a2ce": {
     "company": "Modivcare",
@@ -1845,6 +1908,15 @@
     "title": "Enterprise Project Manager",
     "url": "https://jobicy.com/jobs/149549-enterprise-project-manager"
   },
+  "95f87e75aafeea1d6b538598": {
+    "company": "Canonical",
+    "first_seen": "2026-10-24",
+    "last_seen": "2026-10-24",
+    "published": "2026-10-24T03:30:15+00:00",
+    "source": "Jobicy",
+    "title": "Enterprise Project Manager",
+    "url": "https://jobicy.com/jobs/149549-enterprise-project-manager"
+  },
   "962b40a3fe05d51959bbb9c8": {
     "company": "Brightspeed",
     "first_seen": "2026-10-21",
@@ -1891,6 +1963,15 @@
     "title": "Sr. Technical Program Manager, Data Center & Network Delivery",
     "url": "https://jobicy.com/jobs/156343-sr-technical-program-manager-data-center-network-delivery"
   },
+  "96d27cc334fd50d9119511d9": {
+    "company": "Ryze Claim Solutions",
+    "first_seen": "2026-10-24",
+    "last_seen": "2026-10-24",
+    "published": "1792845006",
+    "source": "Himalayas",
+    "title": "QA Examiner/File Review Positions",
+    "url": "https://himalayas.app/companies/ryze-claim-solutions/jobs/qa-examiner-file-review-positions-9288444372?utm_source=api"
+  },
   "9765594714489d0a": {
     "company": "HII",
     "description": "",
@@ -1927,6 +2008,24 @@
     "source": "Himalayas",
     "title": "Program Manager",
     "url": "https://himalayas.app/companies/venbrook/jobs/program-manager?utm_source=api"
+  },
+  "9b43faaa0a43f38f12d041d7": {
+    "company": "Onfleet",
+    "first_seen": "2026-10-24",
+    "last_seen": "2026-10-24",
+    "published": "1792824856",
+    "source": "Himalayas",
+    "title": "Senior SDET, Agentic Quality",
+    "url": "https://himalayas.app/companies/onfleet/jobs/senior-sdet-agentic-quality?utm_source=api"
+  },
+  "9c0acea71e3251dbfbbfb3ee": {
+    "company": "Tyfone, Inc.",
+    "first_seen": "2026-10-24",
+    "last_seen": "2026-10-24",
+    "published": "1792820696",
+    "source": "Himalayas",
+    "title": "Principal Quality Engineer and Technical Integrations Lead",
+    "url": "https://himalayas.app/companies/tyfone-inc/jobs/principal-quality-engineer-and-technical-integrations-lead?utm_source=api"
   },
   "9cc511d7a9b851cb5d96ff0a": {
     "company": "HOME DEPOT U.S.A., INC.",
@@ -1990,11 +2089,29 @@
   "9f5d7fcbc28da96653b684a7": {
     "company": "Ramp",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-23",
+    "last_seen": "2026-10-24",
     "published": "2026-10-16T18:04:33.419+00:00",
     "source": "Ashby",
     "title": "Senior Technical Program Manager",
     "url": "https://jobs.ashbyhq.com/ramp/8be55ffc-d512-4ef3-a14d-3a4cb29a60d4"
+  },
+  "9fa2ef8965d85c70628a84b1": {
+    "company": "SEAhub Asia",
+    "first_seen": "2026-10-24",
+    "last_seen": "2026-10-24",
+    "published": "1792845036",
+    "source": "Himalayas",
+    "title": "QA & Training Executive",
+    "url": "https://himalayas.app/companies/seahub-asia/jobs/qa-training-executive?utm_source=api"
+  },
+  "a09e5bbeb1dc12cb2cb4530a": {
+    "company": "PhoenixTeam",
+    "first_seen": "2026-10-24",
+    "last_seen": "2026-10-24",
+    "published": "1792842820",
+    "source": "Himalayas",
+    "title": "AI Quality Engineer",
+    "url": "https://himalayas.app/companies/phoenixteam/jobs/ai-quality-engineer-818313360?utm_source=api"
   },
   "a143b2fca0c64e00": {
     "company": "Pavago",
@@ -2004,6 +2121,15 @@
     "source": "Himalayas",
     "title": "Project Coordinator",
     "url": "https://himalayas.app/companies/pavago/jobs/project-coordinator-1177994446"
+  },
+  "a161de069bbe5e2612ae4405": {
+    "company": "AffinityClick Inc.",
+    "first_seen": "2026-10-24",
+    "last_seen": "2026-10-24",
+    "published": "1792820462",
+    "source": "Himalayas",
+    "title": "QA Engineer",
+    "url": "https://himalayas.app/companies/affinityclick-inc/jobs/qa-engineer-2123690654?utm_source=api"
   },
   "a245efb12bc67dc7b5728bb9": {
     "company": "H&R Block",
@@ -2279,6 +2405,15 @@
     "title": "Senior Technical Project Manager, Data Center & Network Delivery",
     "url": "https://jobicy.com/jobs/156340-senior-technical-project-manager-data-center-network-delivery"
   },
+  "b7eb7698a2c62488f1ab9b1e": {
+    "company": "PhoenixTeam",
+    "first_seen": "2026-10-24",
+    "last_seen": "2026-10-24",
+    "published": "1792821097",
+    "source": "Himalayas",
+    "title": "Manual Tester",
+    "url": "https://himalayas.app/companies/phoenixteam/jobs/manual-tester?utm_source=api"
+  },
   "ba6578b13ceffc1eb13e7772": {
     "company": "Argano",
     "first_seen": "2026-10-19",
@@ -2497,7 +2632,7 @@
   "c643ca1ab0148a831a238994": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-23",
+    "last_seen": "2026-10-24",
     "published": "2026-10-15T15:24:46-04:00",
     "source": "Greenhouse",
     "title": "Principal Technical Program Manager",
@@ -2886,6 +3021,15 @@
     "title": "Technical Program Manager - Data Center Infrastructure Delivery",
     "url": "https://jobicy.com/jobs/156291-technical-program-manager-data-center-infrastructure-delivery"
   },
+  "eba9051c2e79b6cab050c139": {
+    "company": "1VALET",
+    "first_seen": "2026-10-24",
+    "last_seen": "2026-10-24",
+    "published": "1792842849",
+    "source": "Himalayas",
+    "title": "Junior QA Engineer",
+    "url": "https://himalayas.app/companies/1valet/jobs/junior-qa-engineer?utm_source=api"
+  },
   "ecfd009042aecc839ef43ff1": {
     "company": "Indero",
     "first_seen": "2026-10-23",
@@ -2949,6 +3093,15 @@
     "source": "Himalayas",
     "title": "QA Tester - Agentic Web Application (Senior)",
     "url": "https://himalayas.app/companies/microsourcing/jobs/qa-tester-agentic-web-application-senior?utm_source=api"
+  },
+  "f0173268b30e39c805f8842d": {
+    "company": "PharmaLogic",
+    "first_seen": "2026-10-24",
+    "last_seen": "2026-10-24",
+    "published": "1792838961",
+    "source": "Himalayas",
+    "title": "Project Manager, Associate Director - Remote",
+    "url": "https://himalayas.app/companies/pharmalogic/jobs/project-manager-associate-director-remote?utm_source=api"
   },
   "f0b534bd9089ab7c": {
     "company": "Dhaka Technologies Limited Company",
