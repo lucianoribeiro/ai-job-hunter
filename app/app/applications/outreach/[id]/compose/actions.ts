@@ -1,5 +1,5 @@
-import {gmailAuthorization} from "@/lib/gmail-auth";
 "use server";
+import {gmailAuthorization} from "@/lib/gmail-auth";
 import {redirect} from "next/navigation";
 import {getSupabase} from "@/lib/supabase";
 import {createGmailDraft,gmailDraftMime,sendGmailMessage} from "@/lib/gmail-api";
