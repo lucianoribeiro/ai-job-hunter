@@ -517,7 +517,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             # Google News often truncates the source before its recruiter email.
             # Let the user provide only an address seen in the original posting.
             extra += (
-                '<details class="recruiter-original"><summary>✉ O anúncio tem e-mail? Informar e preparar CV</summary>'
+                '<details class="recruiter-original" open style="margin-top:12px;padding:10px;border:1px solid #5eae9c;border-radius:10px"><summary style="cursor:pointer;color:#9de3d3;font-weight:750">✉ Informar e-mail do recrutador · Preparar CV</summary>'
                 '<p>Informe somente um e-mail publicado no anúncio original. Não foi possível identificá-lo no índice.</p>'
                 '<form method="get" action="' + e(app_base + "/applications/outreach") + '" target="_blank">'
                 '<label>E-mail do recrutador <input name="recipient" type="email" autocomplete="email" required maxlength="254" placeholder="recrutador@empresa.com"></label>'
