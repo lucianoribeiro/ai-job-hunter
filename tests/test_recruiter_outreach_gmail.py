@@ -14,7 +14,9 @@ class RecruiterOutreachGmailTests(unittest.TestCase):
     def test_monitor_card_signals_email_and_uses_configured_authenticated_app(self):
         # The rendered monitor reads its public feed from data; verify the handoff implementation itself remains scoped.
         source = Path("src/unified_jobs_dashboard.py").read_text(encoding="utf-8")
-        self.assertIn('aria-label="Preparar candidatura para o e-mail identificado"', source)
+        self.assertIn('class="recruiter-card-actions"', source)
+        self.assertIn('class="recruiter-cta recruiter-cta-secondary"', source)
+        self.assertIn('class="recruiter-cta recruiter-cta-primary"', source)
         self.assertIn("CAREER_APP_URL", source)
         self.assertIn('os.environ.get("CAREER_APP_URL") or "https://ai-job-hunter-lucianoribeiro.vercel.app"', source)
         self.assertIn("Preparar candidatura com CV", source)
