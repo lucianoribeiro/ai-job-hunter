@@ -512,7 +512,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             extra += '<span class="recruiter-tag" aria-label="E-mail profissional identificado na publicação, envio pendente de confirmação">✉ Recrutador com e-mail · Preparar candidatura</span>'
             if app_base:
                 outreach = app_base + "/applications/outreach?" + urlencode({"recipient": contact, "title": raw_title[:160], "source": item.get("url", ""), "description": str(item.get("description") or raw_title)[:2400]})
-                extra += '<p><a class="recruiter-outreach" href="' + e(outreach) + '">✉ Abrir e-mail personalizado + CV anexado →</a></p>'
+                extra += '<p class="recruiter-apply-action" style="margin:12px 0"><a class="recruiter-outreach" style="display:block;background:#328775;border:1px solid #75cdb8;color:#fff;padding:12px;border-radius:10px;text-align:center;font-weight:750;text-decoration:none" target="_blank" rel="noopener noreferrer" href="' + e(outreach) + '">✉ Preparar candidatura com CV →</a></p>'
         elif app_base and str(item.get("url") or "").startswith("https://"):
             # Google News often truncates the source before its recruiter email.
             # Let the user provide only an address seen in the original posting.
