@@ -17,7 +17,7 @@ export function vacancyLanguage(title:string,description=""): "en"|"pt" {
 export function recruiterMessage(input:{title:string;company?:string;description?:string;name?:string;language?:"en"|"pt"}){
  const role=vacancyTitle(input.title), detail=(input.description||"").replace(/<[^>]*>/g," ").replace(/\s+/g," ").slice(0,5000);
  const lang=input.language||vacancyLanguage(input.title,detail), company=(input.company||"").trim().slice(0,120);
- const subject=((lang==="en"?"Application – ":"Candidatura – ")+role+" | LinkedIn: "+CANDIDATE_LINKEDIN).slice(0,250);
+ const subject=((lang==="en"?"Application – ":"Candidatura – ")+role).slice(0,250);
  const skills=[["Cypress",/\bcypress\b/i],["Playwright",/\bplaywright\b/i],["Selenium",/\bselenium\b/i],["mobile testing",/\bmobile\b/i],["project management",/\bproject management\b/i],["Scrum",/\bscrum\b/i]].filter(([,re])=>(re as RegExp).test(detail)).map(([label])=>label).slice(0,3);
  const name=input.name?.trim()||(lang==="en"?"[Your name]":"[Seu nome]");
  const opening=lang==="en"?"Hello,":"Olá,";
