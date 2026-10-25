@@ -41,6 +41,18 @@ export async function createCareerProfile(form: FormData) {
   const radius = Number(form.get("radius") || 50);
   if (!label || !roles.length || !Number.isInteger(radius) || radius < 0 || radius > 500)
     throw new Error("Enter a profile name, target roles and a valid radius");
+  const { data: existingProfiles, error: lookupError } = await supabase.from("career_profiles")
+    .select("id,label,industry,target_roles,origin_city,max_radius_km,include_hybrid")
+    .eq("user_id", user.id);
+  if (lookupError) throw new Error("Não foi possível verificar perfis existentes");
+  const normalize = (value: string) => value.trim().toLocaleLowerCase("pt-BR");
+  const isDuplicate = (existingProfiles || []).some(p =>
+    normalize(p.label) === normalize(label) && normalize(p.industry || "") === normalize(industry) &&
+    JSON.stringify((p.target_roles || []).map((r: string) => normalize(r))) === JSON.stringify(roles.map(normalize)) &&
+    normalize(p.origin_city || "") === normalize(city) && p.max_radius_km === radius &&
+    p.include_hybrid === (form.get("hybrid") === "on")
+  );
+  if (isDuplicate) redirect("/dashboard");
   const { error: insertError } = await supabase.from("career_profiles").insert({
     user_id: user.id, label, industry, target_roles: roles, origin_city: city,
     remote_first: true, include_hybrid: form.get("hybrid") === "on", max_radius_km: radius
