@@ -4,6 +4,7 @@ No scraping of arbitrary sites. Unknown locations remain in review, never
 claimed to be in Sao Paulo. Existing QA pipeline is untouched.
 """
 import argparse
+from datetime import datetime, timezone
 import json
 import re
 import unicodedata
@@ -68,7 +69,7 @@ def main():
     if not 1<=args.limit<=300:raise SystemExit("Limit must be 1-300")
     jobs,stats=discover(args.sources,args.limit)
     args.output.parent.mkdir(parents=True,exist_ok=True)
-    args.output.write_text(json.dumps({"jobs":jobs,"sources":stats},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    args.output.write_text(json.dumps({"collected_at":datetime.now(timezone.utc).isoformat(),"jobs":jobs,"sources":stats},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print("Regional SP:",len(jobs),"from",len(stats),"public feeds")
 
 if __name__=="__main__":main()
