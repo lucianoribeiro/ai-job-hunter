@@ -197,7 +197,7 @@ jobs:
           from src.monica_regional_discovery import reconcile
           collected["jobs"] = reconcile(collected.get("jobs", []), existing.get("jobs", []), collected["collected_at"])
           collected["jobs"].sort(key=lambda j: j.get("first_seen_at") or "", reverse=True)
-          region.write_text(json.dumps(collected, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+          region.write_text(json.dumps(collected, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
           PY
             git add -- data/history.json data/linkedin_history.json data/monica_regional_history.json
