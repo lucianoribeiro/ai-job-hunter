@@ -32,7 +32,20 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--output", type=Path, default=Path("data/regional_qa_jobs.json"))
     args = p.parse_args()
-    raw = lever("CI&T", "ciandt")
+    try:
+        raw = lever("CI&T", "ciandt")
+    except Exception as exc:
+        # An external ATS outage must not interrupt the dashboard deployment.
+        print(f"CI&T ATS unavailable ({type(exc).__name__}); retaining previous snapshot")
+        if args.output.exists():
+            try:
+                previous = json.loads(args.output.read_text(encoding="utf-8"))
+                if isinstance(previous, list):
+                    print(f"Retained {len(previous)} regional QA records")
+                    return
+            except (OSError, ValueError):
+                pass
+        raw = []
     jobs = select(raw)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(jobs, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
