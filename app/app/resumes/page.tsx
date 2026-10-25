@@ -20,7 +20,7 @@ export default async function ResumeStudio(){
  const publicJobs="https://lucianoribeiro.github.io/ai-job-hunter/#account="+encodeURIComponent(displayName.slice(0,100));
  const pdfs=(pdfRows||[]) as {id:string;label:string;language:string;original_name:string;bytes:number;created_at:string}[];
  return <main className="shell"><header className="top"><span className="logo">✦ AI Job Hunter</span><Link href="/dashboard">← Dashboard</Link></header>
- <section className="panel"><span className="eyebrow">ETAPA 2 DE 3 · CURRÍCULO PRIVADO</span><h1>Seu currículo antes das vagas</h1><p>Você já está autenticado. Envie seu CV em PDF; após salvar, será direcionado automaticamente ao painel principal de vagas no GitHub Pages.</p><p><a className="primary" href={publicJobs}>Já tenho CV salvo — Ir para vagas →</a></p></section><section className="panel"><span className="eyebrow">AI RESUME STUDIO</span><p><Link href="/resumes/import">Importar currículo PDF/DOCX →</Link></p><h1>Seus currículos</h1>
+ <section className="panel"><span className="eyebrow">ETAPA 2 DE 3 · CURRÍCULO PRIVADO</span><h1>Seu currículo antes das vagas</h1><p>Seu currículo fica privado no Supabase e pode ser substituído por uma nova versão PDF a qualquer momento.</p>{pdfError?<p role="alert">Não foi possível consultar os arquivos salvos. Verifique o armazenamento antes de continuar.</p>:pdfs.length===0?<div className="tile" role="status"><h2>Nenhum CV salvo nesta conta</h2><p>Envie um currículo em PDF para iniciar. Não há arquivo disponível para candidaturas por e-mail.</p><a className="primary" href="#pdf-upload">Enviar meu primeiro CV ↓</a></div>:<div><p role="status">✅ {pdfs.length} currículo(s) PDF salvo(s) nesta conta.</p><div className="cards">{pdfs.map(p=><article className="tile" key={p.id}><h2>{p.label}</h2><p>{p.original_name}</p><small>Atualizado em {new Date(p.created_at).toLocaleDateString("pt-BR",{timeZone:"America/Sao_Paulo"})} · {(p.bytes/1024).toFixed(0)} KB</small><div className="controls"><a href={`/resumes/download?id=${encodeURIComponent(p.id)}`}>Visualizar / Baixar PDF</a><a href="#pdf-upload">Atualizar CV ↓</a></div></article>)}</div><p><a className="primary" href={publicJobs}>Continuar para as vagas →</a></p></div>}</section><section className="panel"><span className="eyebrow">AI RESUME STUDIO</span><p><Link href="/resumes/import">Importar currículo PDF/DOCX →</Link></p><h1>Seus currículos</h1>
  <p>Crie um currículo principal e versões específicas para diferentes cargos. Revise as informações antes de aprovar.</p>
  {(resumeError||versionError)&&<p role="alert">Não foi possível carregar os currículos. Verifique a migração de dados.</p>}
  <div className="cards">{resumes.map(r=><article className="tile" key={r.id}>
@@ -28,8 +28,8 @@ export default async function ResumeStudio(){
  <p>{r.summary.slice(0,180)}{r.summary.length>180?"…":""}</p>
  <small>Versões: {versions.filter(v=>v.resume_id===r.id).length}</small><p><a href={`/resumes/${r.id}/export?format=html`}>Baixar currículo ATS (HTML)</a> · <a href={`/resumes/${r.id}/export?format=txt`}>Texto</a></p>
  </article>)}</div></section>
- <section className="panel"><h2>Arquivos PDF privados</h2>
- <p>Armazene seu CV em português e em inglês. Os arquivos são acessíveis somente pela sua conta e não são publicados no GitHub. O envio por e-mail não é automático.</p>
+ <section className="panel" id="pdf-upload"><h2>{pdfs.length?"Atualizar ou adicionar currículo PDF":"Enviar currículo PDF"}</h2>
+ <p>Selecione um PDF em português ou inglês. Se já existir um currículo no idioma escolhido, o novo arquivo substituirá o anterior após ser salvo com sucesso. Seus arquivos não são publicados no GitHub.</p>
  {pdfError&&<p role="alert">Armazenamento PDF ainda indisponível. Execute a migração do Supabase para ativar.</p>}
  <div className="cards">{pdfs.map(p=><article className="tile" key={p.id}>
  <h3>{p.label}</h3><p>{p.original_name}</p><small>{(p.bytes/1024).toFixed(0)} KB · {p.language==="en-US"?"Inglês":"Português"}</small>
@@ -40,7 +40,7 @@ export default async function ResumeStudio(){
  <label>Idioma<select name="language" required defaultValue="en-US"><option value="en-US">Inglês (EN)</option><option value="pt-BR">Português (PT-BR)</option></select></label>
  <label>Arquivo PDF (máx. 5 MB)<input name="file" type="file" accept="application/pdf,.pdf" required/></label>
  <p className="note">Um PDF por idioma. Um novo upload substitui o arquivo anterior somente após salvar a nova versão.</p>
- <button className="primary" type="submit">Salvar CV e acessar vagas →</button><p className="note">O arquivo permanece privado no Supabase. Após confirmar o upload, você será direcionado ao GitHub Pages.</p></form>
+ <button className="primary" type="submit">{pdfs.length?"Salvar novo CV e acessar vagas →":"Salvar meu CV e acessar vagas →"}</button><p className="note">O arquivo permanece privado no Supabase. Após confirmar o upload, você será direcionado ao GitHub Pages.</p></form>
  </section>
  <section className="panel"><h2>Criar currículo principal</h2>
  <p>Preencha somente experiências reais. É possível copiar as informações de um PDF exportado do LinkedIn e revisar antes de salvar.</p>
