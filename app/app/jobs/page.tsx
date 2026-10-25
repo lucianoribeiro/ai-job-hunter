@@ -24,8 +24,8 @@ export default async function Jobs({searchParams}:{searchParams:Promise<{profile
  const feed=await fetchRecentJobs();
  const filtered=matchingJobs(feed.jobs,selected?.target_roles??[],remote).slice(0,40);
  return <main className="shell"><header className="top"><span className="logo">✦ AI Job Hunter</span><nav><Link href="/dashboard">Meu perfil</Link> · <Link href="/applications">Candidaturas</Link></nav></header>
- <section className="panel"><span className="eyebrow">OPORTUNIDADES RECENTES</span><h1>Encontre sua próxima vaga</h1>
- <p>Vagas de fontes públicas, ordenadas pela data informada pela origem. Atualizações são armazenadas em cache por até 15 minutos.</p>
+ <section className="panel"><p><a className="primary" href="https://lucianoribeiro.github.io/ai-job-hunter/">← Voltar ao painel principal e Recruiter Monitor (catálogo completo)</a></p><span className="eyebrow">OPORTUNIDADES RECENTES</span><h1>Encontre sua próxima vaga</h1>
+ <p>Esta lista usa Remotive e Arbeitnow e não corresponde às publicações do Recruiter Monitor no GitHub Pages. Para visualizar todas as publicações monitoradas, use o link Painel principal acima. Atualizações são armazenadas em cache por até 15 minutos.</p>
  <form action="/jobs" method="get" className="form">
  <label>Perfil profissional<select name="profile" defaultValue={selected?.id}>{profiles.map(p=><option value={p.id} key={p.id}>{p.label}</option>)}</select></label>
  <label>Modalidade<select name="mode" defaultValue={remote?"remote":"all"}><option value="remote">Remoto primeiro</option><option value="all">Todas as modalidades</option></select></label>
