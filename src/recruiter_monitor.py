@@ -322,6 +322,19 @@ def indexed_contact(text: str) -> str:
     return match.group(1).lower() if match else ""
 
 
+def is_job_seeker_post(title: str, excerpt: str = "") -> bool:
+    """Avoid mistaking candidate self-promotion for recruiter job openings."""
+    import re
+    from html import unescape
+    value = unescape(str(title or "") + " " + str(excerpt or ""))
+    return bool(re.search(
+        r"\b(?:open to (?:work|opportunities)|actively seeking (?:my |a |an )?(?:next )?(?:role|job|position)|"
+        r"looking for (?:my |a |an )?(?:new |next )?(?:role|job|position)|"
+        r"seeking my next role|available for (?:new )?opportunities)\b",
+        value, re.I,
+    ))
+
+
 def merge_indexed_record(previous: dict, current: dict) -> dict:
     """Keep previously verified fields when a later index excerpt is shorter."""
     merged = {**previous, **current}
@@ -357,6 +370,8 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
         linkedin_url = host == "linkedin.com" or host.endswith(".linkedin.com")
         news_redirect = host in ("news.google.com", "news.googleusercontent.com")
         if not (linkedin_url or (news_redirect and re.search(r"\bLinkedIn\b", title, re.I))):
+            continue
+        if is_job_seeker_post(title, indexed_excerpt):
             continue
         labels = classify(title)
         industrial_role = industrial_project_role(title, indexed_excerpt)
@@ -435,6 +450,9 @@ def run() -> dict:
         except (OSError, ValueError, TypeError):
             pass
 
+    # Remove historical job-seeker posts incorrectly classified as vacancies.
+    jobs = {url: item for url, item in jobs.items() if not is_job_seeker_post(item.get("title", ""), item.get("indexed_excerpt", ""))}
+
     # Backfill contacts from all available indexed text fields, including titles.
     # Some historical entries were saved without recruiter_email even though the
     # email was visible in their indexed title or excerpt.
@@ -444,6 +462,10 @@ def run() -> dict:
             contact = indexed_contact(indexed_text)
             if contact:
                 item["recruiter_email"] = contact
+
+    for item in jobs.values():
+        item["contact_coverage"] = "public_index_only"
+        item["email_status"] = "found_in_index" if item.get("recruiter_email") else "unverified_in_incomplete_source"
 
     data = {
         "date_utc": day, "checked_at": datetime.now(timezone.utc).isoformat(),
