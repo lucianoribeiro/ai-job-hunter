@@ -504,10 +504,10 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         if contact:
             # The public Pages site cannot verify Gmail delivery or access a private CV.
             # Explicitly distinguish recruiter contact availability from an actual send.
-            extra += '<span class="recruiter-tag" aria-label="E-mail identificado; currículo ainda não enviado">✉ E-mail identificado · CV não enviado</span>'
+            extra += '<span class="recruiter-tag" aria-label="E-mail profissional identificado na publicação, envio pendente de confirmação">✉ Recrutador com e-mail · Preparar candidatura</span>'
             if app_base:
-                outreach = app_base + "/applications/outreach?" + urlencode({"recipient": contact, "title": raw_title[:160], "source": item.get("url", "")})
-                extra += '<p><a class="recruiter-outreach" href="' + e(outreach) + '">Preparar rascunho com CV no Gmail →</a></p>'
+                outreach = app_base + "/applications/outreach?" + urlencode({"recipient": contact, "title": raw_title[:160], "source": item.get("url", ""), "description": str(item.get("description") or raw_title)[:2400]})
+                extra += '<p><a class="recruiter-outreach" href="' + e(outreach) + '">✉ Abrir e-mail personalizado + CV anexado →</a></p>'
         # Indexed titles can contain full post excerpts; do not fabricate an employer or summary.
         link_label = "Ver vaga na fonte original" if item.get("source_kind") in ("ats", "curated") else "Ver publicação no LinkedIn"
         accessible_date = e("Data do índice público: " + published_accessible + ", horário de Brasília") if published_accessible else e(published)
