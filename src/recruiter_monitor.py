@@ -464,8 +464,8 @@ def run() -> dict:
                 item["recruiter_email"] = contact
 
     for item in jobs.values():
-        item["contact_coverage"] = "indexed_excerpt_only"
-        item["email_status"] = "found_in_index" if item.get("recruiter_email") else "not_available_in_index"
+        item["contact_coverage"] = "public_index_only"
+        item["email_status"] = "found_in_index" if item.get("recruiter_email") else "unverified_in_incomplete_source"
 
     data = {
         "date_utc": day, "checked_at": datetime.now(timezone.utc).isoformat(),
