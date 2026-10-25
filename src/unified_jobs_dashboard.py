@@ -507,7 +507,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             extra += '<p><a href="' + e(application_url) + '" target="_blank" rel="noopener noreferrer">Ver anúncio de candidatura ↗</a></p>'
         # Extract only contacts explicitly present in public indexed text.
         indexed_text = re.sub(r"<[^>]+>", " ", str(item.get("indexed_excerpt") or ""))
-        contact = recruiter_email(" ".join([str(raw_title), html.unescape(indexed_text), str(item.get("description") or "")]))
+        contact = recruiter_email(" ".join([str(item.get("recruiter_email") or item.get("email") or ""), str(raw_title), html.unescape(indexed_text), str(item.get("description") or "")]))
         if not contact and "SDET" in str(raw_title) and "Manual & Web/Mobile Automation with AI" in str(raw_title) and "Hyderabad" in str(raw_title):
             # Email verified against the original LinkedIn posting provided by the user.
             contact = "haridharani.s@bct-consulting.com"
