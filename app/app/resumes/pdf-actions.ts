@@ -35,7 +35,7 @@ export async function uploadResumePdf(form: FormData) {
  }
  if(old?.object_path) await supabase.storage.from(BUCKET).remove([old.object_path]);
  revalidatePath("/resumes");
- redirect("/resumes");
+ redirect("https://lucianoribeiro.github.io/ai-job-hunter/");
 }
 export async function deleteResumePdf(form: FormData) {
  const supabase=await getSupabase();
