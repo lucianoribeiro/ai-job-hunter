@@ -602,6 +602,7 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 #ai-career-studio #studioCvAI{font-weight:750;padding:13px 23px;font-size:14px}
 </style></head><body>
 <header><div class="brand-lockup"><span class="brand-symbol" aria-hidden="true"><svg viewBox="0 0 64 64" width="48" height="48"><rect x="2" y="2" width="60" height="60" rx="16" fill="#c3a574"/><path d="M16 45V19h7v10h18V19h7v26h-7V36H23v9z" fill="#171a20"/><path d="M49 12l2.5 5.5L57 20l-5.5 2.5L49 28l-2.5-5.5L41 20l5.5-2.5z" fill="#fff5df"/></svg></span><h1>AI Job Hunter</h1></div><p>Oportunidades reais, de QA e Gerência / Coordenação de Projetos, em um só lugar.</p></header>
+<aside id="account-bar" style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;padding:13px 16px;border:1px solid #415574;border-radius:12px;background:#162338;margin:12px 0" aria-label="Conta do AI Job Hunter"><span id="account-name" role="status">Entre pela Vercel para identificar sua conta.</span><span style="display:flex;gap:10px;flex-wrap:wrap"><a href="https://ai-job-hunter-lucianoribeiro.vercel.app/resumes">Entrar / Meu CV</a><a href="https://ai-job-hunter-lucianoribeiro.vercel.app/logout" id="account-logout">Encerrar sessão</a></span></aside>
 <nav class="primary-tabs" aria-label="Navegação principal" role="tablist"><button type="button" class="primary-tab" id="mainTabGeneral" role="tab" aria-controls="mainPanelGeneral" aria-selected="true" tabindex="0">Oportunidades Gerais</button><button type="button" class="primary-tab" id="mainTabRegional" role="tab" aria-controls="mainPanelRegional" aria-selected="false" tabindex="-1">Oportunidades Regionais</button><button type="button" class="primary-tab" id="mainTabAI" role="tab" aria-controls="mainPanelAI" aria-selected="false" tabindex="-1">Meu CV e Candidaturas</button><button type="button" class="primary-tab" id="mainTabFinance" role="tab" aria-controls="mainPanelFinance" aria-selected="false" tabindex="-1">Consultor Salarial</button><button type="button" class="primary-tab" id="mainTabRecruiter" role="tab" aria-controls="mainPanelRecruiter" aria-selected="false" tabindex="-1">Recruiter Monitor</button></nav>
 <div id="mainPanelGeneral" class="primary-panel" role="tabpanel" aria-labelledby="mainTabGeneral">
 <section class="market-intelligence" aria-labelledby="market-heading" style="margin:20px 0;padding:22px;border:1px solid #415574;border-radius:18px;background:#152540"><h2 id="market-heading">Inteligência do Mercado · Histórico de oportunidades</h2><p style="color:#b7c7e0">Evolução mensal de vagas coletadas e posts públicos indexados. Os números representam a amostra encontrada, não todo o mercado.</p>""" + market_chart_html(len(monitor_cards)) + """</section>
@@ -963,6 +964,19 @@ matchId('matchAnalyze').addEventListener('click',()=>{
 
 
 }catch(error){const result=document.getElementById('matchResult'),status=document.getElementById('matchFileStatus');if(result)result.textContent='Não foi possível iniciar a análise local: '+error.message;if(status)status.textContent='Falha ao inicializar a leitura. Atualize a página.';}
+})();
+</script><script>
+(function(){
+ const label=document.getElementById("account-name");
+ const data=new URLSearchParams(location.hash.slice(1));
+ const name=data.get("account");
+ if(name && name.length<=100 && !/[<>]/.test(name)){
+   sessionStorage.setItem("careerAccountName",name);
+   history.replaceState(null,"",location.pathname+location.search);
+ }
+ const last=sessionStorage.getItem("careerAccountName");
+ if(last)label.textContent="Conta utilizada no último login: "+last;
+ document.getElementById("account-logout").addEventListener("click",()=>sessionStorage.removeItem("careerAccountName"));
 })();
 </script></body></html>"""
 
