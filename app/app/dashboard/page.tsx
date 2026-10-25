@@ -9,7 +9,12 @@ export default async function Dashboard() {
   const { data: { user }, error } = await supabase.auth.getUser();
   if (error || !user) redirect("/");
   const { data, error: dbError } = await supabase.from("career_profiles").select("id,label,industry,target_roles,origin_city,max_radius_km,include_hybrid").order("created_at", { ascending: false });
-  const profiles = (data || []) as Profile[];
+  const uniqueProfiles = new Map<string, Profile>();
+  for (const profile of ((data || []) as Profile[])) {
+    const key = JSON.stringify([profile.label.trim().toLowerCase(), profile.industry?.trim().toLowerCase(),profile.target_roles.map(role => role.trim().toLowerCase()),profile.origin_city?.trim().toLowerCase(),profile.max_radius_km,profile.include_hybrid]);
+    if (!uniqueProfiles.has(key)) uniqueProfiles.set(key, profile);
+  }
+  const profiles = [...uniqueProfiles.values()];
   return <main className="shell"><header className="top"><span className="logo">✦ AI Job Hunter</span><form action={signOut}><button>Encerrar sessão</button></form></header>
     <section className="panel"><div className="controls"><Link href="/jobs">Explorar vagas recentes →</Link><Link href="/applications">Minhas candidaturas →</Link><Link href="/resumes">Meus currículos →</Link></div><span className="eyebrow">MEU ESPAÇO</span><h1>Minha carreira</h1><p>Configure seu perfil e suas preferências para encontrar oportunidades relevantes.</p>
     {dbError && <p role="alert">Não foi possível carregar seus perfis. Verifique a configuração do banco.</p>}
