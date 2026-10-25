@@ -3,16 +3,18 @@ import Link from "next/link";
 import {redirect} from "next/navigation";
 import {getSupabase} from "@/lib/supabase";
 import {createOutreachDraft,approveOutreachDraft} from "./actions";
+import {connectGmail} from "@/app/actions";
+import {gmailAuthorization} from "@/lib/gmail-auth";
 type Job={id:string;title:string;company:string;listing_url:string};
 type Version={id:string;label:string;target_role:string};
 type Pdf={id:string;label:string;language:string;created_at:string};
-type Draft={id:string;recipient_email:string;subject:string;body:string;status:string;resume_version_id:string|null;resume_file_id:string|null;gmail_message_id:string|null;sent_at:string|null};
-export default async function Outreach({searchParams}:{searchParams:Promise<{job?:string;recipient?:string;title?:string;source?:string;description?:string}>}){
+type Draft={id:string;recipient_email:string;subject:string;body:string;status:string;resume_version_id:string|null;resume_file_id:string|null;gmail_message_id:string|null;sent_at:string|null;opportunity_id:string};
+export default async function Outreach({searchParams}:{searchParams:Promise<{job?:string;recipient?:string;title?:string;source?:string;description?:string;view?:string;sent?:string}>}){
  const supabase=await getSupabase();const {data:{user}}=await supabase.auth.getUser();if(!user)redirect("/");
  const [{data:jobsRows},{data:versionsRows},{data:draftsRows},{data:pdfRows}]=await Promise.all([
  supabase.from("opportunities").select("id,title,company,listing_url").order("created_at",{ascending:false}),
  supabase.from("resume_versions").select("id,label,target_role").eq("status","approved").order("created_at",{ascending:false}),
- supabase.from("recruiter_drafts").select("id,recipient_email,subject,body,status,resume_version_id,resume_file_id,gmail_message_id,sent_at").order("created_at",{ascending:false}),
+ supabase.from("recruiter_drafts").select("id,opportunity_id,recipient_email,subject,body,status,resume_version_id,resume_file_id,gmail_message_id,sent_at").order("created_at",{ascending:false}),
  supabase.from("resume_files").select("id,label,language,created_at").eq("user_id",user.id).order("created_at",{ascending:false})
  ]);
  const jobs=(jobsRows??[]) as Job[],versions=(versionsRows??[]) as Version[],drafts=(draftsRows??[]) as Draft[],pdfs=(pdfRows??[]) as Pdf[];
@@ -26,9 +28,15 @@ export default async function Outreach({searchParams}:{searchParams:Promise<{job
  const preferredPdf=pdfs.find(p=>p.language===preferredLanguage)||pdfs[0];
  const defaultSubject=template.subject;
  const defaultBody=template.body;
+ const {data:sessionInfo}=await supabase.auth.getSession();
+ const gmail=await gmailAuthorization(sessionInfo.session?.provider_token);
+ const sentDrafts=drafts.filter(d=>d.status==="sent"&&!!d.gmail_message_id);
+ const visibleDrafts=params.view==="sent"?sentDrafts:drafts;
  return <main className="shell"><header className="top"><span className="logo">✦ AI Job Hunter</span><Link href="/applications">← Minhas candidaturas</Link></header>
  <section className="panel"><span className="eyebrow">RECRUITER OUTREACH</span><h1>Preparar mensagem ao recrutador</h1>
- <p>Use somente um endereço profissional divulgado explicitamente para receber candidaturas. Confira a vaga e revise a mensagem antes de aprovar.</p>
+ <p>Revise destinatário, cargo, mensagem e CV nesta tela. Ao clicar em <strong>Enviar candidatura</strong>, o Gmail enviará a mensagem com o PDF anexado. Não será necessária uma segunda aprovação.</p>
+ <p><Link href="/applications/outreach?view=sent">✅ Candidaturas enviadas ({sentDrafts.length}) →</Link></p>
+ {!gmail.canSend&&<form action={connectGmail}><input type="hidden" name="next" value="/applications/outreach"/><p role="alert">Para enviar, conecte sua conta Google e autorize a permissão Gmail.</p><button className="primary" type="submit">Conectar Gmail para enviar</button></form>}
  {!jobs.length&&!external?<p>Salve uma vaga antes de preparar o contato. <Link href="/jobs">Ver vagas →</Link></p>:
  <form action={createOutreachDraft} className="form">
  <label>Oportunidade<select name="opportunity_id" defaultValue={external&&!jobs.some(j=>j.listing_url===params.source)?"import":selected?.id} required>{external&&!jobs.some(j=>j.listing_url===params.source)&&<option value="import">{displayTitle} — Recruiter Monitor</option>}{jobs.map(j=><option key={j.id} value={j.id}>{j.title} — {j.company}</option>)}</select></label>
@@ -43,14 +51,17 @@ export default async function Outreach({searchParams}:{searchParams:Promise<{job
  {preferredPdf&&<p role="status">✅ CV selecionado para anexar: <strong>{preferredPdf.label}</strong> ({preferredPdf.language==="en-US"?"Inglês":"Português"}). Confirme o documento antes de enviar.</p>}
  {!pdfs.length&&<p role="alert">Nenhum CV em PDF salvo. <Link href="/resumes">Enviar currículo primeiro</Link>.</p>}
  <p className="note">Se escolher um PDF privado, ele terá prioridade sobre a versão gerada. A aprovação apenas prepara um rascunho no Gmail; não envia a candidatura.</p>
- <button className="primary">Salvar para revisão</button></form>}
- </section><section className="panel"><h2>Mensagens preparadas</h2>
- {!drafts.length&&<p>Nenhuma mensagem preparada.</p>}
- {drafts.map(d=><article className="tile" key={d.id}><h3>{d.subject}</h3><p>Para: {d.recipient_email}</p>
+ <button className="primary" type="submit" disabled={!gmail.canSend||!preferredPdf&&!versions.length}>✉ Enviar candidatura com CV</button><p className="note">Ao clicar, o e-mail será enviado imediatamente pelo Gmail ao destinatário informado. Não existe etapa adicional de revisão.</p></form>}
+ </section><section className="panel"><h2>{params.view==="sent"?"Candidaturas enviadas":"Histórico de candidaturas"}</h2><p><Link href="/applications/outreach?view=sent">Ver somente enviadas ({sentDrafts.length})</Link> · <Link href="/applications/outreach">Ver todas</Link></p>
+ {params.sent&&<p role="status">✅ Gmail confirmou o envio e a candidatura foi registrada.</p>}
+ {!visibleDrafts.length&&<p>Nenhuma candidatura nesta visualização.</p>}
+ {visibleDrafts.map(d=><article className="tile" key={d.id}><h3>{d.subject}</h3><p>Para: {d.recipient_email}</p>
+ {d.sent_at&&<p><strong>Enviada em:</strong> {new Date(d.sent_at).toLocaleString("pt-BR",{timeZone:"America/Sao_Paulo"})}</p>}
  <small>{d.status==="sent"&&d.gmail_message_id?"✅ CV enviado pelo Gmail":d.status==="sending"?"Envio em verificação — confira o Gmail":d.status==="drafted"?"Rascunho criado no Gmail":d.status==="approved"?"Aprovado para criar no Gmail":"Aguardando revisão"}</small>
+ {d.status==="sent"&&jobs.find(j=>j.id===d.opportunity_id)?.listing_url&&<p><a href={"https://lucianoribeiro.github.io/ai-job-hunter/#sent="+encodeURIComponent(jobs.find(j=>j.id===d.opportunity_id)!.listing_url)} >Voltar à vaga e marcar envio neste navegador ↗</a></p>}
  <details><summary>Revisar mensagem</summary><pre style={{whiteSpace:"pre-wrap",overflowWrap:"anywhere"}}>{d.body}</pre></details>
  {["approved","drafted","sent","sending"].includes(d.status)&&<p><Link href={`/applications/outreach/${d.id}/compose`}>Revisar integração Gmail →</Link></p>}
  {d.status==="pending_review"&&<form action={approveOutreachDraft}><input type="hidden" name="draft_id" value={d.id}/><button>Confirmar conteúdo</button></form>}
  </article>)}</section>
- <p className="note">Aprovar não envia e-mail. Na etapa seguinte, você autoriza a criação de um rascunho Gmail com o CV em PDF anexado.</p></main>;
+ <p className="note">O histórico de envios confirmados permanece no Supabase. A marcação no GitHub Pages é local ao navegador e pode não aparecer em outro dispositivo.</p></main>;
 }
