@@ -16,7 +16,7 @@ class RecruiterOutreachGmailTests(unittest.TestCase):
         source = Path("src/unified_jobs_dashboard.py").read_text(encoding="utf-8")
         self.assertIn("Recrutador com e-mail · Preparar candidatura", source)
         self.assertIn("CAREER_APP_URL", source)
-        self.assertIn("Abrir e-mail personalizado + CV anexado", source)
+        self.assertIn("Preparar candidatura com CV", source)
         self.assertIn('"recipient": contact', source)
 
     def test_gmail_flow_has_explicit_send_and_draft_with_pdf_attachment(self):
