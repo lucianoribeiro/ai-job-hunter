@@ -397,8 +397,8 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
         facts = extract_job_facts(title + " " + indexed_excerpt)
         freelance = freelance_qa_facts(title, indexed_excerpt, labels["area"])
         labels["modality"] = facts["modality"]
-        hiring = bool(re.search(r"\bhiring\b|\bcontratando\b|\bvaga(?:s)?\b|\bjob opening\b|\bapply\b|\bopportunit(?:y|ies)\b|\boportunidade\b|\brecruiting\b|\bwe.re hiring\b|\bselection process\b|\bseletivo\b", title, re.I))
-        if labels["area"] in ("QA", "Projetos", "Outros") and not (hiring or freelance["freelance_qa"] == "yes"):
+        hiring = bool(re.search(r"\bhiring\b|\bcontratando\b|\bvaga(?:s)?\b|\bjob opening\b|\bapply\b|\bopportunit(?:y|ies)\b|\boportunidade\b|\brecruiting\b|\bwe.re hiring\b|\bselection process\b|\bseletivo\b", title + " " + indexed_excerpt, re.I))
+        if labels["area"] in ("QA", "Projetos", "Outros") and not (hiring or freelance["freelance_qa"] == "yes" or indexed_contacts(title + " " + indexed_excerpt)):
             count("no_hiring_signal_in_title")
             continue
         if manufacturing_only and not industrial_role:
@@ -513,7 +513,9 @@ def run() -> dict:
         item["contact_coverage"] = "public_index_only"
         item["email_status"] = "found_in_index" if item.get("recruiter_email") else "unverified_in_incomplete_source"
 
-    retained = consolidate_results(jobs)
+    # Keep all deduplicated public-index records; do not silently drop emails
+    # or opportunities through a fixed per-category quota.
+    retained = sorted(jobs.values(), key=lambda x: x.get("published_at") or "", reverse=True)
     audit["unique_before_area_limit"] = len(jobs)
     audit["removed_by_area_limit"] = len(jobs) - len(retained)
     audit["stored_items"] = len(retained)
