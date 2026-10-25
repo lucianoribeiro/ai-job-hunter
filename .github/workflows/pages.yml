@@ -193,7 +193,12 @@ jobs:
               print(f"{name}: retained {len(merged)} records")
           region = Path("data/monica_regional_history.json")
           collected = json.loads(Path("/tmp/ai-job-hunter-history/monica_regional_history.json").read_text(encoding="utf-8"))
-          existing = json.loads(region.read_text(encoding="utf-8")) if region.exists() else {"jobs": []}
+          # A previous workflow appended literal backslash+n after valid JSON.
+          # Recover that precise legacy suffix without dropping historical jobs.
+          previous_text = region.read_text(encoding="utf-8") if region.exists() else '{"jobs":[]}'
+          if previous_text.rstrip().endswith(chr(92) + "n"):
+              previous_text = previous_text.rstrip()[:-2]
+          existing = json.loads(previous_text)
           from src.monica_regional_discovery import reconcile
           collected["jobs"] = reconcile(collected.get("jobs", []), existing.get("jobs", []), collected["collected_at"])
           collected["jobs"].sort(key=lambda j: j.get("first_seen_at") or "", reverse=True)
