@@ -2,6 +2,8 @@
 from pathlib import Path
 import json
 import html
+from datetime import datetime
+from zoneinfo import ZoneInfo
 from src.monica_page import eligible
 from src.monica_dates import publication_date, display_date
 
@@ -91,6 +93,23 @@ def render(data):
                 '<p>Candidatura não verificada · Aderência: a calcular (perfil privado indisponível ou análise pendente)</p>'+
                 '<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Consultar anúncio ↗</a></article>')
         cards += fresh_cards
+    # Show the timestamp of the real regional collection, never the page build time.
+    collection_label = "Não disponível"
+    if live_feed.is_file():
+        try:
+            raw = json.loads(live_feed.read_text(encoding="utf-8")).get("collected_at")
+            if raw:
+                instant = datetime.fromisoformat(str(raw).replace("Z", "+00:00"))
+                if instant.tzinfo is not None:
+                    local = instant.astimezone(ZoneInfo("America/Sao_Paulo"))
+                    collection_label = local.strftime("%d/%m/%Y às %Hh%M")
+        except (ValueError, TypeError, OSError):
+            pass
+    collection_card = ('<div id="monica-last-collection" style="background:#203040;'
+        'border:1px solid #496078;border-radius:12px;padding:12px 16px;margin:12px 0;'
+        'max-width:360px"><small>Última coleta regional</small><p style="margin:6px 0;'
+        'font-weight:700">'+esc(collection_label)+'</p><small>Horário de Brasília · '
+        'Vagas públicas; candidatura e aderência podem estar pendentes de verificação</small></div>')
     # Count the exact HTML cards built, rather than feed records.
     rendered_count=sum(card.count('<article class="regional-card"') for card in cards)
     if rendered_count != len(cards):
@@ -99,6 +118,7 @@ def render(data):
             'A lista depende das fontes disponíveis e do perfil configurado.</p>')
     return ('<section id="monica-inline" aria-labelledby="monica-inline-title" style="margin:20px 0">'
         '<h2 id="monica-inline-title">Oportunidades para Mônica</h2>'
+        +collection_card+
         '<div style="display:flex;gap:12px;align-items:center;margin:12px 0">'
         '<button type="button" id="monica-bell" style="background:#2a261f;border:1px solid #b9914f;border-radius:12px;padding:8px 12px;color:#ffe1a8;cursor:pointer" aria-label="Novas vagas da Mônica">&#128276; <span id="monica-new-count" aria-live="polite">0</span> novas</button>'
         '<small id="monica-bell-hint">Novas desde a última visita neste navegador</small></div>'
