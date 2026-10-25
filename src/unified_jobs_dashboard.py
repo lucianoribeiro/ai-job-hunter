@@ -528,6 +528,23 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         # Indexed titles can contain full post excerpts; do not fabricate an employer or summary.
         link_label = "Ver vaga na fonte original" if item.get("source_kind") in ("ats", "curated") else "Ver publicação no LinkedIn"
         accessible_date = e("Data do índice público: " + published_accessible + ", horário de Brasília") if published_accessible else e(published)
+        # Stable card action: rendered outside the optional excerpt/extra area.
+        card_action = ""
+        if app_base and contact:
+            handoff = app_base + "/applications/outreach?" + urlencode({
+                "recipient": contact, "title": str(raw_title)[:160],
+                "source": str(item.get("url") or ""),
+                "description": str(item.get("description") or raw_title)[:2400],
+            })
+            card_action = ('<a class="recruiter-open" target="_blank" rel="noopener noreferrer" '
+                           'aria-label="Preparar candidatura com currículo para recrutador identificado" '
+                           'href="' + e(handoff) + '">✉ Preparar candidatura com CV ↗</a>')
+        elif app_base:
+            handoff = app_base + "/applications/outreach?" + urlencode({
+                "title": str(raw_title)[:160], "source": str(item.get("url") or "")
+            })
+            card_action = ('<a class="recruiter-open" target="_blank" rel="noopener noreferrer" '
+                           'href="' + e(handoff) + '">✉ Preparar candidatura · informar e-mail ↗</a>')
         monitor_cards.append(
             '<article class="recruiter-card" data-area="' + category + '" data-mode="' + modality + '" '
             'data-role="' + e(item.get("role") or ("Gerente de Projetos de TI" if category == "Projetos" else "")) + '" data-city="' + e(item.get("city") or (details["location"] if category == "Manufatura" else "") or "") + '" data-origin="' + e(origin) + '" data-contract="' + e(contract) + '" data-freelance="' + freelance + '" data-usd="' + ('yes' if isinstance(salary, str) and salary.startswith('US$ ') else 'no') + '">'
@@ -538,6 +555,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             '<span class="recruiter-pill">Contrato: ' + e(contract) + '</span>' + ('<span class="recruiter-pill">Freelancer QA</span>' if freelance == "yes" else '') + '</div>'
             '<h3 class="recruiter-title">' + title + '</h3>'
             '<p class="recruiter-employer">Empresa: ' + e(item.get("company") or "não identificada no índice") + '</p>'
+            + card_action
             '<div class="recruiter-extra">' + extra + '</div>'
             '<div class="recruiter-index-date"><span aria-hidden="true">◷</span> '
             '<time aria-label="' + accessible_date + '" datetime="' + e(item.get("published_at", "")) + '">'
