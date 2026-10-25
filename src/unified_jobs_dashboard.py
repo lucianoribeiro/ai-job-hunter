@@ -513,6 +513,19 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             if app_base:
                 outreach = app_base + "/applications/outreach?" + urlencode({"recipient": contact, "title": raw_title[:160], "source": item.get("url", ""), "description": str(item.get("description") or raw_title)[:2400]})
                 extra += '<p><a class="recruiter-outreach" href="' + e(outreach) + '">✉ Abrir e-mail personalizado + CV anexado →</a></p>'
+        elif app_base and str(item.get("url") or "").startswith("https://"):
+            # Google News often truncates the source before its recruiter email.
+            # Let the user provide only an address seen in the original posting.
+            extra += (
+                '<details class="recruiter-original"><summary>✉ O anúncio tem e-mail? Informar e preparar CV</summary>'
+                '<p>Informe somente um e-mail publicado no anúncio original. Não foi possível identificá-lo no índice.</p>'
+                '<form method="get" action="' + e(app_base + "/applications/outreach") + '" target="_blank">'
+                '<label>E-mail do recrutador <input name="recipient" type="email" autocomplete="email" required maxlength="254" placeholder="recrutador@empresa.com"></label>'
+                '<input type="hidden" name="title" value="' + e(str(raw_title)[:160]) + '">'
+                '<input type="hidden" name="source" value="' + e(str(item.get("url") or "")) + '">'
+                '<input type="hidden" name="description" value="' + e(str(item.get("description") or raw_title)[:2000]) + '">'
+                '<button type="submit">✉ Preparar e-mail com CV anexado →</button></form></details>'
+            )
         # Indexed titles can contain full post excerpts; do not fabricate an employer or summary.
         link_label = "Ver vaga na fonte original" if item.get("source_kind") in ("ats", "curated") else "Ver publicação no LinkedIn"
         accessible_date = e("Data do índice público: " + published_accessible + ", horário de Brasília") if published_accessible else e(published)
