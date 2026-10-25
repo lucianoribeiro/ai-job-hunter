@@ -1,10 +1,17 @@
 "use server";
 import {redirect} from "next/navigation";
 import {getSupabase} from "@/lib/supabase";
+import {gmailAuthorization} from "@/lib/gmail-auth";
+import {sendApprovedRecruiterEmail} from "./[id]/compose/actions";
 function str(data:FormData,key:string,max:number){const v=data.get(key);if(typeof v!=="string"||v.length>max)throw new Error("Campo inválido");return v.trim()}
 async function auth(){const supabase=await getSupabase();const {data:{user}}=await supabase.auth.getUser();if(!user)redirect("/");return {supabase,user}}
 export async function createOutreachDraft(form:FormData){
  const {supabase,user}=await auth();
+ // The visible form is the user's final review. Require Gmail authorization
+ // before creating a sendable database record.
+ const {data:sessionInfo}=await supabase.auth.getSession();
+ const canSend=(await gmailAuthorization(sessionInfo.session?.provider_token)).canSend;
+ if(!canSend)throw new Error("Autorize o Gmail antes de clicar em Enviar candidatura.");
  const opportunityId=str(form,"opportunity_id",40),recipient=str(form,"recipient",254).toLowerCase(),
  subject=str(form,"subject",250),body=str(form,"body",12000),resumeId=str(form,"resume_version_id",40),
  listingUrl=str(form,"listing_url",2000),listingTitle=str(form,"listing_title",240),resumeFileId=str(form,"resume_file_id",40);
@@ -35,10 +42,11 @@ export async function createOutreachDraft(form:FormData){
  if(!version&&!fileId) throw new Error("Selecione um CV para anexar.");
  const {data:prior}=await supabase.from("recruiter_drafts").select("id,status").eq("user_id",user.id).eq("opportunity_id",job.id).eq("recipient_email",recipient).in("status",["pending_review","approved","drafted","sending","sent"]).limit(1);
  if(prior?.length)throw new Error("Já existe uma candidatura para esta vaga e destinatário. Verifique o histórico antes de criar outra.");
- const {error}=await supabase.from("recruiter_drafts").insert({user_id:user.id,opportunity_id:job.id,resume_file_id:fileId,
-  resume_version_id:version,recipient_email:recipient,subject,body,status:"pending_review"});
- if(error)throw new Error("Não foi possível preparar o rascunho");
- redirect("/applications/outreach");
+ const {data:newDraft,error}=await supabase.from("recruiter_drafts").insert({user_id:user.id,opportunity_id:job.id,resume_file_id:fileId,
+  resume_version_id:version,recipient_email:recipient,subject,body,status:"approved"}).select("id").single();
+ if(error||!newDraft)throw new Error("Não foi possível registrar a candidatura");
+ const sendForm=new FormData();sendForm.set("draft_id",newDraft.id);sendForm.set("return_to","outreach");
+ await sendApprovedRecruiterEmail(sendForm);
 }
 export async function approveOutreachDraft(form:FormData){
  const {supabase,user}=await auth();const id=str(form,"draft_id",40);
