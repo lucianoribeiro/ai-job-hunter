@@ -527,7 +527,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             card_action = ('<a class="recruiter-cta recruiter-cta-secondary" target="_blank" rel="noopener noreferrer" '
                            'href="' + e(handoff) + '">' + label + '</a>')
         monitor_cards.append(
-            '<article class="recruiter-card" data-area="' + category + '" data-mode="' + modality + '" '
+            '<article class="recruiter-card" data-post-url="' + e(str(item.get("url") or "")) + '" data-area="' + category + '" data-mode="' + modality + '" '
             'data-role="' + e(item.get("role") or ("Gerente de Projetos de TI" if category == "Projetos" else "")) + '" data-city="' + e(item.get("city") or (details["location"] if category == "Manufatura" else "") or "") + '" data-origin="' + e(origin) + '" data-contract="' + e(contract) + '" data-freelance="' + freelance + '" data-usd="' + ('yes' if isinstance(salary, str) and salary.startswith('US$ ') else 'no') + '">'
             '<div class="recruiter-badges">'
             '<span class="recruiter-pill recruiter-pill-area">' + category + '</span>'
@@ -991,6 +991,27 @@ matchId('matchAnalyze').addEventListener('click',()=>{
    sessionStorage.setItem("careerAccountName",name);
    history.replaceState(null,"",location.pathname+location.search);
  }
+ // A badge is only a browser-side echo of the authenticated sent-history link.
+ // The Vercel/Supabase history remains the authoritative delivery receipt.
+ try {
+  const source=data.get("sent");
+  if(source && /^https:\/\//i.test(source) && source.length<2100) {
+   const saved=JSON.parse(localStorage.getItem("careerSentUrls")||"[]");
+   const urls=Array.isArray(saved)?saved.filter(v=>typeof v==="string"):[];
+   if(!urls.includes(source))urls.push(source);
+   localStorage.setItem("careerSentUrls",JSON.stringify(urls.slice(-250)));
+   history.replaceState(null,"",location.pathname+location.search);
+  }
+  const confirmed=JSON.parse(localStorage.getItem("careerSentUrls")||"[]");
+  if(Array.isArray(confirmed))document.querySelectorAll(".recruiter-card[data-post-url]").forEach(card=>{
+   if(confirmed.includes(card.dataset.postUrl)){
+    const label=document.createElement("p");
+    label.className="recruiter-email-status recruiter-email-found";
+    label.textContent="✅ CV enviado · registrado neste navegador";
+    card.querySelector(".recruiter-card-actions")?.prepend(label);
+   }
+  });
+ } catch(e) { /* Private browsing or disabled storage: no badge. */ }
  const last=sessionStorage.getItem("careerAccountName");
  if(last)label.textContent="Conta utilizada no último login: "+last;
  document.getElementById("account-logout").addEventListener("click",()=>sessionStorage.removeItem("careerAccountName"));
