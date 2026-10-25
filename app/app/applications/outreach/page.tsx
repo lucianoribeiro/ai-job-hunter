@@ -45,6 +45,7 @@ export default async function Outreach({searchParams}:{searchParams:Promise<{job
  <section className="panel"><span className="eyebrow">RECRUITER OUTREACH</span><h1>Preparar mensagem ao recrutador</h1>
  <p>Revise destinatário, cargo, mensagem e CV nesta tela. Ao clicar em <strong>Enviar candidatura</strong>, o Gmail enviará a mensagem com o PDF anexado. Não será necessária uma segunda aprovação.</p>
  <p><Link href="/applications/outreach?view=sent">✅ Candidaturas enviadas ({sentDrafts.length}) →</Link></p>
+ {sentDrafts.length>0&&<p><a className="primary" href={syncUrl}>↗ Sincronizar CVs enviados no Recruiter Monitor</a></p>}
  {!gmail.canSend&&<form action={connectGmail}><input type="hidden" name="next" value={oauthReturn}/><p role="alert">Para enviar, conecte sua conta Google e autorize a permissão Gmail.</p><button className="primary" type="submit">Conectar Gmail para enviar</button></form>}
  {!jobs.length&&!external?<p>Salve uma vaga antes de preparar o contato. <Link href="/jobs">Ver vagas →</Link></p>:
  <form action={createOutreachDraft} className="form">
