@@ -430,6 +430,23 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
     monitor_cards = []
     # Deduplicate manufacturing posts with the same inferred role, company and city.
     seen_manufacturing = set()
+    seen_public_posts = set()
+    def public_post_key(item):
+        """Collapse repeated index entries without merging distinct job advertisements."""
+        from urllib.parse import urlsplit, parse_qsl, urlencode
+        headline = str(item.get("title") or "").casefold()
+        headline = _re.sub(r"\s*[-–|]\s*linkedin\s*$", "", headline)
+        headline = _re.sub(r"[^\w]+", " ", headline, flags=_re.UNICODE).strip()
+        area = str(item.get("area") or "")
+        # Identical or almost identical long headlines are one indexed publication,
+        # even when Google News issues different redirect URLs.
+        if len(headline) >= 65:
+            return (area, "headline", headline[:125])
+        url = str(item.get("url") or "")
+        parsed = urlsplit(url)
+        normalized_query = urlencode(sorted((k,v) for k,v in parse_qsl(parsed.query) if k.lower() not in ("utm_source","utm_medium","utm_campaign","oc")))
+        return (area, "url", parsed.netloc.lower(), parsed.path.rstrip("/"), normalized_query)
+
     # Publication index timestamp is the primary sort key: newest first, across all areas.
     # Use the original ISO timestamp (UTC-aware) to avoid sorting localized display strings.
     ordered_items = sorted(
@@ -440,6 +457,10 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
     for item in ordered_items:
         if not isinstance(item, dict):
             continue
+        duplicate_key = public_post_key(item)
+        if duplicate_key in seen_public_posts:
+            continue
+        seen_public_posts.add(duplicate_key)
         # Revalidate cached results so old production leadership cards do not reappear.
         if item.get("area") == "Manufatura":
             # Exclude non-SP and unknown-location cached ATS posts, including Bosch Portugal.
