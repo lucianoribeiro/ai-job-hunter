@@ -86,7 +86,12 @@ export async function sendApprovedRecruiterEmail(form:FormData){
   throw error;
  }
  if(String(form.get("return_to")||"")==="outreach"){
-  redirect("/applications/outreach?sent="+encodeURIComponent(id));
+  const {data:job}=await supabase.from("opportunities").select("listing_url").eq("id",draft.opportunity_id).eq("user_id",user.id).maybeSingle();
+  const destination=new URL("https://lucianoribeiro.github.io/ai-job-hunter/");
+  if(job?.listing_url&&/^https:\/\//i.test(job.listing_url)){
+   destination.hash="sent="+encodeURIComponent(job.listing_url);
+  }
+  redirect(destination.toString());
  }
  redirect(`/applications/outreach/${id}/compose?gmail=sent`);
 }
