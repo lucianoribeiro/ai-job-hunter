@@ -36,12 +36,14 @@ class ImportedRegionalJobsTests(unittest.TestCase):
                        "location": "Americana, SP", "source": "Portal oficial",
                        "url": "https://example.com/jobs/123"}
                 Path("data/monica_regional_sp.json").write_text(
-                    json.dumps({"jobs": [job, job, {**job, "url": "https://example.com/jobs/closed",
+                    json.dumps({"collected_at": "2026-10-25T18:03:00+00:00", "jobs": [job, job, {**job, "url": "https://example.com/jobs/closed",
                                            "application_status": "closed"}]}), encoding="utf-8")
                 html = render({"jobs": []})
                 self.assertEqual(html.count('href="https://example.com/jobs/123"'), 1)
                 self.assertNotIn("https://example.com/jobs/closed", html)
                 self.assertIn("Vaga coletada automaticamente", html)
+                self.assertIn("25/10/2026 às 15h03", html)
+                self.assertIn('id="monica-last-collection"', html)
                 self.assertIn("Aderência: a calcular", html)
                 self.assertIn('id="monica-total-cards">1</strong>', html)
         finally:
