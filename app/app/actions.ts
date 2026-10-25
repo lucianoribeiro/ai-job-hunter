@@ -17,7 +17,10 @@ export async function signIn() {
 export async function connectGmail(form:FormData) {
   const supabase=await getSupabase(),siteUrl=applicationOrigin();
   const next=String(form.get("next")||"/applications/outreach");
-  const safeNext=/^\/applications\/outreach(?:\/[a-f0-9-]+\/compose)?$/i.test(next)?next:"/applications/outreach";
+  const nextUrl=new URL(next,"https://internal.invalid");
+  const safePath=/^\/applications\/outreach(?:\/[a-f0-9-]+\/compose)?$/i.test(nextUrl.pathname);
+  const allowedQuery=[...nextUrl.searchParams.keys()].every(k=>["job","recipient","title","source","description"].includes(k));
+  const safeNext=next.startsWith("/")&&!next.startsWith("//")&&next.length<=5500&&safePath&&allowedQuery&&!nextUrl.hash?next:"/applications/outreach";
   const callback=new URL("/auth/callback",siteUrl);callback.searchParams.set("next",safeNext);
   const {data,error}=await supabase.auth.signInWithOAuth({provider:"google",options:{redirectTo:callback.toString(),scopes:"https://www.googleapis.com/auth/gmail.compose https://www.googleapis.com/auth/gmail.send",queryParams:{access_type:"offline",prompt:"consent",include_granted_scopes:"true"}}});
   if(error||!data.url)throw new Error("Unable to initiate Gmail authorization");
