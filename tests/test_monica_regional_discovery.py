@@ -2,7 +2,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from src.monica_regional_discovery import regional_scope, discover
+from src.monica_regional_discovery import regional_scope, discover, reconcile
 
 class RegionalDiscoveryTests(unittest.TestCase):
     def job(self,title="Coordenador de Projetos",location="Nova Odessa, SP"):
@@ -25,6 +25,17 @@ class RegionalDiscoveryTests(unittest.TestCase):
             self.assertEqual(len(jobs),1)
             self.assertEqual(jobs[0]["regional_priority"],1)
             self.assertEqual(len(stats),2)
+    def test_first_seen_survives_and_missing_job_is_preserved(self):
+        old = [{**self.job(), "first_seen_at": "2026-10-20T10:00:00+00:00",
+                "last_seen_at": "2026-10-21T10:00:00+00:00"}]
+        current = reconcile([self.job()], old, "2026-10-25T10:00:00+00:00")
+        self.assertEqual(current[0]["first_seen_at"], "2026-10-20T10:00:00+00:00")
+        self.assertEqual(current[0]["last_seen_at"], "2026-10-25T10:00:00+00:00")
+        self.assertFalse(current[0]["not_seen_in_latest_collection"])
+        missing = reconcile([], current, "2026-10-26T10:00:00+00:00")
+        self.assertEqual(len(missing), 1)
+        self.assertTrue(missing[0]["not_seen_in_latest_collection"])
+
     def test_failed_source_is_isolated(self):
         jobs,stats=discover([Path("/file/that/does/not/exist")])
         self.assertEqual(jobs,[])
