@@ -965,7 +965,7 @@ matchId('matchAnalyze').addEventListener('click',()=>{
 
 }catch(error){const result=document.getElementById('matchResult'),status=document.getElementById('matchFileStatus');if(result)result.textContent='Não foi possível iniciar a análise local: '+error.message;if(status)status.textContent='Falha ao inicializar a leitura. Atualize a página.';}
 })();
-</script><script>
+
 (function(){
  const label=document.getElementById("account-name");
  const data=new URLSearchParams(location.hash.slice(1));
