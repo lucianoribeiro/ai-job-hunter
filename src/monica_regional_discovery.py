@@ -72,7 +72,8 @@ def reconcile(current, previous, collected_at):
             continue
         merged[key] = {**older, **job,
                        "first_seen_at": older.get("first_seen_at") or collected_at,
-                       "last_seen_at": collected_at}
+                       "last_seen_at": collected_at,
+                       "not_seen_in_latest_collection": False}
     for key, old in known.items():
         if key not in merged and old.get("application_status") != "closed":
             merged[key] = {**old, "not_seen_in_latest_collection": True}
