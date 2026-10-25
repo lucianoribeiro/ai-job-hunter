@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
   if (!code) return NextResponse.redirect(new URL("/?error=missing_code", request.url));
   const supabase = await getSupabase();
   const { error } = await supabase.auth.exchangeCodeForSession(code);
-  const requested=searchParams.get("next")||"/dashboard";
-  const next=/^\/(?:dashboard|applications\/outreach(?:\/[a-f0-9-]+\/compose)?)$/i.test(requested)?requested:"/dashboard";
+  const requested=searchParams.get("next")||"/resumes";
+  const next=/^\/(?:resumes|dashboard|applications\/outreach(?:\/[a-f0-9-]+\/compose)?)$/i.test(requested)?requested:"/resumes";
   return NextResponse.redirect(new URL(error ? "/?error=auth" : next, request.url));
 }
