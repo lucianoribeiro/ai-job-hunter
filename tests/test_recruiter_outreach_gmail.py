@@ -16,6 +16,7 @@ class RecruiterOutreachGmailTests(unittest.TestCase):
         source = Path("src/unified_jobs_dashboard.py").read_text(encoding="utf-8")
         self.assertIn('aria-label="Preparar candidatura para o e-mail identificado"', source)
         self.assertIn("CAREER_APP_URL", source)
+        self.assertIn('os.environ.get("CAREER_APP_URL") or "https://ai-job-hunter-lucianoribeiro.vercel.app"', source)
         self.assertIn("Preparar candidatura com CV", source)
         self.assertIn('"recipient": contact', source)
 
