@@ -85,5 +85,8 @@ export async function sendApprovedRecruiterEmail(form:FormData){
   // The 'sending' state requires manual reconciliation to avoid duplicate applications.
   throw error;
  }
+ if(String(form.get("return_to")||"")==="outreach"){
+  redirect("/applications/outreach?sent="+encodeURIComponent(id));
+ }
  redirect(`/applications/outreach/${id}/compose?gmail=sent`);
 }
