@@ -16,9 +16,11 @@ export default async function ResumeStudio(){
  const resumes=(resumeRows||[]) as Resume[],versions=(versionRows||[]) as Version[];
  const {data:pdfRows,error:pdfError}=await supabase.from("resume_files")
    .select("id,label,language,original_name,bytes,created_at").eq("user_id",user.id).order("created_at",{ascending:false});
+ const displayName=String(user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split("@")[0] || "Usuário");
+ const publicJobs="https://lucianoribeiro.github.io/ai-job-hunter/#account="+encodeURIComponent(displayName.slice(0,100));
  const pdfs=(pdfRows||[]) as {id:string;label:string;language:string;original_name:string;bytes:number;created_at:string}[];
  return <main className="shell"><header className="top"><span className="logo">✦ AI Job Hunter</span><Link href="/dashboard">← Dashboard</Link></header>
- <section className="panel"><span className="eyebrow">ETAPA 2 DE 3 · CURRÍCULO PRIVADO</span><h1>Seu currículo antes das vagas</h1><p>Você já está autenticado. Envie seu CV em PDF; após salvar, será direcionado automaticamente ao painel principal de vagas no GitHub Pages.</p><p><a className="primary" href="https://lucianoribeiro.github.io/ai-job-hunter/">Já tenho CV salvo — Ir para vagas →</a></p></section><section className="panel"><span className="eyebrow">AI RESUME STUDIO</span><p><Link href="/resumes/import">Importar currículo PDF/DOCX →</Link></p><h1>Seus currículos</h1>
+ <section className="panel"><span className="eyebrow">ETAPA 2 DE 3 · CURRÍCULO PRIVADO</span><h1>Seu currículo antes das vagas</h1><p>Você já está autenticado. Envie seu CV em PDF; após salvar, será direcionado automaticamente ao painel principal de vagas no GitHub Pages.</p><p><a className="primary" href={publicJobs}>Já tenho CV salvo — Ir para vagas →</a></p></section><section className="panel"><span className="eyebrow">AI RESUME STUDIO</span><p><Link href="/resumes/import">Importar currículo PDF/DOCX →</Link></p><h1>Seus currículos</h1>
  <p>Crie um currículo principal e versões específicas para diferentes cargos. Revise as informações antes de aprovar.</p>
  {(resumeError||versionError)&&<p role="alert">Não foi possível carregar os currículos. Verifique a migração de dados.</p>}
  <div className="cards">{resumes.map(r=><article className="tile" key={r.id}>
