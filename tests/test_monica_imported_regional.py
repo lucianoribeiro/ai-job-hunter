@@ -64,4 +64,32 @@ class ImportedRegionalJobsTests(unittest.TestCase):
         html=render({"jobs":[job]})
         self.assertEqual(html.count('href="https://www.netvagas.com.br/empresa/anuncios/a1724116/gerente-de-projetos/"'),1)
 
+
+    def test_mixed_sources_sorted_by_publication_and_missing_dates_last(self):
+        old_cwd = Path.cwd()
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                os.chdir(tmp)
+                Path("data").mkdir()
+                Path("data/monica_regional_reviewed.json").write_text(json.dumps({"jobs": [
+                    {"title": "Old reviewed", "company": "Old Co", "location": "Campinas, SP",
+                     "url": "https://example.com/old", "published_at": "2026-10-10",
+                     "preliminary_match_score": 88}
+                ]}), encoding="utf-8")
+                Path("data/monica_regional_sp.json").write_text(json.dumps({"jobs": [
+                    {"title": "Newest discovered", "company": "New Co", "location": "Americana, SP",
+                     "url": "https://example.com/new", "published_at": "2026-10-24"},
+                    {"title": "Undated", "company": "No Date Co", "location": "Sumaré, SP",
+                     "url": "https://example.com/undated"}
+                ]}), encoding="utf-8")
+                page = render({"jobs": []})
+                self.assertLess(page.index("Newest discovered"), page.index("Old reviewed"))
+                self.assertLess(page.index("Old reviewed"), page.index("Undated"))
+                self.assertIn("Publicado em: 24/10/2026", page)
+                self.assertIn("Publicado em: 10/10/2026", page)
+                self.assertIn("Publicado em: Data não informada", page)
+                self.assertIn('id="monica-total-cards">3</strong>', page)
+        finally:
+            os.chdir(old_cwd)
+
 if __name__=="__main__":unittest.main()
