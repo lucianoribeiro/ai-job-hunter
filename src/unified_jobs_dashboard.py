@@ -527,7 +527,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             card_action = ('<a class="recruiter-cta recruiter-cta-secondary" target="_blank" rel="noopener noreferrer" '
                            'href="' + e(handoff) + '">' + label + '</a>')
         monitor_cards.append(
-            '<article class="recruiter-card" data-post-url="' + e(str(item.get("url") or "")) + '" data-area="' + category + '" data-mode="' + modality + '" '
+            '<article class="recruiter-card" data-post-url="' + e(str(item.get("url") or "")) + '" data-recruiter-email="' + e(contact.lower()) + '" data-area="' + category + '" data-mode="' + modality + '" '
             'data-role="' + e(item.get("role") or ("Gerente de Projetos de TI" if category == "Projetos" else "")) + '" data-city="' + e(item.get("city") or (details["location"] if category == "Manufatura" else "") or "") + '" data-origin="' + e(origin) + '" data-contract="' + e(contract) + '" data-freelance="' + freelance + '" data-usd="' + ('yes' if isinstance(salary, str) and salary.startswith('US$ ') else 'no') + '">'
             '<div class="recruiter-badges">'
             '<span class="recruiter-pill recruiter-pill-area">' + category + '</span>'
@@ -994,6 +994,20 @@ matchId('matchAnalyze').addEventListener('click',()=>{
  // A badge is only a browser-side echo of the authenticated sent-history link.
  // The Vercel/Supabase history remains the authoritative delivery receipt.
  try {
+  const receipts=data.get("sentReceipts");
+  if(receipts&&receipts.length<23000){
+   const records=JSON.parse(receipts);
+   if(Array.isArray(records)){
+    const known=JSON.parse(localStorage.getItem("careerSentReceipts")||"[]");
+    const list=Array.isArray(known)?known.filter(x=>x&&typeof x.email==="string"&&typeof x.url==="string"):[];
+    for(const entry of records){
+     if(entry&&typeof entry.email==="string"&&typeof entry.url==="string"&&entry.email.length<255&&entry.url.length<2100
+        &&!list.some(x=>x.email===entry.email&&x.url===entry.url))list.push(entry);
+    }
+    localStorage.setItem("careerSentReceipts",JSON.stringify(list.slice(-150)));
+    history.replaceState(null,"",location.pathname+location.search);
+   }
+  }
   const batch=data.get("sentBatch");
   if(batch&&batch.length<18000) {
    const incoming=JSON.parse(batch);
@@ -1017,7 +1031,9 @@ matchId('matchAnalyze').addEventListener('click',()=>{
   }
   const confirmed=JSON.parse(localStorage.getItem("careerSentUrls")||"[]");
   if(Array.isArray(confirmed))document.querySelectorAll(".recruiter-card[data-post-url]").forEach(card=>{
-   if(confirmed.includes(card.dataset.postUrl)){
+   const receipts=JSON.parse(localStorage.getItem("careerSentReceipts")||"[]");
+   const matched=Array.isArray(receipts)&&receipts.some(x=>x&&((x.url&&x.url===card.dataset.postUrl)||(x.email&&x.email===card.dataset.recruiterEmail)));
+   if(matched||confirmed.includes(card.dataset.postUrl)){
     const label=document.createElement("p");
     label.className="recruiter-email-status recruiter-email-found";
     label.textContent="✅ CV enviado · registrado neste navegador";
