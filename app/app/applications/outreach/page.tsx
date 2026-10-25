@@ -5,22 +5,24 @@ import {getSupabase} from "@/lib/supabase";
 import {createOutreachDraft,approveOutreachDraft} from "./actions";
 type Job={id:string;title:string;company:string;listing_url:string};
 type Version={id:string;label:string;target_role:string};
-type Pdf={id:string;label:string;language:string};
+type Pdf={id:string;label:string;language:string;created_at:string};
 type Draft={id:string;recipient_email:string;subject:string;body:string;status:string;resume_version_id:string|null;resume_file_id:string|null;gmail_message_id:string|null;sent_at:string|null};
-export default async function Outreach({searchParams}:{searchParams:Promise<{job?:string;recipient?:string;title?:string;source?:string}>}){
+export default async function Outreach({searchParams}:{searchParams:Promise<{job?:string;recipient?:string;title?:string;source?:string;description?:string}>}){
  const supabase=await getSupabase();const {data:{user}}=await supabase.auth.getUser();if(!user)redirect("/");
  const [{data:jobsRows},{data:versionsRows},{data:draftsRows},{data:pdfRows}]=await Promise.all([
  supabase.from("opportunities").select("id,title,company,listing_url").order("created_at",{ascending:false}),
  supabase.from("resume_versions").select("id,label,target_role").eq("status","approved").order("created_at",{ascending:false}),
  supabase.from("recruiter_drafts").select("id,recipient_email,subject,body,status,resume_version_id,resume_file_id,gmail_message_id,sent_at").order("created_at",{ascending:false}),
- supabase.from("resume_files").select("id,label,language").eq("user_id",user.id)
+ supabase.from("resume_files").select("id,label,language,created_at").eq("user_id",user.id).order("created_at",{ascending:false})
  ]);
  const jobs=(jobsRows??[]) as Job[],versions=(versionsRows??[]) as Version[],drafts=(draftsRows??[]) as Draft[],pdfs=(pdfRows??[]) as Pdf[];
  const params=await searchParams,external=/^https:\/\//i.test(params.source||"")&&!!params.title;
  const selected=jobs.find(j=>j.id===params.job||j.listing_url===params.source)??jobs[0];
  const displayTitle=(params.title||selected?.title||"oportunidade").slice(0,160),displayCompany=selected?.company||"empresa";
  const person=String(user.user_metadata?.full_name||user.user_metadata?.name||"").trim();
- const template=recruiterMessage({title:displayTitle,company:displayCompany==="empresa"?"":displayCompany,name:person,language:/\b(QA|SDET|Engineer|Manager|Lead|Project|Analyst)\b/i.test(displayTitle)?"en":"pt"});
+ const template=recruiterMessage({title:displayTitle,company:displayCompany==="empresa"?"":displayCompany,name:person,description:params.description||"",language:/\b(QA|SDET|Engineer|Manager|Lead|Project|Analyst)\b/i.test(displayTitle)?"en":"pt"});
+ const preferredLanguage=/\b(QA|SDET|Engineer|Manager|Lead|Project|Analyst)\b/i.test(displayTitle)?"en-US":"pt-BR";
+ const preferredPdf=pdfs.find(p=>p.language===preferredLanguage)||pdfs[0];
  const defaultSubject=template.subject;
  const defaultBody=template.body;
  return <main className="shell"><header className="top"><span className="logo">✦ AI Job Hunter</span><Link href="/applications">← Minhas candidaturas</Link></header>
@@ -33,8 +35,10 @@ export default async function Outreach({searchParams}:{searchParams:Promise<{job
  <label>E-mail divulgado pelo recrutador<input name="recipient" type="email" required maxLength={254} defaultValue={params.recipient||""} placeholder="recrutamento@empresa.com"/></label>
  <label>Assunto<input name="subject" required maxLength={250} defaultValue={defaultSubject}/></label>
  <label>Mensagem<textarea name="body" required rows={10} maxLength={12000} defaultValue={defaultBody}/></label>
- <label>PDF privado para anexar<select name="resume_file_id"><option value="">Usar currículo gerado pelo Resume Studio</option>{pdfs.map(p=><option key={p.id} value={p.id}>{p.label} ({p.language})</option>)}</select></label>
+ <label>PDF privado para anexar<select name="resume_file_id" defaultValue={preferredPdf?.id||""}><option value="">Usar currículo gerado pelo Resume Studio</option>{pdfs.map(p=><option key={p.id} value={p.id}>{p.label} ({p.language})</option>)}</select></label>
  <label>Alternativa: versão aprovada do Resume Studio<select name="resume_version_id"><option value="">Selecione o currículo</option>{versions.map(v=><option key={v.id} value={v.id}>{v.label} — {v.target_role}</option>)}</select></label>
+ {preferredPdf&&<p role="status">✅ CV selecionado para anexar: <strong>{preferredPdf.label}</strong> ({preferredPdf.language==="en-US"?"Inglês":"Português"}). Confirme o documento antes de enviar.</p>}
+ {!pdfs.length&&<p role="alert">Nenhum CV em PDF salvo. <Link href="/resumes">Enviar currículo primeiro</Link>.</p>}
  <p className="note">Se escolher um PDF privado, ele terá prioridade sobre a versão gerada. A aprovação apenas prepara um rascunho no Gmail; não envia a candidatura.</p>
  <button className="primary">Salvar para revisão</button></form>}
  </section><section className="panel"><h2>Mensagens preparadas</h2>
