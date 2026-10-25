@@ -1,4 +1,8 @@
 import unittest
+import json
+import os
+import tempfile
+from pathlib import Path
 from src.monica_embed import render
 
 class ImportedRegionalJobsTests(unittest.TestCase):
@@ -21,6 +25,27 @@ class ImportedRegionalJobsTests(unittest.TestCase):
         self.assertEqual(html.count('<article class="regional-card"'), 17)
         self.assertIn('id="monica-total-cards">17</strong>', html)
         self.assertIn('Fim da lista · 17 cartões exibidos', html)
+
+    def test_public_discoveries_render_without_private_profile_and_deduplicate(self):
+        old_cwd = Path.cwd()
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                os.chdir(tmp)
+                Path("data").mkdir()
+                job = {"title": "Coordenador de Projetos", "company": "Empresa Teste",
+                       "location": "Americana, SP", "source": "Portal oficial",
+                       "url": "https://example.com/jobs/123"}
+                Path("data/monica_regional_sp.json").write_text(
+                    json.dumps({"jobs": [job, job, {**job, "url": "https://example.com/jobs/closed",
+                                           "application_status": "closed"}]}), encoding="utf-8")
+                html = render({"jobs": []})
+                self.assertEqual(html.count('href="https://example.com/jobs/123"'), 1)
+                self.assertNotIn("https://example.com/jobs/closed", html)
+                self.assertIn("Vaga coletada automaticamente", html)
+                self.assertIn("Aderência: a calcular", html)
+                self.assertIn('id="monica-total-cards">1</strong>', html)
+        finally:
+            os.chdir(old_cwd)
 
     def test_score_labels_and_priority_message(self):
         html=render({"jobs":[]})
