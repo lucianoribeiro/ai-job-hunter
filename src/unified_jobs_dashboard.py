@@ -578,7 +578,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         '<section id="recruiter-results" style="padding:20px 0"><h2>Recruiter Monitor · Vagas e publicações</h2>'
         '<p>O monitor apresenta todas as publicações descobertas no índice público. '
         'Áreas e modalidades são classificadas com base no título e precisam ser verificadas no anúncio original.</p>'
-        '<p><a class="recruiter-outreach" href="' + e(app_base + '/applications/outreach') + '" target="_blank" rel="noopener noreferrer">Abrir minhas candidaturas e consultar o status dos CVs ↗</a></p>'
+        '<p><a class="recruiter-outreach" href="' + e(app_base + '/applications/outreach/sync') + '">🔄 Atualizar status dos CVs enviados ↗</a> · <a href="' + e(app_base + '/applications/outreach?view=sent') + '" target="_blank" rel="noopener noreferrer">Histórico de candidaturas ↗</a></p>'
         '<div class="recruiter-stats" aria-label="Resumo da coleta">'
         '<div class="recruiter-stat"><span>Última coleta</span><strong>' + e(checked_display) + '</strong>'
         '<small>Horário de Brasília</small></div>'
