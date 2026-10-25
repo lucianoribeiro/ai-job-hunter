@@ -89,8 +89,9 @@ export async function sendApprovedRecruiterEmail(form:FormData){
   const {data:job}=await supabase.from("opportunities").select("listing_url").eq("id",draft.opportunity_id).eq("user_id",user.id).maybeSingle();
   const destination=new URL("https://lucianoribeiro.github.io/ai-job-hunter/");
   if(job?.listing_url&&/^https:\/\//i.test(job.listing_url)){
-   destination.hash="sent="+encodeURIComponent(job.listing_url);
+   destination.hash="sentReceipts="+encodeURIComponent(JSON.stringify([{url:job.listing_url,email:draft.recipient_email.toLowerCase()}]));
   }
+  if(!destination.hash)destination.hash="sentReceipts="+encodeURIComponent(JSON.stringify([{url:"",email:draft.recipient_email.toLowerCase()}]));
   redirect(destination.toString());
  }
  redirect(`/applications/outreach/${id}/compose?gmail=sent`);
