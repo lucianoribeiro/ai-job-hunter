@@ -85,6 +85,37 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Compile Python modules
         run: python -m compileall -q src tests
+      - name: Live recruiter RSS audit (PR only, no persistence)
+        run: |
+          python -m src.recruiter_monitor
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path("data/recruiter_monitor.json").read_text())
+          audit = data.get("audit", {})
+          print("RECRUITER_AUDIT_JSON=" + json.dumps(audit, sort_keys=True))
+          Path("data/recruiter_audit_report.json").write_text(json.dumps({
+              "checked_at": data.get("checked_at"),
+              "status": data.get("status"),
+              "audit": audit,
+              "email_evidence": [
+                  {"title": item.get("title"), "url": item.get("url"),
+                   "emails": item.get("recruiter_emails", [])}
+                  for item in data.get("items", []) if item.get("recruiter_emails")
+              ],
+              "radhika_found": any(
+                  "radhika.p@apideltech.com" in item.get("recruiter_emails", [])
+                  for item in data.get("items", [])
+              ),
+          }, indent=2))
+          PY
+      - name: Upload recruiter audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: recruiter-audit-evidence
+          path: data/recruiter_audit_report.json
+          if-no-files-found: warn
       - name: Synthetic smoke test
         run: |
           mkdir -p data
