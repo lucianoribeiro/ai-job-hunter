@@ -502,17 +502,11 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             city = item.get("city") or details["location"] or ""
             extra += '<p class="recruiter-location">📍 Cidade: ' + e(city or "Não informada") + '</p>'
             if details["priority"]:
-                extra += '<span class="recruiter-tag">Região prioritária</span>'
-            if details["expired"]:
-                extra += '<span class="recruiter-tag">Prazo informado vencido — verificar</span>'
-            extra += '<details class="recruiter-original"><summary>Ver publicação original</summary><p>' + e(raw_title) + '</p></details>'
-        if contact:
-            # The public Pages site cannot verify Gmail delivery or access a private CV.
-            # Explicitly distinguish recruiter contact availability from an actual send.
-            extra += '<span class="recruiter-tag" aria-label="E-mail profissional identificado na publicação, envio pendente de confirmação">✉ Recrutador com e-mail · Preparar candidatura</span>'
-            if app_base:
+                if app_base:
                 outreach = app_base + "/applications/outreach?" + urlencode({"recipient": contact, "title": raw_title[:160], "source": item.get("url", ""), "description": str(item.get("description") or raw_title)[:2400]})
-                extra += '<p class="recruiter-apply-action" style="margin:12px 0"><a class="recruiter-outreach" style="display:block;background:#328775;border:1px solid #75cdb8;color:#fff;padding:12px;border-radius:10px;text-align:center;font-weight:750;text-decoration:none" target="_blank" rel="noopener noreferrer" href="' + e(outreach) + '">✉ Preparar candidatura com CV →</a></p>'
+                extra += '<a class="recruiter-outreach" target="_blank" rel="noopener noreferrer" aria-label="Preparar candidatura para o e-mail identificado" style="display:block;background:#328775;border:1px solid #75cdb8;color:white;padding:12px;border-radius:10px;text-align:center;font-weight:750;text-decoration:none;margin:12px 0" href="' + e(outreach) + '">✉ Preparar candidatura com CV →</a>'
+            else:
+                extra += '<span class="recruiter-tag">✉ E-mail identificado · configurar aplicação autenticada</span>'
         elif app_base and str(item.get("url") or "").startswith("https://"):
             # Google News often truncates the source before its recruiter email.
             # Let the user provide only an address seen in the original posting.
