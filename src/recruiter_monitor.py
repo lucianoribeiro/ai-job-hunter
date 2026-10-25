@@ -435,6 +435,16 @@ def run() -> dict:
         except (OSError, ValueError, TypeError):
             pass
 
+    # Backfill contacts from all available indexed text fields, including titles.
+    # Some historical entries were saved without recruiter_email even though the
+    # email was visible in their indexed title or excerpt.
+    for item in jobs.values():
+        if not item.get("recruiter_email"):
+            indexed_text = " ".join(str(item.get(key) or "") for key in ("title", "indexed_excerpt", "description", "snippet", "summary"))
+            contact = indexed_contact(indexed_text)
+            if contact:
+                item["recruiter_email"] = contact
+
     data = {
         "date_utc": day, "checked_at": datetime.now(timezone.utc).isoformat(),
         "status": state, "query_count": len(SEARCHES) + len(QA_SEARCHES) + len(QA_LEADERSHIP_SEARCHES) + len(LINKEDIN_EXTRA_SEARCHES) + len(COMPANY_POST_SEARCHES) + len(FREELANCE_QA_SEARCHES) + len(MANUFACTURING_SEARCHES),
