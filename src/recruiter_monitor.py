@@ -313,13 +313,19 @@ def post_origin(url: str, source_url: str = "") -> str:
     return "Não verificada"
 
 
-def indexed_contact(text: str) -> str:
-    """Extract a public application address only when it appears in indexed text."""
+def indexed_contacts(text: str) -> list[str]:
+    """Return every distinct address actually present in the public indexed text."""
     import html
     import re
     value = html.unescape(re.sub(r"<[^>]+>", " ", str(text or "")))
-    match = re.search(r"(?<![\w.+-])([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})(?![\w.-])", value, re.I)
-    return match.group(1).lower() if match else ""
+    pattern = r"(?<![\\w.+-])([A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,})(?![\\w.-])"
+    return list(dict.fromkeys(m.group(1).lower() for m in re.finditer(pattern, value, re.I)))
+
+
+def indexed_contact(text: str) -> str:
+    """Backward-compatible first contact, if any."""
+    return next(iter(indexed_contacts(text)), "")
+
 
 
 def is_job_seeker_post(title: str, excerpt: str = "") -> bool:
@@ -462,6 +468,22 @@ def run() -> dict:
             contact = indexed_contact(indexed_text)
             if contact:
                 item["recruiter_email"] = contact
+
+    for item in jobs.values():
+        indexed_text = " ".join(str(item.get(key) or "") for key in
+                                ("title", "indexed_excerpt", "description", "snippet", "summary"))
+        contacts = indexed_contacts(indexed_text)
+        existing = str(item.get("recruiter_email") or "").lower()
+        if existing and existing not in contacts:
+            contacts.append(existing)
+        item["recruiter_emails"] = contacts
+        if contacts:
+            item["recruiter_email"] = contacts[0]
+        # RSS does not provide a completeness guarantee. A short excerpt is
+        # insufficient evidence to claim the LinkedIn post is complete.
+        item["content_completeness"] = "unknown_index_excerpt"
+        item["indexed_excerpt_length"] = len(str(item.get("indexed_excerpt") or ""))
+        item["email_extraction_source"] = "public_index_fields" if contacts else "none"
 
     for item in jobs.values():
         item["contact_coverage"] = "public_index_only"
