@@ -1,14 +1,20 @@
 /** Editable recruiter drafts: only claim verified experience, never invent email addresses. */
 export const CANDIDATE_LINKEDIN = "https://www.linkedin.com/in/luciano-ribeiro-0321a46b/";
 export function vacancyTitle(raw:string):string {
- const text=raw.replace(/\s+-\s+LinkedIn\s*$/i,"").replace(/^[\s🚀📢🔥📣💼🔎]+/u,"").replace(/\s+/g," ").trim();
- // A public post title may include experience ranges and contact details after the role.
- const clean=text.replace(/\s*(?:\||•|–|—)?\s*\b\d{1,2}\s*[-–]\s*\d{1,2}\s*(?:yrs?|years?)\b[\s\S]*$/i,"").replace(/\s*\b(?:email\s*(?:id|ld)?|e-mail|contact)\s*[:：]?\s*[^\s@]+@[^\s@]+\.[^\s@]+[\s\S]*$/i,"").trim();
- const known=clean.match(/\b(Senior Executive\s*[–-]\s*Quality Assurance(?:\s*\([^)]{1,40}\))?|Senior QA Automation Engineer|QA Automation Lead|QA Automation Engineer|Quality Engineer|Software Development Engineer in Test|SDET|Technical Project Manager|Project Manager|QA Engineer)(?=\s|$|[.,!])/i);
+ // A recruiter post headline is often the full post, not the actual job title.
+ const text=raw.replace(/<[^>]*>/g," ").replace(/&(?:nbsp|amp);/gi," ")
+  .replace(/\\s+-\\s+LinkedIn\\s*$/i,"").replace(/^[\\s🚀📢🔥📣💼🔎]+/u,"")
+  .replace(/^\\s*(?:#?hiring|#?wearehiring|now hiring|urgent hiring)\\b\\s*[:–—-]?\\s*/i,"")
+  .replace(/\\s+/g," ").trim();
+ const clean=text.split(/\\s+(?:(?:experience|exp|job\\s*type|employment\\s*type|location|work\\s*mode|salary|notice\\s*period|duration|apply\\s*at|email|contact)\\s*[:：]|\\d{1,2}\\s*[-–]\\s*\\d{1,2}\\s*(?:yrs?|years?)\\b)/i)[0]
+  .replace(/\\s*(?:[|•–—]\\s*)?(?:#?hiring|apply now)\\s*$/i,"").trim();
+ const known=clean.match(/\\b(Senior Executive\\s*[–-]\\s*Quality Assurance(?:\\s*\\([^)]{1,40}\\))?|Senior QA Automation Engineer|QA Automation Lead|QA Automation Engineer|AEM\\s+QA(?:\\s+Workfront)?|QA\\s+Workfront|Quality Engineer|Software Development Engineer in Test|SDET|Technical Project Manager|Project Manager|QA Engineer)(?=\\s|$|[.,!])/i);
  if(known)return known[1].trim().slice(0,90);
- const role=clean.match(/(?:looking for|hiring for|position:|job title:|role:)\s+(?:an?\s+)?(.{4,85}?)(?=\s+(?:to join|with|at|in|who|for our|location:|experience:)|[.!?]|$)/i);
+ const role=clean.match(/(?:looking for|hiring for|position:|job title:|role:)\\s+(?:an?\\s+)?(.{4,85}?)(?=\\s+(?:to join|with|at|in|who|for our|location:|experience:)|[.!?]|$)/i);
  if(role)return role[1].trim().slice(0,90);
- return (clean.split(/[.!?]|\s+(?:to join|interested candidates|location:|experience:)\b/i)[0]||"Opportunity").slice(0,85).trim();
+ const fallback=(clean.split(/[.!?]|\\s+(?:to join|interested candidates)\\b/i)[0]||"").trim();
+ // A long sentence is not a job title: avoid sending an unprofessional subject.
+ return fallback && fallback.length<=75 ? fallback : "QA Opportunity";
 }
 export function vacancyLanguage(title:string,description=""): "en"|"pt" {
  const text=(title+" "+description).toLowerCase();
