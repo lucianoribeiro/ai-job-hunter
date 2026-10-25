@@ -160,6 +160,7 @@ jobs:
           mkdir -p /tmp/ai-job-hunter-history
           cp data/history.json /tmp/ai-job-hunter-history/history.json
           cp data/linkedin_history.json /tmp/ai-job-hunter-history/linkedin_history.json
+          cp data/monica_regional_sp.json /tmp/ai-job-hunter-history/monica_regional_history.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # Another workflow or a user can push to main during collection.
@@ -191,8 +192,16 @@ jobs:
               latest_path.parent.mkdir(parents=True, exist_ok=True)
               latest_path.write_text(json.dumps(merged, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
               print(f"{name}: retained {len(merged)} records")
+          region = Path("data/monica_regional_history.json")
+          collected = json.loads(Path("/tmp/ai-job-hunter-history/monica_regional_history.json").read_text(encoding="utf-8"))
+          existing = json.loads(region.read_text(encoding="utf-8")) if region.exists() else {"jobs": []}
+          from src.monica_regional_discovery import reconcile
+          collected["jobs"] = reconcile(collected.get("jobs", []), existing.get("jobs", []), collected["collected_at"])
+          collected["jobs"].sort(key=lambda j: j.get("first_seen_at") or "", reverse=True)
+          region.write_text(json.dumps(collected, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+
           PY
-            git add -- data/history.json data/linkedin_history.json
+            git add -- data/history.json data/linkedin_history.json data/monica_regional_history.json
             if git diff --cached --quiet; then
               echo "Histories already up-to-date on main."
               break
