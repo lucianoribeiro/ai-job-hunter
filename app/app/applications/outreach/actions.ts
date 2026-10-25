@@ -40,12 +40,34 @@ export async function createOutreachDraft(form:FormData){
   fileId=pdf.id;
  }
  if(!version&&!fileId) throw new Error("Selecione um CV para anexar.");
- const {data:prior}=await supabase.from("recruiter_drafts").select("id,status").eq("user_id",user.id).eq("opportunity_id",job.id).eq("recipient_email",recipient).in("status",["pending_review","approved","drafted","sending","sent"]).limit(1);
- if(prior?.length)throw new Error("Já existe uma candidatura para esta vaga e destinatário. Verifique o histórico antes de criar outra.");
- const {data:newDraft,error}=await supabase.from("recruiter_drafts").insert({user_id:user.id,opportunity_id:job.id,resume_file_id:fileId,
-  resume_version_id:version,recipient_email:recipient,subject,body,status:"approved"}).select("id").single();
- if(error||!newDraft)throw new Error("Não foi possível registrar a candidatura");
- const sendForm=new FormData();sendForm.set("draft_id",newDraft.id);sendForm.set("return_to","outreach");
+ // Reuse an unsent legacy review draft. Never issue another Gmail send for
+ // an already sent, sending or externally drafted message.
+ const {data:prior,error:priorError}=await supabase.from("recruiter_drafts")
+  .select("id,status").eq("user_id",user.id).eq("opportunity_id",job.id)
+  .eq("recipient_email",recipient).in("status",["pending_review","approved","drafted","sending","sent"])
+  .order("created_at",{ascending:false}).limit(10);
+ if(priorError)throw new Error("Não foi possível verificar candidaturas anteriores");
+ const locked=prior?.find(d=>["drafted","sending","sent"].includes(d.status));
+ if(locked)redirect("/applications/outreach?view=sent");
+ const existing=prior?.[0];
+ let draftId:string;
+ if(existing){
+  // Conditional update prevents reusing a draft concurrently claimed by a send.
+  const {data:updated,error:updateError}=await supabase.from("recruiter_drafts")
+   .update({subject,body,resume_file_id:fileId,resume_version_id:version,status:"approved"})
+   .eq("id",existing.id).eq("user_id",user.id)
+   .in("status",["pending_review","approved"]).select("id").maybeSingle();
+  if(updateError||!updated)throw new Error("A candidatura mudou de status. Consulte o histórico antes de reenviar.");
+  draftId=updated.id;
+ }else{
+  const {data:created,error:createError}=await supabase.from("recruiter_drafts")
+   .insert({user_id:user.id,opportunity_id:job.id,resume_file_id:fileId,
+    resume_version_id:version,recipient_email:recipient,subject,body,status:"approved"})
+   .select("id").single();
+  if(createError||!created)throw new Error("Não foi possível registrar a candidatura");
+  draftId=created.id;
+ }
+ const sendForm=new FormData();sendForm.set("draft_id",draftId);sendForm.set("return_to","outreach");
  await sendApprovedRecruiterEmail(sendForm);
 }
 export async function approveOutreachDraft(form:FormData){
