@@ -555,7 +555,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             '<span class="recruiter-pill">Contrato: ' + e(contract) + '</span>' + ('<span class="recruiter-pill">Freelancer QA</span>' if freelance == "yes" else '') + '</div>'
             '<h3 class="recruiter-title">' + title + '</h3>'
             '<p class="recruiter-employer">Empresa: ' + e(item.get("company") or "não identificada no índice") + '</p>'
-            + card_action
+            + card_action +
             '<div class="recruiter-extra">' + extra + '</div>'
             '<div class="recruiter-index-date"><span aria-hidden="true">◷</span> '
             '<time aria-label="' + accessible_date + '" datetime="' + e(item.get("published_at", "")) + '">'
