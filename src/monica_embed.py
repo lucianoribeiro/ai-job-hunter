@@ -2,6 +2,7 @@
 from pathlib import Path
 import json
 import html
+import re
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from src.monica_page import eligible
@@ -93,6 +94,43 @@ def render(data):
                 '<p>Candidatura não verificada · Aderência: a calcular (perfil privado indisponível ou análise pendente)</p>'+
                 '<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Consultar anúncio ↗</a></article>')
         cards += fresh_cards
+    # Sort the complete mixed catalog by the actual advertisement publication date.
+    # Collection/import timestamps must never be substituted for publication dates.
+    publication_by_url = {}
+    sources = [items]
+    for source_path in (Path("data/monica_linkedin_jobs.json"),
+                        Path("data/monica_regional_reviewed.json"),
+                        Path("data/monica_regional_sp.json")):
+        if source_path.is_file():
+            sources.append(json.loads(source_path.read_text(encoding="utf-8")).get("jobs", []))
+    for source in sources:
+        for job in source:
+            if not isinstance(job, dict):
+                continue
+            identity = str(job.get("url") or "").rstrip("/").lower()
+            published = publication_date(job.get("published_at") or job.get("published"))
+            if identity and published and (identity not in publication_by_url or published > publication_by_url[identity]):
+                publication_by_url[identity] = published
+
+    def card_publication(card):
+        links = re.findall(r'href="([^"]+)"', card)
+        for link in links:
+            identity = html.unescape(link).rstrip("/").lower()
+            if identity in publication_by_url:
+                return publication_by_url[identity]
+        return None
+
+    dated_cards = []
+    for card in cards:
+        published = card_publication(card)
+        if "Publicação:" not in card and "Publicado em:" not in card:
+            label = display_date(published) if published else "Data não informada"
+            card = card.replace("</article>",
+                                '<p class="meta">Publicado em: ' + esc(label) + '</p></article>')
+        dated_cards.append((published, card))
+    dated_cards.sort(key=lambda entry: (entry[0] is None,
+                                       -(int(entry[0].replace("-", "")) if entry[0] else 0)))
+    cards = [card for _, card in dated_cards]
     # Show the timestamp of the real regional collection, never the page build time.
     collection_label = "Não disponível"
     if live_feed.is_file():
