@@ -350,14 +350,18 @@ def merge_indexed_record(previous: dict, current: dict) -> dict:
     return merged
 
 
-def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_only: bool = False) -> list[dict]:
+def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_only: bool = False, audit: dict | None = None) -> list[dict]:
     """Keep verifiably recent public indexed posts; do not infer actual vacancy dates."""
     from urllib.parse import urlsplit
     import re
     root = ElementTree.fromstring(xml_text)
     cutoff = datetime.fromisoformat(day).replace(tzinfo=timezone.utc) - timedelta(days=max_age_days - 1)
     found: dict[str, dict] = {}
+    def count(reason: str) -> None:
+        if audit is not None:
+            audit[reason] = audit.get(reason, 0) + 1
     for item in root.findall(".//item"):
+        count("rss_items")
         title = (item.findtext("title") or "").strip()
         indexed_excerpt = (item.findtext("description") or "").strip()
         url = (item.findtext("link") or "").strip()
@@ -367,8 +371,13 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
         try:
             date = parsedate_to_datetime(published).astimezone(timezone.utc)
         except (TypeError, ValueError, OverflowError):
+            count("invalid_date")
             continue
-        if not (cutoff <= date < cutoff + timedelta(days=max_age_days)) or not url.startswith("https://"):
+        if not (cutoff <= date < cutoff + timedelta(days=max_age_days)):
+            count("outside_date_window")
+            continue
+        if not url.startswith("https://"):
+            count("invalid_url")
             continue
         # Google News may provide a google.com RSS redirect URL for a LinkedIn-indexed
         # post. Accept those only when the result is explicitly attributed to LinkedIn.
@@ -376,8 +385,10 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
         linkedin_url = host == "linkedin.com" or host.endswith(".linkedin.com")
         news_redirect = host in ("news.google.com", "news.googleusercontent.com")
         if not (linkedin_url or (news_redirect and re.search(r"\bLinkedIn\b", title, re.I))):
+            count("unsupported_source")
             continue
         if is_job_seeker_post(title, indexed_excerpt):
+            count("job_seeker_post")
             continue
         labels = classify(title)
         industrial_role = industrial_project_role(title, indexed_excerpt)
@@ -388,12 +399,19 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
         labels["modality"] = facts["modality"]
         hiring = bool(re.search(r"\bhiring\b|\bcontratando\b|\bvaga(?:s)?\b|\bjob opening\b|\bapply\b|\bopportunit(?:y|ies)\b|\boportunidade\b|\brecruiting\b|\bwe.re hiring\b|\bselection process\b|\bseletivo\b", title, re.I))
         if labels["area"] in ("QA", "Projetos", "Outros") and not (hiring or freelance["freelance_qa"] == "yes"):
+            count("no_hiring_signal_in_title")
             continue
         if manufacturing_only and not industrial_role:
+            count("manufacturing_query_role_mismatch")
             continue
         if labels["area"] == "Manufatura" and not industrial_role:
+            count("manufacturing_role_mismatch")
             continue
         city = explicit_city(title + " " + indexed_excerpt) if labels["area"] == "Manufatura" else ""
+        if url in found:
+            count("duplicate_within_feed")
+        else:
+            count("accepted_feed_items")
         found[url] = {
             "title": title[:500], "indexed_excerpt": indexed_excerpt[:1500], **facts, **freelance, "url": url, "published_at": date.isoformat(),
             "source": "Public web news index", "status": "needs_review", "city": city, "post_origin": post_origin(url, source_url), "recruiter_email": indexed_contact(title + " " + indexed_excerpt), **labels,
@@ -416,6 +434,7 @@ def run() -> dict:
     day = datetime.now(timezone.utc).date().isoformat()
     jobs: dict[str, dict] = {}
     failures = []
+    audit: dict = {"rss_items": 0, "accepted_feed_items": 0, "queries_successful": 0, "queries_failed": 0}
     if os.environ.get("RECRUITER_MONITOR_DISABLED") == "1":
         state = "disabled"
     else:
@@ -432,10 +451,15 @@ def run() -> dict:
                     xml = response.read(1_000_001)
                 if len(xml) > 1_000_000:
                     raise ValueError("Feed too large")
-                for result in parse_feed(xml.decode("utf-8"), day, max_age_days=days, manufacturing_only=manufacturing_query):
+                results = parse_feed(xml.decode("utf-8"), day, max_age_days=days, manufacturing_only=manufacturing_query, audit=audit)
+                audit["queries_successful"] += 1
+                for result in results:
+                    if result["url"] in jobs:
+                        audit["duplicate_across_queries"] = audit.get("duplicate_across_queries", 0) + 1
                     jobs[result["url"]] = merge_indexed_record(jobs.get(result["url"], {}), enrich_application(result))
             except Exception as exc:
                 failures.append(type(exc).__name__)
+                audit["queries_failed"] += 1
         state = "partial" if failures else "ok"
     # Retain collected items across partial RSS runs, for a rolling 30-day window.
     # An empty or incomplete feed must not erase already discovered QA posts.
@@ -489,10 +513,17 @@ def run() -> dict:
         item["contact_coverage"] = "public_index_only"
         item["email_status"] = "found_in_index" if item.get("recruiter_email") else "unverified_in_incomplete_source"
 
+    retained = consolidate_results(jobs)
+    audit["unique_before_area_limit"] = len(jobs)
+    audit["removed_by_area_limit"] = len(jobs) - len(retained)
+    audit["stored_items"] = len(retained)
+    audit["items_with_email"] = sum(bool(i.get("recruiter_emails")) for i in retained)
+    audit["unique_emails"] = len({e for i in retained for e in i.get("recruiter_emails", [])})
     data = {
+        "audit": audit,
         "date_utc": day, "checked_at": datetime.now(timezone.utc).isoformat(),
         "status": state, "query_count": len(SEARCHES) + len(QA_SEARCHES) + len(QA_LEADERSHIP_SEARCHES) + len(LINKEDIN_EXTRA_SEARCHES) + len(COMPANY_POST_SEARCHES) + len(FREELANCE_QA_SEARCHES) + len(MANUFACTURING_SEARCHES),
-        "items": consolidate_results(jobs),
+        "items": retained,
         "limitations": "Incomplete web-index coverage; RSS publication date is not guaranteed to match original LinkedIn post date. Review each link. No automatic applications.",
         "failed_queries": len(failures),
     }
