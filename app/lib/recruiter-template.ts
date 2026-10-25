@@ -2,11 +2,13 @@
 export const CANDIDATE_LINKEDIN = "https://www.linkedin.com/in/luciano-ribeiro-0321a46b/";
 export function vacancyTitle(raw:string):string {
  const text=raw.replace(/\s+-\s+LinkedIn\s*$/i,"").replace(/^[\s🚀📢🔥📣💼🔎]+/u,"").replace(/\s+/g," ").trim();
- const known=text.match(/\b(Senior Executive\s*[–-]\s*Quality Assurance(?:\s*\([^)]{1,40}\))?|Senior QA Automation Engineer|QA Automation Lead|QA Automation Engineer|Quality Engineer|Software Development Engineer in Test|SDET|Technical Project Manager|Project Manager|QA Engineer)(?=\s|$|[.,!])/i);
+ // A public post title may include experience ranges and contact details after the role.
+ const clean=text.replace(/\s*(?:\||•|–|—)?\s*\b\d{1,2}\s*[-–]\s*\d{1,2}\s*(?:yrs?|years?)\b[\s\S]*$/i,"").replace(/\s*\b(?:email\s*(?:id|ld)?|e-mail|contact)\s*[:：]?\s*[^\s@]+@[^\s@]+\.[^\s@]+[\s\S]*$/i,"").trim();
+ const known=clean.match(/\b(Senior Executive\s*[–-]\s*Quality Assurance(?:\s*\([^)]{1,40}\))?|Senior QA Automation Engineer|QA Automation Lead|QA Automation Engineer|Quality Engineer|Software Development Engineer in Test|SDET|Technical Project Manager|Project Manager|QA Engineer)(?=\s|$|[.,!])/i);
  if(known)return known[1].trim().slice(0,90);
- const role=text.match(/(?:looking for|hiring for|position:|job title:|role:)\s+(?:an?\s+)?(.{4,85}?)(?=\s+(?:to join|with|at|in|who|for our|location:|experience:)|[.!?]|$)/i);
+ const role=clean.match(/(?:looking for|hiring for|position:|job title:|role:)\s+(?:an?\s+)?(.{4,85}?)(?=\s+(?:to join|with|at|in|who|for our|location:|experience:)|[.!?]|$)/i);
  if(role)return role[1].trim().slice(0,90);
- return (text.split(/[.!?]|\s+(?:to join|interested candidates|location:|experience:)\b/i)[0]||"Opportunity").slice(0,85).trim();
+ return (clean.split(/[.!?]|\s+(?:to join|interested candidates|location:|experience:)\b/i)[0]||"Opportunity").slice(0,85).trim();
 }
 export function vacancyLanguage(title:string,description=""): "en"|"pt" {
  const text=(title+" "+description).toLowerCase();
