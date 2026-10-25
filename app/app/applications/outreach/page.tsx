@@ -32,6 +32,9 @@ export default async function Outreach({searchParams}:{searchParams:Promise<{job
  const gmail=await gmailAuthorization(sessionInfo.session?.provider_token);
  const sentDrafts=drafts.filter(d=>d.status==="sent"&&!!d.gmail_message_id);
  const visibleDrafts=params.view==="sent"?sentDrafts:drafts;
+ const sentJobUrls=sentDrafts.map(d=>jobs.find(j=>j.id===d.opportunity_id)?.listing_url).filter((url):url is string=>!!url&&/^https:\/\//i.test(url));
+ const syncedUrls=sentJobUrls.slice(-25);
+ const syncUrl="https://lucianoribeiro.github.io/ai-job-hunter/#sentBatch="+encodeURIComponent(JSON.stringify(syncedUrls));
  const returnParams=new URLSearchParams();
  for(const key of ["job","recipient","title","source","description"] as const){
   const value=params[key];if(value)returnParams.set(key,value.slice(0,key==="description"?2400:2000));
@@ -58,6 +61,7 @@ export default async function Outreach({searchParams}:{searchParams:Promise<{job
  <p className="note">Se escolher um PDF privado, ele terá prioridade sobre a versão gerada. A aprovação apenas prepara um rascunho no Gmail; não envia a candidatura.</p>
  <button className="primary" type="submit" disabled={!gmail.canSend||!preferredPdf&&!versions.length}>✉ Enviar candidatura com CV</button><p className="note">Ao clicar, o e-mail será enviado imediatamente pelo Gmail ao destinatário informado. Não existe etapa adicional de revisão.</p></form>}
  </section><section className="panel"><h2>{params.view==="sent"?"Candidaturas enviadas":"Histórico de candidaturas"}</h2><p><Link href="/applications/outreach?view=sent">Ver somente enviadas ({sentDrafts.length})</Link> · <Link href="/applications/outreach">Ver todas</Link></p>
+ {sentJobUrls.length>0&&<p><a className="primary" href={syncUrl}>✅ Voltar ao Recruiter Monitor e atualizar {syncedUrls.length} card(s) enviado(s) →</a></p>}
  {params.sent&&<p role="status">✅ Gmail confirmou o envio e a candidatura foi registrada.</p>}
  {!visibleDrafts.length&&<p>Nenhuma candidatura nesta visualização.</p>}
  {visibleDrafts.map(d=><article className="tile" key={d.id}><h3>{d.subject}</h3><p>Para: {d.recipient_email}</p>
