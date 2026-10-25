@@ -994,6 +994,19 @@ matchId('matchAnalyze').addEventListener('click',()=>{
  // A badge is only a browser-side echo of the authenticated sent-history link.
  // The Vercel/Supabase history remains the authoritative delivery receipt.
  try {
+  const batch=data.get("sentBatch");
+  if(batch&&batch.length<18000) {
+   const incoming=JSON.parse(batch);
+   if(Array.isArray(incoming)){
+    const previous=JSON.parse(localStorage.getItem("careerSentUrls")||"[]");
+    const known=Array.isArray(previous)?previous.filter(v=>typeof v==="string"):[];
+    for(const url of incoming){
+     if(typeof url==="string"&&/^https:\/\//i.test(url)&&url.length<2100&&!known.includes(url))known.push(url);
+    }
+    localStorage.setItem("careerSentUrls",JSON.stringify(known.slice(-250)));
+    history.replaceState(null,"",location.pathname+location.search);
+  }
+  }
   const source=data.get("sent");
   if(source && /^https:\/\//i.test(source) && source.length<2100) {
    const saved=JSON.parse(localStorage.getItem("careerSentUrls")||"[]");
