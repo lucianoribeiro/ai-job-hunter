@@ -60,6 +60,28 @@ def discover(paths,max_per_source=300):
         stats[str(source)]={"status":"ok","input":len(jobs),"selected":count}
     return sorted(found.values(),key=lambda j:(j["regional_priority"],j.get("title",""))),stats
 
+def reconcile(current, previous, collected_at):
+    """Retain earlier verified leads; a missing feed row is not proof of closure."""
+    known = {str(j.get("url") or "").rstrip("/").lower(): j
+             for j in previous if isinstance(j, dict) and j.get("url")}
+    merged = {}
+    for job in current:
+        key = str(job.get("url") or "").rstrip("/").lower()
+        older = known.get(key, {})
+        if job.get("application_status") == "closed":
+            continue
+        merged[key] = {**older, **job,
+                       "first_seen_at": older.get("first_seen_at") or collected_at,
+                       "last_seen_at": collected_at}
+    for key, old in known.items():
+        if key not in merged and old.get("application_status") != "closed":
+            merged[key] = {**old, "not_seen_in_latest_collection": True}
+    return sorted(merged.values(),
+                  key=lambda j: (j.get("first_seen_at") is None,
+                                 str(j.get("first_seen_at") or "")[:25]),
+                  reverse=False)
+
+
 def main():
     p=argparse.ArgumentParser()
     p.add_argument("--sources",nargs="+",type=Path,required=True)
@@ -68,8 +90,16 @@ def main():
     args=p.parse_args()
     if not 1<=args.limit<=300:raise SystemExit("Limit must be 1-300")
     jobs,stats=discover(args.sources,args.limit)
+    collected_at=datetime.now(timezone.utc).isoformat()
+    historical=Path("data/monica_regional_history.json")
+    try:
+        previous=json.loads(historical.read_text(encoding="utf-8")).get("jobs",[]) if historical.exists() else []
+    except (OSError,ValueError,TypeError):
+        previous=[]
+    jobs=reconcile(jobs,previous,collected_at)
+    jobs.sort(key=lambda j: j.get("first_seen_at") or "",reverse=True)
     args.output.parent.mkdir(parents=True,exist_ok=True)
-    args.output.write_text(json.dumps({"collected_at":datetime.now(timezone.utc).isoformat(),"jobs":jobs,"sources":stats},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    args.output.write_text(json.dumps({"collected_at":collected_at,"jobs":jobs,"sources":stats},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print("Regional SP:",len(jobs),"from",len(stats),"public feeds")
 
 if __name__=="__main__":main()
