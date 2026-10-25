@@ -663,6 +663,18 @@ p,footer{color:#aeb4bd;line-height:1.6}footer{padding:4px 6px 24px;font-size:13p
 </section>
 </div>
 <div id="mainPanelRegional" class="primary-panel" role="tabpanel" aria-labelledby="mainTabRegional" hidden>""" + strategic_html + """</div>
+<div id="mainPanelAI" class="primary-panel" role="tabpanel" aria-label="Legacy studio compatibility" hidden style="display:none">
+<div class="career-hub">
+<nav class="career-hub-tabs" role="tablist" aria-label="Currículos e candidaturas" style="display:flex!important;flex-wrap:wrap;gap:12px;padding:12px;margin:0 0 18px;border:1px solid #55677b;border-radius:14px;background:#202a34"><button type="button" id="careerHubCV" role="tab" aria-controls="careerHubCVPanel" aria-selected="true" style="flex:1;min-width:180px;min-height:50px;background:#397d70;color:#fff;border:1px solid #8acdbb;border-radius:9px;font-weight:750;cursor:pointer">Meu CV</button><button type="button" id="careerHubApplications" role="tab" aria-controls="careerHubApplicationsPanel" aria-selected="false" style="flex:1;min-width:180px;min-height:50px;background:#283848;color:#fff;border:1px solid #66778c;border-radius:9px;font-weight:750;cursor:pointer">Minhas Candidaturas</button></nav>
+<section id="careerHubCVPanel" role="tabpanel" aria-labelledby="careerHubCV"><p class="career-hub-note">Importe e prepare seu CV. O upload privado ainda requer integração à aplicação autenticada.</p>""" + studio_html + """</section>
+<section id="careerHubApplicationsPanel" role="tabpanel" aria-labelledby="careerHubApplications" hidden><h2>Minhas Candidaturas</h2><p>Prepare uma mensagem para um recrutador. Esta página pública não armazena CVs ou histórico pessoal e não envia e-mails.</p>
+<div class="career-hub-form"><label for="careerJobRole">Cargo e empresa</label><input id="careerJobRole" maxlength="180" placeholder="Ex.: QA Lead — Empresa">
+<label for="careerRecruiter">E-mail divulgado no anúncio</label><input id="careerRecruiter" type="email" maxlength="254" placeholder="recrutamento@empresa.com">
+<label for="careerLanguage">Idioma da mensagem</label><select id="careerLanguage"><option value="en">Inglês</option><option value="pt">Português</option></select>
+<label for="careerExperience">Experiência comprovada</label><textarea id="careerExperience" rows="4" maxlength="1800"></textarea>
+<button id="careerPrepare" type="button">Preparar mensagem</button><p id="careerDraftStatus" role="status" aria-live="polite"></p>
+<label for="careerDraftBody">Mensagem para revisão</label><textarea id="careerDraftBody" rows="10" readonly></textarea><button id="careerCopy" type="button" disabled>Copiar mensagem</button></div>
+<p class="career-hub-note">Para anexar o PDF privado e confirmar um envio real, será necessário login e backend autenticado. Criar uma mensagem não significa enviar a candidatura.</p></section></div></div>
 <div id="mainPanelFinance" class="primary-panel" role="tabpanel" aria-labelledby="mainTabFinance" hidden>""" + render_advisor() + """</div><div id="mainPanelRecruiter" class="primary-panel" role="tabpanel" aria-labelledby="mainTabRecruiter" hidden>""" + monitor_html + """</div>
 <footer>Dados obtidos de anúncios públicos. Remoto e elegibilidade brasileira exigem confirmação
 na página oficial. Fonte Himalayas: <a href="https://himalayas.app">himalayas.app</a>. Apenas datas de publicação fornecidas pelas fontes são exibidas; datas ausentes não são estimadas. Candidaturas não são enviadas automaticamente.</footer>
@@ -845,7 +857,17 @@ catch(_){status.textContent='Abra a vaga diretamente na lista acima para copiar 
 });
 </script><script>
 (()=>{'use strict';
-
+(()=>{
+const cv=document.getElementById('careerHubCV'),apps=document.getElementById('careerHubApplications'),cvPanel=document.getElementById('careerHubCVPanel'),appsPanel=document.getElementById('careerHubApplicationsPanel');
+function show(app){cv.setAttribute('aria-selected',String(!app));apps.setAttribute('aria-selected',String(app));cv.style.background=app?'#283848':'#397d70';apps.style.background=app?'#397d70':'#283848';cvPanel.hidden=app;appsPanel.hidden=!app;cvPanel.style.display=app?'none':'block';appsPanel.style.display=app?'block':'none';}
+cv.addEventListener('click',()=>show(false));apps.addEventListener('click',()=>show(true));
+const button=document.getElementById('careerPrepare'),copy=document.getElementById('careerCopy'),result=document.getElementById('careerDraftBody'),status=document.getElementById('careerDraftStatus');
+button.addEventListener('click',()=>{const role=document.getElementById('careerJobRole').value.trim(),email=document.getElementById('careerRecruiter'),exp=document.getElementById('careerExperience').value.trim(),en=document.getElementById('careerLanguage').value==='en';
+if(!role||!exp||!email.value.trim()||!email.checkValidity()){status.textContent='Preencha o cargo, o e-mail válido e a experiência.';return;}
+result.value=en?['Hello,','I would like to apply for '+role+'.',exp,'I would be happy to share my resume for your consideration.','Best regards,'].join(String.fromCharCode(10,10)):['Olá,','Tenho interesse na oportunidade de '+role+'.',exp,'Posso encaminhar meu currículo para sua avaliação.','Atenciosamente,'].join(String.fromCharCode(10,10));
+copy.disabled=false;status.textContent='Rascunho preparado localmente. Nenhum e-mail foi enviado.';});
+copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(result.value);status.textContent='Texto copiado. Nenhum e-mail foi enviado.';}catch(e){result.select();status.textContent='Copie a mensagem selecionada manualmente.';}});
+})();
 const tabs=[['mainTabGeneral','mainPanelGeneral'],['mainTabRegional','mainPanelRegional'],['mainTabFinance','mainPanelFinance'],['mainTabRecruiter','mainPanelRecruiter']];
 function selectTab(index,focus){tabs.forEach(([tabId,panelId],i)=>{const tab=document.getElementById(tabId),panel=document.getElementById(panelId),active=i===index;if(!tab||!panel)return;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;panel.hidden=!active;panel.style.display=active?'':'none';});if(focus)document.getElementById(tabs[index][0]).focus();}
 tabs.forEach(([tabId],i)=>{const tab=document.getElementById(tabId);if(!tab)return;tab.addEventListener('click',()=>selectTab(i,false));tab.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const next=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;selectTab(next,true);});});
