@@ -502,7 +502,12 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             city = item.get("city") or details["location"] or ""
             extra += '<p class="recruiter-location">📍 Cidade: ' + e(city or "Não informada") + '</p>'
             if details["priority"]:
-                if app_base:
+                extra += '<span class="recruiter-tag">Região prioritária</span>'
+            if details["expired"]:
+                extra += '<span class="recruiter-tag">Prazo informado vencido — verificar</span>'
+            extra += '<details class="recruiter-original"><summary>Ver publicação original</summary><p>' + e(raw_title) + '</p></details>'
+        if contact:
+            if app_base:
                 outreach = app_base + "/applications/outreach?" + urlencode({"recipient": contact, "title": raw_title[:160], "source": item.get("url", ""), "description": str(item.get("description") or raw_title)[:2400]})
                 extra += '<a class="recruiter-outreach" target="_blank" rel="noopener noreferrer" aria-label="Preparar candidatura para o e-mail identificado" style="display:block;background:#328775;border:1px solid #75cdb8;color:white;padding:12px;border-radius:10px;text-align:center;font-weight:750;text-decoration:none;margin:12px 0" href="' + e(outreach) + '">✉ Preparar candidatura com CV →</a>'
             else:
