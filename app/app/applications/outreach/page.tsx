@@ -32,11 +32,16 @@ export default async function Outreach({searchParams}:{searchParams:Promise<{job
  const gmail=await gmailAuthorization(sessionInfo.session?.provider_token);
  const sentDrafts=drafts.filter(d=>d.status==="sent"&&!!d.gmail_message_id);
  const visibleDrafts=params.view==="sent"?sentDrafts:drafts;
+ const returnParams=new URLSearchParams();
+ for(const key of ["job","recipient","title","source","description"] as const){
+  const value=params[key];if(value)returnParams.set(key,value.slice(0,key==="description"?2400:2000));
+ }
+ const oauthReturn="/applications/outreach"+(returnParams.size?"?"+returnParams.toString():"");
  return <main className="shell"><header className="top"><span className="logo">✦ AI Job Hunter</span><Link href="/applications">← Minhas candidaturas</Link></header>
  <section className="panel"><span className="eyebrow">RECRUITER OUTREACH</span><h1>Preparar mensagem ao recrutador</h1>
  <p>Revise destinatário, cargo, mensagem e CV nesta tela. Ao clicar em <strong>Enviar candidatura</strong>, o Gmail enviará a mensagem com o PDF anexado. Não será necessária uma segunda aprovação.</p>
  <p><Link href="/applications/outreach?view=sent">✅ Candidaturas enviadas ({sentDrafts.length}) →</Link></p>
- {!gmail.canSend&&<form action={connectGmail}><input type="hidden" name="next" value="/applications/outreach"/><p role="alert">Para enviar, conecte sua conta Google e autorize a permissão Gmail.</p><button className="primary" type="submit">Conectar Gmail para enviar</button></form>}
+ {!gmail.canSend&&<form action={connectGmail}><input type="hidden" name="next" value={oauthReturn}/><p role="alert">Para enviar, conecte sua conta Google e autorize a permissão Gmail.</p><button className="primary" type="submit">Conectar Gmail para enviar</button></form>}
  {!jobs.length&&!external?<p>Salve uma vaga antes de preparar o contato. <Link href="/jobs">Ver vagas →</Link></p>:
  <form action={createOutreachDraft} className="form">
  <label>Oportunidade<select name="opportunity_id" defaultValue={external&&!jobs.some(j=>j.listing_url===params.source)?"import":selected?.id} required>{external&&!jobs.some(j=>j.listing_url===params.source)&&<option value="import">{displayTitle} — Recruiter Monitor</option>}{jobs.map(j=><option key={j.id} value={j.id}>{j.title} — {j.company}</option>)}</select></label>
