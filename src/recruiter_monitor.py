@@ -318,7 +318,7 @@ def indexed_contacts(text: str) -> list[str]:
     import html
     import re
     value = html.unescape(re.sub(r"<[^>]+>", " ", str(text or "")))
-    pattern = r"(?<![\\w.+-])([A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,})(?![\\w.-])"
+    pattern = r"(?<![\w.+-])([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})(?![\w.-])"
     return list(dict.fromkeys(m.group(1).lower() for m in re.finditer(pattern, value, re.I)))
 
 
