@@ -64,6 +64,33 @@ def render(data):
                 '<p style="font-size:15px;color:#e8bd78"><strong>Aderência: '+esc(preliminary)+'/100</strong></p><p>Estimativa preliminar da análise do currículo; ainda não recalculada automaticamente.</p>'+
                 '<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Consultar anúncio ↗</a></article>')
         cards=imported_cards+cards
+    # Render current public regional discoveries even when a private matching profile
+    # is not configured. These are unscored leads, never CV-matched opportunities.
+    live_feed = Path("data/monica_regional_sp.json")
+    if live_feed.is_file():
+        existing_urls = {str(j.get("url") or "").rstrip("/").lower() for j in items}
+        for archive_path in (Path("data/monica_linkedin_jobs.json"),
+                             Path("data/monica_regional_reviewed.json")):
+            if archive_path.is_file():
+                for j in json.loads(archive_path.read_text(encoding="utf-8")).get("jobs", []):
+                    existing_urls.add(str(j.get("url") or "").rstrip("/").lower())
+        fresh_cards = []
+        for job in json.loads(live_feed.read_text(encoding="utf-8")).get("jobs", []):
+            if not isinstance(job, dict) or job.get("application_status") == "closed" or job.get("source_listing_only"):
+                continue
+            url = str(job.get("url") or "")
+            identity = url.rstrip("/").lower()
+            if not url.startswith("https://") or identity in existing_urls:
+                continue
+            existing_urls.add(identity)
+            fresh_cards.append('<article class="regional-card" style="padding:15px"><strong>'+
+                esc(job.get("title") or "Cargo não informado")+'</strong><p>'+
+                esc(job.get("company") or "Empresa não informada")+' · '+
+                esc(job.get("location") or "Local não informado")+'</p><p>Origem: '+
+                esc(job.get("source") or "Fonte pública")+'</p><p><strong>Vaga coletada automaticamente</strong></p>'+
+                '<p>Candidatura não verificada · Aderência: a calcular (perfil privado indisponível ou análise pendente)</p>'+
+                '<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Consultar anúncio ↗</a></article>')
+        cards += fresh_cards
     # Count the exact HTML cards built, rather than feed records.
     rendered_count=sum(card.count('<article class="regional-card"') for card in cards)
     if rendered_count != len(cards):
