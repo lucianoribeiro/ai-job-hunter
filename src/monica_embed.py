@@ -97,6 +97,8 @@ def render(data):
     # Sort the complete mixed catalog by the actual advertisement publication date.
     # Collection/import timestamps must never be substituted for publication dates.
     publication_by_url = {}
+    first_seen_by_url = {}
+    stale_urls = set()
     sources = [items]
     for source_path in (Path("data/monica_linkedin_jobs.json"),
                         Path("data/monica_regional_reviewed.json"),
@@ -108,6 +110,11 @@ def render(data):
             if not isinstance(job, dict):
                 continue
             identity = str(job.get("url") or "").rstrip("/").lower()
+            first_seen = str(job.get("first_seen_at") or "")
+            if identity and first_seen and (identity not in first_seen_by_url or first_seen < first_seen_by_url[identity]):
+                first_seen_by_url[identity] = first_seen
+            if identity and job.get("not_seen_in_latest_collection"):
+                stale_urls.add(identity)
             published = publication_date(job.get("published_at") or job.get("published"))
             if identity and published and (identity not in publication_by_url or published > publication_by_url[identity]):
                 publication_by_url[identity] = published
@@ -123,14 +130,25 @@ def render(data):
     dated_cards = []
     for card in cards:
         published = card_publication(card)
+        links = re.findall(r'href="([^"]+)"', card)
+        identity = html.unescape(links[-1]).rstrip("/").lower() if links else ""
+        first_seen = first_seen_by_url.get(identity)
+        if first_seen:
+            try:
+                dt = datetime.fromisoformat(first_seen.replace("Z", "+00:00"))
+                day_label = dt.astimezone(ZoneInfo("America/Sao_Paulo")).strftime("%d/%m/%Y às %Hh%M") if dt.tzinfo else dt.strftime("%d/%m/%Y")
+            except ValueError:
+                day_label = "Data não informada"
+            card = card.replace("</article>", '<p class="meta">Encontrada em: '+esc(day_label)+'</p></article>')
+        if identity in stale_urls:
+            card = card.replace("</article>", '<p class="meta">Não identificada na última coleta · disponibilidade pendente de confirmação</p></article>')
         if "Publicação:" not in card and "Publicado em:" not in card:
             label = display_date(published) if published else "Data não informada"
             card = card.replace("</article>",
                                 '<p class="meta">Publicado em: ' + esc(label) + '</p></article>')
-        dated_cards.append((published, card))
-    dated_cards.sort(key=lambda entry: (entry[0] is None,
-                                       -(int(entry[0].replace("-", "")) if entry[0] else 0)))
-    cards = [card for _, card in dated_cards]
+        dated_cards.append((first_seen, published, card))
+    dated_cards.sort(key=lambda entry: (entry[0] or "", entry[1] or ""), reverse=True)
+    cards = [card for _, _, card in dated_cards]
     # Show the timestamp of the real regional collection, never the page build time.
     collection_label = "Não disponível"
     if live_feed.is_file():
@@ -166,7 +184,7 @@ def render(data):
         'Vagas encerradas são descartadas; candidaturas não verificadas permanecem sinalizadas.</p>'
         '<div role="status" id="monica-priority-alert" style="border:1px solid #b9914f;border-radius:10px;padding:12px;margin:12px 0"><strong>Prioridade para Mônica: '+str(priority_count)+' oportunidades com aderência estimada de pelo menos 80/100.</strong><p>Essas vagas merecem ser analisadas primeiro porque apresentam maior compatibilidade com a experiência profissional dela. As notas preliminares vêm de uma revisão manual. O envio automático por e-mail ocorre apenas para vagas novas, com candidatura verificável e nota calculada pelo agente.</p></div>'
         '<p><strong id="monica-total-cards">'+str(rendered_count)+'</strong> cartão(ões) de vagas disponível(is) nesta página. '
-        'Exibição da publicação mais recente primeiro quando a data é conhecida.</p>'
+        'Ordenação pela primeira identificação da vaga; anúncios sem histórico podem aparecer depois.</p>'
         '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:12px">'
         +("".join(cards) if cards else notice)+'</div>'
         '<p id="monica-end-of-list" style="padding:14px 0;color:#bbc3cc">Fim da lista · '+str(rendered_count)+' cartões exibidos.</p></section>')
