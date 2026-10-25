@@ -34,7 +34,8 @@ export default async function Outreach({searchParams}:{searchParams:Promise<{job
  const visibleDrafts=params.view==="sent"?sentDrafts:drafts;
  const sentJobUrls=sentDrafts.map(d=>jobs.find(j=>j.id===d.opportunity_id)?.listing_url).filter((url):url is string=>!!url&&/^https:\/\//i.test(url));
  const syncedUrls=sentJobUrls.slice(-25);
- const syncUrl="https://lucianoribeiro.github.io/ai-job-hunter/#sentBatch="+encodeURIComponent(JSON.stringify(syncedUrls));
+ const syncRecords=sentDrafts.slice(0,60).map(d=>({url:jobs.find(j=>j.id===d.opportunity_id)?.listing_url||"",email:d.recipient_email}));
+ const syncUrl="https://lucianoribeiro.github.io/ai-job-hunter/#sentReceipts="+encodeURIComponent(JSON.stringify(syncRecords));
  const returnParams=new URLSearchParams();
  for(const key of ["job","recipient","title","source","description"] as const){
   const value=params[key];if(value)returnParams.set(key,value.slice(0,key==="description"?2400:2000));
