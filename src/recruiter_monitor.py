@@ -313,6 +313,24 @@ def post_origin(url: str, source_url: str = "") -> str:
     return "Não verificada"
 
 
+def indexed_contact(text: str) -> str:
+    """Extract a public application address only when it appears in indexed text."""
+    import html
+    import re
+    value = html.unescape(re.sub(r"<[^>]+>", " ", str(text or "")))
+    match = re.search(r"(?<![\w.+-])([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})(?![\w.-])", value, re.I)
+    return match.group(1).lower() if match else ""
+
+
+def merge_indexed_record(previous: dict, current: dict) -> dict:
+    """Keep previously verified fields when a later index excerpt is shorter."""
+    merged = {**previous, **current}
+    for field in ("recruiter_email", "email", "company", "city"):
+        if not current.get(field) and previous.get(field):
+            merged[field] = previous[field]
+    return merged
+
+
 def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_only: bool = False) -> list[dict]:
     """Keep verifiably recent public indexed posts; do not infer actual vacancy dates."""
     from urllib.parse import urlsplit
@@ -357,7 +375,7 @@ def parse_feed(xml_text: str, day: str, max_age_days: int = 1, manufacturing_onl
         city = explicit_city(title + " " + indexed_excerpt) if labels["area"] == "Manufatura" else ""
         found[url] = {
             "title": title[:500], "indexed_excerpt": indexed_excerpt[:1500], **facts, **freelance, "url": url, "published_at": date.isoformat(),
-            "source": "Public web news index", "status": "needs_review", "city": city, "post_origin": post_origin(url, source_url), **labels,
+            "source": "Public web news index", "status": "needs_review", "city": city, "post_origin": post_origin(url, source_url), "recruiter_email": indexed_contact(title + " " + indexed_excerpt), **labels,
         }
     return list(found.values())
 
@@ -394,7 +412,7 @@ def run() -> dict:
                 if len(xml) > 1_000_000:
                     raise ValueError("Feed too large")
                 for result in parse_feed(xml.decode("utf-8"), day, max_age_days=days, manufacturing_only=manufacturing_query):
-                    jobs[result["url"]] = enrich_application(result)
+                    jobs[result["url"]] = merge_indexed_record(jobs.get(result["url"], {}), enrich_application(result))
             except Exception as exc:
                 failures.append(type(exc).__name__)
         state = "partial" if failures else "ok"
@@ -405,7 +423,7 @@ def run() -> dict:
             previous = json.loads(OUTPUT.read_text(encoding="utf-8"))
             cutoff = datetime.now(timezone.utc) - timedelta(days=30)
             for item in previous.get("items", []):
-                if not isinstance(item, dict) or not item.get("url") or item["url"] in jobs:
+                if not isinstance(item, dict) or not item.get("url"):
                     continue
                 try:
                     published = datetime.fromisoformat(str(item.get("published_at") or "").replace("Z", "+00:00"))
@@ -413,7 +431,7 @@ def run() -> dict:
                         continue
                 except (TypeError, ValueError, OverflowError):
                     continue
-                jobs[item["url"]] = item
+                jobs[item["url"]] = merge_indexed_record(item, jobs[item["url"]]) if item["url"] in jobs else item
         except (OSError, ValueError, TypeError):
             pass
 
