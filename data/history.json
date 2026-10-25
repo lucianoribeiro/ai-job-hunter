@@ -1,4 +1,13 @@
 {
+  "01f707ef06c9193ea4535120": {
+    "company": "Guidehouse",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792923870",
+    "source": "Himalayas",
+    "title": "QA Automation Engineer",
+    "url": "https://himalayas.app/companies/guidehouse/jobs/qa-automation-engineer?utm_source=api"
+  },
   "0244e58842a76329dd90a8c2": {
     "company": "Circular Materials",
     "first_seen": "2026-10-24",
@@ -35,6 +44,24 @@
     "source": "Himalayas",
     "title": "FBS - Content Strategy Project Manager",
     "url": "https://himalayas.app/companies/capgemini-technology-services/jobs/fbs-content-strategy-project-manager?utm_source=api"
+  },
+  "076e9e236e312fb46ec9dcef": {
+    "company": "Blue Acorn iCi",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792932588",
+    "source": "Himalayas",
+    "title": "Senior Project Manager",
+    "url": "https://himalayas.app/companies/blue-acorn-ici/jobs/senior-project-manager?utm_source=api"
+  },
+  "07ad635449c85082b7e0a1d3": {
+    "company": "Intersect Power",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792931841",
+    "source": "Himalayas",
+    "title": "Project Manager - Natural Gas Projects",
+    "url": "https://himalayas.app/companies/intersect-power/jobs/project-manager-natural-gas-projects?utm_source=api"
   },
   "07e2bce8b8f8cd34": {
     "company": "Modivcare",
@@ -76,6 +103,15 @@
     "source": "Himalayas",
     "title": "Senior Engineer, IT - Software Quality Assurance",
     "url": "https://himalayas.app/companies/builders-firstsource/jobs/senior-engineer-it-software-quality-assurance?utm_source=api"
+  },
+  "0e18510cd2f497b738b0a1b7": {
+    "company": "Acklen Avenue",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792913744",
+    "source": "Himalayas",
+    "title": "Talent Database - Sr. QA Software Engineer - LATAM Only",
+    "url": "https://himalayas.app/companies/acklen-avenue/jobs/talent-database-sr-qa-software-engineer-latam-only?utm_source=api"
   },
   "0e4a9d7809f5ee1f": {
     "company": "PhoenixTeam",
@@ -598,6 +634,15 @@
     "title": "QA Engineer",
     "url": "https://himalayas.app/companies/sqa-solution/jobs/qa-engineer?utm_source=api"
   },
+  "2d4592593a4ea019fcb5d335": {
+    "company": "DPR Construction",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792931270",
+    "source": "Himalayas",
+    "title": "Sr Project Manager",
+    "url": "https://himalayas.app/companies/dpr-construction/jobs/sr-project-manager?utm_source=api"
+  },
   "2ec1ec592f52b139": {
     "company": "Ovation Law Firm",
     "description": "",
@@ -661,6 +706,15 @@
     "source": "Himalayas",
     "title": "Remote Technical Project Manager (CCTV & Networking)",
     "url": "https://himalayas.app/companies/support-tech-llc/jobs/remote-technical-project-manager-cctv-networking?utm_source=api"
+  },
+  "342a591eb32e036820886142": {
+    "company": "EdgeQ Technologies Private Limited",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792924268",
+    "source": "Himalayas",
+    "title": "Test Automation Engineer",
+    "url": "https://himalayas.app/companies/edgeq-technologies-private-limited/jobs/test-automation-engineer?utm_source=api"
   },
   "34ba7449e4691e4f7055face": {
     "company": "Spiralyze",
@@ -775,6 +829,15 @@
     "source": "Himalayas",
     "title": "Middle Manual QA Engineer, Pensions team",
     "url": "https://himalayas.app/companies/investengine/jobs/middle-manual-qa-engineer-pensions-team?utm_source=api"
+  },
+  "3e2f4b5eb5fdbc349f070fb5": {
+    "company": "Photon Interactive UK Limited",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792923243",
+    "source": "Himalayas",
+    "title": "QA engineer | Offshore | Medimpact",
+    "url": "https://himalayas.app/companies/photon-interactive-uk-limited/jobs/qa-engineer-offshore-medimpact?utm_source=api"
   },
   "3f61a22d1b9184a35e09643d": {
     "company": "Vultr",
@@ -917,6 +980,24 @@
     "source": "Himalayas",
     "title": "Project Manager",
     "url": "https://himalayas.app/companies/beecruit-pte-ltd/jobs/project-manager"
+  },
+  "46de43e81a3313cba6033f92": {
+    "company": "Bureau Veritas",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792932487",
+    "source": "Himalayas",
+    "title": "Senior Technical Program Manager (Remote, Remote, US)",
+    "url": "https://himalayas.app/companies/bureau-veritas/jobs/senior-technical-program-manager-remote-remote-us?utm_source=api"
+  },
+  "46f964dc212438c1e8cf4b4f": {
+    "company": "Very Good Ventures",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792913243",
+    "source": "Himalayas",
+    "title": "Quality Engineer - Mid-Level",
+    "url": "https://himalayas.app/companies/verygood/jobs/quality-engineer-mid-level?utm_source=api"
   },
   "47e459a13df44369": {
     "company": "Ryze Claim Solutions",
@@ -1170,6 +1251,15 @@
     "title": "Senior Program Manager",
     "url": "https://jobicy.com/jobs/155920-senior-program-manager-2"
   },
+  "5811fc4bb230f5f07a04474b": {
+    "company": "Nexthop AI",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792921609",
+    "source": "Himalayas",
+    "title": "Test Engineer",
+    "url": "https://himalayas.app/companies/nexthop-ai/jobs/test-engineer-119169987?utm_source=api"
+  },
   "58ae051e7b51898ad77cbfb1": {
     "company": "California FAIR Plan Association",
     "first_seen": "2026-10-24",
@@ -1347,6 +1437,15 @@
     "title": "Senior QA Engineer",
     "url": "https://himalayas.app/companies/cial-dun-bradstreet/jobs/senior-qa-engineer-9054027216?utm_source=api"
   },
+  "6555ff9e1c6a8506654f2f54": {
+    "company": "Photon Interactive UK Limited",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792906017",
+    "source": "Himalayas",
+    "title": "QA Lead_Offshore",
+    "url": "https://himalayas.app/companies/photon-interactive-uk-limited/jobs/qa-lead_offshore?utm_source=api"
+  },
   "65c21675756d905dba799260": {
     "company": "Smartsheet",
     "first_seen": "2026-10-18",
@@ -1439,6 +1538,15 @@
     "title": "Senior QA Automation Engineer",
     "url": "https://himalayas.app/companies/munich-ventures/jobs/senior-qa-automation-engineer?utm_source=api"
   },
+  "6d7d4ea22cbdfaf0c58871d4": {
+    "company": "Miratech",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792914904",
+    "source": "Himalayas",
+    "title": "Senior QA Automation",
+    "url": "https://himalayas.app/companies/miratech/jobs/senior-qa-automation?utm_source=api"
+  },
   "6ed310e1424f9bb1": {
     "company": "Mano Lani LLC",
     "first_seen": "2026-10-18",
@@ -1456,6 +1564,15 @@
     "source": "Himalayas",
     "title": "GIS Software Quality Assurance Engineer",
     "url": "https://himalayas.app/companies/mano-lani-llc/jobs/gis-software-quality-assurance-engineer"
+  },
+  "6eda31ba834cba66aa621be2": {
+    "company": "Cyera",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792930925",
+    "source": "Himalayas",
+    "title": "Technical Project Manager",
+    "url": "https://himalayas.app/companies/cyera-com/jobs/technical-project-manager?utm_source=api"
   },
   "6f15e25c4f942dee385b3fa1": {
     "company": "Lifelancer",
@@ -1818,6 +1935,15 @@
     "title": "Quality Assurance Lead - Remote",
     "url": "https://himalayas.app/companies/symetra/jobs/quality-assurance-lead-remote?utm_source=api"
   },
+  "86b88bf9d3d6eebeead6fc65": {
+    "company": "Liquid Thought",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792931915",
+    "source": "Himalayas",
+    "title": "Technical Project Manager",
+    "url": "https://himalayas.app/companies/liquid-thought/jobs/technical-project-manager-2721828843?utm_source=api"
+  },
   "8817ebbfec852f992b6ad416": {
     "company": "Millennium Technology Services",
     "first_seen": "2026-10-23",
@@ -1978,6 +2104,15 @@
     "title": "Senior QA Automation Engineer",
     "url": "https://himalayas.app/companies/codest-ltd-company-no-12590542-vat-number-gb363431020/jobs/senior-qa-automation-engineer-9564863176?utm_source=api"
   },
+  "8c7d58986003ac539f2c9730": {
+    "company": "Zoftify — Travel Software Development",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792911395",
+    "source": "Himalayas",
+    "title": "Quality Assurance Engineer",
+    "url": "https://himalayas.app/companies/zoftify-travel-software-development/jobs/quality-assurance-engineer?utm_source=api"
+  },
   "8c91a7614664b4ebeb3285c9": {
     "company": "Dispel",
     "first_seen": "2026-10-22",
@@ -1986,6 +2121,15 @@
     "source": "Himalayas",
     "title": "Senior QA Automation Engineer",
     "url": "https://himalayas.app/companies/dispel-com/jobs/senior-qa-automation-engineer?utm_source=api"
+  },
+  "8ce970e857e6070af6c752b4": {
+    "company": "Toolbox OTT",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792931630",
+    "source": "Himalayas",
+    "title": "TECHNICAL PROGRAM MANAGER",
+    "url": "https://himalayas.app/companies/toolbox-ott/jobs/technical-program-manager?utm_source=api"
   },
   "8d51ab520b574265": {
     "company": "Dev.Pro",
@@ -2152,6 +2296,15 @@
     "title": "QA Examiner/File Review Positions",
     "url": "https://himalayas.app/companies/ryze-claim-solutions/jobs/qa-examiner-file-review-positions-9288444372?utm_source=api"
   },
+  "9745a903c43589ea3cfda26a": {
+    "company": "CoinsPaid",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792925880",
+    "source": "Himalayas",
+    "title": "QA Principal",
+    "url": "https://himalayas.app/companies/coinspaid/jobs/qa-principal?utm_source=api"
+  },
   "9765594714489d0a": {
     "company": "HII",
     "description": "",
@@ -2165,6 +2318,15 @@
     "source": "Himalayas",
     "title": "LOGIX Project Manager- Crane, IN (Mgr Project Management 1)- 30821 (Crane, IN, R",
     "url": "https://himalayas.app/companies/hii/jobs/logix-project-manager-crane-in-mgr-project-management-1-30821-crane-in-r?utm_source=api"
+  },
+  "97830f5d1b1824703dcbe42f": {
+    "company": "Global Alliant",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792913067",
+    "source": "Himalayas",
+    "title": "QA Automation Tester",
+    "url": "https://himalayas.app/companies/global-alliant/jobs/qa-automation-tester?utm_source=api"
   },
   "978d60f40068da4e": {
     "company": "Sparq",
@@ -2457,6 +2619,15 @@
     "title": "Software Test Engineer",
     "url": "https://www.arbeitnow.ch/jobs/companies/swisspeak-partners-gmbh/remote-software-test-engineer-bern-226881"
   },
+  "ac60813f48bd7bc5bcd5f6be": {
+    "company": "Lingaro",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792934567",
+    "source": "Himalayas",
+    "title": "Test Automation Engineer",
+    "url": "https://himalayas.app/companies/lingaro/jobs/test-automation-engineer-6892775773?utm_source=api"
+  },
   "ac92aad3f7394ff8e094d609": {
     "company": "HII",
     "first_seen": "2026-10-23",
@@ -2507,6 +2678,15 @@
     "title": "CDD/Freelance QA Engineer",
     "url": "https://himalayas.app/companies/swan-io/jobs/cdd-freelance-qa-engineer?utm_source=api"
   },
+  "b102c1a182ad53f2400069bf": {
+    "company": "Salsify",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792932494",
+    "source": "Himalayas",
+    "title": "Senior GTM Strategy & Ops Program Manager",
+    "url": "https://himalayas.app/companies/salsify/jobs/senior-gtm-strategy-ops-program-manager?utm_source=api"
+  },
   "b1bfc02ba45654cf4dfb7bc3": {
     "company": "Photon Interactive UK Limited",
     "first_seen": "2026-10-24",
@@ -2556,6 +2736,15 @@
     "source": "Jobicy",
     "title": "Manual QA Engineer (Game Client)",
     "url": "https://jobicy.com/jobs/156544-manual-qa-engineer-game-client"
+  },
+  "b301bc99cde378ddc5653361": {
+    "company": "Talent Insider",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792923545",
+    "source": "Himalayas",
+    "title": "Quality Assurance Engineer",
+    "url": "https://himalayas.app/companies/talent-insider/jobs/quality-assurance-engineer?utm_source=api"
   },
   "b393be298b97be60": {
     "company": "Sunrun",
@@ -2927,6 +3116,15 @@
     "title": "Senior QA Engineer",
     "url": "https://himalayas.app/companies/prism-studio/jobs/senior-qa-engineer-5370847661?utm_source=api"
   },
+  "ccbfefd381829232c54273f8": {
+    "company": "Practifi",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792925428",
+    "source": "Himalayas",
+    "title": "Data QA Analyst",
+    "url": "https://himalayas.app/companies/practifi/jobs/data-qa-analyst?utm_source=api"
+  },
   "cdb66927bfefedfb691c6b8b": {
     "company": "Raw Ventures",
     "first_seen": "2026-10-24",
@@ -2999,6 +3197,15 @@
     "source": "Himalayas",
     "title": "Project Manager, Low Voltage Deployment",
     "url": "https://himalayas.app/companies/nscale/jobs/project-manager-low-voltage-deployment?utm_source=api"
+  },
+  "d0ac2a552adf83a36280a250": {
+    "company": "JLL",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792931942",
+    "source": "Himalayas",
+    "title": "Sr. Project Manager (technical), Data Centers",
+    "url": "https://himalayas.app/companies/jll/jobs/sr-project-manager-technical-data-centers?utm_source=api"
   },
   "d0ecb3e5858e601dadbe3d7f": {
     "company": "Worldwide Clinical Trials",
@@ -3114,6 +3321,15 @@
     "title": "Project Manager",
     "url": "https://himalayas.app/companies/harris/jobs/project-manager-9733311005?utm_source=api"
   },
+  "d9cb1e6d1320f8de47589333": {
+    "company": "Photon Interactive UK Limited",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792920993",
+    "source": "Himalayas",
+    "title": "QA Automation | Offshore",
+    "url": "https://himalayas.app/companies/photon-interactive-uk-limited/jobs/qa-automation-offshore?utm_source=api"
+  },
   "dc4a5f6bb2b57e5e": {
     "company": "Utility",
     "first_seen": "2026-10-18",
@@ -3176,6 +3392,15 @@
     "source": "Himalayas",
     "title": "Project Manager",
     "url": "https://himalayas.app/companies/bixal/jobs/project-manager"
+  },
+  "e38c79c959fba2e041cee992": {
+    "company": "EVERSANA",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792932545",
+    "source": "Himalayas",
+    "title": "Sr Project Manager",
+    "url": "https://himalayas.app/companies/eversana/jobs/sr-project-manager-3528167381?utm_source=api"
   },
   "e49af1c5f566c9b7": {
     "company": "Clario",
@@ -3400,6 +3625,15 @@
     "title": "Quality Assurance Lead",
     "url": "https://himalayas.app/companies/integra-partners/jobs/quality-assurance-lead?utm_source=api"
   },
+  "f28291e783d601c7865e3105": {
+    "company": "inDrive",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792930444",
+    "source": "Himalayas",
+    "title": "Project Coordinator (AI think tank initiative) - inVision",
+    "url": "https://himalayas.app/companies/indrive/jobs/project-coordinator-ai-think-tank-initiative-invision?utm_source=api"
+  },
   "f2955f88e8ec6197bd4f096d": {
     "company": "cultivate",
     "first_seen": "2026-10-21",
@@ -3531,5 +3765,14 @@
     "source": "Himalayas",
     "title": "Senior QA Engineer",
     "url": "https://himalayas.app/companies/cultivate-asia/jobs/senior-qa-engineer?utm_source=api"
+  },
+  "ff88feb13b612e778b16c2f4": {
+    "company": "Structure Therapeutics",
+    "first_seen": "2026-10-25",
+    "last_seen": "2026-10-25",
+    "published": "1792925215",
+    "source": "Himalayas",
+    "title": "Director, Global GCP QA",
+    "url": "https://himalayas.app/companies/structure-therapeutics/jobs/director-global-gcp-qa-4095772536?utm_source=api"
   }
 }
