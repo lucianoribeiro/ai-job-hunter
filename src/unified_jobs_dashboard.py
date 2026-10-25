@@ -506,45 +506,22 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             if details["expired"]:
                 extra += '<span class="recruiter-tag">Prazo informado vencido — verificar</span>'
             extra += '<details class="recruiter-original"><summary>Ver publicação original</summary><p>' + e(raw_title) + '</p></details>'
-        if contact:
-            if app_base:
-                outreach = app_base + "/applications/outreach?" + urlencode({"recipient": contact, "title": raw_title[:160], "source": item.get("url", ""), "description": str(item.get("description") or raw_title)[:2400]})
-                extra += '<a class="recruiter-outreach" target="_blank" rel="noopener noreferrer" aria-label="Preparar candidatura para o e-mail identificado" style="display:block;background:#328775;border:1px solid #75cdb8;color:white;padding:12px;border-radius:10px;text-align:center;font-weight:750;text-decoration:none;margin:12px 0" href="' + e(outreach) + '">✉ Preparar candidatura com CV →</a>'
-            else:
-                extra += '<span class="recruiter-tag">✉ E-mail identificado · configurar aplicação autenticada</span>'
-        elif app_base and str(item.get("url") or "").startswith("https://"):
-            # Google News often truncates the source before its recruiter email.
-            # Let the user provide only an address seen in the original posting.
-            extra += (
-                '<details class="recruiter-original" open style="margin-top:12px;padding:10px;border:1px solid #5eae9c;border-radius:10px"><summary style="cursor:pointer;color:#9de3d3;font-weight:750">✉ Informar e-mail do recrutador · Preparar CV</summary>'
-                '<p>Informe somente um e-mail publicado no anúncio original. Não foi possível identificá-lo no índice.</p>'
-                '<form method="get" action="' + e(app_base + "/applications/outreach") + '" target="_blank">'
-                '<label>E-mail do recrutador <input name="recipient" type="email" autocomplete="email" required maxlength="254" placeholder="recrutador@empresa.com"></label>'
-                '<input type="hidden" name="title" value="' + e(str(raw_title)[:160]) + '">'
-                '<input type="hidden" name="source" value="' + e(str(item.get("url") or "")) + '">'
-                '<input type="hidden" name="description" value="' + e(str(item.get("description") or raw_title)[:2000]) + '">'
-                '<button type="submit">✉ Preparar e-mail com CV anexado →</button></form></details>'
-            )
+        # Keep the card compact: all actions appear in a dedicated footer.
+        # The original publication remains the first, prominent action.
         # Indexed titles can contain full post excerpts; do not fabricate an employer or summary.
         link_label = "Ver vaga na fonte original" if item.get("source_kind") in ("ats", "curated") else "Ver publicação no LinkedIn"
         accessible_date = e("Data do índice público: " + published_accessible + ", horário de Brasília") if published_accessible else e(published)
         # Stable card action: rendered outside the optional excerpt/extra area.
         card_action = ""
-        if app_base and contact:
+        if app_base:
             handoff = app_base + "/applications/outreach?" + urlencode({
                 "recipient": contact, "title": str(raw_title)[:160],
                 "source": str(item.get("url") or ""),
-                "description": str(item.get("description") or raw_title)[:2400],
+                "description": str(item.get("description") or item.get("indexed_excerpt") or raw_title)[:2400],
             })
-            card_action = ('<a class="recruiter-open" target="_blank" rel="noopener noreferrer" '
-                           'aria-label="Preparar candidatura com currículo para recrutador identificado" '
-                           'href="' + e(handoff) + '">✉ Preparar candidatura com CV ↗</a>')
-        elif app_base:
-            handoff = app_base + "/applications/outreach?" + urlencode({
-                "title": str(raw_title)[:160], "source": str(item.get("url") or "")
-            })
-            card_action = ('<a class="recruiter-open" target="_blank" rel="noopener noreferrer" '
-                           'href="' + e(handoff) + '">✉ Preparar candidatura · informar e-mail ↗</a>')
+            label = "✉ Preparar candidatura com CV" if contact else "✉ Preparar CV · informar e-mail"
+            card_action = ('<a class="recruiter-cta recruiter-cta-secondary" target="_blank" rel="noopener noreferrer" '
+                           'href="' + e(handoff) + '">' + label + '</a>')
         monitor_cards.append(
             '<article class="recruiter-card" data-area="' + category + '" data-mode="' + modality + '" '
             'data-role="' + e(item.get("role") or ("Gerente de Projetos de TI" if category == "Projetos" else "")) + '" data-city="' + e(item.get("city") or (details["location"] if category == "Manufatura" else "") or "") + '" data-origin="' + e(origin) + '" data-contract="' + e(contract) + '" data-freelance="' + freelance + '" data-usd="' + ('yes' if isinstance(salary, str) and salary.startswith('US$ ') else 'no') + '">'
@@ -555,13 +532,13 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
             '<span class="recruiter-pill">Contrato: ' + e(contract) + '</span>' + ('<span class="recruiter-pill">Freelancer QA</span>' if freelance == "yes" else '') + '</div>'
             '<h3 class="recruiter-title">' + title + '</h3>'
             '<p class="recruiter-employer">Empresa: ' + e(item.get("company") or "não identificada no índice") + '</p>'
-            + card_action +
             '<div class="recruiter-extra">' + extra + '</div>'
             '<div class="recruiter-index-date"><span aria-hidden="true">◷</span> '
             '<time aria-label="' + accessible_date + '" datetime="' + e(item.get("published_at", "")) + '">'
             + e(published) + '</time><span class="recruiter-index-note">' + ("Data não informada pela fonte" if item.get("source_kind") == "ats" else "Data do índice público · horário de Brasília") + '</span></div>'
-            '<a class="recruiter-open" target="_blank" rel="noopener noreferrer" href="' + url + '">'
-            + link_label + ' ↗</a></article>'
+            '<div class="recruiter-card-actions">'
+            '<a class="recruiter-cta recruiter-cta-primary" target="_blank" rel="noopener noreferrer" href="' + url + '">'
+            + link_label + ' ↗</a>' + card_action + '</div></article>'
         )
     checked_display, checked_accessible = recruiter_index_date(monitor.get("checked_at"))
     collection_state = {
@@ -596,7 +573,7 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         '<label>Salário <select id="recruiter-usd"><option value="">Todos os salários</option><option value="yes">Somente vagas com salário em USD</option></select></label>'
         '<label>Contrato <select id="recruiter-contract"><option value="">Todos</option><option>CLT</option><option>PJ</option><option>B2B</option><option>Cooperativa</option><option value="Não informado">Não informado</option></select></label>'
         '<button type="button" id="recruiter-clear" class="recruiter-clear">Limpar Filtros</button></div>'
-        '<style>.career-hub-tabs{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 20px}.career-hub-tabs button{flex:1;min-width:180px;padding:13px;background:#283848;color:white;border:1px solid #68768c;border-radius:12px;cursor:pointer;font-weight:700}.career-hub-tabs button[aria-selected=true]{background:#397d70;border-color:#9fe6cd}.career-hub-note{color:#a8bdd0;line-height:1.6}.career-hub-form{display:grid;gap:12px;max-width:800px;padding:20px;border:1px solid #4a5b6c;border-radius:14px}.career-hub-form input,.career-hub-form textarea,.career-hub-form select{width:100%;padding:12px;border:1px solid #657489;border-radius:8px;background:#19242e;color:white}.career-hub-form button{padding:12px;background:#397d70;color:white;border:1px solid #92dfc7;border-radius:9px;cursor:pointer}.career-hub-form button:disabled{opacity:.5}.recruiter-controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding:20px;margin:20px 0 18px;border:1px solid #3b4754;border-radius:16px;background:#1b222b}.recruiter-controls label{display:flex;min-width:0;flex-direction:column;gap:8px;font-size:13px;font-weight:650;color:#dbe4ee;margin:0}.recruiter-controls select{width:100%;min-width:0;min-height:46px;padding:10px 36px 10px 12px;border:1px solid #596473;border-radius:10px;background-color:#202a35;color:#f5f7fa}.recruiter-controls select:hover{border-color:#8ba99f}.recruiter-controls select:focus-visible,.recruiter-clear:focus-visible{outline:3px solid #9fe1ca;outline-offset:2px}.recruiter-clear{align-self:end;min-height:46px;padding:11px 18px;border:1px solid #86c9b3;border-radius:10px;background:#316f61;color:#fff;font:inherit;font-weight:750;cursor:pointer;transition:background .15s,border-color .15s}.recruiter-clear:hover{background:#408b77;border-color:#b1ebd6}.recruiter-clear:active{background:#285d52}@media(max-width:950px){.recruiter-controls{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.recruiter-controls{grid-template-columns:minmax(0,1fr);padding:16px;gap:14px}.recruiter-clear{width:100%}}.recruiter-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:18px 0}.recruiter-stat{border:1px solid #465363;border-radius:12px;background:#202c39;padding:15px;display:flex;flex-direction:column;gap:5px}.recruiter-stat span,.recruiter-stat small{color:#c1d0de;font-size:13px}.recruiter-stat strong{font-size:22px;color:#f4f7fa}.recruiter-collection-status{border-left:3px solid #5ec9b3;padding:8px 12px;color:#dae8ee;font-size:14px}.recruiter-card[hidden]{display:none!important}.recruiter-card{background:#202832;border:1px solid #465363;border-radius:16px;padding:18px;min-width:0;display:flex;flex-direction:column;gap:12px;color:#e8eef5}.recruiter-badges{display:flex;gap:7px;flex-wrap:wrap}.recruiter-pill{background:#363d49;color:#e0e9f3;border-radius:99px;padding:5px 10px;font-size:12px;font-weight:600}.recruiter-pill-area{background:#314f4a;color:#bcffe9}.recruiter-pill-origin{background:#39374d;color:#eee2ff}.recruiter-title{font-size:18px;line-height:1.4;color:#f1f5f9;margin:0;overflow-wrap:anywhere}.recruiter-employer{font-size:13px;color:#d0dae5;margin:0}.recruiter-index-date{border-top:1px solid #465363;padding-top:12px;color:#e3edf7;font-size:14px}.recruiter-index-note{display:block;color:#b2c5d7;font-size:12px;margin-top:4px}.recruiter-open{display:block;margin-top:auto;text-align:center;padding:12px 14px;border-radius:10px;background:#347d6d;color:white!important;font-weight:700;text-decoration:none;min-height:44px}.recruiter-open:hover,.recruiter-open:focus-visible{background:#409582;outline-offset:3px}.recruiter-extra{overflow-wrap:anywhere}</style>'
+        '<style>.career-hub-tabs{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 20px}.career-hub-tabs button{flex:1;min-width:180px;padding:13px;background:#283848;color:white;border:1px solid #68768c;border-radius:12px;cursor:pointer;font-weight:700}.career-hub-tabs button[aria-selected=true]{background:#397d70;border-color:#9fe6cd}.career-hub-note{color:#a8bdd0;line-height:1.6}.career-hub-form{display:grid;gap:12px;max-width:800px;padding:20px;border:1px solid #4a5b6c;border-radius:14px}.career-hub-form input,.career-hub-form textarea,.career-hub-form select{width:100%;padding:12px;border:1px solid #657489;border-radius:8px;background:#19242e;color:white}.career-hub-form button{padding:12px;background:#397d70;color:white;border:1px solid #92dfc7;border-radius:9px;cursor:pointer}.career-hub-form button:disabled{opacity:.5}.recruiter-controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding:20px;margin:20px 0 18px;border:1px solid #3b4754;border-radius:16px;background:#1b222b}.recruiter-controls label{display:flex;min-width:0;flex-direction:column;gap:8px;font-size:13px;font-weight:650;color:#dbe4ee;margin:0}.recruiter-controls select{width:100%;min-width:0;min-height:46px;padding:10px 36px 10px 12px;border:1px solid #596473;border-radius:10px;background-color:#202a35;color:#f5f7fa}.recruiter-controls select:hover{border-color:#8ba99f}.recruiter-controls select:focus-visible,.recruiter-clear:focus-visible{outline:3px solid #9fe1ca;outline-offset:2px}.recruiter-clear{align-self:end;min-height:46px;padding:11px 18px;border:1px solid #86c9b3;border-radius:10px;background:#316f61;color:#fff;font:inherit;font-weight:750;cursor:pointer;transition:background .15s,border-color .15s}.recruiter-clear:hover{background:#408b77;border-color:#b1ebd6}.recruiter-clear:active{background:#285d52}@media(max-width:950px){.recruiter-controls{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.recruiter-controls{grid-template-columns:minmax(0,1fr);padding:16px;gap:14px}.recruiter-clear{width:100%}}.recruiter-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:18px 0}.recruiter-stat{border:1px solid #465363;border-radius:12px;background:#202c39;padding:15px;display:flex;flex-direction:column;gap:5px}.recruiter-stat span,.recruiter-stat small{color:#c1d0de;font-size:13px}.recruiter-stat strong{font-size:22px;color:#f4f7fa}.recruiter-collection-status{border-left:3px solid #5ec9b3;padding:8px 12px;color:#dae8ee;font-size:14px}.recruiter-card[hidden]{display:none!important}.recruiter-card{background:#202832;border:1px solid #465363;border-radius:16px;padding:18px;min-width:0;display:flex;flex-direction:column;gap:12px;color:#e8eef5}.recruiter-badges{display:flex;gap:7px;flex-wrap:wrap}.recruiter-pill{background:#363d49;color:#e0e9f3;border-radius:99px;padding:5px 10px;font-size:12px;font-weight:600}.recruiter-pill-area{background:#314f4a;color:#bcffe9}.recruiter-pill-origin{background:#39374d;color:#eee2ff}.recruiter-title{font-size:18px;line-height:1.4;color:#f1f5f9;margin:0;overflow-wrap:anywhere}.recruiter-employer{font-size:13px;color:#d0dae5;margin:0}.recruiter-index-date{border-top:1px solid #465363;padding-top:12px;color:#e3edf7;font-size:14px}.recruiter-index-note{display:block;color:#b2c5d7;font-size:12px;margin-top:4px}.recruiter-open{display:block;margin-top:auto;text-align:center;padding:12px 14px;border-radius:10px;background:#347d6d;color:white!important;font-weight:700;text-decoration:none;min-height:44px}.recruiter-open:hover,.recruiter-open:focus-visible{background:#409582;outline-offset:3px}.recruiter-extra{overflow-wrap:anywhere}.recruiter-card-actions{display:grid;gap:8px;margin-top:auto}.recruiter-cta{display:block;text-align:center;padding:12px 10px;border-radius:10px;font-size:14px;line-height:1.3;font-weight:750;text-decoration:none;min-height:46px}.recruiter-cta-primary{background:#347d6d;color:#fff!important}.recruiter-cta-secondary{background:#1a2931;border:1px solid #61bbaa;color:#c4fff0!important}.recruiter-cta:hover,.recruiter-cta:focus-visible{filter:brightness(1.17);outline:2px solid #9de3d3;outline-offset:2px}</style>'
         '<p id="recruiter-filter-empty" hidden role="status">Nenhuma publicação corresponde aos filtros selecionados. Tente outro cargo, cidade ou modalidade.</p>'
         '<div id="recruiter-list" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px">'
         + "".join(monitor_cards) + '</div>'
