@@ -6,6 +6,9 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '43 10 * * *'
+  workflow_run:
+    workflows: ['Monica Career Monitor (30min + 3 digests)']
+    types: [completed]
 
 permissions:
   contents: write
@@ -18,6 +21,8 @@ concurrency:
 
 jobs:
   publish:
+    # Never publish a stale feed after a failed monitoring run.
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -53,6 +58,7 @@ jobs:
           python -m src.hunter
           python -m src.job_history
           python -m src.strategic_companies
+          python -m src.monica_regional_discovery --sources data/project_jobs_poc.json data/strategic_jobs.json data/curated_industrial_projects.json --output data/monica_regional_sp.json --limit 300
           python -m src.regional_ats_qa --output data/regional_qa_jobs.json
           python -m src.himalayas_jobs --output data/himalayas_jobs.json
           python -m src.recruiter_monitor
@@ -70,7 +76,7 @@ jobs:
             trap 'rm -f "$profile_path"' EXIT
             chmod 600 "$profile_path"
             printf '%s' "$MONICA_PROFILE_JSON" > "$profile_path"
-            python -m src.monica_pipeline --check-links --profile "$profile_path" --projects data/project_jobs_poc.json --output site/monica-opportunities.json
+            python -m src.monica_pipeline --check-links --enrich-links --profile "$profile_path" --projects data/project_jobs_poc.json --linkedin data/monica_linkedin_jobs.json --extra-jobs data/monica_regional_sp.json --output site/monica-opportunities.json
           else
             echo 'No private Monica profile configured; publishing empty information page.'
             printf '{"profile_id":"monica","jobs":[],"privacy":"public_job_metadata_only"}\n' > site/monica-opportunities.json
