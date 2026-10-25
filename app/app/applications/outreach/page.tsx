@@ -1,4 +1,4 @@
-import {recruiterMessage} from "@/lib/recruiter-template";
+import {recruiterMessage,vacancyTitle,vacancyLanguage} from "@/lib/recruiter-template";
 import Link from "next/link";
 import {redirect} from "next/navigation";
 import {getSupabase} from "@/lib/supabase";
@@ -17,11 +17,12 @@ export default async function Outreach({searchParams}:{searchParams:Promise<{job
  ]);
  const jobs=(jobsRows??[]) as Job[],versions=(versionsRows??[]) as Version[],drafts=(draftsRows??[]) as Draft[],pdfs=(pdfRows??[]) as Pdf[];
  const params=await searchParams,external=/^https:\/\//i.test(params.source||"")&&!!params.title;
- const selected=jobs.find(j=>j.id===params.job||j.listing_url===params.source)??jobs[0];
- const displayTitle=(params.title||selected?.title||"oportunidade").slice(0,160),displayCompany=selected?.company||"empresa";
+ const selected=jobs.find(j=>j.id===params.job||j.listing_url===params.source)??(external?undefined:jobs[0]);
+ const displayTitle=vacancyTitle(params.title||selected?.title||"oportunidade"),displayCompany=selected?.company||"empresa";
+ const detectedLanguage=vacancyLanguage(params.title||displayTitle,params.description||"");
  const person=String(user.user_metadata?.full_name||user.user_metadata?.name||"").trim();
- const template=recruiterMessage({title:displayTitle,company:displayCompany==="empresa"?"":displayCompany,name:person,description:params.description||"",language:/\b(QA|SDET|Engineer|Manager|Lead|Project|Analyst)\b/i.test(displayTitle)?"en":"pt"});
- const preferredLanguage=/\b(QA|SDET|Engineer|Manager|Lead|Project|Analyst)\b/i.test(displayTitle)?"en-US":"pt-BR";
+ const template=recruiterMessage({title:displayTitle,company:displayCompany==="empresa"?"":displayCompany,name:person,description:params.description||"",language:detectedLanguage});
+ const preferredLanguage=detectedLanguage==="en"?"en-US":"pt-BR";
  const preferredPdf=pdfs.find(p=>p.language===preferredLanguage)||pdfs[0];
  const defaultSubject=template.subject;
  const defaultBody=template.body;
@@ -32,7 +33,9 @@ export default async function Outreach({searchParams}:{searchParams:Promise<{job
  <form action={createOutreachDraft} className="form">
  <label>Oportunidade<select name="opportunity_id" defaultValue={external&&!jobs.some(j=>j.listing_url===params.source)?"import":selected?.id} required>{external&&!jobs.some(j=>j.listing_url===params.source)&&<option value="import">{displayTitle} — Recruiter Monitor</option>}{jobs.map(j=><option key={j.id} value={j.id}>{j.title} — {j.company}</option>)}</select></label>
  <input type="hidden" name="listing_url" value={params.source||""}/><input type="hidden" name="listing_title" value={displayTitle}/>
+ {!params.recipient&&<p role="status">O índice público não informou um endereço de e-mail para esta vaga. Confirme no anúncio original e informe o destinatário profissional antes de continuar.</p>}
  <label>E-mail divulgado pelo recrutador<input name="recipient" type="email" required maxLength={254} defaultValue={params.recipient||""} placeholder="recrutamento@empresa.com"/></label>
+ <p role="status">Idioma identificado para o e-mail: <strong>{detectedLanguage==="en"?"Inglês":"Português"}</strong>. Revise antes de enviar.</p>
  <label>Assunto<input name="subject" required maxLength={250} defaultValue={defaultSubject}/></label>
  <label>Mensagem<textarea name="body" required rows={10} maxLength={12000} defaultValue={defaultBody}/></label>
  <label>PDF privado para anexar<select name="resume_file_id" defaultValue={preferredPdf?.id||""}><option value="">Usar currículo gerado pelo Resume Studio</option>{pdfs.map(p=><option key={p.id} value={p.id}>{p.label} ({p.language})</option>)}</select></label>
