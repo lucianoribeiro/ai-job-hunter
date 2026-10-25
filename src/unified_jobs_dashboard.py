@@ -490,6 +490,9 @@ def render(project_report, qa_jobs, linkedin_jobs=None, regional_sources=None, r
         if not contact and "SDET" in str(raw_title) and "Manual & Web/Mobile Automation with AI" in str(raw_title) and "Hyderabad" in str(raw_title):
             # Email verified against the original LinkedIn posting provided by the user.
             contact = "haridharani.s@bct-consulting.com"
+        if not contact and "SDET / QA" in str(raw_title) and "IoT & AI" in str(raw_title) and "Crystal Ball" in str(raw_title):
+            # Address visibly published in the original LinkedIn post provided by the user.
+            contact = "payal@digital-twin-solution.com"
         if category == "Manufatura":
             details = manufacturing_details(raw_title)
             fingerprint = _re.sub(r"[^a-z0-9]+", " ", raw_title.casefold().replace("linkedin", "")).strip()
