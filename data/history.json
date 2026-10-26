@@ -419,7 +419,7 @@
   "1718efd19ea573c12f0b4add": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-25",
+    "last_seen": "2026-10-26",
     "published": "2026-10-15T15:24:46-04:00",
     "source": "Greenhouse",
     "title": "Staff Program Manager, CCO Programs",
@@ -729,7 +729,7 @@
   "2a4d54ac15ae0f954aa499bf": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-25",
+    "last_seen": "2026-10-26",
     "published": "2026-10-15T15:24:46-04:00",
     "source": "Greenhouse",
     "title": "Senior Program Manager, Enterprise Technology and AI",
@@ -874,7 +874,7 @@
   "34ba7449e4691e4f7055face": {
     "company": "Spiralyze",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-25",
+    "last_seen": "2026-10-26",
     "published": "2026-10-06T19:35:42+00:00",
     "source": "Remote OK",
     "title": "Project Manager",
@@ -931,6 +931,15 @@
     "published": "2026-10-26T04:06:54+00:00",
     "salary": "",
     "score": 55,
+    "source": "Jobicy",
+    "title": "LQA Game Tester (European Spanish) - Freelance Remote",
+    "url": "https://jobicy.com/jobs/144408-lqa-game-tester-european-spanish-freelance-remote"
+  },
+  "385aa80e0657724b86217e93": {
+    "company": "Side",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "2026-10-26T04:06:54+00:00",
     "source": "Jobicy",
     "title": "LQA Game Tester (European Spanish) - Freelance Remote",
     "url": "https://jobicy.com/jobs/144408-lqa-game-tester-european-spanish-freelance-remote"
@@ -1177,6 +1186,15 @@
     "title": "Project Manager - Data & Analytics",
     "url": "https://himalayas.app/companies/thakral-one/jobs/project-manager-data-analytics?utm_source=api"
   },
+  "44bdcd2980609f564abed1b9": {
+    "company": "Intetics",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "1793029906",
+    "source": "Himalayas",
+    "title": "Senior QA Automation Engineer",
+    "url": "https://himalayas.app/companies/intetics/jobs/senior-qa-automation-engineer?utm_source=api"
+  },
   "44ebbeb07382bed43b08513c": {
     "company": "Municipal Credit Union",
     "first_seen": "2026-10-24",
@@ -1185,6 +1203,15 @@
     "source": "Himalayas",
     "title": "Software Developer QA/QC",
     "url": "https://himalayas.app/companies/municipal-credit-union/jobs/software-developer-qa-qc?utm_source=api"
+  },
+  "4634f6707d11f9c1e6725e92": {
+    "company": "Gorilla Logic",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "1792989210",
+    "source": "Himalayas",
+    "title": "QA Manual Test Engineer - AA, Remote: Colombia - Costa Rica, Fulltime",
+    "url": "https://himalayas.app/companies/gorilla-logic/jobs/qa-manual-test-engineer-aa-remote-colombia-costa-rica-fulltime-6341254522?utm_source=api"
   },
   "4645f9c54b25792a": {
     "company": "Beecruit Pte Ltd",
@@ -1323,6 +1350,15 @@
     "title": "Test Lead II - Healthcare Payer Testing",
     "url": "https://himalayas.app/companies/healthedge/jobs/test-lead-ii-healthcare-payer-testing"
   },
+  "4c2ef49a9c722fbd92b6c890": {
+    "company": "ReSource Pro",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "1793024792",
+    "source": "Himalayas",
+    "title": "Project Manager, Technology Services",
+    "url": "https://himalayas.app/companies/resource-pro/jobs/project-manager-technology-services?utm_source=api"
+  },
   "4cafcad56cf96418": {
     "company": "Bright Vision Technologies",
     "description": "",
@@ -1404,7 +1440,7 @@
   "51faec0bcc5c06023b6659e1": {
     "company": "Ace IT Careers",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-25",
+    "last_seen": "2026-10-26",
     "published": "2026-08-15T00:00:25+00:00",
     "source": "Remote OK",
     "title": "QA Tester Entry Level",
@@ -1560,6 +1596,24 @@
     "source": "Himalayas",
     "title": "Mainframe Quality Assurance Analyst",
     "url": "https://himalayas.app/companies/execrecruitment/jobs/mainframe-quality-assurance-analyst?utm_source=api"
+  },
+  "59ca450098728f5515ec57fa": {
+    "company": "Prometeo Talent",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "1793025108",
+    "source": "Himalayas",
+    "title": "Project Manager | US company | Remote 📍",
+    "url": "https://himalayas.app/companies/prometeo-talent/jobs/project-manager-us-company-remote?utm_source=api"
+  },
+  "5a2150f8d370669b07cd9a77": {
+    "company": "Apex IT",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "1792994395",
+    "source": "Himalayas",
+    "title": "Senior Consultant - Quality Analyst (QA)",
+    "url": "https://himalayas.app/companies/apex-it/jobs/senior-consultant-quality-analyst-qa?utm_source=api"
   },
   "5a25077bc131034e": {
     "company": "HII",
@@ -2204,6 +2258,24 @@
     "title": "Technical Program Manager II",
     "url": "https://himalayas.app/companies/trueml/jobs/technical-program-manager-ii?utm_source=api"
   },
+  "79147f851c56c88deb1b4367": {
+    "company": "PM Consulting",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "1792986282",
+    "source": "Himalayas",
+    "title": "Principal Test Lead",
+    "url": "https://himalayas.app/companies/pm-consulting/jobs/principal-test-lead-743490429?utm_source=api"
+  },
+  "79f98f67ee8bf749ee1d2e17": {
+    "company": "AO",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "1793024214",
+    "source": "Himalayas",
+    "title": "Architectural Project Manager - Construction Administration",
+    "url": "https://himalayas.app/companies/ao/jobs/architectural-project-manager-construction-administration?utm_source=api"
+  },
   "7a5bfce8cd92808a660cafad": {
     "company": "DYOPATH",
     "first_seen": "2026-10-19",
@@ -2715,6 +2787,15 @@
     "title": "Sr. Technical Program Manager, Data Center & Network Delivery",
     "url": "https://jobicy.com/jobs/156343-sr-technical-program-manager-data-center-network-delivery"
   },
+  "9659324a4d1e304adb57a78a": {
+    "company": "AdvantixxRCM",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "1793017080",
+    "source": "Himalayas",
+    "title": "RCM Quality Assurance & Compliance Specialist",
+    "url": "https://himalayas.app/companies/advantixxrcm/jobs/rcm-quality-assurance-compliance-specialist?utm_source=api"
+  },
   "96d27cc334fd50d9119511d9": {
     "company": "Ryze Claim Solutions",
     "first_seen": "2026-10-24",
@@ -2797,6 +2878,15 @@
     "title": "Senior SDET, Agentic Quality",
     "url": "https://himalayas.app/companies/onfleet/jobs/senior-sdet-agentic-quality?utm_source=api"
   },
+  "9b6d54e0c139c3b670e9da20": {
+    "company": "Acklen Avenue",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "1792990327",
+    "source": "Himalayas",
+    "title": "Talent Database - Sr. QA Software Engineer - India Only",
+    "url": "https://himalayas.app/companies/acklen-avenue/jobs/talent-database-sr-qa-software-engineer-india-only?utm_source=api"
+  },
   "9c0acea71e3251dbfbbfb3ee": {
     "company": "Tyfone, Inc.",
     "first_seen": "2026-10-24",
@@ -2868,7 +2958,7 @@
   "9f5d7fcbc28da96653b684a7": {
     "company": "Ramp",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-25",
+    "last_seen": "2026-10-26",
     "published": "2026-10-16T18:04:33.419+00:00",
     "source": "Ashby",
     "title": "Senior Technical Program Manager",
@@ -3042,6 +3132,15 @@
     "title": "Python Automation Test Engineer October",
     "url": "https://himalayas.app/companies/shift-boolean/jobs/python-automation-test-engineer-october?utm_source=api"
   },
+  "aa9e6b766b0ef78193116ecd": {
+    "company": "Day Translations, Inc.",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "1793012858",
+    "source": "Himalayas",
+    "title": "Night time Localization & Interpreting Project Manager",
+    "url": "https://himalayas.app/companies/day-translations-inc/jobs/night-time-localization-interpreting-project-manager-6765078522?utm_source=api"
+  },
   "aac39f4087610c4e": {
     "company": "SwissPeak Partners GmbH",
     "description": "",
@@ -3177,6 +3276,15 @@
     "source": "Himalayas",
     "title": "GTM Project Manager",
     "url": "https://himalayas.app/companies/ixopay/jobs/gtm-project-manager?utm_source=api"
+  },
+  "b214b1ef75be7988292428b6": {
+    "company": "AA Inclusion",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "1793020505",
+    "source": "Himalayas",
+    "title": "Clinical Trial Manager/Project Manager (US-East-Coast Remote)",
+    "url": "https://himalayas.app/companies/aa-inclusion/jobs/clinical-trial-manager-project-manager-us-east-coast-remote-4058957259?utm_source=api"
   },
   "b23e68b13f80c2cb": {
     "company": "Playson",
@@ -3314,7 +3422,7 @@
   "b7663c5ee88cd4e007fd8ca8": {
     "company": "SwissPeak Partners GmbH",
     "first_seen": "2026-10-25",
-    "last_seen": "2026-10-25",
+    "last_seen": "2026-10-26",
     "published": "1792899069",
     "source": "Arbeitnow",
     "title": "Software Test Engineer",
@@ -3451,6 +3559,15 @@
     "source": "Himalayas",
     "title": "Senior Environmental Project Manager",
     "url": "https://himalayas.app/companies/quanta-infrastructure-solutions-group/jobs/senior-environmental-project-manager?utm_source=api"
+  },
+  "c00d64e353a706dd2d6dedea": {
+    "company": "NorthMark Strategies LLC",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "1793030668",
+    "source": "Himalayas",
+    "title": "Infrastructure Delivery Program Manager",
+    "url": "https://himalayas.app/companies/northmark-strategies-llc/jobs/infrastructure-delivery-program-manager?utm_source=api"
   },
   "c086cbcd873b7c6ac594c215": {
     "company": "Prism Studio",
@@ -3634,7 +3751,7 @@
   "c643ca1ab0148a831a238994": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-25",
+    "last_seen": "2026-10-26",
     "published": "2026-10-15T15:24:46-04:00",
     "source": "Greenhouse",
     "title": "Principal Technical Program Manager",
@@ -3739,6 +3856,15 @@
     "source": "Himalayas",
     "title": "QA Engineer — CTRM Platform",
     "url": "https://himalayas.app/companies/raw-ventures/jobs/qa-engineer-ctrm-platform?utm_source=api"
+  },
+  "ce933ce161941246e1607f54": {
+    "company": "American College of Education",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "1792997837",
+    "source": "Himalayas",
+    "title": "Quality Assurance Analyst",
+    "url": "https://himalayas.app/companies/american-college-of-education/jobs/quality-assurance-analyst?utm_source=api"
   },
   "cf3e13bd1340659d": {
     "company": "StackAdapt",
@@ -3999,6 +4125,15 @@
     "title": "Strategic Program Manager - Boston",
     "url": "https://himalayas.app/companies/fictiv/jobs/strategic-program-manager-boston?utm_source=api"
   },
+  "e1dc8775af2f98d983020152": {
+    "company": "Bright Vision Technologies",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "1792989773",
+    "source": "Himalayas",
+    "title": "SDET Engineer",
+    "url": "https://himalayas.app/companies/bright-vision-technologies/jobs/sdet-engineer-6268010072?utm_source=api"
+  },
   "e20a890ac92a79abb43c000b": {
     "company": "AmerisourceBergen",
     "first_seen": "2026-10-21",
@@ -4049,6 +4184,15 @@
     "title": "Software Tester",
     "url": "https://himalayas.app/companies/softtest-pays-pty-ltd/jobs/software-tester?utm_source=api"
   },
+  "e72e0f545e4df3716007b3d7": {
+    "company": "Fortive",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "1793004598",
+    "source": "Himalayas",
+    "title": "Quality Assurance Engineering",
+    "url": "https://himalayas.app/companies/fortive/jobs/quality-assurance-engineering?utm_source=api"
+  },
   "e81e9e9a16e5b84a": {
     "company": "Docplanner",
     "first_seen": "2026-10-18",
@@ -4080,6 +4224,15 @@
     "source": "Himalayas",
     "title": "QA Manual Test Engineer - AA, Remote: Colombia - Costa Rica, Fulltime",
     "url": "https://himalayas.app/companies/gorilla-logic/jobs/qa-manual-test-engineer-aa-remote-colombia-costa-rica-fulltime-6341254522?utm_source=api"
+  },
+  "e8e564d99db10bdfcb1d0c21": {
+    "company": "ExecRecruitment",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "1792986983",
+    "source": "Himalayas",
+    "title": "Mainframe Quality Assurance Analyst",
+    "url": "https://himalayas.app/companies/execrecruitment/jobs/mainframe-quality-assurance-analyst?utm_source=api"
   },
   "e8ea8b8261eaa7ccd4695889": {
     "company": "Softtest pays pty ltd",
@@ -4159,6 +4312,15 @@
     "title": "Senior Clinical Project Manager",
     "url": "https://jobicy.com/jobs/157158-senior-clinical-project-manager"
   },
+  "ea19384eb4aa1d2d20a63750": {
+    "company": "Precision Medicine Group",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "2026-10-26T10:55:53+00:00",
+    "source": "Jobicy",
+    "title": "Senior Clinical Project Manager",
+    "url": "https://jobicy.com/jobs/157158-senior-clinical-project-manager"
+  },
   "eba9051c2e79b6cab050c139": {
     "company": "1VALET",
     "first_seen": "2026-10-24",
@@ -4199,6 +4361,15 @@
     "source": "Himalayas",
     "title": "Principal Program Manager",
     "url": "https://himalayas.app/companies/odyssey-systems-consulting-group-ltd/jobs/principal-program-manager?utm_source=api"
+  },
+  "eed680816f3c263c359fef6e": {
+    "company": "Inspekt AI",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "1793026850",
+    "source": "Himalayas",
+    "title": "Project Manager (Boston)",
+    "url": "https://himalayas.app/companies/inspekt-ai/jobs/project-manager-boston?utm_source=api"
   },
   "ef8d0060e080d7c0": {
     "company": "Spiralyze",
@@ -4449,6 +4620,15 @@
     "source": "Himalayas",
     "title": "QA Engineer – Automation",
     "url": "https://himalayas.app/companies/bright-vision-technologies/jobs/qa-engineer-automation-1643666882?utm_source=api"
+  },
+  "feb21c168838b6459021d526": {
+    "company": "Syneos Health India Private Limited",
+    "first_seen": "2026-10-26",
+    "last_seen": "2026-10-26",
+    "published": "1793025705",
+    "source": "Himalayas",
+    "title": "Project Manager II - Mexico, Argentina, Brazil, Chile or Colombia - Remote",
+    "url": "https://himalayas.app/companies/syneos-health-india-private-limited/jobs/project-manager-ii-mexico-argentina-brazil-chile-or-colombia-remote-8112960938?utm_source=api"
   },
   "feea81d6d943fd5ec143a61d": {
     "company": "Photon Interactive UK Limited",
