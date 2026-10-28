@@ -56,7 +56,13 @@ def embed(page: Path, report: Path) -> None:
     marker = '<div id="mainPanelGeneral" class="primary-panel" role="tabpanel" aria-labelledby="mainTabGeneral">'
     if marker not in source:
         raise ValueError("Public General tab marker missing; cannot publish Hidden Job section")
-    source = source.replace(marker, marker + section, 1)
+    shortcut = ('<nav aria-label="Atalhos de oportunidades" style="margin:16px 0">'
+                '<a href="#hidden-opportunities-agent-reach" '
+                'style="display:inline-block;background:#51418c;color:#fff;padding:12px 18px;'
+                'border-radius:12px;text-decoration:none;font-weight:700">'
+                'Hidden Opportunities · Agent Reach (experimental)</a>'
+                '</nav>')
+    source = source.replace(marker, marker + shortcut + section, 1)
     page.write_text(source, encoding="utf-8")
 
 if __name__ == "__main__":
