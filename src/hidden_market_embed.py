@@ -22,14 +22,33 @@ def embed(page: Path, report: Path) -> None:
     reach_path = Path("data/hidden_opportunities.json")
     if reach_path.exists():
         reach = json.loads(reach_path.read_text(encoding="utf-8"))
-        reach_cards = "".join(
-            '<article style="padding:12px;border:1px solid #425875;border-radius:10px;margin:10px 0">'
-            '<strong>Hidden Opportunity · Potencial</strong>'
-            '<p>' + escape(it.get("excerpt", "")[:320]) + '</p>'
-            '<a target="_blank" rel="noopener noreferrer" href="' + escape(it["url"]) + '">Evidência pública</a>'
-            '<p>Fonte: Agent Reach · Brasil e remuneração não verificados</p></article>'
-            for it in reach.get("items", [])[:20] if str(it.get("url", "")).startswith("https://")
-        )
+        def card(it: dict) -> str:
+            url = str(it.get("url") or "")
+            if not url.startswith("https://"):
+                return ""
+            excerpt = str(it.get("excerpt") or "").strip()
+            title = str(it.get("title") or excerpt.split(" # ")[0])[:150]
+            # An advertised job is accessible but not a hidden opportunity.
+            advertised = any(term in excerpt.lower() for term in (
+                "contract qa lead:", "salary:", "£ / year", "at a glance - tasks",
+                "apply now", "apply here", "applications are open"))
+            kind = "Vaga pública identificada · verificar" if advertised else "Hidden Opportunity · Potencial — não confirmado"
+            detail = ("Esta publicação parece descrever uma vaga já anunciada, não uma oportunidade oculta."
+                      if advertised else
+                      "A publicação não confirma a existência de uma vaga oculta.")
+            return (
+                '<article style="padding:16px;border:1px solid #425875;border-radius:10px;margin:10px 0">'
+                '<strong>' + escape(title or "Publicação sobre QA") + '</strong>'
+                '<p>' + escape(kind) + '</p>'
+                '<p>' + escape(excerpt[:450]) + '</p>'
+                '<p>' + escape(detail) + '</p>'
+                '<p><a href="' + escape(url) + '" target="_blank" rel="noopener noreferrer" '
+                'style="display:inline-block;background:#287c75;color:white;padding:10px 14px;border-radius:8px;'
+                'text-decoration:none;font-weight:700">Abrir publicação original ↗</a></p>'
+                '<p style="overflow-wrap:anywhere;font-size:.85em">Endereço: '
+                '<a target="_blank" rel="noopener noreferrer" href="' + escape(url) + '">' + escape(url) + '</a></p>'
+                '<p>Elegibilidade no Brasil, remuneração e disponibilidade: não verificadas.</p></article>')
+        reach_cards = "".join(card(it) for it in reach.get("items", [])[:20])
         reach_section = (
             '<div id="hidden-opportunities-agent-reach" style="border-top:1px solid #425875;padding-top:16px;margin-top:16px">'
             '<h3>Hidden Opportunities · Agent Reach (experimental)</h3>'
