@@ -49,5 +49,21 @@ class AgentReachHiddenTests(unittest.TestCase):
     def test_fail_closed_on_unstructured_text(self):
         self.assertEqual(structured_results("text https://www.linkedin.com/in/person hiring QA"), [])
 
+
+    def test_rejects_applicant_academic_and_old_jobs(self):
+        candidates = [
+            {"url": "https://www.linkedin.com/feed/update/urn:li:activity:123", "excerpt": "Open to New Opportunities | Quality Engineering. Looking for hiring managers"},
+            {"url": "https://doi.org/10.1016/test", "excerpt": "Creating a quality assurance function; hiring was studied"},
+            {"url": "https://startup.jobs/qa-lead-test", "excerpt": "Hiring QA lead. Job is no longer available and isn't accepting applications"},
+            {"url": "https://www.mu.se/positions/test", "excerpt": "Hiring Head of Quality Engineering"},
+        ]
+        self.assertEqual(classify(candidates)["signals"], 0)
+
+    def test_preserves_relevant_public_social_post(self):
+        report = classify([{"url": "https://www.linkedin.com/posts/company_quality-scale-123",
+                            "excerpt": "We are building our quality engineering leadership function and hiring."}])
+        self.assertEqual(report["signals"], 1)
+        self.assertEqual(report["items"][0]["role_relevance"], "leadership")
+
 if __name__ == "__main__":
     unittest.main()
