@@ -31,6 +31,28 @@ def embed(page: Path, report: Path) -> None:
         ' · <strong>Falhas:</strong> ' + escape(data.get("companies_failed", 0)) +
         ' · <strong>Sinais:</strong> ' + escape(len(items)) + '</p>'
         + ("".join(cards) if cards else '<p>Nenhum sinal encontrado nesta coleta.</p>') + '</section>')
+    # Optional Agent Reach signals: separate evidence from confirmed job listings.
+    reach_path = Path("data/hidden_opportunities.json")
+    if reach_path.exists():
+        reach = json.loads(reach_path.read_text(encoding="utf-8"))
+        reach_cards = "".join(
+            '<article style="padding:12px;border:1px solid #425875;border-radius:10px;margin:10px 0">'
+            '<strong>Hidden Opportunity · Potencial</strong>'
+            '<p>' + escape(it.get("excerpt", "")[:320]) + '</p>'
+            '<a target="_blank" rel="noopener noreferrer" href="' + escape(it["url"]) + '">Evidência pública</a>'
+            '<p>Fonte: Agent Reach · Brasil e remuneração não verificados</p></article>'
+            for it in reach.get("items", [])[:20] if str(it.get("url", "")).startswith("https://")
+        )
+        reach_section = (
+            '<div id="hidden-opportunities-agent-reach" style="border-top:1px solid #425875;padding-top:16px;margin-top:16px">'
+            '<h3>Hidden Opportunities · Agent Reach (experimental)</h3>'
+            '<p>Publicações sobre possíveis necessidades de QA, não vagas confirmadas. '
+            'URLs não encontradas no CSV não comprovam oportunidades inéditas.</p>'
+            '<p>Registros examinados: ' + escape(reach.get("records_examined", 0))
+            + ' · Sinais potenciais: ' + escape(reach.get("signals", 0))
+            + ' · Coleta: ' + escape(reach.get("collector_status", "desconhecido")) + '</p>'
+            + (reach_cards or '<p>Nenhum sinal qualificado nesta coleta.</p>') + '</div>')
+        section = section.replace('</section>', reach_section + '</section>', 1)
     marker = '<div id="mainPanelGeneral" class="primary-panel" role="tabpanel" aria-labelledby="mainTabGeneral">'
     if marker not in source:
         raise ValueError("Public General tab marker missing; cannot publish Hidden Job section")
