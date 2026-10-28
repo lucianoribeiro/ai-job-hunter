@@ -49,6 +49,27 @@ jobs:
           name: pages-test-diagnostics
           path: diagnostics/
           if-no-files-found: ignore
+      - name: Install Agent Reach public search (experimental)
+        continue-on-error: true
+        run: |
+          python -m pip install uv
+          uv tool install https://github.com/Panniantong/Agent-Reach/releases/latest/download/agent-reach.zip
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Collect optional Hidden Opportunities evidence
+        run: |
+          PATH="$HOME/.local/bin:$PATH" python -m src.agent_reach_hidden
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r = json.loads(Path("data/hidden_opportunities.json").read_text())
+          print("HIDDEN_OPPORTUNITIES_METRICS", json.dumps({
+            "collector_status": r["collector_status"],
+            "records_examined": r["records_examined"],
+            "signals": r["signals"],
+            "not_in_baseline_by_url": r["not_in_baseline_by_url"],
+            "errors": r.get("errors", [])[:3],
+          }))
+          PY
       - name: Collect only publicly listed jobs
         env:
           CAREER_APP_URL: ${{ vars.CAREER_APP_URL }}
@@ -66,6 +87,7 @@ jobs:
           python -m src.linkedin_history
           python -m src.unified_jobs_dashboard --projects data/project_jobs_poc.json --qa data/jobs.csv --output site/index.html
           python -m src.hidden_market_embed
+          grep -q 'id="hidden-opportunities-agent-reach"' site/index.html
       - name: Generate Monica opportunity assessments (private profile optional)
         env:
           MONICA_PROFILE_JSON: ${{ secrets.MONICA_PROFILE_JSON }}
