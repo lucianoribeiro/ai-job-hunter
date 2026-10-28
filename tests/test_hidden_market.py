@@ -25,10 +25,10 @@ class HiddenMarketTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             path = Path(td) / "jobs.csv"
             path.write_text(
-                "url,company\\n"
-                "https://jobs.lever.co/example/abc,Example\\n"
-                "https://jobs.lever.co/example/def,Example\\n"
-                "https://evil.example/jobs.lever.co/hack/one,Malicious\\n", encoding="utf-8")
+                "url,company\n"
+                "https://jobs.lever.co/example/abc,Example\n"
+                "https://jobs.lever.co/example/def,Example\n"
+                "https://evil.example/jobs.lever.co/hack/one,Malicious\n", encoding="utf-8")
             boards = discover_boards({"company_boards": []}, path)
             self.assertEqual(len(boards), 1)
             self.assertEqual(boards[0]["slug"], "example")
