@@ -44,7 +44,7 @@ class HiddenMarketTests(unittest.TestCase):
     def test_new_qa_comparison_against_csv(self):
         with tempfile.TemporaryDirectory() as td:
             path = Path(td) / "jobs.csv"
-            path.write_text("url,company\\nhttps://example.org/known?track=1,Example\\n", encoding="utf-8")
+            path.write_text("url,company\nhttps://example.org/known?track=1,Example\n", encoding="utf-8")
             items = [{"company": "Example", "qa_openings": [
                 {"title": "QA Lead", "url": "https://example.org/known"},
                 {"title": "QE Manager", "url": "https://example.org/new"}]}]
