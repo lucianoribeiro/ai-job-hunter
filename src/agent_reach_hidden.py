@@ -77,8 +77,11 @@ def classify(records: list[dict], known_urls: set[str] | None = None) -> dict:
         social_post = host in ("www.linkedin.com", "linkedin.com") and path.startswith(("/posts/", "/feed/update/"))
         article = (not host.endswith("linkedin.com") and
                    not any(token in host for token in ("jobs.", "careers.", "indeed.", "remoteotter.", "lever.co", "greenhouse.io", "ashbyhq.com")) and
-                   not any(token in path for token in ("/jobs/", "/job/", "/search", "/q-")))
-        if not (social_post or article) or not (QA.search(excerpt) and INTENT.search(excerpt)):
+                   not any(token in path for token in ("/jobs/", "/job/", "/search", "/q-", "/position", "/positions/", "/joburi/")) and host not in ("doi.org", "startup.jobs", "rabota.md", "www.rabota.md"))
+        applicant = re.search(r"\\b(?:open to (?:new )?opportunities|looking for (?:a )?(?:new )?job|seeking employment)\\b", excerpt, re.I)
+        public_vacancy = re.search(r"\\b(?:apply now|apply here|applications? (?:are )?open|join (?:our|the) team (?:as|in)|job is no longer available|not accepting applications)\\b", excerpt, re.I)
+        if (not (social_post or article) or not (QA.search(excerpt) and INTENT.search(excerpt))
+                or applicant or public_vacancy):
             rejected += 1
             continue
         accepted.append({
