@@ -111,6 +111,36 @@ jobs:
             data/hidden_market.json
             data/hidden_market.html
           if-no-files-found: error
+      - name: Install official Agent Reach for isolated public-web test
+        continue-on-error: true
+        run: |
+          python -m pip install uv
+          uv tool install https://github.com/Panniantong/Agent-Reach/releases/latest/download/agent-reach.zip
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          "$HOME/.local/bin/agent-reach" version
+      - name: Test public Hidden Opportunities discovery
+        run: |
+          PATH="$HOME/.local/bin:$PATH" python -m src.agent_reach_hidden
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d = json.loads(Path("data/hidden_opportunities.json").read_text())
+          print("AGENT_REACH_REAL_METRICS " + json.dumps({
+              "status": d["collector_status"],
+              "records_examined": d["records_examined"],
+              "signals": d["signals"],
+              "not_in_baseline_by_url": d["not_in_baseline_by_url"],
+              "errors": d["errors"][:5]
+          }))
+          PY
+      - name: Upload Agent Reach public-web evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent-reach-hidden-opportunities-poc
+          path: |
+            data/hidden_opportunities.json
+            data/hidden_opportunities.html
+          if-no-files-found: error
       - name: Synthetic smoke test
         run: |
           mkdir -p data
