@@ -30,7 +30,7 @@ QA = re.compile(r"\b(?:qa|qe|quality assurance|quality engineering|software qual
 INTENT = re.compile(r"\b(?:hiring|hire|recruiting|looking for|seeking|building (?:our|a|the) (?:qa|quality|test)|expanding (?:our|the) (?:qa|quality|test)|establishing (?:a|our) (?:qa|quality|test))\b", re.I)
 LINK = re.compile(r"https?://[^\s<>\]\[)(']+", re.I)
 
-LEAD = re.compile(r"\b(?:lead|manager|head|director|principal|staff|coordinator)\b", re.I)
+LEAD = re.compile(r"\b(?:lead|manager|head|director|principal|staff|coordinator|leadership)\b", re.I)
 def structured_results(output: str) -> list[dict]:
     """Only use a URL with the corresponding result title and snippet."""
     try:
@@ -78,8 +78,8 @@ def classify(records: list[dict], known_urls: set[str] | None = None) -> dict:
         article = (not host.endswith("linkedin.com") and
                    not any(token in host for token in ("jobs.", "careers.", "indeed.", "remoteotter.", "lever.co", "greenhouse.io", "ashbyhq.com")) and
                    not any(token in path for token in ("/jobs/", "/job/", "/search", "/q-", "/position", "/positions/", "/joburi/")) and host not in ("doi.org", "startup.jobs", "rabota.md", "www.rabota.md"))
-        applicant = re.search(r"\\b(?:open to (?:new )?opportunities|looking for (?:a )?(?:new )?job|seeking employment)\\b", excerpt, re.I)
-        public_vacancy = re.search(r"\\b(?:apply now|apply here|applications? (?:are )?open|join (?:our|the) team (?:as|in)|job is no longer available|not accepting applications)\\b", excerpt, re.I)
+        applicant = re.search(r"\b(?:open to (?:new )?opportunities|looking for (?:a )?(?:new )?job|seeking employment)\b", excerpt, re.I)
+        public_vacancy = re.search(r"\b(?:apply now|apply here|applications? (?:are )?open|join (?:our|the) team (?:as|in)|job is no longer available|not accepting applications)\b", excerpt, re.I)
         if (not (social_post or article) or not (QA.search(excerpt) and INTENT.search(excerpt))
                 or applicant or public_vacancy):
             rejected += 1
