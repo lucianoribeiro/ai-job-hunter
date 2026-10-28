@@ -30,6 +30,31 @@ QA = re.compile(r"\b(?:qa|qe|quality assurance|quality engineering|software qual
 INTENT = re.compile(r"\b(?:hiring|hire|recruiting|looking for|seeking|building (?:our|a|the) (?:qa|quality|test)|expanding (?:our|the) (?:qa|quality|test)|establishing (?:a|our) (?:qa|quality|test))\b", re.I)
 LINK = re.compile(r"https?://[^\s<>\]\[)(']+", re.I)
 
+LEAD = re.compile(r"\b(?:lead|manager|head|director|principal|staff|coordinator)\b", re.I)
+def structured_results(output: str) -> list[dict]:
+    """Only use a URL with the corresponding result title and snippet."""
+    try:
+        root = json.loads(output)
+    except (ValueError, TypeError):
+        return []
+    found = []
+    def visit(node):
+        if isinstance(node, list):
+            for child in node:
+                visit(child)
+        elif isinstance(node, dict):
+            url = node.get("url") or node.get("link")
+            title = node.get("title") or ""
+            snippet = node.get("snippet") or node.get("description") or node.get("text") or ""
+            if isinstance(url, str) and isinstance(title, str) and isinstance(snippet, str) and (title or snippet):
+                found.append({"url": url, "excerpt": (title + " " + snippet)[:1200], "title": title})
+                return
+            for key in ("results", "items", "data", "organic", "posts"):
+                if key in node:
+                    visit(node[key])
+    visit(root)
+    return found
+
 
 def canonical(url: str) -> str:
     parts = urlsplit(url.strip().rstrip(".,;"))
@@ -47,7 +72,13 @@ def classify(records: list[dict], known_urls: set[str] | None = None) -> dict:
         if not url or url in seen:
             continue
         seen.add(url)
-        if not (QA.search(excerpt) and INTENT.search(excerpt)):
+        host = (urlsplit(url).hostname or "").lower()
+        path = urlsplit(url).path.lower()
+        social_post = host in ("www.linkedin.com", "linkedin.com") and path.startswith(("/posts/", "/feed/update/"))
+        article = (not host.endswith("linkedin.com") and
+                   not any(token in host for token in ("jobs.", "careers.", "indeed.", "remoteotter.", "lever.co", "greenhouse.io", "ashbyhq.com")) and
+                   not any(token in path for token in ("/jobs/", "/job/", "/search", "/q-")))
+        if not (social_post or article) or not (QA.search(excerpt) and INTENT.search(excerpt)):
             rejected += 1
             continue
         accepted.append({
@@ -56,7 +87,7 @@ def classify(records: list[dict], known_urls: set[str] | None = None) -> dict:
             "excerpt": excerpt,
             "source": "Agent Reach / public web",
             "status": "potential_unconfirmed",
-            "role_relevance": "quality_engineering",
+            "role_relevance": "leadership" if LEAD.search(excerpt) else "general_qa",
             "already_known_url": url in known_urls,
             "evidence_type": "public_search_excerpt",
             "verified_hidden_opening": False,
@@ -88,12 +119,10 @@ def search_agent_reach() -> tuple[list[dict], list[dict]]:
             if result.returncode:
                 errors.append({"query": query, "error": result.stderr[:250] or "nonzero exit"})
                 continue
-            output = result.stdout[:35000]
-            # Agent Reach channel output may be plain text and change across versions.
-            # Preserve only locally adjacent text with each public HTTPS result.
-            for match in LINK.finditer(output):
-                start, end = max(0, match.start() - 220), min(len(output), match.end() + 400)
-                found.append({"url": match.group(), "excerpt": output[start:end], "query": query})
+            parsed = structured_results(result.stdout[:100000])
+            if not parsed:
+                errors.append({"query": query, "error": "No parseable structured results"})
+            found.extend({**row, "query": query} for row in parsed)
         except (OSError, subprocess.TimeoutExpired) as exc:
             errors.append({"query": query, "error": str(exc)[:250]})
     return found, errors
