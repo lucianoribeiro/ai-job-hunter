@@ -56,6 +56,7 @@ jobs:
           mkdir -p data site
           python -m src.project_jobs_poc --config config/project_boards.example.json --output data/project_jobs_poc.json
           python -m src.hunter
+          python -m src.hidden_market
           python -m src.job_history
           python -m src.strategic_companies
           python -m src.monica_regional_discovery --sources data/project_jobs_poc.json data/strategic_jobs.json data/curated_industrial_projects.json --output data/monica_regional_sp.json --limit 300
@@ -64,6 +65,7 @@ jobs:
           python -m src.recruiter_monitor
           python -m src.linkedin_history
           python -m src.unified_jobs_dashboard --projects data/project_jobs_poc.json --qa data/jobs.csv --output site/index.html
+          python -m src.hidden_market_embed
       - name: Generate Monica opportunity assessments (private profile optional)
         env:
           MONICA_PROFILE_JSON: ${{ secrets.MONICA_PROFILE_JSON }}
@@ -133,6 +135,7 @@ jobs:
           grep -q 'id="municipal-jobs"' site/index.html
           grep -q 'AI Career Studio' site/index.html
           grep -q 'DASHBOARD PREMIUM' site/index.html
+          grep -q 'id="hidden-job-market"' site/index.html
           grep -q 'id="regionalCompany"' site/index.html
           grep -q 'id="regionalCards"' site/index.html
           grep -q 'id="monica-inline"' site/index.html
