@@ -73,6 +73,36 @@ def investigate(records: list[dict], known_urls: set[str] | None = None) -> dict
     }
 
 
+def update_history(report: dict, history_path: Path) -> dict:
+    """Persist first/last observed evidence across runs; never infer vacancies."""
+    previous = json.loads(history_path.read_text(encoding="utf-8")) if history_path.exists() else {"items": {}}
+    known = previous.get("items", {})
+    if not isinstance(known, dict):
+        raise ValueError("History items must be a dictionary")
+    stamp = report["generated_at"]
+    new, repeats = 0, 0
+    for item in report["items"]:
+        key = item["id"]
+        if key in known:
+            repeats += 1
+            first = known[key].get("first_seen_at", stamp)
+        else:
+            new += 1
+            first = stamp
+        item["first_seen_at"] = first
+        item["last_seen_at"] = stamp
+        item["observation"] = "new_signal" if key not in known else "seen_before"
+        known[key] = {"evidence_url": item["evidence_url"],
+                      "first_seen_at": first, "last_seen_at": stamp,
+                      "status": "potential_unconfirmed"}
+    report["new_signals_this_run"] = new
+    report["repeated_signals_this_run"] = repeats
+    report["history_total_signals"] = len(known)
+    history_path.parent.mkdir(parents=True, exist_ok=True)
+    history_path.write_text(json.dumps({"items": known, "updated_at": stamp}, ensure_ascii=False, indent=2), encoding="utf-8")
+    return report
+
+
 def report_html(data: dict) -> str:
     esc = lambda v: html.escape(str(v), quote=True)
     cards = "".join(
@@ -91,11 +121,13 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", type=Path, required=True, help="JSON list of public structured evidence")
     parser.add_argument("--output-dir", type=Path, default=Path("artifacts/hidden-opportunities-lab"))
+    parser.add_argument("--history", type=Path, help="Explicit independent history path; defaults under output-dir")
     args = parser.parse_args()
     rows = json.loads(args.input.read_text(encoding="utf-8"))
     if not isinstance(rows, list):
         raise ValueError("Expected a JSON list")
     report = investigate(rows)
+    update_history(report, args.history or args.output_dir / "history.json")
     args.output_dir.mkdir(parents=True, exist_ok=True)
     (args.output_dir / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     (args.output_dir / "report.html").write_text(report_html(report), encoding="utf-8")
