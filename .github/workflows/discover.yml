@@ -43,6 +43,8 @@ jobs:
         run: python -m src.linkedin_history
       - name: Calculate market intelligence
         run: python -m src.market_intelligence
+      - name: Discover hidden job market signals
+        run: python -m src.hidden_market
       - name: Generate dashboard
         run: python -m src.dashboard
       - name: Upload reports
@@ -61,11 +63,13 @@ jobs:
             data/ai_insights.json
             data/strategic_jobs.json
             data/recruiter_monitor.json
+            data/hidden_market.json
+            data/hidden_market.html
       - name: Persist reports and review history
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/jobs.csv data/report.md data/applications.md data/history.json data/applications.json data/dashboard.html data/ai_insights.json data/strategic_jobs.json data/recruiter_monitor.json data/linkedin_history.json data/market_insights.json
+          git add data/jobs.csv data/report.md data/applications.md data/history.json data/applications.json data/dashboard.html data/ai_insights.json data/strategic_jobs.json data/recruiter_monitor.json data/linkedin_history.json data/market_insights.json data/hidden_market.json data/hidden_market.html
           if ! git diff --cached --quiet; then
             git commit -m "chore: refresh QA opportunity and review reports"
             git push
@@ -104,7 +108,9 @@ jobs:
           python -m src.ai_advisor
           python -m src.strategic_companies --config config/strategic_companies.test.json
           python -m src.market_intelligence
+          python -m src.hidden_market
           python -m src.dashboard
+          test -s data/hidden_market.html
           test -s data/dashboard.html
           test -s data/applications.json
           grep -q 'Senior QA Lead' data/dashboard.html
