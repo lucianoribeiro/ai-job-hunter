@@ -5,12 +5,13 @@ in config.json are checked; no people or private contact data are scraped.
 """
 from __future__ import annotations
 
+import csv
 import html
 import json
 import re
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import quote
+from urllib.parse import quote, urlsplit, unquote
 
 from src.hunter import CONFIG, DATA, fetch_json
 
@@ -69,9 +70,44 @@ def evaluate(board: dict, jobs: list[dict]) -> dict:
     }
 
 
+
+def discover_boards(config: dict, jobs_path: Path | None = None) -> list[dict]:
+    """Expand the watchlist only from existing public ATS job URLs."""
+    boards = list(config.get("company_boards", []))
+    existing = {(str(b.get("provider")), str(b.get("slug")).casefold()) for b in boards}
+    path = jobs_path or DATA / "jobs.csv"
+    if not path.exists():
+        return boards
+    with path.open(encoding="utf-8-sig", newline="") as stream:
+        reader = csv.DictReader(stream)
+        for job in reader:
+            url = str(job.get("url") or "")
+            parsed = urlsplit(url)
+            host = (parsed.hostname or "").lower()
+            parts = [unquote(x) for x in parsed.path.strip("/").split("/") if x]
+            provider = slug = None
+            if host in ("boards.greenhouse.io", "job-boards.greenhouse.io") and len(parts) >= 2:
+                provider, slug = "greenhouse", parts[0]
+            elif host == "jobs.lever.co" and len(parts) >= 2:
+                provider, slug = "lever", parts[0]
+            elif host == "jobs.ashbyhq.com" and len(parts) >= 2:
+                provider, slug = "ashby", parts[0]
+            if not provider or not slug or not re.fullmatch(r"[a-zA-Z0-9_-]{2,80}", slug):
+                continue
+            key = provider, slug.casefold()
+            if key in existing:
+                continue
+            existing.add(key)
+            boards.append({"provider": provider, "slug": slug,
+                           "company": str(job.get("company") or slug)[:100]})
+            if len(boards) >= 50:
+                break
+    return boards
+
+
 def collect(config: dict) -> dict:
     items, errors = [], []
-    for board in config.get("company_boards", []):
+    for board in discover_boards(config):
         if board.get("provider") not in ("greenhouse", "lever", "ashby") or not board.get("slug"):
             continue
         try:
