@@ -100,7 +100,10 @@ jobs:
               "companies_checked": r["companies_checked"],
               "companies_failed": r["companies_failed"],
               "signals": sum(x["signal"] == "engineering_hiring_without_public_qa_listing" for x in r["items"]),
-              "evidence_links": sum(len(x["evidence"]) for x in r["items"])
+              "evidence_links": sum(len(x["evidence"]) for x in r["items"]),
+              "public_qa_openings": r["comparison"]["qa_public_openings"],
+              "qa_already_collected": r["comparison"]["qa_already_collected"],
+              "qa_not_in_baseline": r["comparison"]["qa_not_in_baseline"]
           }))
           PY
       - name: Upload real hidden-market evidence

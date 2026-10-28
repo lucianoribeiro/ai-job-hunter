@@ -1,7 +1,7 @@
 import unittest
 import tempfile
 from pathlib import Path
-from src.hidden_market import evaluate, render, discover_boards
+from src.hidden_market import evaluate, render, discover_boards, compare_known_jobs, REMOTE
 
 
 class HiddenMarketTests(unittest.TestCase):
@@ -32,6 +32,25 @@ class HiddenMarketTests(unittest.TestCase):
             boards = discover_boards({"company_boards": []}, path)
             self.assertEqual(len(boards), 1)
             self.assertEqual(boards[0]["slug"], "example")
+
+    def test_remote_pattern_and_new_qa_titles(self):
+        self.assertTrue(REMOTE.search("Remote - LATAM"))
+        result = evaluate(self.board, [{"title": "Software Development Engineer in Test",
+                                       "url": "https://example.org/qa",
+                                       "location": "Remote Brazil"}])
+        self.assertEqual(result["qa_roles"], 1)
+        self.assertEqual(result["remote_engineering_roles"], 0)
+
+    def test_new_qa_comparison_against_csv(self):
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "jobs.csv"
+            path.write_text("url,company\nhttps://example.org/known?track=1,Example\n", encoding="utf-8")
+            items = [{"company": "Example", "qa_openings": [
+                {"title": "QA Lead", "url": "https://example.org/known"},
+                {"title": "QE Manager", "url": "https://example.org/new"}]}]
+            result = compare_known_jobs(items, path)
+            self.assertEqual(result["qa_already_collected"], 1)
+            self.assertEqual(result["qa_not_in_baseline"], 1)
 
     def test_html_escapes_untrusted_titles(self):
         result = evaluate(self.board, [{"title": "<script>alert(1)</script> Software Engineer", "url": "https://example.org/job"}])
