@@ -15,9 +15,9 @@ from urllib.parse import quote, urlsplit, unquote
 
 from src.hunter import CONFIG, DATA, fetch_json
 
-QA = re.compile(r"\b(?:qa|quality assurance|quality engineering|software quality|sdet|software test|test automation|test engineer)\b", re.I)
+QA = re.compile(r"\b(?:qa|qe|quality assurance|quality engineering|quality engineer|software quality|sdet|software development engineer in test|software test(?:ing|er)?|test automation|test engineer|test infrastructure|engineering productivity|developer productivity)\b", re.I)
 ENG = re.compile(r"\b(?:software engineer|software developer|backend|back.end|front.end|full.stack|platform engineer|devops|site reliability|engineering manager|engineering director)\b", re.I)
-REMOTE = re.compile(r"\\b(?:remote|worldwide|global|anywhere|brazil|brasil|latam|latin america)\\b", re.I)
+REMOTE = re.compile(r"\b(?:remote|worldwide|global|anywhere|brazil|brasil|latam|latin america)\b", re.I)
 LEAD = re.compile(r"\b(?:lead|manager|head|director|principal|staff)\b", re.I)
 
 
@@ -56,6 +56,7 @@ def evaluate(board: dict, jobs: list[dict]) -> dict:
         "score": score,
         "engineering_roles": len(engineering),
         "qa_roles": len(qa),
+        "qa_openings": [{"title": str(j.get("title") or ""), "url": str(j.get("url") or ""), "location": str(j.get("location") or "")} for j in qa if str(j.get("url") or "").startswith("https://")],
         "engineering_leadership_roles": len(leadership),
         "qa_leadership_roles": len(qa_leadership),
         "remote_engineering_roles": len(remote_engineering),
@@ -105,6 +106,42 @@ def discover_boards(config: dict, jobs_path: Path | None = None) -> list[dict]:
     return boards
 
 
+def compare_known_jobs(items: list[dict], path: Path | None = None) -> dict:
+    """Compare public QA listings against collected URLs; uncertainty stays explicit."""
+    path = path or DATA / "jobs.csv"
+    known = set()
+    if path.exists():
+        with path.open(encoding="utf-8-sig", newline="") as stream:
+            for row in csv.DictReader(stream):
+                url = str(row.get("url") or "")
+                if url:
+                    known.add(normalize_url(url))
+    candidates, seen = [], set()
+    for item in items:
+        for job in item.get("qa_openings", []):
+            url = str(job.get("url") or "")
+            key = normalize_url(url)
+            if not key or key in seen:
+                continue
+            seen.add(key)
+            candidates.append({**job, "company": item["company"],
+                               "status": "already_collected" if key in known else "not_in_baseline",
+                               "brazil_eligibility": "unverified"})
+    return {"baseline_available": path.exists(),
+            "baseline_count": len(known),
+            "qa_public_openings": len(candidates),
+            "qa_already_collected": sum(j["status"] == "already_collected" for j in candidates),
+            "qa_not_in_baseline": sum(j["status"] == "not_in_baseline" for j in candidates) if path.exists() else None,
+            "qa_opportunities": candidates}
+
+
+def normalize_url(url: str) -> str:
+    parts = urlsplit(url.strip())
+    if parts.scheme not in ("https", "http") or not parts.hostname:
+        return ""
+    return f"{parts.hostname.lower()}{parts.path.rstrip('/').lower()}"
+
+
 def collect(config: dict) -> dict:
     items, errors = [], []
     for board in discover_boards(config):
@@ -114,9 +151,11 @@ def collect(config: dict) -> dict:
             items.append(evaluate(board, board_jobs(board)))
         except (OSError, ValueError, KeyError, TypeError) as exc:
             errors.append({"company": board.get("company", board["slug"]), "error": str(exc)[:240]})
+    comparison = compare_known_jobs(items)
     return {"generated_at": datetime.now(timezone.utc).isoformat(),
             "method": "public ATS engineering-hiring proxy; not confirmed hidden vacancies",
             "companies_checked": len(items), "companies_failed": len(errors),
+            "comparison": comparison,
             "items": sorted(items, key=lambda j: (-j["score"], j["company"])), "errors": errors}
 
 
