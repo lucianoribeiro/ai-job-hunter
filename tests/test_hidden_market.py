@@ -1,5 +1,7 @@
 import unittest
-from src.hidden_market import evaluate, render
+import tempfile
+from pathlib import Path
+from src.hidden_market import evaluate, render, discover_boards
 
 
 class HiddenMarketTests(unittest.TestCase):
@@ -18,6 +20,18 @@ class HiddenMarketTests(unittest.TestCase):
             {"title": "QA Manager", "url": "https://example.org/qa"}])
         self.assertEqual(result["qa_roles"], 1)
         self.assertEqual(result["signal"], "engineering_hiring_with_public_qa_listing")
+
+    def test_discovers_only_public_ats_hosts_and_deduplicates(self):
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "jobs.csv"
+            path.write_text(
+                "url,company\\n"
+                "https://jobs.lever.co/example/abc,Example\\n"
+                "https://jobs.lever.co/example/def,Example\\n"
+                "https://evil.example/jobs.lever.co/hack/one,Malicious\\n", encoding="utf-8")
+            boards = discover_boards({"company_boards": []}, path)
+            self.assertEqual(len(boards), 1)
+            self.assertEqual(boards[0]["slug"], "example")
 
     def test_html_escapes_untrusted_titles(self):
         result = evaluate(self.board, [{"title": "<script>alert(1)</script> Software Engineer", "url": "https://example.org/job"}])
