@@ -268,7 +268,7 @@
   "0fd965bcbfb543c36aaf1388": {
     "company": "Crowdstrike",
     "first_seen": "2026-10-27",
-    "last_seen": "2026-10-27",
+    "last_seen": "2026-10-28",
     "published": "1793050798",
     "source": "Himalayas",
     "title": "Sr. Mobile QA Analyst",
@@ -465,7 +465,7 @@
   "1718efd19ea573c12f0b4add": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-27",
+    "last_seen": "2026-10-28",
     "published": "2026-10-15T15:24:46-04:00",
     "source": "Greenhouse",
     "title": "Staff Program Manager, CCO Programs",
@@ -803,7 +803,7 @@
   "2a4d54ac15ae0f954aa499bf": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-27",
+    "last_seen": "2026-10-28",
     "published": "2026-10-15T15:24:46-04:00",
     "source": "Greenhouse",
     "title": "Senior Program Manager, Enterprise Technology and AI",
@@ -962,7 +962,7 @@
   "34ba7449e4691e4f7055face": {
     "company": "Spiralyze",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-27",
+    "last_seen": "2026-10-28",
     "published": "2026-10-06T19:35:42+00:00",
     "source": "Remote OK",
     "title": "Project Manager",
@@ -1049,7 +1049,7 @@
   "392b8fa7910679e4ed3e43dc": {
     "company": "Meta",
     "first_seen": "2026-10-27",
-    "last_seen": "2026-10-27",
+    "last_seen": "2026-10-28",
     "published": "2026-10-27T03:25:06+00:00",
     "source": "Jobicy",
     "title": "Manufacturing Quality Engineer",
@@ -1233,6 +1233,15 @@
     "title": "Program Manager, Clinical Supplies Management",
     "url": "https://himalayas.app/companies/abbvie/jobs/program-manager-clinical-supplies-management?utm_source=api"
   },
+  "43163d61ef1992f37a0cc4ce": {
+    "company": "Wipfli",
+    "first_seen": "2026-10-28",
+    "last_seen": "2026-10-28",
+    "published": "1793130110",
+    "source": "Himalayas",
+    "title": "Workday Quality Assurance Lead",
+    "url": "https://himalayas.app/companies/wipfli/jobs/workday-quality-assurance-lead-6599401544?utm_source=api"
+  },
   "433096aedaead790": {
     "company": "DIGITALL Nature Corp",
     "description": "",
@@ -1300,7 +1309,7 @@
   "44016a8e158b58222325da7b": {
     "company": "Avalon Healthcare Solutions",
     "first_seen": "2026-10-27",
-    "last_seen": "2026-10-27",
+    "last_seen": "2026-10-28",
     "published": "1793111246",
     "source": "Himalayas",
     "title": "Quality Assurance Engineer III",
@@ -1345,7 +1354,7 @@
   "4673a5a75c94d932f0398848": {
     "company": "SoftDesign",
     "first_seen": "2026-10-27",
-    "last_seen": "2026-10-27",
+    "last_seen": "2026-10-28",
     "published": "1793063103",
     "source": "Himalayas",
     "title": "QA Engineer",
@@ -1561,6 +1570,15 @@
     "title": "Remote Technical Customer Support - QA and Game Dev - 7/26",
     "url": "https://himalayas.app/companies/modsquad/jobs/remote-technical-customer-support-qa-and-game-dev-7-26-7444595468?utm_source=api"
   },
+  "517d26b56e2feb35843b8b81": {
+    "company": "CI&T",
+    "first_seen": "2026-10-28",
+    "last_seen": "2026-10-28",
+    "published": "1793132161",
+    "source": "Himalayas",
+    "title": "[Job - 32452] Mid-Level QA Engineer, Brazil",
+    "url": "https://himalayas.app/companies/ci-t/jobs/job-32452-mid-level-qa-engineer-brazil?utm_source=api"
+  },
   "518304fb132bebd7": {
     "company": "Empower",
     "description": "",
@@ -1619,7 +1637,7 @@
   "53e19273d132f8bf04485b5d": {
     "company": "Motorola Solutions",
     "first_seen": "2026-10-27",
-    "last_seen": "2026-10-27",
+    "last_seen": "2026-10-28",
     "published": "1793048702",
     "source": "Himalayas",
     "title": "QA Engineer",
@@ -1789,6 +1807,15 @@
     "source": "Himalayas",
     "title": "STINGRAI Project Manager (Mgr Project Management 2) - 30735 (Doral, FL, Remote,",
     "url": "https://himalayas.app/companies/hii/jobs/stingrai-project-manager-mgr-project-management-2-30735-doral-fl-remote?utm_source=api"
+  },
+  "5a85ceaa9e125c59074129c5": {
+    "company": "IREN",
+    "first_seen": "2026-10-28",
+    "last_seen": "2026-10-28",
+    "published": "1793131613",
+    "source": "Himalayas",
+    "title": "Senior Project Manager – Network Infrastructure Design & Standards",
+    "url": "https://himalayas.app/companies/iren/jobs/senior-project-manager-network-infrastructure-design-standards?utm_source=api"
   },
   "5b2523601c8da327faf004ba": {
     "company": "F12.net",
@@ -2294,7 +2321,7 @@
   "741808f522faf1884e2b1a46": {
     "company": "AlphaSense",
     "first_seen": "2026-10-27",
-    "last_seen": "2026-10-27",
+    "last_seen": "2026-10-28",
     "published": "2026-10-27T09:25:36+00:00",
     "source": "Jobicy",
     "title": "Staff Technical Program Manager",
@@ -2564,7 +2591,7 @@
   "7ffeac3aa615a718b85582ab": {
     "company": "Superside",
     "first_seen": "2026-10-27",
-    "last_seen": "2026-10-27",
+    "last_seen": "2026-10-28",
     "published": "2026-10-27T09:49:21+00:00",
     "source": "Jobicy",
     "title": "Project Manager",
@@ -2674,6 +2701,15 @@
     "source": "Himalayas",
     "title": "Project Manager (Deployment & Migration NCS5K)",
     "url": "https://himalayas.app/companies/millennium-technology-services/jobs/project-manager-deployment-migration-ncs5k?utm_source=api"
+  },
+  "881b005ed954ed43c73c27b6": {
+    "company": "Clario",
+    "first_seen": "2026-10-28",
+    "last_seen": "2026-10-28",
+    "published": "1793141097",
+    "source": "Himalayas",
+    "title": "Project Manager",
+    "url": "https://himalayas.app/companies/clario/jobs/project-manager-7564961086?utm_source=api"
   },
   "883b8bfbf65f78b0": {
     "company": "PhoenixTeam",
@@ -2826,6 +2862,15 @@
     "title": "Developer or Technical Lead (Niche or Regular), Cloud Consultants, QA Tester, QA",
     "url": "https://himalayas.app/companies/nttdata/jobs/developer-or-technical-lead-niche-or-regular-cloud-consultants-qa-tester-qa?utm_source=api"
   },
+  "8bb949bf25a0d557f7ca42c7": {
+    "company": "Vrinda International",
+    "first_seen": "2026-10-28",
+    "last_seen": "2026-10-28",
+    "published": "1793131534",
+    "source": "Himalayas",
+    "title": "Duck Creek QA Analyst (Cloud Migration)",
+    "url": "https://himalayas.app/companies/vrinda-international/jobs/duck-creek-qa-analyst-cloud-migration?utm_source=api"
+  },
   "8c037503674de70e262ad6f8": {
     "company": "Capgemini Technology Services",
     "first_seen": "2026-10-22",
@@ -2866,6 +2911,15 @@
     "source": "Himalayas",
     "title": "Senior QA Automation Engineer",
     "url": "https://himalayas.app/companies/dispel-com/jobs/senior-qa-automation-engineer?utm_source=api"
+  },
+  "8cc223ff7fff106217914aa0": {
+    "company": "Makersite GmbH",
+    "first_seen": "2026-10-28",
+    "last_seen": "2026-10-28",
+    "published": "1793125885",
+    "source": "Arbeitnow",
+    "title": "Project Manager - Software Implementation (m/f/x)",
+    "url": "https://www.arbeitnow.com/jobs/companies/makersite-gmbh/remote-project-manager-software-implementation-berlin-237977"
   },
   "8ce970e857e6070af6c752b4": {
     "company": "Toolbox OTT",
@@ -2948,6 +3002,15 @@
     "source": "Himalayas",
     "title": "Senior QA Automation Engineer",
     "url": "https://himalayas.app/companies/intetics/jobs/senior-qa-automation-engineer?utm_source=api"
+  },
+  "9040285410d22b38766a36ca": {
+    "company": "Mainspring Energy",
+    "first_seen": "2026-10-28",
+    "last_seen": "2026-10-28",
+    "published": "1793126680",
+    "source": "Himalayas",
+    "title": "Senior Project Coordinator",
+    "url": "https://himalayas.app/companies/mainspring-energy/jobs/senior-project-coordinator?utm_source=api"
   },
   "90a69ed9a8c8aadf": {
     "company": "m2TALENTS",
@@ -3258,7 +3321,7 @@
   "9f5d7fcbc28da96653b684a7": {
     "company": "Ramp",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-27",
+    "last_seen": "2026-10-28",
     "published": "2026-10-16T18:04:33.419+00:00",
     "source": "Ashby",
     "title": "Senior Technical Program Manager",
@@ -3309,6 +3372,15 @@
     "title": "QA Engineer",
     "url": "https://himalayas.app/companies/affinityclick-inc/jobs/qa-engineer-2123690654?utm_source=api"
   },
+  "a1b363630286f51dba66ae6e": {
+    "company": "Power Digital Marketing",
+    "first_seen": "2026-10-28",
+    "last_seen": "2026-10-28",
+    "published": "1793132424",
+    "source": "Himalayas",
+    "title": "Project Manager, B2B",
+    "url": "https://himalayas.app/companies/power-digital-marketing/jobs/project-manager-b2b-9653258711?utm_source=api"
+  },
   "a245efb12bc67dc7b5728bb9": {
     "company": "H&R Block",
     "first_seen": "2026-10-23",
@@ -3349,6 +3421,15 @@
     "source": "Himalayas",
     "title": "Cybersecurity Program Manager",
     "url": "https://himalayas.app/companies/apogee-global-rms/jobs/cybersecurity-program-manager?utm_source=api"
+  },
+  "a58cd0a2d7dcf82fd0fae793": {
+    "company": "Arctiq",
+    "first_seen": "2026-10-28",
+    "last_seen": "2026-10-28",
+    "published": "1793136471",
+    "source": "Himalayas",
+    "title": "Program Manager",
+    "url": "https://himalayas.app/companies/arctiq/jobs/program-manager?utm_source=api"
   },
   "a5aab64d67b7f440856c8f31": {
     "company": "JLL",
@@ -3996,7 +4077,7 @@
   "c4391296cf58e4246272efbe": {
     "company": "Zact",
     "first_seen": "2026-10-27",
-    "last_seen": "2026-10-27",
+    "last_seen": "2026-10-28",
     "published": "1793098194",
     "source": "Himalayas",
     "title": "Software Development Engineer in Test (SDET) – US Recent Grad",
@@ -4075,6 +4156,15 @@
     "title": "API Test Engineer",
     "url": "https://himalayas.app/companies/edgeq-technologies-private-limited/jobs/api-test-engineer?utm_source=api"
   },
+  "c5e68df8319e9e5dce9e91a5": {
+    "company": "Codekeeper",
+    "first_seen": "2026-10-28",
+    "last_seen": "2026-10-28",
+    "published": "1793131454",
+    "source": "Himalayas",
+    "title": "Program Manager",
+    "url": "https://himalayas.app/companies/codekeeper/jobs/program-manager-5833332520?utm_source=api"
+  },
   "c60767e36286790e6a7dcfda": {
     "company": "Banco Plata, S.A., Institución de Banca Múltiple",
     "first_seen": "2026-10-19",
@@ -4115,11 +4205,20 @@
   "c643ca1ab0148a831a238994": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-10-27",
+    "last_seen": "2026-10-28",
     "published": "2026-10-15T15:24:46-04:00",
     "source": "Greenhouse",
     "title": "Principal Technical Program Manager",
     "url": "https://job-boards.greenhouse.io/gitlab/jobs/8693068002"
+  },
+  "c659230f75fdcd212da192ea": {
+    "company": "Motorola Solutions",
+    "first_seen": "2026-10-28",
+    "last_seen": "2026-10-28",
+    "published": "1793140851",
+    "source": "Himalayas",
+    "title": "Senior Program Manager - Southeast Region",
+    "url": "https://himalayas.app/companies/motorola-solutions/jobs/senior-program-manager-southeast-region?utm_source=api"
   },
   "c7f6813b338d8af5e27f9e66": {
     "company": "Dotmatics",
@@ -4142,11 +4241,20 @@
   "c9a1e8f12818caeae9378384": {
     "company": "TISTA Science and Technology Corporation",
     "first_seen": "2026-10-27",
-    "last_seen": "2026-10-27",
+    "last_seen": "2026-10-28",
     "published": "1793100151",
     "source": "Himalayas",
     "title": "Test Automation Engineer",
     "url": "https://himalayas.app/companies/tista-science-and-technology-corporation/jobs/test-automation-engineer?utm_source=api"
+  },
+  "ca523454cf10360e766bec88": {
+    "company": "Aptive",
+    "first_seen": "2026-10-28",
+    "last_seen": "2026-10-28",
+    "published": "1793115936",
+    "source": "Himalayas",
+    "title": "Program Manager",
+    "url": "https://himalayas.app/companies/aptive/jobs/program-manager?utm_source=api"
   },
   "cab9fa1cde1225a6": {
     "company": "Phaidra",
@@ -4320,7 +4428,7 @@
   "d02a5e51a9c84261354aebbd": {
     "company": "Qualysoft",
     "first_seen": "2026-10-27",
-    "last_seen": "2026-10-27",
+    "last_seen": "2026-10-28",
     "published": "1793111286",
     "source": "Himalayas",
     "title": "Java QA Automation Engineer - Banking",
@@ -4470,7 +4578,7 @@
   "db0f9f1efb5a93ca500d9911": {
     "company": "ICF",
     "first_seen": "2026-10-27",
-    "last_seen": "2026-10-27",
+    "last_seen": "2026-10-28",
     "published": "1793102801",
     "source": "Himalayas",
     "title": "Automated Test Engineer, Manager (Remote US)",
@@ -4560,7 +4668,7 @@
   "e21448813484fc1854fa5c2a": {
     "company": "Bright Vision Technologies",
     "first_seen": "2026-10-27",
-    "last_seen": "2026-10-27",
+    "last_seen": "2026-10-28",
     "published": "1793095725",
     "source": "Himalayas",
     "title": "Software Test Engineer",
@@ -4598,6 +4706,15 @@
     "title": "Sr Quality Assurance Auditor",
     "url": "https://himalayas.app/companies/clario/jobs/sr-quality-assurance-auditor?utm_source=api"
   },
+  "e53d0c3c58ff1645aa913b45": {
+    "company": "AAA Life Insurance Company",
+    "first_seen": "2026-10-28",
+    "last_seen": "2026-10-28",
+    "published": "1793130104",
+    "source": "Himalayas",
+    "title": "Software Development Engineer in Test (SDET)",
+    "url": "https://himalayas.app/companies/aaa-life-insurance-company/jobs/software-development-engineer-in-test-sdet?utm_source=api"
+  },
   "e680363520291e8d": {
     "company": "Wpromote",
     "description": "",
@@ -4615,7 +4732,7 @@
   "e680363520291e8dd952429f": {
     "company": "Wpromote",
     "first_seen": "2026-10-27",
-    "last_seen": "2026-10-27",
+    "last_seen": "2026-10-28",
     "published": "2026-10-27T05:21:39+00:00",
     "source": "Jobicy",
     "title": "Digital Project Manager II",
@@ -4835,6 +4952,15 @@
     "source": "Himalayas",
     "title": "Principal Program Manager",
     "url": "https://himalayas.app/companies/odyssey-systems-consulting-group-ltd/jobs/principal-program-manager?utm_source=api"
+  },
+  "eea3c78a83968b1ca552a399": {
+    "company": "DAS Health",
+    "first_seen": "2026-10-28",
+    "last_seen": "2026-10-28",
+    "published": "1793135299",
+    "source": "Himalayas",
+    "title": "Senior IT Project Manager (Healthcare IT)",
+    "url": "https://himalayas.app/companies/das-health/jobs/senior-it-project-manager-healthcare-it?utm_source=api"
   },
   "eed680816f3c263c359fef6e": {
     "company": "Inspekt AI",
