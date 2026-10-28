@@ -32,7 +32,7 @@ def embed(page: Path, report: Path) -> None:
             advertised = any(term in excerpt.lower() for term in (
                 "contract qa lead:", "salary:", "£ / year", "at a glance - tasks",
                 "apply now", "apply here", "applications are open"))
-            kind = "Vaga pública identificada · verificar" if advertised else "Sinal potencial · não confirmado"
+            kind = "Vaga pública identificada · verificar" if advertised else "Hidden Opportunity · Potencial — não confirmado"
             detail = ("Esta publicação parece descrever uma vaga já anunciada, não uma oportunidade oculta."
                       if advertised else
                       "A publicação não confirma a existência de uma vaga oculta.")
