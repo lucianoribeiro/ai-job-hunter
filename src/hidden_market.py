@@ -16,6 +16,7 @@ from src.hunter import CONFIG, DATA, fetch_json
 
 QA = re.compile(r"\b(?:qa|quality assurance|quality engineering|software quality|sdet|software test|test automation|test engineer)\b", re.I)
 ENG = re.compile(r"\b(?:software engineer|software developer|backend|back.end|front.end|full.stack|platform engineer|devops|site reliability|engineering manager|engineering director)\b", re.I)
+REMOTE = re.compile(r"\\b(?:remote|worldwide|global|anywhere|brazil|brasil|latam|latin america)\\b", re.I)
 LEAD = re.compile(r"\b(?:lead|manager|head|director|principal|staff)\b", re.I)
 
 
@@ -23,13 +24,13 @@ def board_jobs(board: dict) -> list[dict]:
     provider, slug = board["provider"], quote(str(board["slug"]), safe="")
     if provider == "greenhouse":
         data = fetch_json(f"https://boards-api.greenhouse.io/v1/boards/{slug}/jobs")
-        return [{"title": j.get("title", ""), "url": j.get("absolute_url", "")} for j in data.get("jobs", [])]
+        return [{"title": j.get("title", ""), "url": j.get("absolute_url", ""), "location": (j.get("location") or {}).get("name", "")} for j in data.get("jobs", [])]
     if provider == "lever":
         data = fetch_json(f"https://api.lever.co/v0/postings/{slug}?mode=json")
-        return [{"title": j.get("text", ""), "url": j.get("hostedUrl", "")} for j in data]
+        return [{"title": j.get("text", ""), "url": j.get("hostedUrl", ""), "location": (j.get("categories") or {}).get("location", "")} for j in data]
     if provider == "ashby":
         data = fetch_json(f"https://api.ashbyhq.com/posting-api/job-board/{slug}")
-        return [{"title": j.get("title", ""), "url": j.get("jobUrl", "")} for j in data.get("jobs", [])]
+        return [{"title": j.get("title", ""), "url": j.get("jobUrl", ""), "location": j.get("location", "")} for j in data.get("jobs", [])]
     raise ValueError("Unsupported provider")
 
 
@@ -37,10 +38,13 @@ def evaluate(board: dict, jobs: list[dict]) -> dict:
     qa = [j for j in jobs if QA.search(str(j.get("title") or ""))]
     engineering = [j for j in jobs if ENG.search(str(j.get("title") or "")) and not QA.search(str(j.get("title") or ""))]
     leadership = [j for j in engineering if LEAD.search(str(j.get("title") or ""))]
+    qa_leadership = [j for j in qa if LEAD.search(str(j.get("title") or ""))]
+    remote_engineering = [j for j in engineering if REMOTE.search(str(j.get("location") or ""))]
+    # This is a prioritization score, not a probability of an actual hidden vacancy.
     # A company's open engineering roles are hiring evidence, not proof of QA budget.
-    score = min(85, 20 + min(len(engineering), 10) * 5 + min(len(leadership), 5) * 3)
+    score = min(100, 15 + min(len(engineering), 10) * 5 + min(len(leadership), 5) * 4 + min(len(remote_engineering), 5) * 3)
     if qa:
-        score = min(score, 45)
+        score = min(score, 50)
     return {
         "company": str(board.get("company") or board["slug"]),
         "provider": board["provider"],
@@ -52,6 +56,10 @@ def evaluate(board: dict, jobs: list[dict]) -> dict:
         "engineering_roles": len(engineering),
         "qa_roles": len(qa),
         "engineering_leadership_roles": len(leadership),
+        "qa_leadership_roles": len(qa_leadership),
+        "remote_engineering_roles": len(remote_engineering),
+        "priority": "high" if score >= 70 and not qa else ("medium" if score >= 45 and not qa else "low"),
+        "reason": "Evidence of engineering hiring without QA roles on this board" if engineering and not qa else "No specific evidence of an unadvertised QA role",
         "evidence": [{"title": str(j.get("title") or ""), "url": str(j.get("url") or "")}
                      for j in engineering[:5] if str(j.get("url") or "").startswith("https://")],
         "contact_channel": "official_careers_page",
@@ -85,9 +93,9 @@ def render(report: dict) -> str:
             esc(e["title"]) + '</a></li>' for e in item["evidence"]
         )
         cards.append('<article><h2>' + esc(item["company"]) + '</h2><p><strong>Sinal: ' +
-                     esc(item["score"]) + '/85</strong> · Vagas engenharia: ' +
+                     esc(item["score"]) + '/100</strong> · Vagas engenharia: ' +
                      esc(item["engineering_roles"]) + ' · QA anunciadas: ' +
-                     esc(item["qa_roles"]) + '</p><p>' +
+                     esc(item["qa_roles"]) + ' · Prioridade: ' + esc(item["priority"]) + '</p><p>' +
                      ('Engenharia contratando sem vaga QA encontrada neste ATS.' if
                       item["signal"] == "engineering_hiring_without_public_qa_listing" else
                       'Sem evidência específica de vaga QA oculta.') +
