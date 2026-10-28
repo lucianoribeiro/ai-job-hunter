@@ -89,6 +89,28 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Compile Python modules
         run: python -m compileall -q src tests
+      - name: Real hidden-market collection on PR branch
+        run: |
+          python -m src.hidden_market
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r = json.loads(Path("data/hidden_market.json").read_text())
+          print("REAL_COLLECTION_METRICS " + json.dumps({
+              "companies_checked": r["companies_checked"],
+              "companies_failed": r["companies_failed"],
+              "signals": sum(x["signal"] == "engineering_hiring_without_public_qa_listing" for x in r["items"]),
+              "evidence_links": sum(len(x["evidence"]) for x in r["items"])
+          }))
+          PY
+      - name: Upload real hidden-market evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: real-hidden-market-pr-evidence
+          path: |
+            data/hidden_market.json
+            data/hidden_market.html
+          if-no-files-found: error
       - name: Synthetic smoke test
         run: |
           mkdir -p data
