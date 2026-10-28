@@ -544,6 +544,36 @@
     "title": "Quality Assurance Analyst",
     "url": "https://himalayas.app/companies/h-r-block/jobs/quality-assurance-analyst?utm_source=api"
   },
+  "18547e5b0b6adac8": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Ness USA, Inc.",
+    "created_at": "2026-10-28",
+    "job_id": "18547e5b0b6adac8",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-28",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-28",
+    "title": "Senior QA Engineer",
+    "url": "https://himalayas.app/companies/ness-usa-inc/jobs/senior-qa-engineer?utm_source=api"
+  },
   "1a88a5cb0d97ef1f": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -601,6 +631,36 @@
     "status_updated_at": "2026-10-18",
     "title": "Senior Quality Engineer - Tellent Intelligence (AI)",
     "url": "https://www.arbeitnow.nl/jobs/companies/tellent/remote-senior-quality-engineer-tellent-intelligence-ai-amsterdam-295070"
+  },
+  "1ceb0668d24e2a65": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Atomic HR",
+    "created_at": "2026-10-28",
+    "job_id": "1ceb0668d24e2a65",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-28",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-28",
+    "title": "Quality Engineer, QA | Remote | 🇺🇸 US Startup Helping Frontline Workers 💙",
+    "url": "https://himalayas.app/companies/atomic-hr/jobs/quality-engineer-qa-remote-us-startup-helping-frontline-workers?utm_source=api"
   },
   "1d9f69a8d5cd0266": {
     "assessment": {
@@ -1014,6 +1074,37 @@
     "status_updated_at": "2026-10-24",
     "title": "Project Manager",
     "url": "https://jobicy.com/jobs/156677-project-manager-6"
+  },
+  "3736364debd90fae": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "CareerTEAM, LLC",
+    "created_at": "2026-10-28",
+    "job_id": "3736364debd90fae",
+    "notes": "",
+    "score": 50,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-28",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-28",
+    "title": "Quality Assurance Supervisor (Workforce Compliance)",
+    "url": "https://himalayas.app/companies/careerteam-llc/jobs/quality-assurance-supervisor-workforce-compliance?utm_source=api"
   },
   "385235c67aa34bc6": {
     "assessment": {
@@ -1589,6 +1680,36 @@
     "title": "Senior Program Manager – Change Management (CAD Domain)",
     "url": "https://himalayas.app/companies/nearsource-technologies/jobs/senior-program-manager-change-management-cad-domain"
   },
+  "4da9c81ee46ee0d5": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "TASQ Staffing Solutions",
+    "created_at": "2026-10-28",
+    "job_id": "4da9c81ee46ee0d5",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-28",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-28",
+    "title": "Mid-level SDET (WFH)",
+    "url": "https://himalayas.app/companies/tasq-staffing-solutions/jobs/mid-level-sdet-wfh?utm_source=api"
+  },
   "4f3df125d21ee2f2": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -1618,6 +1739,36 @@
     "status_updated_at": "2026-10-22",
     "title": "Program Manager, Quality & Commissioning, NA",
     "url": "https://himalayas.app/companies/vantagedatacenters/jobs/program-manager-quality-commissioning-na?utm_source=api"
+  },
+  "4f541bf834300e05": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "NearSource Technologies",
+    "created_at": "2026-10-28",
+    "job_id": "4f541bf834300e05",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-28",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-28",
+    "title": "SDET(Software Development Engineer in Test)",
+    "url": "https://himalayas.app/companies/nearsource-technologies/jobs/sdet-software-development-engineer-in-test?utm_source=api"
   },
   "518304fb132bebd7": {
     "assessment": {
@@ -1942,6 +2093,96 @@
     "title": "Commercial Strategy & Project Manager (m/w/d)",
     "url": "https://www.arbeitnow.com/jobs/companies/emotion-gmbh/commercial-strategy-project-manager-berlin-435738"
   },
+  "61ed0ee21b45bc83": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Ness USA, Inc.",
+    "created_at": "2026-10-28",
+    "job_id": "61ed0ee21b45bc83",
+    "notes": "",
+    "score": 65,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-28",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-28",
+    "title": "Senior QA Engineer (T11)",
+    "url": "https://himalayas.app/companies/ness-usa-inc/jobs/senior-qa-engineer-t11?utm_source=api"
+  },
+  "65c6c3ec65051f36": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "ARHS",
+    "created_at": "2026-10-28",
+    "job_id": "65c6c3ec65051f36",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-28",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-28",
+    "title": "Data Engineer (Senior Report builder and Integration QA)",
+    "url": "https://himalayas.app/companies/arhs/jobs/data-engineer-senior-report-builder-and-integration-qa?utm_source=api"
+  },
+  "65e97d145fd21863": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Deciphex",
+    "created_at": "2026-10-28",
+    "job_id": "65e97d145fd21863",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-28",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-28",
+    "title": "Medical Device Software Quality Engineer",
+    "url": "https://himalayas.app/companies/deciphex/jobs/medical-device-software-quality-engineer?utm_source=api"
+  },
   "65ef789d277af996": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -2180,6 +2421,36 @@
     "status_updated_at": "2026-10-21",
     "title": "Microsoft Principle Project Manager (m/w/d)",
     "url": "https://www.arbeitnow.com/jobs/companies/miro-personalvermittlung/microsoft-principle-project-manager-berlin-312463"
+  },
+  "71b209993e501e9b": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Interstate Renewable Energy Council",
+    "created_at": "2026-10-28",
+    "job_id": "71b209993e501e9b",
+    "notes": "",
+    "score": 70,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-28",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-28",
+    "title": "Program Manager, Charging Smart (limited term role until July 2027)",
+    "url": "https://himalayas.app/companies/interstate-renewable-energy-council/jobs/program-manager-charging-smart-limited-term-role-until-july-2027?utm_source=api"
   },
   "7209cc9ebd131553": {
     "assessment": {
@@ -3800,6 +4071,37 @@
     "title": "QA & Training Executive",
     "url": "https://himalayas.app/companies/seahub-asia/jobs/qa-training-executive?utm_source=api"
   },
+  "c0c86ccf1eea9f87": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Bright Vision Technologies",
+    "created_at": "2026-10-28",
+    "job_id": "c0c86ccf1eea9f87",
+    "notes": "",
+    "score": 50,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-28",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-28",
+    "title": "QA Engineer – Automation",
+    "url": "https://himalayas.app/companies/bright-vision-technologies/jobs/qa-engineer-automation-2653076919?utm_source=api"
+  },
   "c1ce6d079320206a": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -4743,6 +5045,37 @@
     "status_updated_at": "2026-10-18",
     "title": "Demand Generation Program Manager | Canada | Remote",
     "url": "https://jobicy.com/jobs/153420-demand-generation-program-manager-canada-remote"
+  },
+  "f5d95b225a44c4ad": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "Contract/freelance terms detected; confirm daily hours"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "freelance",
+    "company": "Expedock",
+    "created_at": "2026-10-28",
+    "job_id": "f5d95b225a44c4ad",
+    "notes": "",
+    "score": 65,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-28",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-28",
+    "title": "Web QA Engineer (Part-time)",
+    "url": "https://himalayas.app/companies/expedock/jobs/web-qa-engineer-part-time?utm_source=api"
   },
   "fadb0929840177ba": {
     "assessment": {

@@ -1,0 +1,96 @@
+{
+  "generated_at": "2026-10-28T16:41:05.223266+00:00",
+  "method": "public ATS engineering-hiring proxy; not confirmed hidden vacancies",
+  "companies_checked": 2,
+  "companies_failed": 1,
+  "items": [
+    {
+      "company": "GitLab",
+      "provider": "greenhouse",
+      "slug": "gitlab",
+      "signal": "engineering_hiring_without_public_qa_listing",
+      "confidence": "moderate",
+      "score": 85,
+      "engineering_roles": 49,
+      "qa_roles": 0,
+      "engineering_leadership_roles": 22,
+      "qa_leadership_roles": 0,
+      "remote_engineering_roles": 0,
+      "priority": "high",
+      "reason": "Evidence of engineering hiring without QA roles on this board",
+      "evidence": [
+        {
+          "title": "Backend Engineer, Knowledge Graph",
+          "url": "https://job-boards.greenhouse.io/gitlab/jobs/8771512002"
+        },
+        {
+          "title": "Backend Engineer (Python),AI Engineering: Agent Foundations",
+          "url": "https://job-boards.greenhouse.io/gitlab/jobs/8704363002"
+        },
+        {
+          "title": "Backend Engineer (Ruby), AI Engineering: Agent Foundations",
+          "url": "https://job-boards.greenhouse.io/gitlab/jobs/8620720002"
+        },
+        {
+          "title": "Backend Engineer (Ruby), Create: Change Record",
+          "url": "https://job-boards.greenhouse.io/gitlab/jobs/8891301002"
+        },
+        {
+          "title": "Backend Engineer (Ruby), Plan: Spec-Driven Development",
+          "url": "https://job-boards.greenhouse.io/gitlab/jobs/8682860002"
+        }
+      ],
+      "contact_channel": "official_careers_page",
+      "verified_hidden_opening": false,
+      "brazil_eligibility": "unverified",
+      "usd_compensation": "unverified"
+    },
+    {
+      "company": "Ramp",
+      "provider": "ashby",
+      "slug": "ramp",
+      "signal": "engineering_hiring_without_public_qa_listing",
+      "confidence": "moderate",
+      "score": 65,
+      "engineering_roles": 21,
+      "qa_roles": 0,
+      "engineering_leadership_roles": 0,
+      "qa_leadership_roles": 0,
+      "remote_engineering_roles": 0,
+      "priority": "medium",
+      "reason": "Evidence of engineering hiring without QA roles on this board",
+      "evidence": [
+        {
+          "title": "Software Engineer, Frontend",
+          "url": "https://jobs.ashbyhq.com/ramp/4e64ab86-4e30-403b-b1b9-41dc052570ce"
+        },
+        {
+          "title": "Software Engineer, Security, Stablecoin",
+          "url": "https://jobs.ashbyhq.com/ramp/d1183b00-6590-4fe4-a585-28d84e578fe3"
+        },
+        {
+          "title": "Software Engineer, Growth Platform",
+          "url": "https://jobs.ashbyhq.com/ramp/f5b60cf1-c0ec-42c1-89db-ece853e998ab"
+        },
+        {
+          "title": "Software Engineer, Fraud & Identity",
+          "url": "https://jobs.ashbyhq.com/ramp/8fa367de-71ba-409e-befd-175a163acb1b"
+        },
+        {
+          "title": "Software Engineer, Credit",
+          "url": "https://jobs.ashbyhq.com/ramp/5598f7b8-4ae2-4105-a2b4-2d0f55c54c40"
+        }
+      ],
+      "contact_channel": "official_careers_page",
+      "verified_hidden_opening": false,
+      "brazil_eligibility": "unverified",
+      "usd_compensation": "unverified"
+    }
+  ],
+  "errors": [
+    {
+      "company": "Netflix",
+      "error": "HTTP Error 404: Not Found"
+    }
+  ]
+}

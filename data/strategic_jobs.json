@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T15:54:40.255810+00:00",
+  "generated_at": "2026-10-28T16:40:46.294497+00:00",
   "jobs": [
     {
       "company": "Honda Brasil",
@@ -234,6 +234,17 @@
     },
     {
       "company": "3M Brasil",
+      "title": "Manager - B2B Customer Insights, Sumaré/SP",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Manager---B2B-Customer-Insights--Sumar-SP_R01173017-1",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
       "title": "Executivo(a) de Vendas - Fitas e Adesivos Industriais, Minas Gerais",
       "location": "Sumaré",
       "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-SUMARE-VIRTUAL/Executivo-a--de-Vendas---Fitas-e-Adesivos-Industriais--Minas-Gerais_R01171275-1",
@@ -256,31 +267,9 @@
     },
     {
       "company": "3M Brasil",
-      "title": "Executivo(a) de Vendas de Abrasivos (Passo Fundo/RS)",
-      "location": "Sumaré",
-      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Executivo-a--de-Vendas-de-Abrasivos--Passo-Fundo-RS-_R01167546",
-      "source": "Workday público",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Confirmar abertura e detalhes no portal oficial"
-    },
-    {
-      "company": "3M Brasil",
       "title": "Sr Data Scientist",
       "location": "Sumaré",
       "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Sr-Data-Scientist_R01169811",
-      "source": "Workday público",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Confirmar abertura e detalhes no portal oficial"
-    },
-    {
-      "company": "3M Brasil",
-      "title": "Application Development Specialist - Personal Safety Division",
-      "location": "Sumaré",
-      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Application-Development-Specialist---Personal-Safety-Division_R01170725",
       "source": "Workday público",
       "published": "",
       "regional": true,
@@ -410,9 +399,9 @@
     },
     {
       "company": "Rhodia / Solvay",
-      "title": "Operador de Controle de Emergências (H/M/X)",
+      "title": "Estágio em Supply Chain (H/M/X)",
       "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Operador-de-Controle-de-Emerg%C3%AAncias-%28HMX%29-13148-914/1373629857/",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Est%C3%A1gio-em-Supply-Chain-%28HMX%29-13148-914/1374455457/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -421,9 +410,9 @@
     },
     {
       "company": "Rhodia / Solvay",
-      "title": "Estágio Superior em Engenharia Química (H/M/X)",
+      "title": "Técnico de Planejamento Sênior (H/M/X)",
       "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Est%C3%A1gio-Superior-em-Engenharia-Qu%C3%ADmica-%28HMX%29-13148-914/1373624257/",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-T%C3%A9cnico-de-Planejamento-S%C3%AAnior-%28HMX%29-13148-914/1374452657/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -443,9 +432,9 @@
     },
     {
       "company": "Rhodia / Solvay",
-      "title": "Estágio Superior em Engenharia Química (H/M/X)",
+      "title": "Técnico de Inspeção Especialista (H/M/X)",
       "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Est%C3%A1gio-Superior-em-Engenharia-Qu%C3%ADmica-%28HMX%29-13148-914/1374865557/",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-T%C3%A9cnico-de-Inspe%C3%A7%C3%A3o-Especialista-%28HMX%29-13148-914/1374475057/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -454,9 +443,9 @@
     },
     {
       "company": "Rhodia / Solvay",
-      "title": "Técnico de Inspeção Especialista (H/M/X)",
+      "title": "Estágio Superior em Engenharia Química (H/M/X)",
       "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-T%C3%A9cnico-de-Inspe%C3%A7%C3%A3o-Especialista-%28HMX%29-13148-914/1374475057/",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Est%C3%A1gio-Superior-em-Engenharia-Qu%C3%ADmica-%28HMX%29-13148-914/1374865557/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -476,7 +465,7 @@
     {
       "company": "3M Brasil",
       "state": "ok",
-      "found": 17,
+      "found": 16,
       "city": "Sumaré",
       "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search",
       "career_links": []
