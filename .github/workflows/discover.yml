@@ -146,6 +146,36 @@ jobs:
             data/hidden_opportunities.json
             data/hidden_opportunities.html
           if-no-files-found: error
+      - name: Isolated Lab — two real passes with shared history
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/hidden-opportunities-lab/pass1 artifacts/hidden-opportunities-lab/pass2
+          PATH="$HOME/.local/bin:$PATH" python -m src.hidden_opportunities_lab_source --output artifacts/hidden-opportunities-lab/source_records.json --diagnostics artifacts/hidden-opportunities-lab/source_diagnostics.json
+          python -m src.hidden_opportunities_lab --input artifacts/hidden-opportunities-lab/source_records.json --output-dir artifacts/hidden-opportunities-lab/pass1 --history artifacts/hidden-opportunities-lab/history.json
+          python -m src.hidden_opportunities_lab --input artifacts/hidden-opportunities-lab/source_records.json --output-dir artifacts/hidden-opportunities-lab/pass2 --history artifacts/hidden-opportunities-lab/history.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          base = Path("artifacts/hidden-opportunities-lab")
+          a = json.loads((base/"pass1/report.json").read_text())
+          b = json.loads((base/"pass2/report.json").read_text())
+          d = json.loads((base/"source_diagnostics.json").read_text())
+          print("HIDDEN_LAB_TWO_PASS_METRICS " + json.dumps({
+            "status": d["status"], "source_records": a["total_input"],
+            "first_new": a["new_signals_this_run"], "second_new": b["new_signals_this_run"],
+            "second_repeated": b["repeated_signals_this_run"],
+            "rejected": b["rejected"], "confirmed": b["confirmed_hidden_vacancies"],
+            "errors": d["errors"][:3]
+          }, ensure_ascii=False))
+          assert b["new_signals_this_run"] == 0
+          assert b["repeated_signals_this_run"] == a["new_signals_this_run"]
+          PY
+      - name: Upload isolated Hidden Opportunities Lab evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: hidden-opportunities-lab-two-pass
+          path: artifacts/hidden-opportunities-lab/
+          if-no-files-found: error
       - name: Synthetic smoke test
         run: |
           mkdir -p data
