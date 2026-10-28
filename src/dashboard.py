@@ -228,6 +228,31 @@ def render(queue: dict, generated: str = "", insights: dict | None = None, strat
         ' · <strong>Resultados:</strong> ' + str(len(monitor_items)) + '</p>'
         '<ul>' + monitor_rows + '</ul></section>'
     )
+    hidden_path = DATA / "hidden_market.json"
+    try:
+        hidden_data = json.loads(hidden_path.read_text(encoding="utf-8")) if hidden_path.exists() else {}
+    except (OSError, ValueError):
+        hidden_data = {}
+    hidden_items = hidden_data.get("items", []) if isinstance(hidden_data, dict) else []
+    hidden_rows = "".join(
+        '<article style="padding:14px;border:1px solid #e5eaf3;border-radius:12px;margin:10px 0">'
+        '<strong>' + escape(item.get("company", "")) + '</strong> · Prioridade ' + escape(item.get("priority", "low")) +
+        ' · Pontuação ' + escape(item.get("score", 0)) + '/100'
+        '<p>Engenharia: ' + escape(item.get("engineering_roles", 0)) +
+        ' · Liderança: ' + escape(item.get("engineering_leadership_roles", 0)) +
+        ' · QA anunciado: ' + escape(item.get("qa_roles", 0)) + '</p></article>'
+        for item in hidden_items[:8] if isinstance(item, dict)
+    ) or '<p>Coleta ainda não executada ou nenhuma empresa consultada.</p>'
+    hidden_html = (
+        '<section class="advisor" id="hidden-market" style="background:white;border:1px solid #dfe5ed;'
+        'border-radius:18px;padding:24px;margin:20px 0">'
+        '<h2>Hidden Job Market · Sinais de contratação</h2>'
+        '<p>Indicadores públicos, não vagas ocultas confirmadas. '
+        'Não há comprovação de elegibilidade no Brasil ou remuneração em USD.</p>'
+        '<p>Empresas analisadas: ' + escape(hidden_data.get("companies_checked", 0)) +
+        ' · Falhas de consulta: ' + escape(hidden_data.get("companies_failed", 0)) + '</p>'
+        + hidden_rows + '<p><a href="hidden_market.html">Ver relatório e evidências completas</a></p></section>'
+    )
     apinfo_html = (
         '<section class="advisor" id="apinfo" style="background:#fff;border:1px solid #dfe5ed;'
         'border-radius:18px;padding:24px;margin:20px 0">'
@@ -283,13 +308,13 @@ footer{margin-top:25px;color:#7b879b;font-size:12px;line-height:1.8}
 @media(max-width:760px){.shell{display:block}.sidebar{height:auto;position:static;padding:16px;border-right:0;border-bottom:1px solid #e5eaf3}.brand{margin:0}.nav,.sidebar-note{display:none}.main{padding:18px 14px}.hero{padding:24px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.workspace{grid-template-columns:1fr}.filters{padding:16px}.controls{grid-template-columns:repeat(2,minmax(0,1fr))}.results{padding:16px}.topbar{margin-bottom:14px}}
 @media(max-width:420px){.controls{grid-template-columns:1fr}.stats{gap:8px}.stat{padding:13px}.stat strong{font-size:23px}}
 </style></head><body><div class="shell"><aside class="sidebar"><div class="brand">AI Job Hunter</div>
-<nav class="nav" aria-label="Navegação principal"><a class="active" href="#inicio">⌂ &nbsp; Visão geral</a><a href="#vagas">▤ &nbsp; Explorar vagas</a><a href="#vagas">◷ &nbsp; Candidaturas</a><a href="#filtros">⚙ &nbsp; Filtros</a><a href="#mercado">↗ &nbsp; Mercado</a><a href="#ai-career-studio">✦ &nbsp; Meu CV e Candidaturas</a><a href="#recruiter-monitor">◎ &nbsp; Recruiter Monitor</a><a href="hidden_market.html">◇ &nbsp; Hidden Job Market</a><a href="#consultor" id="nav-consultor">＄ &nbsp; Consultor Salarial</a></nav>
+<nav class="nav" aria-label="Navegação principal"><a class="active" href="#inicio">⌂ &nbsp; Visão geral</a><a href="#vagas">▤ &nbsp; Explorar vagas</a><a href="#vagas">◷ &nbsp; Candidaturas</a><a href="#filtros">⚙ &nbsp; Filtros</a><a href="#mercado">↗ &nbsp; Mercado</a><a href="#ai-career-studio">✦ &nbsp; Meu CV e Candidaturas</a><a href="#recruiter-monitor">◎ &nbsp; Recruiter Monitor</a><a href="#hidden-market">◇ &nbsp; Hidden Job Market</a><a href="#consultor" id="nav-consultor">＄ &nbsp; Consultor Salarial</a></nav>
 <p class="sidebar-note">Painel de descoberta e revisão de vagas. Nenhuma candidatura é enviada automaticamente.</p></aside>
 <main class="main" id="inicio"><div class="topbar"><span class="eyebrow">Seu painel de oportunidades</span><strong>AI Job Hunter · Dashboard</strong></div>
 <header class="hero"><span class="pill">✦ Busca inteligente de oportunidades</span><h1>Encontre sua próxima grande oportunidade.</h1>
 <p>Explore vagas de QA, liderança e contratos remotos. Compare oportunidades e revise os anúncios antes de se candidatar.</p>
 <div class="pills"><span class="pill">✓ Remoto e internacional</span><span class="pill">✓ Freelance e contratos</span><span class="pill">✓ Busca por empresa e vaga</span></div></header>
-""" + market_intelligence(market_entries).replace('</section><script type="application/json" id="market-data">', market_guidance + '</section><script type="application/json" id="market-data">') + advisor + '<div class="salary-tab" id="salary-tab">' + render_advisor() + '</div>' + strategic_html + monitor_html + apinfo_html + """<section class="stats">""" + stats + """</section>
+""" + market_intelligence(market_entries).replace('</section><script type="application/json" id="market-data">', market_guidance + '</section><script type="application/json" id="market-data">') + advisor + '<div class="salary-tab" id="salary-tab">' + render_advisor() + '</div>' + strategic_html + hidden_html + monitor_html + apinfo_html + """<section class="stats">""" + stats + """</section>
 <h2 class="section-title" id="vagas">Explore oportunidades</h2><p class="section-sub">Dados do último processamento · gerado em """ + timestamp + """</p>
 <div class="workspace"><aside class="filters" id="filtros"><h2>Filtros de busca</h2><div class="controls">
 <div><label for="query">Cargo ou empresa</label><input id="query" aria-label="Pesquisar vagas" placeholder="Ex.: QA Manager, Bosch"></div>
