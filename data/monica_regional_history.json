@@ -1,6 +1,28 @@
 {
-  "collected_at": "2026-10-28T16:49:53.179341+00:00",
+  "collected_at": "2026-10-29T17:04:55.230465+00:00",
   "jobs": [
+    {
+      "id": "lever:ciandt:166f6334-ab92-4273-a5c7-1240d32358a8",
+      "source": "Lever",
+      "company": "CI&T",
+      "title": "[Job-32492] TPM - Technical Project Manager, Campinas",
+      "url": "https://jobs.lever.co/ciandt/166f6334-ab92-4273-a5c7-1240d32358a8",
+      "location": "Campinas, SP",
+      "description": "Na CI&T , ajudamos grandes empresas a transformar o potencial da AI em impacto real nos negócios com AI Deployment, execução AI-native e tech-integrated business solutions. Com 30 anos de experiência em transformação tecnológica, aceleramos inovação com expertise em agentic SDLC, application modernization, Data & AI, martech e business strategy. Somos 8.000 CI&Ters em mais de 25 países, colaborando para construir soluções com impacto real. AI já faz parte da forma como trabalhamos, evoluímos e inovamos todos os dias. Importante: se você reside na Região Metropolitana de Campinas, sua presença nos escritórios da cidade será obrigatória, conforme a política de frequencia vigente. Regime: Híbrido — Campinas, 3x por semana presencial (não negociável). A CI&T oferece reembolso de deslocamento ou fretado para quem precisar. Missão Buscamos um Technical Project Manager para atuar em um dos nossos clientes globais no ramo de bebidas, sendo a ponte estratégica entre Produto, Design, Engenharia e Dados — em plataformas de Marketing Technology ou Revenue Management, dependendo da alocação. O objetivo é garantir excelência de entrega, alinhamento às estratégias globais e escalabilidade das iniciativas de cada frente. Must have Experiência sólida em gestão de programas e projetos complexos de software ou produtos digitais Experiência em gestão de pessoas e liderança de times multidisciplinares na área de desenvolvimento de software Domínio de metodologias ágeis e frameworks de escala (Scrum, Kanban, SAFe) Visão de produto e capacidade de gerenciar expectativas de stakeholders Fluência em métricas de negócio e de performance de time (lead time, throughput, velocity, rework) Domínio de boas práticas de gerenciamento de projetos: planejamento, acompanhamento, comunicação e gestão de riscos e dependências Inglês fluente — o ambiente é internacional, com interações frequentes com stakeholders globais em reuniões, workshops e documentação Nice to have Vivência em ambientes de Marketing Technology, automação de marketing, CRM, adtech ou Revenue Management Experiência em programas de modernização e transformação ágil (migração de features, refatoração de sistemas) Familiaridade com conceitos de arquitetura de software, dados e inteligência artificial Experiência em coordenação de iniciativas de inovação e adoção de novas tecnologias Conhecimento em ferramentas de gestão de projetos, analytics e monitoramento de performance Sobre o papel na prática Nessa posição, você não vai gerenciar pessoas — você vai gerenciar escopo. O time já está formado e estruturado; o que buscamos é alguém que entre para fazer a gestão de cronograma, riscos, dependências e stakeholders com precisão e sem medo de se posicionar. Experiência com liderança de times é importante para saber se mover dentro de estruturas complexas, mas o seu dia a dia será de gestão de programa, não de gestão de pessoas. Se você tem esse perfil — comunicação afiada, visão de projeto e conforto em ambientes de alta complexidade — essa vaga é pra você! #LI-JM2",
+      "published": null,
+      "updated": null,
+      "employment_type": "Homeoffice",
+      "area": "Projetos",
+      "remote_evidence": "unknown",
+      "brazil_eligible": "unverified",
+      "publication_date_verified": false,
+      "application": "external_link_only",
+      "regional_priority": 2,
+      "discovery_agent": "monica_regional_sp",
+      "first_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "not_seen_in_latest_collection": false
+    },
     {
       "id": "lever:ciandt:4f45f248-4d65-4226-bfe1-983ed97e1e5f",
       "source": "Lever",
@@ -20,7 +42,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T19:12:42.612682+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -42,7 +64,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T19:12:42.612682+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -60,7 +82,7 @@
       "regional_priority": 1,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -76,7 +98,7 @@
       "regional_priority": 1,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -94,7 +116,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -112,7 +134,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -134,7 +156,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -156,7 +178,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -178,7 +200,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -196,7 +218,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -214,7 +236,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -232,7 +254,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -250,7 +272,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -268,7 +290,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -286,7 +308,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -304,7 +326,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -322,7 +344,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -340,7 +362,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -358,7 +380,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -376,7 +398,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -394,19 +416,19 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-28T16:49:53.179341+00:00",
+      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
       "not_seen_in_latest_collection": false
     }
   ],
   "sources": {
     "data/project_jobs_poc.json": {
       "status": "ok",
-      "input": 72,
-      "selected": 3
+      "input": 79,
+      "selected": 4
     },
     "data/strategic_jobs.json": {
       "status": "ok",
-      "input": 41,
+      "input": 40,
       "selected": 1
     },
     "data/curated_industrial_projects.json": {
