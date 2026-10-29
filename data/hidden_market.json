@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T16:41:05.223266+00:00",
+  "generated_at": "2026-10-29T16:57:40.142695+00:00",
   "method": "public ATS engineering-hiring proxy; not confirmed hidden vacancies",
   "companies_checked": 2,
   "companies_failed": 1,
@@ -11,9 +11,9 @@
       "signal": "engineering_hiring_without_public_qa_listing",
       "confidence": "moderate",
       "score": 85,
-      "engineering_roles": 49,
+      "engineering_roles": 47,
       "qa_roles": 0,
-      "engineering_leadership_roles": 22,
+      "engineering_leadership_roles": 21,
       "qa_leadership_roles": 0,
       "remote_engineering_roles": 0,
       "priority": "high",
@@ -28,12 +28,12 @@
           "url": "https://job-boards.greenhouse.io/gitlab/jobs/8704363002"
         },
         {
-          "title": "Backend Engineer (Ruby), AI Engineering: Agent Foundations",
-          "url": "https://job-boards.greenhouse.io/gitlab/jobs/8620720002"
-        },
-        {
           "title": "Backend Engineer (Ruby), Create: Change Record",
           "url": "https://job-boards.greenhouse.io/gitlab/jobs/8891301002"
+        },
+        {
+          "title": "Backend Engineer (Ruby), Plan: Spec-Driven Development",
+          "url": "https://job-boards.greenhouse.io/gitlab/jobs/8749950002"
         },
         {
           "title": "Backend Engineer (Ruby), Plan: Spec-Driven Development",
