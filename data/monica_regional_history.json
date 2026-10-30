@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-29T17:04:55.230465+00:00",
+  "collected_at": "2026-10-30T16:50:17.774298+00:00",
   "jobs": [
     {
       "id": "lever:ciandt:166f6334-ab92-4273-a5c7-1240d32358a8",
@@ -20,7 +20,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-29T17:04:55.230465+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -42,7 +42,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T19:12:42.612682+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -64,7 +64,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T19:12:42.612682+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -82,7 +82,7 @@
       "regional_priority": 1,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -98,7 +98,7 @@
       "regional_priority": 1,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -116,7 +116,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -134,7 +134,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -156,7 +156,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -178,7 +178,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -200,7 +200,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -218,7 +218,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -236,7 +236,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -254,7 +254,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -272,7 +272,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -290,7 +290,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -308,7 +308,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -326,7 +326,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -344,7 +344,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -362,7 +362,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -380,7 +380,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -398,7 +398,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -416,19 +416,19 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-10-29T17:04:55.230465+00:00",
+      "last_seen_at": "2026-10-30T16:50:17.774298+00:00",
       "not_seen_in_latest_collection": false
     }
   ],
   "sources": {
     "data/project_jobs_poc.json": {
       "status": "ok",
-      "input": 79,
-      "selected": 4
+      "input": 82,
+      "selected": 3
     },
     "data/strategic_jobs.json": {
       "status": "ok",
-      "input": 40,
+      "input": 41,
       "selected": 1
     },
     "data/curated_industrial_projects.json": {
