@@ -1,43 +1,40 @@
 # QA opportunities
 
-Generated: 2026-10-30 16:42 UTC
+Generated: 2026-10-31 15:45 UTC
 
-Matched listings: **27**
+Matched listings: **24**
 
 Review all job terms manually. USD/2h-day are **not assumed** when absent.
 
 ## Freelance
 
-- **100 pts** [Project Manager - Cancer Research Operations](https://himalayas.app/companies/brown-university-health/jobs/project-manager-cancer-research-operations?utm_source=api) — Brown University Health | Remote | salary: USD 90729.6-149697.6 annual
-- **85 pts** [Senior QA Automation Engineer (6 month contract)](https://himalayas.app/companies/spd-technology/jobs/senior-qa-automation-engineer-6-month-contract?utm_source=api) — SPD Technology | Ukraine | salary: not stated
-- **75 pts** [Senior Full-stack QA Engineer](https://himalayas.app/companies/bonapolia/jobs/senior-full-stack-qa-engineer?utm_source=api) — Bonapolia | Armenia, Estonia, Georgia, Kazakhstan, Latvia, Lithuania, Poland, Romania, Serbia, Spain | salary: not stated
-- **75 pts** [Senior Test Engineer (insurance), JR907](https://himalayas.app/companies/eleks/jobs/senior-test-engineer-insurance-jr907?utm_source=api) — ELEKS | Poland | salary: not stated
+- **65 pts** [QA Tester (Manual Testing, SaaS)](https://himalayas.app/companies/the-learning-network-tln/jobs/qa-tester-manual-testing-saas?utm_source=api) — The Learning Network (TLN) | Philippines | salary: PHP 40000-50000 monthly
+- **55 pts** [QA Automation Engineer](https://himalayas.app/companies/bonapolia/jobs/qa-automation-engineer?utm_source=api) — Bonapolia | Estonia, Latvia, Lithuania | salary: not stated
+- **55 pts** [Analista de QA Quality Assurance](https://himalayas.app/companies/giro-tech/jobs/analista-de-qa-quality-assurance?utm_source=api) — GIRO.TECH | Brazil | salary: BRL 5712-5712 monthly
 
 ## Full-Time/Unspecified
 
-- **70 pts** [Quality Assurance Lead, US Remote Based](https://himalayas.app/companies/lifelancer/jobs/quality-assurance-lead-us-remote-based?utm_source=api) — Lifelancer | United States | salary: USD 70000-125000 annual
+- **70 pts** [Fresh Food QA Manager](https://himalayas.app/companies/7-eleven-inc/jobs/fresh-food-qa-manager?utm_source=api) — 7-Eleven Inc | United States | salary: USD 70000-107500 annual
+- **70 pts** [Technical QA and Automation Lead](https://himalayas.app/companies/ais-applied-information-sciences/jobs/technical-qa-and-automation-lead?utm_source=api) — AIS (Applied Information Sciences) | United States | salary: USD 116000-175000 annual
 - **70 pts** [Senior Technical Program Manager](https://jobs.ashbyhq.com/ramp/8be55ffc-d512-4ef3-a14d-3a4cb29a60d4) — Ramp | New York, NY (HQ) | salary: $180K – $250K • Offers Equity
-- **70 pts** [Senior Program Manager - Ports & Borders](https://himalayas.app/companies/smith-s-group/jobs/senior-program-manager-ports-borders?utm_source=api) — Smith's Group | United States | salary: USD 109800-197520 annual
-- **70 pts** [Assistant Project Manager](https://himalayas.app/companies/turner-townsend/jobs/assistant-project-manager-7689184983?utm_source=api) — Turner & Townsend | United States | salary: USD 130000-130000 annual
-- **55 pts** [Senior Project Manager, Business Transformation](https://jobicy.com/jobs/157972-senior-project-manager-business-transformation) — Algolia | USA | salary: not stated
-- **55 pts** [Sr. Agile Project Manager](https://himalayas.app/companies/cambium-learning-group/jobs/sr-agile-project-manager?utm_source=api) — Cambium Learning Group | United States | salary: not stated
-- **55 pts** [Senior QA Engineer](https://himalayas.app/companies/first-advantage/jobs/senior-qa-engineer?utm_source=api) — First Advantage | Mexico | salary: not stated
+- **65 pts** [Principal Design Program Manager, International Packaging](https://jobicy.com/jobs/158161-principal-design-program-manager-international-packaging) — hims & hers | USA | salary: not stated
+- **65 pts** [QA Tester - Agentic Web Application (Senior)](https://himalayas.app/companies/microsourcing/jobs/qa-tester-agentic-web-application-senior-1710633771?utm_source=api) — MicroSourcing | United States | salary: not stated
+- **65 pts** [AI Data Center Project Manager (Japan)](https://himalayas.app/companies/the-talent-people/jobs/ai-data-center-project-manager-japan?utm_source=api) — The Talent People | United States | salary: JPY 12000000-14000000 annual
+- **55 pts** [Project Manager, Transformation and Strategy](https://himalayas.app/companies/adm-group/jobs/project-manager-transformation-and-strategy?utm_source=api) — adm Group | United Kingdom | salary: not stated
 - **55 pts** [Principal Quality Engineer](https://himalayas.app/companies/freedompay-com/jobs/principal-quality-engineer?utm_source=api) — FreedomPay | United States | salary: not stated
 - **55 pts** [Principal Technical Program Manager](https://job-boards.greenhouse.io/gitlab/jobs/8693068002) — GitLab | Remote, Canada; Remote, United States | salary: not stated
 - **55 pts** [Senior Professional Services Project Manager (EMEA)](https://job-boards.greenhouse.io/gitlab/jobs/8622433002) — GitLab | Remote, United Kingdom | salary: not stated
 - **55 pts** [Senior Program Manager, Enterprise Technology and AI](https://job-boards.greenhouse.io/gitlab/jobs/8687246002) — GitLab | Remote, United Kingdom | salary: not stated
 - **55 pts** [Staff Program Manager, CCO Programs](https://job-boards.greenhouse.io/gitlab/jobs/8822279002) — GitLab | Remote, Canada; Remote, United States | salary: not stated
-- **55 pts** [Senior QA Automation Engineer - Holycode team](https://himalayas.app/companies/holycode/jobs/senior-qa-automation-engineer-holycode-team?utm_source=api) — Holycode | Romania | salary: not stated
-- **55 pts** [Project Manager II (Romania)](https://himalayas.app/companies/indero/jobs/project-manager-ii-romania?utm_source=api) — Indero | Romania | salary: not stated
+- **55 pts** [Quality Engineer – QA Control Account Manager](https://himalayas.app/companies/long-wave-inc/jobs/quality-engineer-qa-control-account-manager?utm_source=api) — Long Wave Inc. | United States | salary: not stated
 - **55 pts** [Principal QA Automation Engineer](https://himalayas.app/companies/sparq/jobs/principal-qa-automation-engineer?utm_source=api) — Sparq | United States | salary: not stated
 - **55 pts** [Project Manager](https://remoteOK.com/remote-jobs/remote-project-manager-spiralyze-1137466) — Spiralyze | Worldwide | salary: not stated
-- **50 pts** [QA Tester](https://himalayas.app/companies/opendatajobs/jobs/qa-tester?utm_source=api) — OpenDataJobs | United States | salary: USD 100000-140000 annual
-- **35 pts** [QA Tester Entry Level](https://remoteOK.com/remote-jobs/remote-qa-tester-entry-level-ace-it-careers-1136701) — Ace IT Careers | Remote | salary: not stated
-- **35 pts** [Performance Test Engineer - LATAM-English Required](https://himalayas.app/companies/dacodes/jobs/performance-test-engineer-latam-english-required?utm_source=api) — DaCodes | Mexico | salary: not stated
-- **35 pts** [QA Automação Especialista - Segmento Varejista](https://himalayas.app/companies/db-crescer-com-proposito/jobs/qa-automacao-especialista-segmento-varejista?utm_source=api) — DB | CRESCER com propósito! | Brazil | salary: not stated
-- **35 pts** [QA/Test Automation Engineer (Journeyman)](https://himalayas.app/companies/decisionpoint-corporation/jobs/qa-test-automation-engineer-journeyman?utm_source=api) — DecisionPoint Corporation | United States | salary: not stated
-- **35 pts** [Mid-Level UiPath Test Automation Developer | QA](https://himalayas.app/companies/smarthis/jobs/mid-level-uipath-test-automation-developer-qa?utm_source=api) — Smarthis | Brazil | salary: not stated
-- **35 pts** [Software Test Engineer](https://www.arbeitnow.ch/jobs/companies/swisspeak-partners-gmbh/remote-software-test-engineer-bern-463546) — SwissPeak Partners GmbH | Remote job | salary: not stated
+- **55 pts** [Senior QA Engineer](https://himalayas.app/companies/veeva-systems/jobs/senior-qa-engineer-2431088377?utm_source=api) — Veeva Systems | Canada | salary: CAD 75000-150000 annual
+- **50 pts** [Cloud Migration Test Automation Engineer](https://himalayas.app/companies/ais-applied-information-sciences/jobs/cloud-migration-test-automation-engineer?utm_source=api) — AIS (Applied Information Sciences) | United States | salary: USD 102000-154000 annual
+- **50 pts** [QA I Coding Operations](https://himalayas.app/companies/cotiviti/jobs/qa-i-coding-operations?utm_source=api) — Cotiviti | United States | salary: USD 25.5-32.5 hourly
+- **35 pts** [Clinical Project Coordinator](https://jobicy.com/jobs/158141-clinical-project-coordinator) — Alimentiv | Canada | salary: not stated
+- **35 pts** [QA Automação Sr - Segmento Varejista](https://himalayas.app/companies/db-crescer-com-proposito/jobs/qa-automacao-sr-segmento-varejista?utm_source=api) — DB | CRESCER com propósito! | Brazil | salary: not stated
+- **35 pts** [QA Engineer - Manual & Automation](https://himalayas.app/companies/sonatafy-technology/jobs/qa-engineer-manual-automation?utm_source=api) — Sonatafy Technology | Colombia | salary: not stated
 
 ## Source errors
 

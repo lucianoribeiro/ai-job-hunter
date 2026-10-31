@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T16:43:14.336786+00:00",
+  "generated_at": "2026-10-31T15:45:53.981737+00:00",
   "jobs": [
     {
       "company": "Honda Brasil",
@@ -138,17 +138,6 @@
       "title": "Payroll Supervisor, Sumaré/SP",
       "location": "Sumaré",
       "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Payroll-Supervisor--Sumar-SP_R01172596",
-      "source": "Workday público",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Confirmar abertura e detalhes no portal oficial"
-    },
-    {
-      "company": "3M Brasil",
-      "title": "Marketing Performance Analyst / Sumaré SP",
-      "location": "Sumaré",
-      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Marketing-Performance-Analytics-Sr-Specialist---Sumar-SP_R01167655",
       "source": "Workday público",
       "published": "",
       "regional": true,
@@ -410,31 +399,9 @@
     },
     {
       "company": "Rhodia / Solvay",
-      "title": "Técnico de Inspeção Especialista (H/M/X)",
+      "title": "Senior Maintenance Engineer (H/M/X)",
       "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-T%C3%A9cnico-de-Inspe%C3%A7%C3%A3o-Especialista-%28HMX%29-13148-914/1374475057/",
-      "source": "Portal oficial",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Dados parciais; confirmar detalhes no anúncio"
-    },
-    {
-      "company": "Rhodia / Solvay",
-      "title": "Estágio Superior em Engenharia Química (H/M/X)",
-      "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Est%C3%A1gio-Superior-em-Engenharia-Qu%C3%ADmica-%28HMX%29-13148-914/1374865557/",
-      "source": "Portal oficial",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Dados parciais; confirmar detalhes no anúncio"
-    },
-    {
-      "company": "Rhodia / Solvay",
-      "title": "Operador de Controle de Emergências (H/M/X)",
-      "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Operador-de-Controle-de-Emerg%C3%AAncias-%28HMX%29-13148-914/1373629857/",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Senior-Maintenance-Engineer-%28HMX%29-13148-914/1376338957/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -446,6 +413,28 @@
       "title": "Estágio em Supply Chain (H/M/X)",
       "location": "Paulínia",
       "url": "https://careers.solvay.com/job/Brazil-Paulinia-Est%C3%A1gio-em-Supply-Chain-%28HMX%29-13148-914/1374455457/",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Rhodia / Solvay",
+      "title": "Operador de Acabamento - Vaga Afirmativa para Pessoas com Deficiência (H/M/X)",
+      "location": "Paulínia",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Operador-de-Acabamento-Vaga-Afirmativa-para-Pessoas-com-Defici%C3%AAncia-%28HMX%29-13148-914/1374756057/",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Rhodia / Solvay",
+      "title": "Operador de Controle de Emergências (H/M/X)",
+      "location": "Paulínia",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Operador-de-Controle-de-Emerg%C3%AAncias-%28HMX%29-13148-914/1373629857/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -465,7 +454,7 @@
     {
       "company": "3M Brasil",
       "state": "ok",
-      "found": 16,
+      "found": 15,
       "city": "Sumaré",
       "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search",
       "career_links": []

@@ -57,6 +57,36 @@
     "title": "Senior/Lead Project Manager",
     "url": "https://himalayas.app/companies/valtech-us/jobs/senior-lead-project-manager-9806199849?utm_source=api"
   },
+  "0384ca74397c6bf1": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Veeva Systems",
+    "created_at": "2026-10-31",
+    "job_id": "0384ca74397c6bf1",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-31",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-31",
+    "title": "Senior QA Engineer",
+    "url": "https://himalayas.app/companies/veeva-systems/jobs/senior-qa-engineer-2431088377?utm_source=api"
+  },
   "05e04f2b4693be90": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -634,6 +664,37 @@
     "title": "Bulgarian Localization QA Tester / Proofreader",
     "url": "https://himalayas.app/companies/welo-global/jobs/bulgarian-localization-qa-tester-proofreader?utm_source=api"
   },
+  "157e7237a04dc0c1": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA leadership target",
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "7-Eleven Inc",
+    "created_at": "2026-10-31",
+    "job_id": "157e7237a04dc0c1",
+    "notes": "",
+    "score": 70,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-31",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-31",
+    "title": "Fresh Food QA Manager",
+    "url": "https://himalayas.app/companies/7-eleven-inc/jobs/fresh-food-qa-manager?utm_source=api"
+  },
   "1718efd19ea573c1": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -750,6 +811,34 @@
     "status_updated_at": "2026-10-29",
     "title": "Senior Technical Program Manager - New Data Center Launches",
     "url": "https://jobicy.com/jobs/157819-senior-technical-program-manager-new-data-center-launches"
+  },
+  "193638a429b80ebd": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "adm Group",
+    "created_at": "2026-10-31",
+    "job_id": "193638a429b80ebd",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-31",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-31",
+    "title": "Project Manager, Transformation and Strategy",
+    "url": "https://himalayas.app/companies/adm-group/jobs/project-manager-transformation-and-strategy?utm_source=api"
   },
   "1a88a5cb0d97ef1f": {
     "assessment": {
@@ -986,6 +1075,38 @@
     "status_updated_at": "2026-10-27",
     "title": "Project Manager (Brazil)",
     "url": "https://himalayas.app/companies/50-sport/jobs/project-manager-brazil?utm_source=api"
+  },
+  "20ad41107670184b": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "Location text may include Brazil; confirm eligibility",
+        "Contract/freelance terms detected; confirm daily hours"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "freelance",
+    "company": "GIRO.TECH",
+    "created_at": "2026-10-31",
+    "job_id": "20ad41107670184b",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-31",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-31",
+    "title": "Analista de QA [Quality Assurance]",
+    "url": "https://himalayas.app/companies/giro-tech/jobs/analista-de-qa-quality-assurance?utm_source=api"
   },
   "270f6f29ac2999d6": {
     "assessment": {
@@ -1283,6 +1404,36 @@
     "title": "Project Manager, Enterprise Merchandise",
     "url": "https://himalayas.app/companies/quince/jobs/project-manager-enterprise-merchandise?utm_source=api"
   },
+  "34c8c9384740c81e": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Sonatafy Technology",
+    "created_at": "2026-10-31",
+    "job_id": "34c8c9384740c81e",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-31",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-31",
+    "title": "QA Engineer - Manual & Automation",
+    "url": "https://himalayas.app/companies/sonatafy-technology/jobs/qa-engineer-manual-automation?utm_source=api"
+  },
   "3550576dbd8c2e16": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -1553,6 +1704,37 @@
     "title": "Automation QA Engineer Internship",
     "url": "https://himalayas.app/companies/metasys/jobs/automation-qa-engineer-internship?utm_source=api"
   },
+  "3eb2e8c8f824d4a9": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Cotiviti",
+    "created_at": "2026-10-31",
+    "job_id": "3eb2e8c8f824d4a9",
+    "notes": "",
+    "score": 50,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-31",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-31",
+    "title": "QA I Coding Operations",
+    "url": "https://himalayas.app/companies/cotiviti/jobs/qa-i-coding-operations?utm_source=api"
+  },
   "3fa400a940165eed": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -1676,6 +1858,37 @@
     "title": "Automation QA Engineer",
     "url": "https://himalayas.app/companies/digitall-nature-corp/jobs/automation-qa-engineer?utm_source=api"
   },
+  "4387a1c60d225b0b": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "Contract/freelance terms detected; confirm daily hours"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "freelance",
+    "company": "Bonapolia",
+    "created_at": "2026-10-31",
+    "job_id": "4387a1c60d225b0b",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-31",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-31",
+    "title": "QA Automation Engineer",
+    "url": "https://himalayas.app/companies/bonapolia/jobs/qa-automation-engineer?utm_source=api"
+  },
   "439ab77abff99caf": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -1795,6 +2008,37 @@
     "status_updated_at": "2026-10-18",
     "title": "Project Manager",
     "url": "https://himalayas.app/companies/beecruit-pte-ltd/jobs/project-manager"
+  },
+  "4730dceabe0de41c": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "Location text may include Brazil; confirm eligibility"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "DB | CRESCER com propósito!",
+    "created_at": "2026-10-31",
+    "job_id": "4730dceabe0de41c",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-31",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-31",
+    "title": "QA Automação Sr - Segmento Varejista",
+    "url": "https://himalayas.app/companies/db-crescer-com-proposito/jobs/qa-automacao-sr-segmento-varejista?utm_source=api"
   },
   "47e459a13df44369": {
     "assessment": {
@@ -2158,6 +2402,34 @@
     "title": "Program Manager",
     "url": "https://himalayas.app/companies/driveempower/jobs/program-manager?utm_source=api"
   },
+  "51c844e94175d955": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "hims & hers",
+    "created_at": "2026-10-31",
+    "job_id": "51c844e94175d955",
+    "notes": "",
+    "score": 65,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-31",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-31",
+    "title": "Principal Design Program Manager, International Packaging",
+    "url": "https://jobicy.com/jobs/158161-principal-design-program-manager-international-packaging"
+  },
   "526128f21629a8bf": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -2337,6 +2609,36 @@
     "status_updated_at": "2026-10-20",
     "title": "Senior Program Manager",
     "url": "https://jobicy.com/jobs/155920-senior-program-manager-2"
+  },
+  "5841149eb1f8037f": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Long Wave Inc.",
+    "created_at": "2026-10-31",
+    "job_id": "5841149eb1f8037f",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-31",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-31",
+    "title": "Quality Engineer – QA Control Account Manager",
+    "url": "https://himalayas.app/companies/long-wave-inc/jobs/quality-engineer-qa-control-account-manager?utm_source=api"
   },
   "585be6d2dc910222": {
     "assessment": {
@@ -3654,6 +3956,36 @@
     "title": "QA Engineer",
     "url": "https://himalayas.app/companies/docdigitizer/jobs/qa-engineer?utm_source=api"
   },
+  "882a615952bbfeda": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "MicroSourcing",
+    "created_at": "2026-10-31",
+    "job_id": "882a615952bbfeda",
+    "notes": "",
+    "score": 65,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-31",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-31",
+    "title": "QA Tester - Agentic Web Application (Senior)",
+    "url": "https://himalayas.app/companies/microsourcing/jobs/qa-tester-agentic-web-application-senior-1710633771?utm_source=api"
+  },
   "883b8bfbf65f78b0": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -4311,6 +4643,37 @@
     "title": "QA Automação Especialista - Segmento Varejista",
     "url": "https://himalayas.app/companies/db-crescer-com-proposito/jobs/qa-automacao-especialista-segmento-varejista?utm_source=api"
   },
+  "99e6d1c0fb004e3b": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "Contract/freelance terms detected; confirm daily hours"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "freelance",
+    "company": "The Learning Network (TLN)",
+    "created_at": "2026-10-31",
+    "job_id": "99e6d1c0fb004e3b",
+    "notes": "",
+    "score": 65,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-31",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-31",
+    "title": "QA Tester (Manual Testing, SaaS)",
+    "url": "https://himalayas.app/companies/the-learning-network-tln/jobs/qa-tester-manual-testing-saas?utm_source=api"
+  },
   "9d7a98eb6a287531": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -4937,6 +5300,34 @@
     "title": "Software Test Engineer",
     "url": "https://www.arbeitnow.ch/jobs/companies/swisspeak-partners-gmbh/remote-software-test-engineer-bern-487044"
   },
+  "b770e23ab165842f": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Alimentiv",
+    "created_at": "2026-10-31",
+    "job_id": "b770e23ab165842f",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-31",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-31",
+    "title": "Clinical Project Coordinator",
+    "url": "https://jobicy.com/jobs/158141-clinical-project-coordinator"
+  },
   "b9ac09ead6163bb4": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -5087,6 +5478,37 @@
     "status_updated_at": "2026-10-28",
     "title": "QA Engineer – Automation",
     "url": "https://himalayas.app/companies/bright-vision-technologies/jobs/qa-engineer-automation-2653076919?utm_source=api"
+  },
+  "c17e6512701e264f": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "AIS (Applied Information Sciences)",
+    "created_at": "2026-10-31",
+    "job_id": "c17e6512701e264f",
+    "notes": "",
+    "score": 50,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-31",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-31",
+    "title": "Cloud Migration Test Automation Engineer",
+    "url": "https://himalayas.app/companies/ais-applied-information-sciences/jobs/cloud-migration-test-automation-engineer?utm_source=api"
   },
   "c1b446b359c9d0de": {
     "assessment": {
@@ -5954,6 +6376,34 @@
     "title": "Sr Quality Assurance Auditor",
     "url": "https://himalayas.app/companies/clario/jobs/sr-quality-assurance-auditor?utm_source=api"
   },
+  "e6036fbb8c362098": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "The Talent People",
+    "created_at": "2026-10-31",
+    "job_id": "e6036fbb8c362098",
+    "notes": "",
+    "score": 65,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-31",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-31",
+    "title": "AI Data Center Project Manager (Japan)",
+    "url": "https://himalayas.app/companies/the-talent-people/jobs/ai-data-center-project-manager-japan?utm_source=api"
+  },
   "e680363520291e8d": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -6309,6 +6759,37 @@
     "status_updated_at": "2026-10-18",
     "title": "SNAP EBT Test Lead",
     "url": "https://himalayas.app/companies/dhaka-technologies-limited-company/jobs/snap-ebt-test-lead"
+  },
+  "f24032c0b7175eab": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "AIS (Applied Information Sciences)",
+    "created_at": "2026-10-31",
+    "job_id": "f24032c0b7175eab",
+    "notes": "",
+    "score": 70,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-10-31",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-10-31",
+    "title": "Technical QA and Automation Lead",
+    "url": "https://himalayas.app/companies/ais-applied-information-sciences/jobs/technical-qa-and-automation-lead?utm_source=api"
   },
   "f3254c8a5783ec0b": {
     "assessment": {
