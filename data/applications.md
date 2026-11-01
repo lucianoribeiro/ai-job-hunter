@@ -2,7 +2,7 @@
 
 No applications are submitted automatically. Verify employer reputation, Brazil eligibility, pay and hours.
 
-New matches in this run: **16**
+New matches in this run: **18**
 
 ## Pending review
 
@@ -18,6 +18,7 @@ New matches in this run: **16**
 - [Clinical Trials Associate Project Manager](https://himalayas.app/companies/rochester-regional-health/jobs/clinical-trials-associate-project-manager) — Rochester Regional Health | score 80 | full-time/unspecified | employer unverified
 - [Project Manager, OSP Construction & Engineering](https://himalayas.app/companies/ziply-fiber/jobs/project-manager-osp-construction-engineering-2027685616?utm_source=api) — Ziply Fiber | score 80 | full-time/unspecified | employer unverified
 - [Product Support Engineer (SRE, QA)](https://himalayas.app/companies/bsc-analytics/jobs/product-support-engineer-sre-qa?utm_source=api) — BSC Analytics | score 80 | freelance | employer unverified
+- [QA Engineer Team Lead](https://himalayas.app/companies/supplyhouse-com/jobs/qa-engineer-team-lead?utm_source=api) — SupplyHouse.com | score 80 | full-time/unspecified | employer unverified
 - [Systems Analyst/ IT Project Manager as Freelancer (all genders)](https://www.arbeitnow.com/jobs/companies/vexcash-ag/systems-analyst-it-project-manager-as-freelancer-all-genders-berlin-466967) — Vexcash AG | score 75 | freelance | employer unverified
 - [Senior Test Engineer (insurance), JR907](https://himalayas.app/companies/eleks/jobs/senior-test-engineer-insurance-jr907?utm_source=api) — ELEKS | score 75 | freelance | employer unverified
 - [Project Manager](https://jobicy.com/jobs/157315-project-manager-7) — Superside | score 75 | freelance | employer unverified
@@ -27,6 +28,7 @@ New matches in this run: **16**
 - [Senior QA Automation Engineer - Product (LATAM)](https://jobicy.com/jobs/153469-senior-qa-automation-engineer-product-latam) — Upgrade | score 75 | freelance | employer unverified
 - [Sr IT Project Manager with Oracle EBS - Remote](https://himalayas.app/companies/omg-technology/jobs/sr-it-project-manager-with-oracle-ebs-remote?utm_source=api) — OMG Technology | score 75 | freelance | employer unverified
 - [Builder Services Project Manager 2](https://himalayas.app/companies/cornerstone-building-brands-inc/jobs/builder-services-project-manager-2?utm_source=api) — Cornerstone Building Brands, Inc. | score 70 | full-time/unspecified | employer unverified
+- [Fresh Food QA Manager](https://himalayas.app/companies/7-eleven-inc/jobs/fresh-food-qa-manager?utm_source=api) — 7-Eleven Inc | score 70 | full-time/unspecified | employer unverified
 - [Senior Technical Program Manager (R6371)](https://himalayas.app/companies/shield-ai/jobs/senior-technical-program-manager-r6371?utm_source=api) — Shield AI | score 70 | full-time/unspecified | employer unverified
 - [Project Manager, Enterprise Merchandise](https://himalayas.app/companies/quince/jobs/project-manager-enterprise-merchandise?utm_source=api) — Quince | score 70 | full-time/unspecified | employer unverified
 - [Senior Building Automation Systems Project Manager](https://himalayas.app/companies/smart-tech-contracting/jobs/senior-building-automation-systems-project-manager) — Smart Tech Contracting | score 70 | full-time/unspecified | employer unverified
@@ -56,29 +58,31 @@ New matches in this run: **16**
 - [Project Manager](https://himalayas.app/companies/harris/jobs/project-manager-9733311005?utm_source=api) — Harris | score 70 | full-time/unspecified | employer unverified
 - [Project Manager](https://himalayas.app/companies/bixal/jobs/project-manager) — Bixal | score 70 | full-time/unspecified | employer unverified
 - [Project Manager III](https://himalayas.app/companies/exeter-finance-llc/jobs/project-manager-iii?utm_source=api) — Exeter Finance LLC | score 70 | full-time/unspecified | employer unverified
+- [Technical QA and Automation Lead](https://himalayas.app/companies/ais-applied-information-sciences/jobs/technical-qa-and-automation-lead?utm_source=api) — AIS (Applied Information Sciences) | score 70 | full-time/unspecified | employer unverified
 - [Program Manager – Washington, D.C./National Capital Region](https://himalayas.app/companies/terragraphics-environmental-engineering/jobs/program-manager-washington-d-c-national-capital-region?utm_source=api) — TerraGraphics Environmental Engineering | score 70 | full-time/unspecified | employer unverified
 - [Go to Market Program Manager - Platform and Assurance](https://himalayas.app/companies/cisco/jobs/go-to-market-program-manager-platform-and-assurance) — Cisco | score 70 | full-time/unspecified | employer unverified
-- [Fresh Food QA Manager](https://himalayas.app/companies/7-eleven-inc/jobs/fresh-food-qa-manager?utm_source=api) — 7-Eleven Inc | score 70 | full-time/unspecified | employer unverified
-- [Technical QA and Automation Lead](https://himalayas.app/companies/ais-applied-information-sciences/jobs/technical-qa-and-automation-lead?utm_source=api) — AIS (Applied Information Sciences) | score 70 | full-time/unspecified | employer unverified
+- [Senior Technical Program Manager](https://himalayas.app/companies/openmined/jobs/senior-technical-program-manager-8995982391?utm_source=api) — OpenMined | score 70 | full-time/unspecified | employer unverified
+- [Global Senior Project Manager](https://himalayas.app/companies/vestolit/jobs/global-senior-project-manager?utm_source=api) — Orbia | score 70 | full-time/unspecified | employer unverified
 - [QA Tester - Agentic Web Application (Senior)](https://himalayas.app/companies/microsourcing/jobs/qa-tester-agentic-web-application-senior?utm_source=api) — MicroSourcing | score 65 | full-time/unspecified | employer unverified
 - [QA Engineer (12-Month Contract)](https://himalayas.app/companies/insense/jobs/qa-engineer-12-month-contract?utm_source=api) — Insense | score 65 | freelance | employer unverified
 - [QA Engineer (12-Month Contract)](https://himalayas.app/companies/insense/jobs/qa-engineer-12-month-contract-9796441067?utm_source=api) — Insense | score 65 | freelance | employer unverified
 - [Senior Program Manager – Change Management (CAD Domain)](https://himalayas.app/companies/nearsource-technologies/jobs/senior-program-manager-change-management-cad-domain) — NearSource Technologies | score 65 | full-time/unspecified | employer unverified
 - [Program Manager, Quality & Commissioning, NA](https://himalayas.app/companies/vantagedatacenters/jobs/program-manager-quality-commissioning-na?utm_source=api) — Vantage Data Centers | score 65 | full-time/unspecified | employer unverified
+- [Principal Design Program Manager, International Packaging](https://jobicy.com/jobs/158161-principal-design-program-manager-international-packaging) — hims & hers | score 65 | full-time/unspecified | employer unverified
 - [Senior QA Engineer (T11)](https://himalayas.app/companies/ness-usa-inc/jobs/senior-qa-engineer-t11?utm_source=api) — Ness USA, Inc. | score 65 | full-time/unspecified | employer unverified
+- [QA Tester - Agentic Web Application (Senior)](https://himalayas.app/companies/microsourcing/jobs/qa-tester-agentic-web-application-senior-1710633771?utm_source=api) — MicroSourcing | score 65 | full-time/unspecified | employer unverified
 - [Sr. Technical Program Manager, Data Center & Network Delivery](https://jobicy.com/jobs/156343-sr-technical-program-manager-data-center-network-delivery) — Vultr | score 65 | full-time/unspecified | employer unverified
+- [QA Tester (Manual Testing, SaaS)](https://himalayas.app/companies/the-learning-network-tln/jobs/qa-tester-manual-testing-saas?utm_source=api) — The Learning Network (TLN) | score 65 | freelance | employer unverified
 - [Senior Technical Project Manager, Data Center & Network Delivery](https://jobicy.com/jobs/156340-senior-technical-project-manager-data-center-network-delivery) — Vultr | score 65 | full-time/unspecified | employer unverified
 - [Senior Consultant - Quality Analyst (QA)](https://himalayas.app/companies/apex-it/jobs/senior-consultant-quality-analyst-qa?utm_source=api) — Apex IT | score 65 | full-time/unspecified | employer unverified
+- [AI Data Center Project Manager (Japan)](https://himalayas.app/companies/the-talent-people/jobs/ai-data-center-project-manager-japan?utm_source=api) — The Talent People | score 65 | full-time/unspecified | employer unverified
 - [Global Web Growth Project Manager](https://jobicy.com/jobs/153492-global-web-growth-project-manager) — Docplanner | score 65 | full-time/unspecified | employer unverified
 - [Web QA Engineer (Part-time)](https://himalayas.app/companies/expedock/jobs/web-qa-engineer-part-time?utm_source=api) — Expedock | score 65 | freelance | employer unverified
 - [Senior QA Engineer](https://himalayas.app/companies/cultivate-asia/jobs/senior-qa-engineer?utm_source=api) — cultivate | score 65 | full-time/unspecified | employer unverified
-- [Principal Design Program Manager, International Packaging](https://jobicy.com/jobs/158161-principal-design-program-manager-international-packaging) — hims & hers | score 65 | full-time/unspecified | employer unverified
-- [QA Tester - Agentic Web Application (Senior)](https://himalayas.app/companies/microsourcing/jobs/qa-tester-agentic-web-application-senior-1710633771?utm_source=api) — MicroSourcing | score 65 | full-time/unspecified | employer unverified
-- [QA Tester (Manual Testing, SaaS)](https://himalayas.app/companies/the-learning-network-tln/jobs/qa-tester-manual-testing-saas?utm_source=api) — The Learning Network (TLN) | score 65 | freelance | employer unverified
-- [AI Data Center Project Manager (Japan)](https://himalayas.app/companies/the-talent-people/jobs/ai-data-center-project-manager-japan?utm_source=api) — The Talent People | score 65 | full-time/unspecified | employer unverified
 - [Test Automation Engineer](https://himalayas.app/companies/tista-science-and-technology-corporation/jobs/test-automation-engineer?utm_source=api) — TISTA Science and Technology Corporation | score 60 | full-time/unspecified | employer unverified
 - [Principal Test Lead](https://himalayas.app/companies/pm-consulting/jobs/principal-test-lead-743490429?utm_source=api) — PM Consulting | score 55 | full-time/unspecified | employer unverified
 - [Senior/Lead Project Manager](https://himalayas.app/companies/valtech-us/jobs/senior-lead-project-manager-9806199849?utm_source=api) — Valtech | score 55 | full-time/unspecified | employer unverified
+- [Senior QA Engineer](https://himalayas.app/companies/veeva-systems/jobs/senior-qa-engineer-2431088377?utm_source=api) — Veeva Systems | score 55 | full-time/unspecified | employer unverified
 - [FBS - Content Strategy Project Manager](https://himalayas.app/companies/capgemini-technology-services/jobs/fbs-content-strategy-project-manager?utm_source=api) — Capgemini Technology Services | score 55 | full-time/unspecified | employer unverified
 - [Clinical Trial Manager/Project Manager (US-East-Coast Remote)](https://himalayas.app/companies/aa-inclusion/jobs/clinical-trial-manager-project-manager-us-east-coast-remote-4058957259?utm_source=api) — AA Inclusion | score 55 | full-time/unspecified | employer unverified
 - [Principal QA Automation Engineer](https://himalayas.app/companies/sparq/jobs/principal-qa-automation-engineer?utm_source=api) — Sparq | score 55 | full-time/unspecified | employer unverified
@@ -87,11 +91,13 @@ New matches in this run: **16**
 - [Staff Program Manager, CCO Programs](https://job-boards.greenhouse.io/gitlab/jobs/8822279002) — GitLab | score 55 | full-time/unspecified | employer unverified
 - [Senior QA Engineer](https://himalayas.app/companies/ness-usa-inc/jobs/senior-qa-engineer?utm_source=api) — Ness USA, Inc. | score 55 | full-time/unspecified | employer unverified
 - [Senior Technical Program Manager - New Data Center Launches](https://jobicy.com/jobs/157819-senior-technical-program-manager-new-data-center-launches) — Nebius | score 55 | full-time/unspecified | employer unverified
+- [Project Manager, Transformation and Strategy](https://himalayas.app/companies/adm-group/jobs/project-manager-transformation-and-strategy?utm_source=api) — adm Group | score 55 | full-time/unspecified | employer unverified
 - [Program Manager](https://jobicy.com/jobs/155577-program-manager-2) — Oddball | score 55 | full-time/unspecified | employer unverified
 - [Senior Quality Engineer - Tellent Intelligence (AI)](https://www.arbeitnow.nl/jobs/companies/tellent/remote-senior-quality-engineer-tellent-intelligence-ai-amsterdam-295070) — Tellent | score 55 | full-time/unspecified | employer unverified
 - [Senior Software Development Engineer in Test (SDET)](https://jobicy.com/jobs/155928-senior-software-development-engineer-in-test-sdet-2) — Flex | score 55 | full-time/unspecified | employer unverified
 - [Technical Program Manager](https://jobicy.com/jobs/153901-technical-program-manager-5) — Playson | score 55 | full-time/unspecified | employer unverified
 - [Project Manager (Brazil)](https://himalayas.app/companies/50-sport/jobs/project-manager-brazil?utm_source=api) — 50 Sport | score 55 | full-time/unspecified | employer unverified
+- [Analista de QA Quality Assurance](https://himalayas.app/companies/giro-tech/jobs/analista-de-qa-quality-assurance?utm_source=api) — GIRO.TECH | score 55 | freelance | employer unverified
 - [Senior Test Engineer](https://himalayas.app/companies/oteemo-inc/jobs/senior-test-engineer?utm_source=api) — Oteemo, Inc | score 55 | full-time/unspecified | employer unverified
 - [Senior Program Manager, Enterprise Technology and AI](https://job-boards.greenhouse.io/gitlab/jobs/8687246002) — GitLab | score 55 | full-time/unspecified | employer unverified
 - [Sr. Agile Project Manager](https://himalayas.app/companies/cambium-learning-group/jobs/sr-agile-project-manager?utm_source=api) — Cambium Learning Group | score 55 | full-time/unspecified | employer unverified
@@ -100,9 +106,3 @@ New matches in this run: **16**
 - [LQA Game Tester (European Spanish) - Freelance Remote](https://jobicy.com/jobs/144408-lqa-game-tester-european-spanish-freelance-remote) — Side | score 55 | freelance | employer unverified
 - [Senior SDET (Software Development Engineer in Test) - Asian Timezones](https://himalayas.app/companies/hermeneutic-investments/jobs/senior-sdet-software-development-engineer-in-test-asian-timezones) — hermeneutic Investments | score 55 | full-time/unspecified | employer unverified
 - [Quality Assurance Manager (m/w/d) German](https://himalayas.app/companies/conduent/jobs/quality-assurance-manager-m-w-d-german?utm_source=api) — Conduent | score 55 | full-time/unspecified | employer unverified
-- [QA Engineer](https://himalayas.app/companies/affinityclick-inc/jobs/qa-engineer-2123690654?utm_source=api) — AffinityClick Inc. | score 55 | freelance | employer unverified
-- [Manager Software Test Automation](https://jobicy.com/jobs/156466-manager-software-test-automation) — Veracyte | score 55 | full-time/unspecified | employer unverified
-- [Project Manager](https://himalayas.app/companies/beecruit-pte-ltd/jobs/project-manager) — Beecruit Pte Ltd | score 55 | full-time/unspecified | employer unverified
-- [QA Examiner/File Review Positions](https://himalayas.app/companies/ryze-claim-solutions/jobs/qa-examiner-file-review-positions-9288444372?utm_source=api) — Ryze Claim Solutions | score 55 | freelance | employer unverified
-- [Senior Performance QA](https://himalayas.app/companies/finaccel/jobs/senior-performance-qa?utm_source=api) — FinAccel | score 55 | full-time/unspecified | employer unverified
-- [Principal Quality Engineer](https://himalayas.app/companies/freedompay-com/jobs/principal-quality-engineer?utm_source=api) — FreedomPay | score 55 | full-time/unspecified | employer unverified

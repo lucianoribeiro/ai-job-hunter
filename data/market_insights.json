@@ -1,7 +1,6 @@
 {
-  "generated_at": "2026-10-31",
+  "generated_at": "2026-11-01",
   "months": [
-    "11/2024",
     "12/2024",
     "01/2025",
     "02/2025",
@@ -24,13 +23,13 @@
     "07/2026",
     "08/2026",
     "09/2026",
-    "10/2026"
+    "10/2026",
+    "11/2026"
   ],
   "observed_months": 2,
   "seasonality_ready": false,
   "best_month_to_search": null,
   "source_coverage": {
-    "11/2024": 0,
     "12/2024": 0,
     "01/2025": 0,
     "02/2025": 0,
@@ -53,7 +52,8 @@
     "07/2026": 0,
     "08/2026": 1,
     "09/2026": 0,
-    "10/2026": 3
+    "10/2026": 3,
+    "11/2026": 0
   },
   "categories": {
     "QA": {
@@ -78,12 +78,12 @@
         0,
         0,
         0,
-        0,
         2,
         0,
-        36
+        36,
+        0
       ],
-      "companies_last_complete_month": 0,
+      "companies_last_complete_month": 24,
       "change_last_complete_month_pct": null
     },
     "QA Manager": {
@@ -110,10 +110,10 @@
         0,
         0,
         0,
-        0,
-        1
+        1,
+        0
       ],
-      "companies_last_complete_month": 0,
+      "companies_last_complete_month": 1,
       "change_last_complete_month_pct": null
     },
     "Manufatura": {
@@ -150,11 +150,10 @@
   "linkedin": {
     "source": "LinkedIn public web index (not official LinkedIn API)",
     "metric": "indexed_recruiter_posts_not_verified_vacancies",
-    "observed_months": 14,
+    "observed_months": 15,
     "categories": {
       "QA": {
         "monthly": [
-          0,
           0,
           0,
           0,
@@ -177,12 +176,12 @@
           0,
           2,
           6,
-          505
+          513,
+          4
         ]
       },
       "Manufatura": {
         "monthly": [
-          0,
           0,
           0,
           1,
@@ -205,7 +204,8 @@
           0,
           1,
           1,
-          45
+          45,
+          0
         ]
       }
     },
@@ -213,7 +213,6 @@
       "Brasil": {
         "QA": {
           "monthly": [
-            0,
             0,
             0,
             0,
@@ -236,12 +235,12 @@
             0,
             0,
             2,
-            4
+            4,
+            0
           ]
         },
         "Manufatura": {
           "monthly": [
-            0,
             0,
             0,
             1,
@@ -264,7 +263,8 @@
             0,
             1,
             1,
-            2
+            2,
+            0
           ]
         }
       },
@@ -276,8 +276,8 @@
             0,
             0,
             0,
-            0,
             1,
+            0,
             0,
             0,
             0,
@@ -314,8 +314,8 @@
             0,
             0,
             0,
-            0,
             1,
+            0,
             0,
             0,
             0,
@@ -329,7 +329,6 @@
       "Não identificado": {
         "QA": {
           "monthly": [
-            0,
             0,
             0,
             0,
@@ -352,7 +351,8 @@
             0,
             2,
             4,
-            501
+            509,
+            4
           ]
         },
         "Manufatura": {
@@ -362,7 +362,6 @@
             0,
             0,
             0,
-            0,
             1,
             1,
             1,
@@ -380,16 +379,13 @@
             0,
             0,
             0,
-            43
+            43,
+            0
           ]
         }
       }
     },
     "coverage": {
-      "11/2024": {
-        "QA": "ok",
-        "Manufatura": "ok"
-      },
       "12/2024": {
         "QA": "ok",
         "Manufatura": "ok"
@@ -481,6 +477,10 @@
       "10/2026": {
         "QA": "ok",
         "Manufatura": "ok"
+      },
+      "11/2026": {
+        "QA": "unqueried",
+        "Manufatura": "unqueried"
       }
     }
   },
