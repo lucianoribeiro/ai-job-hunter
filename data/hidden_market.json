@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T16:50:01.783779+00:00",
+  "generated_at": "2026-11-02T20:23:36.387440+00:00",
   "method": "public ATS engineering-hiring proxy; not confirmed hidden vacancies",
   "companies_checked": 2,
   "companies_failed": 1,
@@ -11,9 +11,9 @@
       "signal": "engineering_hiring_without_public_qa_listing",
       "confidence": "moderate",
       "score": 85,
-      "engineering_roles": 50,
+      "engineering_roles": 46,
       "qa_roles": 0,
-      "engineering_leadership_roles": 22,
+      "engineering_leadership_roles": 20,
       "qa_leadership_roles": 0,
       "remote_engineering_roles": 0,
       "priority": "high",
