@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T20:23:36.387440+00:00",
+  "generated_at": "2026-11-03T17:53:33.535785+00:00",
   "method": "public ATS engineering-hiring proxy; not confirmed hidden vacancies",
   "companies_checked": 2,
   "companies_failed": 1,
@@ -11,7 +11,7 @@
       "signal": "engineering_hiring_without_public_qa_listing",
       "confidence": "moderate",
       "score": 85,
-      "engineering_roles": 46,
+      "engineering_roles": 47,
       "qa_roles": 0,
       "engineering_leadership_roles": 20,
       "qa_leadership_roles": 0,
@@ -52,7 +52,7 @@
       "signal": "engineering_hiring_without_public_qa_listing",
       "confidence": "moderate",
       "score": 65,
-      "engineering_roles": 21,
+      "engineering_roles": 19,
       "qa_roles": 0,
       "engineering_leadership_roles": 0,
       "qa_leadership_roles": 0,
@@ -60,14 +60,6 @@
       "priority": "medium",
       "reason": "Evidence of engineering hiring without QA roles on this board",
       "evidence": [
-        {
-          "title": "Software Engineer, Frontend",
-          "url": "https://jobs.ashbyhq.com/ramp/4e64ab86-4e30-403b-b1b9-41dc052570ce"
-        },
-        {
-          "title": "Software Engineer, Security, Stablecoin",
-          "url": "https://jobs.ashbyhq.com/ramp/d1183b00-6590-4fe4-a585-28d84e578fe3"
-        },
         {
           "title": "Software Engineer, Growth Platform",
           "url": "https://jobs.ashbyhq.com/ramp/f5b60cf1-c0ec-42c1-89db-ece853e998ab"
@@ -79,6 +71,14 @@
         {
           "title": "Software Engineer, Credit",
           "url": "https://jobs.ashbyhq.com/ramp/5598f7b8-4ae2-4105-a2b4-2d0f55c54c40"
+        },
+        {
+          "title": "Software Engineer, Bill Pay & Procurement",
+          "url": "https://jobs.ashbyhq.com/ramp/2a4968ae-220c-471b-b890-a011de570bbb"
+        },
+        {
+          "title": "Software Engineer, Developer API",
+          "url": "https://jobs.ashbyhq.com/ramp/42527ca9-03b9-499e-a5c4-18e4245af138"
         }
       ],
       "contact_channel": "official_careers_page",

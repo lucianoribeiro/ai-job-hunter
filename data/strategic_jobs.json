@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T20:23:17.881521+00:00",
+  "generated_at": "2026-11-03T17:53:13.169429+00:00",
   "jobs": [
     {
       "company": "Honda Brasil",
@@ -31,17 +31,6 @@
       "source": "Portal oficial",
       "published": "",
       "regional": false,
-      "target_role": false,
-      "verification": "Dados parciais; confirmar detalhes no anúncio"
-    },
-    {
-      "company": "Honda Brasil",
-      "title": "Vaga para Efetivo:   Analista Desenvolvimento Rede SR (Automóveis)  Sumaré - SP e Híbrido Efetivo",
-      "location": "Sumaré",
-      "url": "https://honda.gupy.io/jobs/12418033",
-      "source": "Portal oficial",
-      "published": "",
-      "regional": true,
       "target_role": false,
       "verification": "Dados parciais; confirmar detalhes no anúncio"
     },
@@ -105,6 +94,17 @@
       "title": "Vaga para Efetivo:   Analista Tesouraria PL  São Paulo - SP e Híbrido Efetivo",
       "location": "Não informado",
       "url": "https://honda.gupy.io/jobs/11921423",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": false,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Honda Brasil",
+      "title": "Vaga para Efetivo:   ASSISTENTE CONTABIL São Paulo - SP e Híbrido Efetivo",
+      "location": "Não informado",
+      "url": "https://honda.gupy.io/jobs/12440261",
       "source": "Portal oficial",
       "published": "",
       "regional": false,
@@ -399,9 +399,9 @@
     },
     {
       "company": "Rhodia / Solvay",
-      "title": "Operador de Acabamento - Vaga Afirmativa para Pessoas com Deficiência (H/M/X)",
+      "title": "Técnico de Planejamento Sênior (H/M/X)",
       "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Operador-de-Acabamento-Vaga-Afirmativa-para-Pessoas-com-Defici%C3%AAncia-%28HMX%29-13148-914/1374756057/",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-T%C3%A9cnico-de-Planejamento-S%C3%AAnior-%28HMX%29-13148-914/1374452657/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -410,9 +410,9 @@
     },
     {
       "company": "Rhodia / Solvay",
-      "title": "Técnico de Planejamento Sênior (H/M/X)",
+      "title": "Técnico de Manutenção Especialista - Planejamento (H/M/X)",
       "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-T%C3%A9cnico-de-Planejamento-S%C3%AAnior-%28HMX%29-13148-914/1374452657/",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-T%C3%A9cnico-de-Manuten%C3%A7%C3%A3o-Especialista-Planejamento-%28HMX%29-13148-914/1374451757/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,

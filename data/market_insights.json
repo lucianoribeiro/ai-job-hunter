@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02",
+  "generated_at": "2026-11-03",
   "months": [
     "12/2024",
     "01/2025",
@@ -26,7 +26,7 @@
     "10/2026",
     "11/2026"
   ],
-  "observed_months": 2,
+  "observed_months": 3,
   "seasonality_ready": false,
   "best_month_to_search": null,
   "source_coverage": {
@@ -53,7 +53,7 @@
     "08/2026": 1,
     "09/2026": 0,
     "10/2026": 3,
-    "11/2026": 0
+    "11/2026": 1
   },
   "categories": {
     "QA": {
@@ -81,7 +81,7 @@
         2,
         0,
         36,
-        0
+        2
       ],
       "companies_last_complete_month": 24,
       "change_last_complete_month_pct": null
@@ -176,8 +176,8 @@
           0,
           2,
           6,
-          526,
-          21
+          530,
+          49
         ]
       },
       "Manufatura": {
@@ -205,7 +205,7 @@
           1,
           1,
           46,
-          0
+          1
         ]
       }
     },
@@ -351,8 +351,8 @@
             0,
             2,
             4,
-            522,
-            21
+            526,
+            49
           ]
         },
         "Manufatura": {
@@ -380,7 +380,7 @@
             0,
             0,
             44,
-            0
+            1
           ]
         }
       }
