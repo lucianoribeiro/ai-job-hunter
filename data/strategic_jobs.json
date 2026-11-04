@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T17:53:13.169429+00:00",
+  "generated_at": "2026-11-04T18:00:57.527955+00:00",
   "jobs": [
     {
       "company": "Honda Brasil",
@@ -39,6 +39,17 @@
       "title": "Vaga para Efetivo:   Analista Gestão Vendas PL Sumaré - SP e Híbrido Efetivo",
       "location": "Sumaré",
       "url": "https://honda.gupy.io/jobs/12730381",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Honda Brasil",
+      "title": "Vaga para Efetivo:   Analista Governança TI PL  (Sumaré/SP) Sumaré - SP e Híbrido Efetivo",
+      "location": "Sumaré",
+      "url": "https://honda.gupy.io/jobs/12831232",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -101,17 +112,6 @@
       "verification": "Dados parciais; confirmar detalhes no anúncio"
     },
     {
-      "company": "Honda Brasil",
-      "title": "Vaga para Efetivo:   ASSISTENTE CONTABIL São Paulo - SP e Híbrido Efetivo",
-      "location": "Não informado",
-      "url": "https://honda.gupy.io/jobs/12440261",
-      "source": "Portal oficial",
-      "published": "",
-      "regional": false,
-      "target_role": false,
-      "verification": "Dados parciais; confirmar detalhes no anúncio"
-    },
-    {
       "company": "3M Brasil",
       "title": "Solutions Architect, Sumaré/SP",
       "location": "Sumaré",
@@ -131,6 +131,17 @@
       "published": "",
       "regional": true,
       "target_role": true,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "Accounting Specialist, Sumaré/SP",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Accounting-Specialist--Sumar-SP_R01171324",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
       "verification": "Confirmar abertura e detalhes no portal oficial"
     },
     {
@@ -182,28 +193,6 @@
       "title": "Senior Data Engineering, Sumaré/SP",
       "location": "Sumaré",
       "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Senior-Data-Engineering--Sumar-SP_R01170157",
-      "source": "Workday público",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Confirmar abertura e detalhes no portal oficial"
-    },
-    {
-      "company": "3M Brasil",
-      "title": "Country Activation Marketer, Sumaré/SP",
-      "location": "Sumaré",
-      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Country-Activation-Marketer--Sumar-SP_R01171306-1",
-      "source": "Workday público",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Confirmar abertura e detalhes no portal oficial"
-    },
-    {
-      "company": "3M Brasil",
-      "title": "Customer Success Engineering Specialist, Sumaré/SP",
-      "location": "Sumaré",
-      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Customer-Success-Engineering-Specialist--Sumar-SP_R01170325",
       "source": "Workday público",
       "published": "",
       "regional": true,
@@ -270,6 +259,17 @@
       "title": "Executivo(a) de Vendas de Abrasivos (Londrina/PR e região)",
       "location": "Sumaré",
       "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Executivo-a--de-Vendas-de-Abrasivos--Londrina-PR-e-regio-_R01171950",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
+      "title": "OPERADOR LOGISTICO A",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/OPERADOR-LOGISTICO-A_R01173255",
       "source": "Workday público",
       "published": "",
       "regional": true,
@@ -355,17 +355,6 @@
     },
     {
       "company": "Villares Metals",
-      "title": "Vaga para Temporário:   Analista Escrituração Fiscal JR - Vaga Temporária Sumaré - SP Temporário",
-      "location": "Sumaré",
-      "url": "https://villaresmetals.gupy.io/jobs/12425265",
-      "source": "Portal oficial",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Dados parciais; confirmar detalhes no anúncio"
-    },
-    {
-      "company": "Villares Metals",
       "title": "Vaga para Aprendiz:   Aprendiz CIEE Administrativo - Banco de Talentos Sumaré - SP Aprendiz",
       "location": "Sumaré",
       "url": "https://villaresmetals.gupy.io/jobs/11327398",
@@ -387,10 +376,43 @@
       "verification": "Dados parciais; confirmar detalhes no anúncio"
     },
     {
+      "company": "Villares Metals",
+      "title": "Vaga para Efetivo:   Líder Produção - CS&S Sumaré - SP Efetivo",
+      "location": "Sumaré",
+      "url": "https://villaresmetals.gupy.io/jobs/12724224",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
       "company": "Rhodia / Solvay",
-      "title": "Estágio em Supply Chain (H/M/X)",
+      "title": "Operador de Controle de Emergências (H/M/X)",
       "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Est%C3%A1gio-em-Supply-Chain-%28HMX%29-13148-914/1374455457/",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Operador-de-Controle-de-Emerg%C3%AAncias-%28HMX%29-13148-914/1373629857/",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Rhodia / Solvay",
+      "title": "Operador de Acondicionamento (H/M/X)",
+      "location": "Paulínia",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Operador-de-Acondicionamento-%28HMX%29-13148-914/1375878657/",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Rhodia / Solvay",
+      "title": "Operador de Acabamento - Vaga Afirmativa para Pessoas com Deficiência (H/M/X)",
+      "location": "Paulínia",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Operador-de-Acabamento-Vaga-Afirmativa-para-Pessoas-com-Defici%C3%AAncia-%28HMX%29-13148-914/1374756057/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -410,31 +432,9 @@
     },
     {
       "company": "Rhodia / Solvay",
-      "title": "Técnico de Manutenção Especialista - Planejamento (H/M/X)",
-      "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-T%C3%A9cnico-de-Manuten%C3%A7%C3%A3o-Especialista-Planejamento-%28HMX%29-13148-914/1374451757/",
-      "source": "Portal oficial",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Dados parciais; confirmar detalhes no anúncio"
-    },
-    {
-      "company": "Rhodia / Solvay",
       "title": "Técnico de Inspeção Especialista (H/M/X)",
       "location": "Paulínia",
       "url": "https://careers.solvay.com/job/Brazil-Paulinia-T%C3%A9cnico-de-Inspe%C3%A7%C3%A3o-Especialista-%28HMX%29-13148-914/1374475057/",
-      "source": "Portal oficial",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Dados parciais; confirmar detalhes no anúncio"
-    },
-    {
-      "company": "Rhodia / Solvay",
-      "title": "Estágio Superior em Engenharia Química (H/M/X)",
-      "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Est%C3%A1gio-Superior-em-Engenharia-Qu%C3%ADmica-%28HMX%29-13148-914/1374865557/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
