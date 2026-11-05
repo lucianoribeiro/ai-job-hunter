@@ -2,7 +2,7 @@
 
 No applications are submitted automatically. Verify employer reputation, Brazil eligibility, pay and hours.
 
-New matches in this run: **22**
+New matches in this run: **17**
 
 ## Pending review
 
@@ -26,17 +26,19 @@ New matches in this run: **22**
 - [Senior Technical Project Manager](https://himalayas.app/companies/nanosoft-consulting-talent-page/jobs/senior-technical-project-manager) — NANOSOFT CONSULTING TALENT PAGE | score 75 | freelance | employer unverified
 - [Senior Commercial Quality Assurance Specialist - French Speaking - 12 Month Cont](https://himalayas.app/companies/danaher/jobs/senior-commercial-quality-assurance-specialist-french-speaking-12-month-cont?utm_source=api) — Danaher | score 75 | freelance | employer unverified
 - [Technical Project Manager / Operations & Administrative Support](https://himalayas.app/companies/carnelian-ventures/jobs/technical-project-manager-operations-administrative-support?utm_source=api) — Carnelian Ventures | score 75 | freelance | employer unverified
-- [Senior Full-stack QA Engineer](https://himalayas.app/companies/bonapolia/jobs/senior-full-stack-qa-engineer?utm_source=api) — Bonapolia | score 75 | freelance | employer unverified
-- [Senior QA Automation Engineer - Product (LATAM)](https://jobicy.com/jobs/153469-senior-qa-automation-engineer-product-latam) — Upgrade | score 75 | freelance | employer unverified
-- [Sr IT Project Manager with Oracle EBS - Remote](https://himalayas.app/companies/omg-technology/jobs/sr-it-project-manager-with-oracle-ebs-remote?utm_source=api) — OMG Technology | score 75 | freelance | employer unverified
 - [Project Manager](https://himalayas.app/companies/padmore-global-connections-llc/jobs/project-manager?utm_source=api) — Padmore Global Connections LLC | score 75 | freelance | employer unverified
 - [Digital Project Manager](https://himalayas.app/companies/recruiterboom/jobs/digital-project-manager?utm_source=api) — recruiterboom | score 75 | freelance | employer unverified
 - [Project Manager](https://himalayas.app/companies/softtest-pays-pty-ltd/jobs/project-manager?utm_source=api) — Softtest pays pty ltd | score 75 | freelance | employer unverified
+- [Senior Full-stack QA Engineer](https://himalayas.app/companies/bonapolia/jobs/senior-full-stack-qa-engineer?utm_source=api) — Bonapolia | score 75 | freelance | employer unverified
+- [Senior QA Automation Engineer - Product (LATAM)](https://jobicy.com/jobs/153469-senior-qa-automation-engineer-product-latam) — Upgrade | score 75 | freelance | employer unverified
+- [Sr IT Project Manager with Oracle EBS - Remote](https://himalayas.app/companies/omg-technology/jobs/sr-it-project-manager-with-oracle-ebs-remote?utm_source=api) — OMG Technology | score 75 | freelance | employer unverified
+- [Analytic Project Manager - Project Janus (remote - 24 Monate befristet)](https://himalayas.app/companies/advanced-medical-solutions/jobs/analytic-project-manager-project-janus-remote-24-monate-befristet?utm_source=api) — Advanced Medical Solutions | score 75 | freelance | employer unverified
 - [Builder Services Project Manager 2](https://himalayas.app/companies/cornerstone-building-brands-inc/jobs/builder-services-project-manager-2?utm_source=api) — Cornerstone Building Brands, Inc. | score 70 | full-time/unspecified | employer unverified
 - [Medicaid Implementation Senior Project Manager](https://himalayas.app/companies/humana/jobs/medicaid-implementation-senior-project-manager?utm_source=api) — Humana | score 70 | full-time/unspecified | employer unverified
 - [Project Manager V](https://himalayas.app/companies/centene-corporation/jobs/project-manager-v?utm_source=api) — Centene Corporation | score 70 | full-time/unspecified | employer unverified
 - [Project Manager II - NCCT Study Start-up Navigator](https://himalayas.app/companies/advocate-aurora-health/jobs/project-manager-ii-ncct-study-start-up-navigator?utm_source=api) — Advocate Aurora Health | score 70 | full-time/unspecified | employer unverified
 - [Fresh Food QA Manager](https://himalayas.app/companies/7-eleven-inc/jobs/fresh-food-qa-manager?utm_source=api) — 7-Eleven Inc | score 70 | full-time/unspecified | employer unverified
+- [Senior Environmental Project Manager](https://himalayas.app/companies/quanta-services/jobs/senior-environmental-project-manager?utm_source=api) — Quanta Services | score 70 | full-time/unspecified | employer unverified
 - [Senior Technical Program Manager (R6371)](https://himalayas.app/companies/shield-ai/jobs/senior-technical-program-manager-r6371?utm_source=api) — Shield AI | score 70 | full-time/unspecified | employer unverified
 - [Project Manager, Enterprise Merchandise](https://himalayas.app/companies/quince/jobs/project-manager-enterprise-merchandise?utm_source=api) — Quince | score 70 | full-time/unspecified | employer unverified
 - [Senior Building Automation Systems Project Manager](https://himalayas.app/companies/smart-tech-contracting/jobs/senior-building-automation-systems-project-manager) — Smart Tech Contracting | score 70 | full-time/unspecified | employer unverified
@@ -55,6 +57,7 @@ New matches in this run: **22**
 - [QA/QC Manager (Garment/Footwear/Toys - Bangladesh)](https://himalayas.app/companies/metasource-co/jobs/qa-qc-manager-garment-footwear-toys-bangladesh?utm_source=api) — Metasource | score 70 | full-time/unspecified | employer unverified
 - [Senior QA Automation Engineer](https://himalayas.app/companies/dispel-com/jobs/senior-qa-automation-engineer?utm_source=api) — Dispel | score 70 | full-time/unspecified | employer unverified
 - [Senior Project Manager](https://himalayas.app/companies/goldbelt/jobs/senior-project-manager?utm_source=api) — Goldbelt | score 70 | full-time/unspecified | employer unverified
+- [Environmental Project Manager](https://himalayas.app/companies/quanta-services/jobs/environmental-project-manager?utm_source=api) — Quanta Services | score 70 | full-time/unspecified | employer unverified
 - [Senior Program Manager - Ports & Borders](https://himalayas.app/companies/smith-s-group/jobs/senior-program-manager-ports-borders?utm_source=api) — Smith's Group | score 70 | full-time/unspecified | employer unverified
 - [Senior Project Manager- MicroElectronics](https://himalayas.app/companies/veolia/jobs/senior-project-manager-microelectronics?utm_source=api) — Veolia | score 70 | full-time/unspecified | employer unverified
 - [Manager, Quality Assurance – Western U.S. (West of the Mississippi) & Florida](https://himalayas.app/companies/kite-pharma/jobs/manager-quality-assurance-western-u-s-west-of-the-mississippi-florida?utm_source=api) — Kite Pharma | score 70 | full-time/unspecified | employer unverified
@@ -76,8 +79,10 @@ New matches in this run: **22**
 - [Program Manager – Washington, D.C./National Capital Region](https://himalayas.app/companies/terragraphics-environmental-engineering/jobs/program-manager-washington-d-c-national-capital-region?utm_source=api) — TerraGraphics Environmental Engineering | score 70 | full-time/unspecified | employer unverified
 - [Go to Market Program Manager - Platform and Assurance](https://himalayas.app/companies/cisco/jobs/go-to-market-program-manager-platform-and-assurance) — Cisco | score 70 | full-time/unspecified | employer unverified
 - [Project Manager, Residential](https://himalayas.app/companies/norr/jobs/project-manager-residential?utm_source=api) — NORR | score 70 | full-time/unspecified | employer unverified
-- [Environmental Project Manager](https://himalayas.app/companies/quanta-services/jobs/environmental-project-manager?utm_source=api) — Quanta Services | score 70 | full-time/unspecified | employer unverified
-- [Senior Environmental Project Manager](https://himalayas.app/companies/quanta-services/jobs/senior-environmental-project-manager?utm_source=api) — Quanta Services | score 70 | full-time/unspecified | employer unverified
+- [Construction Project Manager (convenient store projects) (Remote, Remote, US)](https://himalayas.app/companies/bureau-veritas/jobs/construction-project-manager-convenient-store-projects-remote-remote-us?utm_source=api) — Bureau Veritas | score 70 | full-time/unspecified | employer unverified
+- [Curriculum Project Manager](https://himalayas.app/companies/discoveryeducation/jobs/curriculum-project-manager?utm_source=api) — Discovery Education | score 70 | full-time/unspecified | employer unverified
+- [Sr. CMC Project Manager](https://himalayas.app/companies/enveda/jobs/sr-cmc-project-manager?utm_source=api) — Enveda | score 70 | full-time/unspecified | employer unverified
+- [Senior Strategic Program Manager](https://himalayas.app/companies/natera/jobs/senior-strategic-program-manager?utm_source=api) — Natera | score 70 | full-time/unspecified | employer unverified
 - [QA Tester - Agentic Web Application (Senior)](https://himalayas.app/companies/microsourcing/jobs/qa-tester-agentic-web-application-senior?utm_source=api) — MicroSourcing | score 65 | full-time/unspecified | employer unverified
 - [QA Engineer (12-Month Contract)](https://himalayas.app/companies/insense/jobs/qa-engineer-12-month-contract?utm_source=api) — Insense | score 65 | freelance | employer unverified
 - [QA Engineer (12-Month Contract)](https://himalayas.app/companies/insense/jobs/qa-engineer-12-month-contract-9796441067?utm_source=api) — Insense | score 65 | freelance | employer unverified
@@ -100,9 +105,4 @@ New matches in this run: **22**
 - [Senior/Lead Project Manager](https://himalayas.app/companies/valtech-us/jobs/senior-lead-project-manager-9806199849?utm_source=api) — Valtech | score 55 | full-time/unspecified | employer unverified
 - [Senior QA Engineer](https://himalayas.app/companies/veeva-systems/jobs/senior-qa-engineer-2431088377?utm_source=api) — Veeva Systems | score 55 | full-time/unspecified | employer unverified
 - [Project Manager](https://himalayas.app/companies/sumatosoft/jobs/project-manager?utm_source=api) — SumatoSoft | score 55 | full-time/unspecified | employer unverified
-- [FBS - Content Strategy Project Manager](https://himalayas.app/companies/capgemini-technology-services/jobs/fbs-content-strategy-project-manager?utm_source=api) — Capgemini Technology Services | score 55 | full-time/unspecified | employer unverified
-- [Clinical Trial Manager/Project Manager (US-East-Coast Remote)](https://himalayas.app/companies/aa-inclusion/jobs/clinical-trial-manager-project-manager-us-east-coast-remote-4058957259?utm_source=api) — AA Inclusion | score 55 | full-time/unspecified | employer unverified
-- [Principal QA Automation Engineer](https://himalayas.app/companies/sparq/jobs/principal-qa-automation-engineer?utm_source=api) — Sparq | score 55 | full-time/unspecified | employer unverified
-- [Senior QA Automation Engineer - Holycode team](https://himalayas.app/companies/holycode/jobs/senior-qa-automation-engineer-holycode-team?utm_source=api) — Holycode | score 55 | full-time/unspecified | employer unverified
-- [Senior Quality Engineer](https://himalayas.app/companies/just-eat-takeaway-com/jobs/senior-quality-engineer-1959120092?utm_source=api) — Just Eat Takeaway.com | score 55 | full-time/unspecified | employer unverified
-- [Senior Program Manager, Enterprise Technology and AI](https://jobicy.com/jobs/158545-senior-program-manager-enterprise-technology-and-ai) — GitLab | score 55 | full-time/unspecified | employer unverified
+- [Senior QA Automation Engineer](https://himalayas.app/companies/fyst/jobs/senior-qa-automation-engineer-6004353242?utm_source=api) — FYST | score 55 | full-time/unspecified | employer unverified

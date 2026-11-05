@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T18:01:35.564614+00:00",
+  "generated_at": "2026-11-05T18:05:39.119910+00:00",
   "method": "public ATS engineering-hiring proxy; not confirmed hidden vacancies",
   "companies_checked": 2,
   "companies_failed": 1,
@@ -11,16 +11,16 @@
       "signal": "engineering_hiring_without_public_qa_listing",
       "confidence": "moderate",
       "score": 85,
-      "engineering_roles": 48,
+      "engineering_roles": 46,
       "qa_roles": 0,
-      "engineering_leadership_roles": 20,
+      "engineering_leadership_roles": 18,
       "qa_leadership_roles": 0,
       "remote_engineering_roles": 0,
       "priority": "high",
       "reason": "Evidence of engineering hiring without QA roles on this board",
       "evidence": [
         {
-          "title": "Backend Engineer, Knowledge Graph",
+          "title": "Backend Engineer, GitLab Orbit",
           "url": "https://job-boards.greenhouse.io/gitlab/jobs/8771512002"
         },
         {
@@ -52,7 +52,7 @@
       "signal": "engineering_hiring_without_public_qa_listing",
       "confidence": "moderate",
       "score": 65,
-      "engineering_roles": 19,
+      "engineering_roles": 20,
       "qa_roles": 0,
       "engineering_leadership_roles": 0,
       "qa_leadership_roles": 0,
