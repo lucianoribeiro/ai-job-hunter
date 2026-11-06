@@ -1,6 +1,50 @@
 {
-  "collected_at": "2026-11-05T18:16:14.363111+00:00",
+  "collected_at": "2026-11-06T17:40:59.127516+00:00",
   "jobs": [
+    {
+      "id": "smartrecruiters:BoschGroup:744000160167170",
+      "source": "SmartRecruiters",
+      "company": "Bosch Group",
+      "title": "(JR / MID-LEVEL / SR) IT PROJECT ANALYST - SCRUM MASTER / AGILE TEAM COACH",
+      "url": "https://api.smartrecruiters.com/v1/companies/BoschGroup/postings/744000160167170",
+      "location": "Campinas, SP, br",
+      "description": "",
+      "published": "2026-11-06T10:41:05.916Z",
+      "updated": null,
+      "employment_type": "Full-time",
+      "area": "Projetos",
+      "remote_evidence": "unknown",
+      "brazil_eligible": "unverified",
+      "publication_date_verified": false,
+      "application": "external_link_only",
+      "regional_priority": 2,
+      "discovery_agent": "monica_regional_sp",
+      "first_seen_at": "2026-11-06T17:40:59.127516+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
+      "not_seen_in_latest_collection": false
+    },
+    {
+      "id": "smartrecruiters:BoschGroup:744000160174929",
+      "source": "SmartRecruiters",
+      "company": "Bosch Group",
+      "title": "ANALISTA DE PROJETOS TI JR - SCRUM MASTER",
+      "url": "https://api.smartrecruiters.com/v1/companies/BoschGroup/postings/744000160174929",
+      "location": "Campinas, SP, br",
+      "description": "",
+      "published": "2026-11-06T11:14:30.972Z",
+      "updated": null,
+      "employment_type": "Full-time",
+      "area": "Projetos",
+      "remote_evidence": "unknown",
+      "brazil_eligible": "unverified",
+      "publication_date_verified": false,
+      "application": "external_link_only",
+      "regional_priority": 2,
+      "discovery_agent": "monica_regional_sp",
+      "first_seen_at": "2026-11-06T17:40:59.127516+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
+      "not_seen_in_latest_collection": false
+    },
     {
       "id": "lever:ciandt:166f6334-ab92-4273-a5c7-1240d32358a8",
       "source": "Lever",
@@ -20,7 +64,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-29T17:04:55.230465+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -42,7 +86,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T19:12:42.612682+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -64,7 +108,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T19:12:42.612682+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -82,7 +126,7 @@
       "regional_priority": 1,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -98,7 +142,7 @@
       "regional_priority": 1,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -116,7 +160,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -134,7 +178,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -156,7 +200,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -174,7 +218,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -192,7 +236,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -210,7 +254,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -228,7 +272,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -246,7 +290,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -264,7 +308,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -282,7 +326,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -300,7 +344,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -318,7 +362,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -336,7 +380,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -354,7 +398,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -372,7 +416,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -394,7 +438,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -416,7 +460,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-05T18:16:14.363111+00:00",
+      "last_seen_at": "2026-11-06T17:40:59.127516+00:00",
       "not_seen_in_latest_collection": false
     }
   ],
@@ -424,7 +468,7 @@
     "data/project_jobs_poc.json": {
       "status": "ok",
       "input": 87,
-      "selected": 2
+      "selected": 4
     },
     "data/strategic_jobs.json": {
       "status": "ok",
