@@ -1,6 +1,6 @@
 # QA opportunities
 
-Generated: 2026-11-05 18:05 UTC
+Generated: 2026-11-06 17:31 UTC
 
 Matched listings: **33**
 
@@ -8,42 +8,42 @@ Review all job terms manually. USD/2h-day are **not assumed** when absent.
 
 ## Freelance
 
-- **75 pts** [Analytic Project Manager - Project Janus (remote - 24 Monate befristet)](https://himalayas.app/companies/advanced-medical-solutions/jobs/analytic-project-manager-project-janus-remote-24-monate-befristet?utm_source=api) — Advanced Medical Solutions | Germany | salary: not stated
-- **55 pts** [Test Engineer](https://www.arbeitnow.ch/jobs/companies/coopers-group-ag/test-engineer-bern-487432) — Coopers Group AG | Bern | salary: not stated
-- **55 pts** [IT QA Engineer (Automation & End-to-End Testing)](https://himalayas.app/companies/exclusively-remote/jobs/it-qa-engineer-automation-end-to-end-testing?utm_source=api) — Exclusively Remote | South Africa | salary: not stated
+- **75 pts** [Quality Assurance Manager as Freelancer (.NET C#) (all genders)](https://www.arbeitnow.com/jobs/companies/vexcash-ag/quality-assurance-manager-as-freelancer-net-c-all-genders-berlin-302572) — Vexcash AG | Berlin | salary: not stated
+- **65 pts** [Junior Quality Assurance Specialist](https://himalayas.app/companies/cardinal-technology-systems/jobs/junior-quality-assurance-specialist?utm_source=api) — Cardinal Technology Systems | United States | salary: not stated
+- **65 pts** [Native - Speakers Recording Quality Assurance](https://himalayas.app/companies/lifted-an-upwork-company/jobs/native-speakers-recording-quality-assurance-8947387830?utm_source=api) — Lifted (an Upwork Company) | Spain | salary: not stated
 
 ## Full-Time/Unspecified
 
-- **70 pts** [Construction Project Manager (convenient store projects) (Remote, Remote, US)](https://himalayas.app/companies/bureau-veritas/jobs/construction-project-manager-convenient-store-projects-remote-remote-us?utm_source=api) — Bureau Veritas | United States | salary: USD 100000-100000 annual
-- **70 pts** [Curriculum Project Manager](https://himalayas.app/companies/discoveryeducation/jobs/curriculum-project-manager?utm_source=api) — Discovery Education | United States | salary: USD 91250-101500 annual
-- **70 pts** [Sr. CMC Project Manager](https://himalayas.app/companies/enveda/jobs/sr-cmc-project-manager?utm_source=api) — Enveda | United States | salary: USD 135000-150000 annual
-- **70 pts** [Senior Strategic Program Manager](https://himalayas.app/companies/natera/jobs/senior-strategic-program-manager?utm_source=api) — Natera | United States | salary: USD 140700-175900 annual
+- **70 pts** [Software QA Engineer Lead](https://himalayas.app/companies/fortive/jobs/software-qa-engineer-lead?utm_source=api) — Fortive | United States | salary: USD 109700-183200 annual
+- **70 pts** [QA Compliance Lead Auditor (GCP Auditor) REMOTE](https://himalayas.app/companies/fortrea/jobs/qa-compliance-lead-auditor-gcp-auditor-remote?utm_source=api) — Fortrea | United States | salary: USD 70000-125000 annual
+- **70 pts** [Senior Manager QA, Remote based in North Carolina](https://himalayas.app/companies/fortrea/jobs/senior-manager-qa-remote-based-in-north-carolina?utm_source=api) — Fortrea | United States | salary: USD 93300-206800 annual
+- **70 pts** [Project Manager - Labs](https://himalayas.app/companies/lifelancer/jobs/project-manager-labs?utm_source=api) — Lifelancer | United States | salary: USD 63000-82000 annual
+- **70 pts** [Senior Project Manager, eDiscovery Staffing](https://himalayas.app/companies/lighthousehq/jobs/senior-project-manager-ediscovery-staffing?utm_source=api) — Lighthouse | United States | salary: USD 98173-135000 annual
 - **70 pts** [Senior Technical Program Manager](https://jobs.ashbyhq.com/ramp/8be55ffc-d512-4ef3-a14d-3a4cb29a60d4) — Ramp | New York, NY (HQ) | salary: $180K – $250K • Offers Equity
-- **55 pts** [Senior QA Automation Engineer](https://himalayas.app/companies/epiq/jobs/senior-qa-automation-engineer?utm_source=api) — Epiq | Poland | salary: PLN 11500-16600 monthly
-- **55 pts** [Senior QA Automation Engineer](https://himalayas.app/companies/fyst/jobs/senior-qa-automation-engineer-6004353242?utm_source=api) — FYST | Czechia | salary: not stated
-- **55 pts** [Senior QA Automation Engineer](https://himalayas.app/companies/fyst/jobs/senior-qa-automation-engineer-5791418106?utm_source=api) — FYST | Ukraine | salary: not stated
-- **55 pts** [Senior QA Automation Engineer](https://himalayas.app/companies/fyst/jobs/senior-qa-automation-engineer-3859101703?utm_source=api) — FYST | Spain | salary: not stated
-- **55 pts** [Senior QA Automation Engineer](https://himalayas.app/companies/fyst/jobs/senior-qa-automation-engineer-777335608?utm_source=api) — FYST | Italy | salary: not stated
-- **55 pts** [Senior QA Automation Engineer](https://himalayas.app/companies/fyst/jobs/senior-qa-automation-engineer-2948230553?utm_source=api) — FYST | Poland | salary: not stated
-- **55 pts** [Senior Infrastructure Project Manager](https://himalayas.app/companies/gcore/jobs/senior-infrastructure-project-manager?utm_source=api) — Gcore | Cyprus, Georgia, Poland, Serbia | salary: not stated
+- **60 pts** [QA Analyst - 1518](https://himalayas.app/companies/fetch-package/jobs/qa-analyst-1518?utm_source=api) — Fetch Package | United States | salary: USD 23-27 hourly
+- **55 pts** [Clinical Project Manager](https://jobicy.com/jobs/159237-clinical-project-manager) — Alimentiv | Canada, USA | salary: not stated
+- **55 pts** [(4063) QA Automation / Python Senior](https://himalayas.app/companies/alten/jobs/4063-qa-automation-python-senior?utm_source=api) — ALTEN | Mexico | salary: not stated
+- **55 pts** [Project Manager (LATAM)](https://himalayas.app/companies/argos-multilingual/jobs/project-manager-latam?utm_source=api) — Argos Multilingual | Anguilla, Antigua and Barbuda, Argentina, Aruba, Bahamas, Barbados, Belize, Bermuda, Bolivia, Bonaire, Sint Eustatius and Saba, Brazil, Cayman Islands, Chile, Colombia, Costa Rica, Cuba, Dominica, Dominican Republic, Ecuador, El Salvador, Falkland Islands (Malvinas), Grenada, Guatemala, Guyana, Haiti, Honduras, Jamaica, Mexico, Montserrat, Nicaragua, Panama, Paraguay, Peru, Puerto Rico, Saint Kitts and Nevis, Saint Lucia, Saint Vincent and the Grenadines, South Georgia and the South Sandwich Islands, Suriname, Trinidad and Tobago, Turks and Caicos Islands, Uruguay, Venezuela, Virgin Islands, British, Virgin Islands, U.S. | salary: not stated
+- **55 pts** [Quality Manager, Quality Assurance](https://himalayas.app/companies/ergomedplc/jobs/quality-manager-quality-assurance-103412376?utm_source=api) — Ergomed | Croatia | salary: not stated
+- **55 pts** [Senior Auditor, Quality Assurance (Pharmacovigilance Audit/GCP Audit experience](https://himalayas.app/companies/ergomedplc/jobs/senior-auditor-quality-assurance-pharmacovigilance-audit-gcp-audit-experience-758227359?utm_source=api) — Ergomed | Spain | salary: not stated
 - **55 pts** [Principal Technical Program Manager](https://job-boards.greenhouse.io/gitlab/jobs/8693068002) — GitLab | Remote, Canada; Remote, United States | salary: not stated
 - **55 pts** [Senior Professional Services Project Manager (EMEA)](https://job-boards.greenhouse.io/gitlab/jobs/8622433002) — GitLab | Remote, United Kingdom | salary: not stated
 - **55 pts** [Senior Program Manager, Enterprise Technology and AI](https://job-boards.greenhouse.io/gitlab/jobs/8687246002) — GitLab | Remote, United Kingdom | salary: not stated
+- **55 pts** [Senior Security Technical Program Manager, Fraud & Abuse](https://job-boards.greenhouse.io/gitlab/jobs/8928711002) — GitLab | Remote, Canada; Remote, United States | salary: not stated
 - **55 pts** [Staff Program Manager, CCO Programs](https://job-boards.greenhouse.io/gitlab/jobs/8822279002) — GitLab | Remote, Canada; Remote, United States | salary: not stated
-- **55 pts** [Project Manager, Business Implementation](https://himalayas.app/companies/internova-travel-group/jobs/project-manager-business-implementation?utm_source=api) — Internova Travel Group | United States | salary: not stated
-- **55 pts** [Senior QA Engineer](https://himalayas.app/companies/jeeves/jobs/senior-qa-engineer?utm_source=api) — Jeeves | India | salary: not stated
-- **55 pts** [Senior SDET - Framework Team](https://himalayas.app/companies/semble/jobs/senior-sdet-framework-team?utm_source=api) — Semble | Albania, Andorra, Austria, Belarus, Belgium, Bosnia and Herzegovina, Bulgaria, Croatia, Cyprus, Czechia, Denmark, Estonia, Faroe Islands, Finland, France, Germany, Gibraltar, Greece, Guernsey, Holy See (Vatican City State), Hungary, Iceland, Ireland, Isle of Man, Italy, Jersey, Kosovo, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Moldova, Monaco, Montenegro, Netherlands, North Macedonia, Norway, Poland, Portugal, Romania, San Marino, Serbia, Slovakia, Slovenia, Spain, Svalbard and Jan Mayen, Sweden, Switzerland, Ukraine, United Kingdom, Åland Islands | salary: GBP 65000-75000 annual
+- **55 pts** [Senior Quality Engineer / QE Technical Lead Engineer - AA, Remote: Colombia - Co](https://himalayas.app/companies/gorilla-logic/jobs/senior-quality-engineer-qe-technical-lead-engineer-aa-remote-colombia-co?utm_source=api) — Gorilla Logic | Colombia, Costa Rica | salary: not stated
+- **55 pts** [Lead Firmware Test Automation Engineer](https://himalayas.app/companies/jabil/jobs/lead-firmware-test-automation-engineer?utm_source=api) — Jabil | India | salary: not stated
+- **55 pts** [Senior Project Manager – Civil Engineering](https://himalayas.app/companies/langan-engineering-and-environmenta/jobs/senior-project-manager-civil-engineering?utm_source=api) — Langan Engineering and Environmenta | United States | salary: not stated
 - **55 pts** [Project Manager](https://remoteOK.com/remote-jobs/remote-project-manager-spiralyze-1137466) — Spiralyze | Worldwide | salary: not stated
-- **50 pts** [QA Engineer](https://himalayas.app/companies/edgeq-technologies-private-limited/jobs/qa-engineer?utm_source=api) — EdgeQ Technologies Private Limited | United States | salary: USD 80000-125000 annual
-- **50 pts** [Quality Assurance Tester/Test Engineer Manual and Automation](https://himalayas.app/companies/peraton/jobs/quality-assurance-tester-test-engineer-manual-and-automation?utm_source=api) — Peraton | United States | salary: USD 86000-138000 annual
-- **35 pts** [QA Engineer](https://himalayas.app/companies/5blue-software/jobs/qa-engineer?utm_source=api) — 5Blue Software | Bulgaria, Croatia, Germany, Montenegro, Poland, Ukraine | salary: not stated
+- **55 pts** [Senior Project Manager](https://himalayas.app/companies/vaimo/jobs/senior-project-manager-4917450648?utm_source=api) — Vaimo | Mexico | salary: not stated
+- **50 pts** [CCARS / Document Management Software Test Engineer](https://himalayas.app/companies/caci-international-inc/jobs/ccars-document-management-software-test-engineer-8704276214?utm_source=api) — CACI International Inc | United States | salary: USD 75200-158100 annual
+- **50 pts** [Sr. Test Engineer (Demo)](https://himalayas.app/companies/inabia-software-consulting-inc/jobs/sr-test-engineer-demo?utm_source=api) — Inabia Software & Consulting Inc. | United States | salary: USD 85000-100000 annual
+- **45 pts** [Risk (QA) Engineer](https://himalayas.app/companies/tabby/jobs/risk-qa-engineer?utm_source=api) — Tabby | Armenia | salary: not stated
 - **35 pts** [QA Tester Entry Level](https://remoteOK.com/remote-jobs/remote-qa-tester-entry-level-ace-it-careers-1136701) — Ace IT Careers | Remote | salary: not stated
-- **35 pts** [Quality Engineer I](https://himalayas.app/companies/availity/jobs/quality-engineer-i?utm_source=api) — Availity | United States | salary: not stated
-- **35 pts** [Sr SDET - Performance Testing](https://himalayas.app/companies/highlevel/jobs/sr-sdet-performance-testing?utm_source=api) — HighLevel | India | salary: not stated
-- **35 pts** [Product Quality Engineer](https://himalayas.app/companies/menlo-ai/jobs/product-quality-engineer-6567029482?utm_source=api) — Menlo | United States | salary: not stated
-- **35 pts** [Manual QA Engineer (Game Client)](https://jobicy.com/jobs/159157-manual-qa-engineer-game-client-2) — Playson | Europe | salary: not stated
-- **35 pts** [Director of Quality Engineering](https://himalayas.app/companies/sword-com/jobs/director-of-quality-engineering?utm_source=api) — Sword Health | Portugal | salary: EUR 64400-101200 annual
-- **35 pts** [Bulgarian Localization QA Tester / Proofreader](https://jobicy.com/jobs/159099-bulgarian-localization-qa-tester-proofreader) — Welo Global | France, Greece, Italy, Romania, Spain | salary: not stated
+- **35 pts** [QA Automation Engineer (Banking)](https://himalayas.app/companies/qualysoft/jobs/qa-automation-engineer-banking?utm_source=api) — Qualysoft | Romania | salary: not stated
+- **35 pts** [Automation QA Engineer (QVAC) (100% remote)](https://himalayas.app/companies/tether-operations-limited/jobs/automation-qa-engineer-qvac-100-remote-1877006373?utm_source=api) — Tether Operations Limited | India | salary: not stated
+- **35 pts** [Automation QA Engineer (QVAC) (100% remote)](https://himalayas.app/companies/tether-operations-limited/jobs/automation-qa-engineer-qvac-100-remote-413886853?utm_source=api) — Tether Operations Limited | Spain | salary: not stated
+- **35 pts** [Automation QA Engineer (QVAC) (100% remote)](https://himalayas.app/companies/tether-operations-limited/jobs/automation-qa-engineer-qvac-100-remote-7073222971?utm_source=api) — Tether Operations Limited | Argentina | salary: not stated
 
 ## Source errors
 

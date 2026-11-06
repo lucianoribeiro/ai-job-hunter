@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T18:05:39.119910+00:00",
+  "generated_at": "2026-11-06T17:32:28.951595+00:00",
   "method": "public ATS engineering-hiring proxy; not confirmed hidden vacancies",
   "companies_checked": 2,
   "companies_failed": 1,
@@ -11,9 +11,9 @@
       "signal": "engineering_hiring_without_public_qa_listing",
       "confidence": "moderate",
       "score": 85,
-      "engineering_roles": 46,
+      "engineering_roles": 44,
       "qa_roles": 0,
-      "engineering_leadership_roles": 18,
+      "engineering_leadership_roles": 17,
       "qa_leadership_roles": 0,
       "remote_engineering_roles": 0,
       "priority": "high",
@@ -33,11 +33,11 @@
         },
         {
           "title": "Backend Engineer (Ruby), Plan: Spec-Driven Development",
-          "url": "https://job-boards.greenhouse.io/gitlab/jobs/8682860002"
+          "url": "https://job-boards.greenhouse.io/gitlab/jobs/8749950002"
         },
         {
           "title": "Backend Engineer (Ruby), Plan: Spec-Driven Development",
-          "url": "https://job-boards.greenhouse.io/gitlab/jobs/8749950002"
+          "url": "https://job-boards.greenhouse.io/gitlab/jobs/8682860002"
         }
       ],
       "contact_channel": "official_careers_page",
@@ -52,7 +52,7 @@
       "signal": "engineering_hiring_without_public_qa_listing",
       "confidence": "moderate",
       "score": 65,
-      "engineering_roles": 20,
+      "engineering_roles": 18,
       "qa_roles": 0,
       "engineering_leadership_roles": 0,
       "qa_leadership_roles": 0,
