@@ -376,6 +376,15 @@
     "title": "Program Manager / Director",
     "url": "https://himalayas.app/companies/amyx-inc/jobs/program-manager-director?utm_source=api"
   },
+  "0bb9a7b2f00275996e622f74": {
+    "company": "HHHUB, UAB",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794061367",
+    "source": "Himalayas",
+    "title": "Senior QA Engineer - Web & Mobile",
+    "url": "https://himalayas.app/companies/hhhub-uab/jobs/senior-qa-engineer-web-mobile?utm_source=api"
+  },
   "0bc59307cbd818d3": {
     "company": "Holycode",
     "description": "",
@@ -389,6 +398,15 @@
     "source": "Himalayas",
     "title": "Senior QA Automation Engineer - Holycode team",
     "url": "https://himalayas.app/companies/holycode/jobs/senior-qa-automation-engineer-holycode-team?utm_source=api"
+  },
+  "0c5aecc988645f10ae679477": {
+    "company": "Tabby",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794041564",
+    "source": "Himalayas",
+    "title": "Risk (QA) Engineer",
+    "url": "https://himalayas.app/companies/tabby/jobs/risk-qa-engineer-5106883448?utm_source=api"
   },
   "0c9512b75a1657fe": {
     "company": "Bureau Veritas",
@@ -949,8 +967,8 @@
   "1718efd19ea573c12f0b4add": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-11-06",
-    "published": "2026-10-28T12:23:39-04:00",
+    "last_seen": "2026-11-07",
+    "published": "2026-11-06T15:25:07-05:00",
     "source": "Greenhouse",
     "title": "Staff Program Manager, CCO Programs",
     "url": "https://job-boards.greenhouse.io/gitlab/jobs/8822279002"
@@ -1078,6 +1096,15 @@
     "source": "Himalayas",
     "title": "Medical Device Software Quality Engineer",
     "url": "https://himalayas.app/companies/deciphex/jobs/medical-device-software-quality-engineer?utm_source=api"
+  },
+  "1a2faea4729a8a5a4796b944": {
+    "company": "Lifelancer",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794029069",
+    "source": "Himalayas",
+    "title": "Software QA Engineer",
+    "url": "https://himalayas.app/companies/lifelancer/jobs/software-qa-engineer?utm_source=api"
   },
   "1a88a5cb0d97ef1f": {
     "company": "Oddball",
@@ -1720,11 +1747,20 @@
   "2a4d54ac15ae0f954aa499bf": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-11-06",
-    "published": "2026-10-28T12:23:39-04:00",
+    "last_seen": "2026-11-07",
+    "published": "2026-11-06T15:25:07-05:00",
     "source": "Greenhouse",
     "title": "Senior Program Manager, Enterprise Technology and AI",
     "url": "https://job-boards.greenhouse.io/gitlab/jobs/8687246002"
+  },
+  "2a56a18bb1d294b008e4cdf3": {
+    "company": "Clever Digital Marketing",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794067375",
+    "source": "Himalayas",
+    "title": "Technical Program Manager",
+    "url": "https://himalayas.app/companies/clever-digital-marketing/jobs/technical-program-manager?utm_source=api"
   },
   "2b67ba279391e88e": {
     "company": "Rochester Regional Health",
@@ -2670,6 +2706,24 @@
     "title": "Onboarding Project Manager - NORAM",
     "url": "https://jobicy.com/jobs/159473-onboarding-project-manager-noram"
   },
+  "44857f654a20a2c61cb04fec": {
+    "company": "Cloudbeds",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "2026-11-07T06:08:29+00:00",
+    "source": "Jobicy",
+    "title": "Onboarding Project Manager - NORAM",
+    "url": "https://jobicy.com/jobs/159473-onboarding-project-manager-noram"
+  },
+  "448a366fd0e3eb37d31cd93d": {
+    "company": "Tabby",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794047686",
+    "source": "Himalayas",
+    "title": "Risk (QA) Engineer",
+    "url": "https://himalayas.app/companies/tabby/jobs/risk-qa-engineer-8471981677?utm_source=api"
+  },
   "44bdcd2980609f564abed1b9": {
     "company": "Intetics",
     "first_seen": "2026-10-26",
@@ -2715,6 +2769,15 @@
     "source": "Himalayas",
     "title": "Support & QA Specialist, Tax",
     "url": "https://himalayas.app/companies/filed/jobs/support-qa-specialist-tax?utm_source=api"
+  },
+  "451a3aef6e6d0393d82d9e93": {
+    "company": "NantHealth",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794064627",
+    "source": "Himalayas",
+    "title": "Senior Principal Implementation Program Manager | Eviti | NantIQ",
+    "url": "https://himalayas.app/companies/nanthealth/jobs/senior-principal-implementation-program-manager-eviti-nantiq?utm_source=api"
   },
   "453edfebbaa1c2d1": {
     "company": "OpenMined",
@@ -3219,7 +3282,7 @@
   "51faec0bcc5c06023b6659e1": {
     "company": "Ace IT Careers",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-11-06",
+    "last_seen": "2026-11-07",
     "published": "2026-08-15T00:00:25+00:00",
     "source": "Remote OK",
     "title": "QA Tester Entry Level",
@@ -3727,8 +3790,8 @@
   "5e8cf145cf633635316fe957": {
     "company": "GitLab",
     "first_seen": "2026-10-30",
-    "last_seen": "2026-11-06",
-    "published": "2026-10-30T10:23:09-04:00",
+    "last_seen": "2026-11-07",
+    "published": "2026-11-06T15:25:07-05:00",
     "source": "Greenhouse",
     "title": "Senior Professional Services Project Manager (EMEA)",
     "url": "https://job-boards.greenhouse.io/gitlab/jobs/8622433002"
@@ -3914,6 +3977,15 @@
     "source": "Himalayas",
     "title": "Senior QA Engineer",
     "url": "https://himalayas.app/companies/cial-dun-bradstreet/jobs/senior-qa-engineer-9054027216?utm_source=api"
+  },
+  "64fadc9df58becc752b68f93": {
+    "company": "Codekeeper",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794049540",
+    "source": "Himalayas",
+    "title": "QA & Verifications Engineer",
+    "url": "https://himalayas.app/companies/codekeeper/jobs/qa-verifications-engineer?utm_source=api"
   },
   "6534b5b39fb514dea8ca44aa": {
     "company": "LegalMatch.com",
@@ -4753,6 +4825,15 @@
     "title": "Junior Software QA Engineer",
     "url": "https://himalayas.app/companies/motorola-solutions/jobs/junior-software-qa-engineer?utm_source=api"
   },
+  "77d7c0aacee3326908d845f9": {
+    "company": "Qu",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794048954",
+    "source": "Himalayas",
+    "title": "QA Engineer - Backend & Frontend",
+    "url": "https://himalayas.app/companies/qu/jobs/qa-engineer-backend-frontend?utm_source=api"
+  },
   "785062473056cbce7204c340": {
     "company": "TrueML",
     "first_seen": "2026-10-25",
@@ -4919,6 +5000,15 @@
     "title": "Environmental Project Manager",
     "url": "https://himalayas.app/companies/quanta-services/jobs/environmental-project-manager?utm_source=api"
   },
+  "7dbdd7c4716c2de9c21ba7c9": {
+    "company": "Quality Digital",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794036391",
+    "source": "Himalayas",
+    "title": "ANALISTA DE QUALIDADE DE SOFTWARE (QA) SÊNIOR",
+    "url": "https://himalayas.app/companies/quality-digital/jobs/analista-de-qualidade-de-software-qa-senior?utm_source=api"
+  },
   "7e480f0da8b5c92fb4f8fe3e": {
     "company": "Municipal Credit Union",
     "first_seen": "2026-10-24",
@@ -4945,6 +5035,15 @@
     "source": "Himalayas",
     "title": "QA Automation Engineer (Banking)",
     "url": "https://himalayas.app/companies/qualysoft/jobs/qa-automation-engineer-banking?utm_source=api"
+  },
+  "7ec79b312f5cc97cc8cd3a75": {
+    "company": "Logistics Management Institute",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794056384",
+    "source": "Himalayas",
+    "title": "Quality Assurance Specialist - Clearance Required",
+    "url": "https://himalayas.app/companies/logistics-management-institute/jobs/quality-assurance-specialist-clearance-required?utm_source=api"
   },
   "7f367a4f6121d4e2a6e9d398": {
     "company": "Gcore",
@@ -5445,6 +5544,15 @@
     "title": "QA Engineer",
     "url": "https://himalayas.app/companies/ontinue/jobs/qa-engineer?utm_source=api"
   },
+  "8b4142d46de359ebce18d2c9": {
+    "company": "Qlarant",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794061639",
+    "source": "Himalayas",
+    "title": "Project Manager III",
+    "url": "https://himalayas.app/companies/qlarant/jobs/project-manager-iii?utm_source=api"
+  },
   "8b7364debc2af4c5c3b6a3cd": {
     "company": "DecisionPoint Corporation",
     "first_seen": "2026-10-30",
@@ -5546,6 +5654,15 @@
     "published": "2026-11-07T11:06:00+00:00",
     "salary": "",
     "score": 35,
+    "source": "Jobicy",
+    "title": "Quality Assurance Engineer (m/f/d)",
+    "url": "https://jobicy.com/jobs/159518-quality-assurance-engineer-m-f-d"
+  },
+  "8d0a399e4e82c6b04b16cf6e": {
+    "company": "ecosio",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "2026-11-07T11:06:00+00:00",
     "source": "Jobicy",
     "title": "Quality Assurance Engineer (m/f/d)",
     "url": "https://jobicy.com/jobs/159518-quality-assurance-engineer-m-f-d"
@@ -6073,6 +6190,24 @@
     "title": "Professional Services, Program Manager",
     "url": "https://job-boards.greenhouse.io/gitlab/jobs/8929468002"
   },
+  "9c533011576fdcf2c7ec4312": {
+    "company": "GitLab",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "2026-11-06T16:29:05-05:00",
+    "source": "Greenhouse",
+    "title": "Professional Services, Program Manager",
+    "url": "https://job-boards.greenhouse.io/gitlab/jobs/8929468002"
+  },
+  "9c8d13ec633d929ab79f0777": {
+    "company": "WellBe Senior Medical",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794064657",
+    "source": "Himalayas",
+    "title": "IT Project Manager - Data",
+    "url": "https://himalayas.app/companies/wellbeseniormedical/jobs/it-project-manager-data?utm_source=api"
+  },
   "9cb83de0ab84724a": {
     "company": "CodiLime",
     "description": "",
@@ -6209,7 +6344,7 @@
   "9f5d7fcbc28da96653b684a7": {
     "company": "Ramp",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-11-06",
+    "last_seen": "2026-11-07",
     "published": "2026-10-16T18:04:33.419+00:00",
     "source": "Ashby",
     "title": "Senior Technical Program Manager",
@@ -6681,6 +6816,15 @@
     "title": "Senior Software Development Engineer in Test (SDET) – Digital Banking",
     "url": "https://himalayas.app/companies/aequilibrium/jobs/senior-software-development-engineer-in-test-sdet-digital-banking?utm_source=api"
   },
+  "abdf2c09aee4de28c5450d10": {
+    "company": "YO AI Labs",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794033560",
+    "source": "Himalayas",
+    "title": "Software Test Engineer - Remote",
+    "url": "https://himalayas.app/companies/yo-ai-labs/jobs/software-test-engineer-remote?utm_source=api"
+  },
   "ac60813f48bd7bc5bcd5f6be": {
     "company": "Lingaro",
     "first_seen": "2026-10-25",
@@ -7042,6 +7186,15 @@
     "title": "CCARS / Document Management Software Test Engineer",
     "url": "https://himalayas.app/companies/caci-international-inc/jobs/ccars-document-management-software-test-engineer-8704276214?utm_source=api"
   },
+  "b52d8fc7d3fc2cd79d6d4b7d": {
+    "company": "Idego Group",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794053539",
+    "source": "Himalayas",
+    "title": "Senior QA Automation Engineer",
+    "url": "https://himalayas.app/companies/idego/jobs/senior-qa-automation-engineer?utm_source=api"
+  },
   "b571800a58969d1a": {
     "company": "Arizona Department of Economic Security",
     "first_seen": "2026-10-18",
@@ -7371,11 +7524,20 @@
   "bd94466a0379ce0dd7c7fda6": {
     "company": "GitLab",
     "first_seen": "2026-11-06",
-    "last_seen": "2026-11-06",
-    "published": "2026-11-05T16:32:18-05:00",
+    "last_seen": "2026-11-07",
+    "published": "2026-11-06T15:25:07-05:00",
     "source": "Greenhouse",
     "title": "Senior Security Technical Program Manager, Fraud & Abuse",
     "url": "https://job-boards.greenhouse.io/gitlab/jobs/8928711002"
+  },
+  "be4b4619fdd7a74c22f03625": {
+    "company": "Valtech",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794029019",
+    "source": "Himalayas",
+    "title": "Senior QA Automation Engineer (Playwright)",
+    "url": "https://himalayas.app/companies/valtech-us/jobs/senior-qa-automation-engineer-playwright-6538751355?utm_source=api"
   },
   "be7cac0424719134ce34da64": {
     "company": "All Generation Tech",
@@ -7652,6 +7814,15 @@
     "title": "Audio Quality Assurance Reviewer - Spanish (Colombia)",
     "url": "https://himalayas.app/companies/transperfect/jobs/audio-quality-assurance-reviewer-spanish-colombia?utm_source=api"
   },
+  "c54a978bc8ab453aaac4725b": {
+    "company": "Pearson",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794065021",
+    "source": "Himalayas",
+    "title": "Senior Quality Assurance Engineer",
+    "url": "https://himalayas.app/companies/pearson/jobs/senior-quality-assurance-engineer?utm_source=api"
+  },
   "c550e2e5be101c9aa2b83fea": {
     "company": "ELB Learning",
     "first_seen": "2026-11-01",
@@ -7825,8 +7996,8 @@
   "c643ca1ab0148a831a238994": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-11-06",
-    "published": "2026-11-05T14:12:57-05:00",
+    "last_seen": "2026-11-07",
+    "published": "2026-11-06T15:25:07-05:00",
     "source": "Greenhouse",
     "title": "Principal Technical Program Manager",
     "url": "https://job-boards.greenhouse.io/gitlab/jobs/8693068002"
@@ -8120,6 +8291,15 @@
     "title": "Quality Assurance Analyst",
     "url": "https://himalayas.app/companies/american-college-of-education/jobs/quality-assurance-analyst?utm_source=api"
   },
+  "cea8212b74a4642e66a1dc1f": {
+    "company": "WellBe Senior Medical",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794064588",
+    "source": "Himalayas",
+    "title": "IT Project Manager - Technical",
+    "url": "https://himalayas.app/companies/wellbeseniormedical/jobs/it-project-manager-technical?utm_source=api"
+  },
   "cf1f5ef34193eace": {
     "company": "Valtech",
     "description": "",
@@ -8334,6 +8514,15 @@
     "source": "Himalayas",
     "title": "AI Data Center Project Manager (Japan)",
     "url": "https://himalayas.app/companies/the-talent-people/jobs/ai-data-center-project-manager-japan?utm_source=api"
+  },
+  "d298f44f494d86ce59644cf2": {
+    "company": "Sparkrock",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794067477",
+    "source": "Himalayas",
+    "title": "Senior QA Engineer (OTE $50,000/year USD), Sparkrock",
+    "url": "https://himalayas.app/companies/sparkrock/jobs/senior-qa-engineer-ote-50-000-year-usd-sparkrock?utm_source=api"
   },
   "d37bc1978a0d5ed1b6be1537": {
     "company": "Cushman & Wakefield",
@@ -8668,6 +8857,15 @@
     "title": "Senior Software Engineer in Test (SDET)",
     "url": "https://himalayas.app/companies/hazelcast/jobs/senior-software-engineer-in-test-sdet?utm_source=api"
   },
+  "dde1c6d7e3cb7c7160f09e70": {
+    "company": "Scrive",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794033886",
+    "source": "Himalayas",
+    "title": "QA Engineer",
+    "url": "https://himalayas.app/companies/scrive/jobs/qa-engineer?utm_source=api"
+  },
   "ddfa10e75b36a9d5f06fe402": {
     "company": "Banco Plata, S.A., Institución de Banca Múltiple",
     "first_seen": "2026-10-19",
@@ -8865,6 +9063,24 @@
     "title": "Sr Quality Assurance Auditor",
     "url": "https://himalayas.app/companies/clario/jobs/sr-quality-assurance-auditor?utm_source=api"
   },
+  "e4d6e980195e6b5a74fca588": {
+    "company": "OneForma",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794065569",
+    "source": "Himalayas",
+    "title": "Software Test Engineer",
+    "url": "https://himalayas.app/companies/oneforma/jobs/software-test-engineer-3418592534?utm_source=api"
+  },
+  "e51b8ef47c186c619741bf33": {
+    "company": "BerryDunn",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794064960",
+    "source": "Himalayas",
+    "title": "Technical Project Manager / Scrum Master",
+    "url": "https://himalayas.app/companies/berrydunn/jobs/technical-project-manager-scrum-master-2205396841?utm_source=api"
+  },
   "e53d0c3c58ff1645aa913b45": {
     "company": "AAA Life Insurance Company",
     "first_seen": "2026-10-28",
@@ -8997,6 +9213,15 @@
     "source": "Jobicy",
     "title": "Global Web Growth Project Manager",
     "url": "https://jobicy.com/jobs/153492-global-web-growth-project-manager"
+  },
+  "e852b631174376fb73e7a5cf": {
+    "company": "Toptal",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "2026-11-05T22:37:39+00:00",
+    "source": "Remote OK",
+    "title": "Agile Program Manager",
+    "url": "https://remoteOK.com/remote-jobs/remote-agile-program-manager-toptal-1137692"
   },
   "e8a83b46f7a1aa65": {
     "company": "Gorilla Logic",
@@ -9559,6 +9784,15 @@
     "source": "Himalayas",
     "title": "ServiceNow Project Manager (372)",
     "url": "https://himalayas.app/companies/itech-ag/jobs/servicenow-project-manager-372?utm_source=api"
+  },
+  "f780195579a1a2489f8fc45a": {
+    "company": "Syneos Health India Private Limited",
+    "first_seen": "2026-11-07",
+    "last_seen": "2026-11-07",
+    "published": "1794065033",
+    "source": "Himalayas",
+    "title": "Early Phase Clinical Project Manager",
+    "url": "https://himalayas.app/companies/syneos-health-india-private-limited/jobs/early-phase-clinical-project-manager?utm_source=api"
   },
   "f78fec010cfbfdf9": {
     "company": "OMG Technology",
