@@ -295,6 +295,38 @@
     "title": "QA Tester - Agentic Web Application (Senior)",
     "url": "https://himalayas.app/companies/microsourcing/jobs/qa-tester-agentic-web-application-senior?utm_source=api"
   },
+  "06d7d1c33368631f": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "USD compensation indicated in the listing",
+        "Contract/freelance terms detected; confirm daily hours"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "freelance",
+    "company": "micro1",
+    "created_at": "2026-11-09",
+    "job_id": "06d7d1c33368631f",
+    "notes": "",
+    "score": 70,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-09",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-09",
+    "title": "Electronics Assembly Quality Engineer",
+    "url": "https://himalayas.app/companies/micro1/jobs/electronics-assembly-quality-engineer?utm_source=api"
+  },
   "06dccfac729c522e": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -2899,6 +2931,36 @@
     "title": "Senior SDET (Software Development Engineer in Test) - Asian Timezones",
     "url": "https://himalayas.app/companies/hermeneutic-investments/jobs/senior-sdet-software-development-engineer-in-test-asian-timezones"
   },
+  "39f5557d05ac8d48": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "FinteqHub",
+    "created_at": "2026-11-09",
+    "job_id": "39f5557d05ac8d48",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-09",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-09",
+    "title": "Automation QA Engineer (Golang / Java)",
+    "url": "https://himalayas.app/companies/finteqhub/jobs/automation-qa-engineer-golang-java?utm_source=api"
+  },
   "3b7ac12f9cebb873": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -3803,6 +3865,36 @@
     "status_updated_at": "2026-10-26",
     "title": "SDET Engineer",
     "url": "https://himalayas.app/companies/bright-vision-technologies/jobs/sdet-engineer-6268010072?utm_source=api"
+  },
+  "499f1713c2e264c3": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Agilent Technologies",
+    "created_at": "2026-11-09",
+    "job_id": "499f1713c2e264c3",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-09",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-09",
+    "title": "Regional Quality Assurance Lead (Korea)",
+    "url": "https://himalayas.app/companies/agilent-technologies/jobs/regional-quality-assurance-lead-korea?utm_source=api"
   },
   "4a64fa301298dd9f": {
     "assessment": {
@@ -5204,6 +5296,36 @@
     "title": "QA Engineer",
     "url": "https://jobicy.com/jobs/151950-qa-engineer-4"
   },
+  "6877a71e1ea7f332": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Contract/freelance terms detected; confirm daily hours"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "freelance",
+    "company": "ITC2",
+    "created_at": "2026-11-09",
+    "job_id": "6877a71e1ea7f332",
+    "notes": "",
+    "score": 75,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-09",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-09",
+    "title": "Program Manager",
+    "url": "https://himalayas.app/companies/itc2/jobs/program-manager?utm_source=api"
+  },
   "692a0812fade6fbe": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -5417,6 +5539,36 @@
     "title": "GIS Software Quality Assurance Engineer",
     "url": "https://himalayas.app/companies/mano-lani-llc/jobs/gis-software-quality-assurance-engineer"
   },
+  "6f3da3d482de0a75": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "SCAN",
+    "created_at": "2026-11-09",
+    "job_id": "6f3da3d482de0a75",
+    "notes": "",
+    "score": 70,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-09",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-09",
+    "title": "Program Manager - Retention",
+    "url": "https://himalayas.app/companies/scan/jobs/program-manager-retention?utm_source=api"
+  },
   "6f74c01e1c4d0b63": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -5621,6 +5773,34 @@
     "status_updated_at": "2026-10-29",
     "title": "Senior Clinical Project Manager - Oncology",
     "url": "https://jobicy.com/jobs/157661-senior-clinical-project-manager-oncology"
+  },
+  "7363b7f1b5d5dc04": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Atlas Technica",
+    "created_at": "2026-11-09",
+    "job_id": "7363b7f1b5d5dc04",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-09",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-09",
+    "title": "Project Manager",
+    "url": "https://himalayas.app/companies/atlas-technica/jobs/project-manager?utm_source=api"
   },
   "741808f522faf188": {
     "assessment": {
@@ -7000,6 +7180,36 @@
     "title": "IT Project Manager",
     "url": "https://himalayas.app/companies/m2talents/jobs/it-project-manager?utm_source=api"
   },
+  "9197e6763eef3046": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Description Ciklum",
+    "created_at": "2026-11-09",
+    "job_id": "9197e6763eef3046",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-09",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-09",
+    "title": "Senior Full Stack QA Engineer",
+    "url": "https://himalayas.app/companies/description-ciklum/jobs/senior-full-stack-qa-engineer?utm_source=api"
+  },
   "91e48498e23989ee": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -7061,6 +7271,36 @@
     "status_updated_at": "2026-11-06",
     "title": "Senior Manager QA, Remote based in North Carolina",
     "url": "https://himalayas.app/companies/fortrea/jobs/senior-manager-qa-remote-based-in-north-carolina?utm_source=api"
+  },
+  "93630688b58f6108": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "GeBBS",
+    "created_at": "2026-11-09",
+    "job_id": "93630688b58f6108",
+    "notes": "",
+    "score": 45,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-09",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-09",
+    "title": "Profee ED Auditor/QA Specialist",
+    "url": "https://himalayas.app/companies/gebbs/jobs/profee-ed-auditor-qa-specialist?utm_source=api"
   },
   "94e12bbe49d63765": {
     "assessment": {
@@ -7601,6 +7841,36 @@
     "status_updated_at": "2026-11-07",
     "title": "Quality Assurance Specialist - Clearance Required",
     "url": "https://himalayas.app/companies/logistics-management-institute/jobs/quality-assurance-specialist-clearance-required?utm_source=api"
+  },
+  "9f2c0047a12e1070": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Huzzle",
+    "created_at": "2026-11-09",
+    "job_id": "9f2c0047a12e1070",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-09",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-09",
+    "title": "Quality Assurance Engineer",
+    "url": "https://himalayas.app/companies/huzzle/jobs/quality-assurance-engineer?utm_source=api"
   },
   "9f5d7fcbc28da966": {
     "assessment": {
@@ -9034,6 +9304,36 @@
     "title": "Senior Security Technical Program Manager, Fraud & Abuse",
     "url": "https://job-boards.greenhouse.io/gitlab/jobs/8928711002"
   },
+  "be060dc6e2b48a61": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Description Ciklum",
+    "created_at": "2026-11-09",
+    "job_id": "be060dc6e2b48a61",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-09",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-09",
+    "title": "Automation QA Engineer",
+    "url": "https://himalayas.app/companies/description-ciklum/jobs/automation-qa-engineer-8919899392?utm_source=api"
+  },
   "bf4001dcaf4e3879": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -10142,6 +10442,36 @@
     "title": "Quality Assurance Tester/Test Engineer Manual and Automation",
     "url": "https://himalayas.app/companies/peraton/jobs/quality-assurance-tester-test-engineer-manual-and-automation?utm_source=api"
   },
+  "d2064acbdadea120": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Description Ciklum",
+    "created_at": "2026-11-09",
+    "job_id": "d2064acbdadea120",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-09",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-09",
+    "title": "Senior Automation QA Engineer",
+    "url": "https://himalayas.app/companies/description-ciklum/jobs/senior-automation-qa-engineer-5474054525?utm_source=api"
+  },
   "d2879e87a04d2bbc": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -10508,6 +10838,36 @@
     "title": "Senior QA Engineer (OTE $50,000/year USD), Sparkrock",
     "url": "https://himalayas.app/companies/sparkrock/jobs/senior-qa-engineer-ote-50-000-year-usd-sparkrock?utm_source=api"
   },
+  "dd28cf3883061d2e": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Description Ciklum",
+    "created_at": "2026-11-09",
+    "job_id": "dd28cf3883061d2e",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-09",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-09",
+    "title": "Expert Automation QA Engineer",
+    "url": "https://himalayas.app/companies/description-ciklum/jobs/expert-automation-qa-engineer-5546121065?utm_source=api"
+  },
   "ded88033ad24d1fb": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -10776,6 +11136,37 @@
     "status_updated_at": "2026-10-22",
     "title": "Sr Quality Assurance Auditor",
     "url": "https://himalayas.app/companies/clario/jobs/sr-quality-assurance-auditor?utm_source=api"
+  },
+  "e4ab05585d00fd0c": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Vouched",
+    "created_at": "2026-11-09",
+    "job_id": "e4ab05585d00fd0c",
+    "notes": "",
+    "score": 70,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-09",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-09",
+    "title": "Senior QA/SDET",
+    "url": "https://himalayas.app/companies/vouched/jobs/senior-qa-sdet?utm_source=api"
   },
   "e6036fbb8c362098": {
     "assessment": {
@@ -11249,6 +11640,37 @@
     "title": "Quality Assurance Analyst I",
     "url": "https://himalayas.app/companies/global-payments/jobs/quality-assurance-analyst-i?utm_source=api"
   },
+  "ef420fc107cdf621": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Skylight",
+    "created_at": "2026-11-09",
+    "job_id": "ef420fc107cdf621",
+    "notes": "",
+    "score": 70,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-09",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-09",
+    "title": "Senior QA Engineer",
+    "url": "https://himalayas.app/companies/skylight/jobs/senior-qa-engineer?utm_source=api"
+  },
   "ef8d0060e080d7c0": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -11553,6 +11975,36 @@
     "status_updated_at": "2026-10-28",
     "title": "Web QA Engineer (Part-time)",
     "url": "https://himalayas.app/companies/expedock/jobs/web-qa-engineer-part-time?utm_source=api"
+  },
+  "f629356af08745a9": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Tier One Technologies",
+    "created_at": "2026-11-09",
+    "job_id": "f629356af08745a9",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-09",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-09",
+    "title": "Automation Test Engineer",
+    "url": "https://himalayas.app/companies/tier-one-technologies/jobs/automation-test-engineer?utm_source=api"
   },
   "f78fec010cfbfdf9": {
     "assessment": {
