@@ -298,6 +298,15 @@
     "title": "SDET I",
     "url": "https://himalayas.app/companies/modivcare/jobs/sdet-i?utm_source=api"
   },
+  "0847603ecb98e5c54f1de1da": {
+    "company": "Tier One Technologies",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "published": "1794196884",
+    "source": "Himalayas",
+    "title": "Automation Test Engineer",
+    "url": "https://himalayas.app/companies/tier-one-technologies/jobs/automation-test-engineer?utm_source=api"
+  },
   "0957abca07b29933": {
     "company": "AA Inclusion",
     "description": "",
@@ -1004,7 +1013,7 @@
   "1718efd19ea573c12f0b4add": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-11-08",
+    "last_seen": "2026-11-09",
     "published": "2026-11-06T15:25:07-05:00",
     "source": "Greenhouse",
     "title": "Staff Program Manager, CCO Programs",
@@ -1114,7 +1123,7 @@
   "19314db222469dd3786cf6d1": {
     "company": "Description Ciklum",
     "first_seen": "2026-11-08",
-    "last_seen": "2026-11-08",
+    "last_seen": "2026-11-09",
     "published": "1794151890",
     "source": "Himalayas",
     "title": "Automation QA Engineer",
@@ -1324,6 +1333,15 @@
     "source": "Himalayas",
     "title": "Senior QA Engineer",
     "url": "https://himalayas.app/companies/ness-usa-inc/jobs/senior-qa-engineer?utm_source=api"
+  },
+  "1e47ca18324af518404fb03d": {
+    "company": "Testlio",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "published": "2026-11-09T08:23:22+00:00",
+    "source": "Jobicy",
+    "title": "Freelance Software Tester (Remote in Réunion, Monaco)",
+    "url": "https://jobicy.com/jobs/159997-freelance-software-tester-remote-in-reunion-monaco"
   },
   "1e665f2a3a28bf55": {
     "company": "Softtest pays pty ltd",
@@ -1920,7 +1938,7 @@
   "2e7ba06cfe049a8813027efa": {
     "company": "SwissPeak Partners GmbH",
     "first_seen": "2026-11-08",
-    "last_seen": "2026-11-08",
+    "last_seen": "2026-11-09",
     "published": "1794141082",
     "source": "Arbeitnow",
     "title": "Software Test Engineer",
@@ -1981,6 +1999,15 @@
     "source": "Himalayas",
     "title": "Project Manager, Business Implementation",
     "url": "https://himalayas.app/companies/internova-travel-group/jobs/project-manager-business-implementation?utm_source=api"
+  },
+  "2f0985a6fada2e8bf322b436": {
+    "company": "SCAN",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "published": "1794236576",
+    "source": "Himalayas",
+    "title": "Program Manager - Retention",
+    "url": "https://himalayas.app/companies/scan/jobs/program-manager-retention?utm_source=api"
   },
   "2f3ce2c28f167875a1b05139": {
     "company": "Acklen Avenue",
@@ -2325,6 +2352,15 @@
     "source": "Himalayas",
     "title": "Automation QA Engineer (QVAC) (100% remote)",
     "url": "https://himalayas.app/companies/tether-operations-limited/jobs/automation-qa-engineer-qvac-100-remote-413886853?utm_source=api"
+  },
+  "37fb732bdf40781ce05cfa2f": {
+    "company": "Huzzle",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "published": "1794239299",
+    "source": "Himalayas",
+    "title": "Quality Assurance Engineer",
+    "url": "https://himalayas.app/companies/huzzle/jobs/quality-assurance-engineer?utm_source=api"
   },
   "385235c67aa34bc6": {
     "company": "Smart Tech Contracting",
@@ -2931,6 +2967,15 @@
     "title": "Senior Principal Implementation Program Manager | Eviti | NantIQ",
     "url": "https://himalayas.app/companies/nanthealth/jobs/senior-principal-implementation-program-manager-eviti-nantiq?utm_source=api"
   },
+  "4527a6d0c9337360857b508e": {
+    "company": "Description Ciklum",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "published": "1794183604",
+    "source": "Himalayas",
+    "title": "Senior Automation QA Engineer",
+    "url": "https://himalayas.app/companies/description-ciklum/jobs/senior-automation-qa-engineer-5474054525?utm_source=api"
+  },
   "453edfebbaa1c2d1": {
     "company": "OpenMined",
     "description": "",
@@ -3205,7 +3250,7 @@
   "4a5f6370b11f72f9d9ae7d9a": {
     "company": "Description Ciklum",
     "first_seen": "2026-11-08",
-    "last_seen": "2026-11-08",
+    "last_seen": "2026-11-09",
     "published": "1794154738",
     "source": "Himalayas",
     "title": "Expert Automation QA Engineer",
@@ -3471,7 +3516,7 @@
   "51faec0bcc5c06023b6659e1": {
     "company": "Ace IT Careers",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-11-08",
+    "last_seen": "2026-11-09",
     "published": "2026-08-15T00:00:25+00:00",
     "source": "Remote OK",
     "title": "QA Tester Entry Level",
@@ -4076,7 +4121,7 @@
   "5e8cf145cf633635316fe957": {
     "company": "GitLab",
     "first_seen": "2026-10-30",
-    "last_seen": "2026-11-08",
+    "last_seen": "2026-11-09",
     "published": "2026-11-06T15:25:07-05:00",
     "source": "Greenhouse",
     "title": "Senior Professional Services Project Manager (EMEA)",
@@ -4735,6 +4780,15 @@
     "source": "Himalayas",
     "title": "Automation QA Engineer Internship",
     "url": "https://himalayas.app/companies/metasys/jobs/automation-qa-engineer-internship?utm_source=api"
+  },
+  "700e633e2a2ef3fd5b8f3d4c": {
+    "company": "Agilent Technologies",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "published": "1794220052",
+    "source": "Himalayas",
+    "title": "Regional Quality Assurance Lead (Korea)",
+    "url": "https://himalayas.app/companies/agilent-technologies/jobs/regional-quality-assurance-lead-korea?utm_source=api"
   },
   "7061a4e7da09e02de83a558b": {
     "company": "Fortive",
@@ -5396,6 +5450,15 @@
     "title": "SDET Engineer",
     "url": "https://himalayas.app/companies/bright-vision-technologies/jobs/sdet-engineer-47719070"
   },
+  "7e6f6cce80ea94e527af4eec": {
+    "company": "Skylight",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "published": "1794209900",
+    "source": "Himalayas",
+    "title": "Senior QA Engineer",
+    "url": "https://himalayas.app/companies/skylight/jobs/senior-qa-engineer?utm_source=api"
+  },
   "7e8c49b441563f980f8abac4": {
     "company": "Qualysoft",
     "first_seen": "2026-11-06",
@@ -5985,6 +6048,15 @@
     "source": "Himalayas",
     "title": "Duck Creek QA Analyst (Cloud Migration)",
     "url": "https://himalayas.app/companies/vrinda-international/jobs/duck-creek-qa-analyst-cloud-migration?utm_source=api"
+  },
+  "8bebebebd0d2c1d99f9a9104": {
+    "company": "Description Ciklum",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "published": "1794168867",
+    "source": "Himalayas",
+    "title": "Senior Full Stack QA Engineer",
+    "url": "https://himalayas.app/companies/description-ciklum/jobs/senior-full-stack-qa-engineer?utm_source=api"
   },
   "8c037503674de70e262ad6f8": {
     "company": "Capgemini Technology Services",
@@ -6645,7 +6717,7 @@
   "9c533011576fdcf2c7ec4312": {
     "company": "GitLab",
     "first_seen": "2026-11-07",
-    "last_seen": "2026-11-08",
+    "last_seen": "2026-11-09",
     "published": "2026-11-06T16:29:05-05:00",
     "source": "Greenhouse",
     "title": "Professional Services, Program Manager",
@@ -6729,6 +6801,15 @@
     "title": "Software Test Engineer",
     "url": "https://www.arbeitnow.ch/jobs/companies/swisspeak-partners-gmbh/remote-software-test-engineer-bern-463546"
   },
+  "9d9e0071752f68136cecd6b0": {
+    "company": "ITC2",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "published": "1794226302",
+    "source": "Himalayas",
+    "title": "Program Manager",
+    "url": "https://himalayas.app/companies/itc2/jobs/program-manager?utm_source=api"
+  },
   "9da1ec5dcb0fe0d06e7e6412": {
     "company": "TriMark USA, LLC",
     "first_seen": "2026-10-19",
@@ -6810,7 +6891,7 @@
   "9f5d7fcbc28da96653b684a7": {
     "company": "Ramp",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-11-08",
+    "last_seen": "2026-11-09",
     "published": "2026-10-16T18:04:33.419+00:00",
     "source": "Ashby",
     "title": "Senior Technical Program Manager",
@@ -7593,6 +7674,15 @@
     "title": "Clinical Trial Manager/Project Manager (US-East-Coast Remote)",
     "url": "https://himalayas.app/companies/aa-inclusion/jobs/clinical-trial-manager-project-manager-us-east-coast-remote-4058957259?utm_source=api"
   },
+  "b2190b59c76f3612c9052974": {
+    "company": "Atlas Technica",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "published": "1794230147",
+    "source": "Himalayas",
+    "title": "Project Manager",
+    "url": "https://himalayas.app/companies/atlas-technica/jobs/project-manager?utm_source=api"
+  },
   "b227629014281c77": {
     "company": "Algolia",
     "description": "",
@@ -7794,6 +7884,15 @@
     "source": "Himalayas",
     "title": "Technical Project Manager / Operations & Administrative Support",
     "url": "https://himalayas.app/companies/carnelian-ventures/jobs/technical-project-manager-operations-administrative-support?utm_source=api"
+  },
+  "b74da160b207d3f10ac4a93f": {
+    "company": "FinteqHub",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "published": "1794180950",
+    "source": "Himalayas",
+    "title": "Automation QA Engineer (Golang / Java)",
+    "url": "https://himalayas.app/companies/finteqhub/jobs/automation-qa-engineer-golang-java?utm_source=api"
   },
   "b7663c5ee88cd4e0": {
     "company": "SwissPeak Partners GmbH",
@@ -8069,7 +8168,7 @@
   "bd94466a0379ce0dd7c7fda6": {
     "company": "GitLab",
     "first_seen": "2026-11-06",
-    "last_seen": "2026-11-08",
+    "last_seen": "2026-11-09",
     "published": "2026-11-06T15:25:07-05:00",
     "source": "Greenhouse",
     "title": "Senior Security Technical Program Manager, Fraud & Abuse",
@@ -8578,7 +8677,7 @@
   "c643ca1ab0148a831a238994": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-11-08",
+    "last_seen": "2026-11-09",
     "published": "2026-11-06T15:25:07-05:00",
     "source": "Greenhouse",
     "title": "Principal Technical Program Manager",
@@ -8748,6 +8847,15 @@
     "source": "Himalayas",
     "title": "Senior QA Automation Engineer",
     "url": "https://himalayas.app/companies/fyst/jobs/senior-qa-automation-engineer?utm_source=api"
+  },
+  "cc027c39da97398b3b6132e9": {
+    "company": "Dropbox",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "published": "2026-11-09T07:01:50+00:00",
+    "source": "Jobicy",
+    "title": "Program Manager, Customer Programs",
+    "url": "https://jobicy.com/jobs/159899-program-manager-customer-programs"
   },
   "cc13faef75b5bb9a0f221830": {
     "company": "Lifelancer",
@@ -9102,6 +9210,15 @@
     "title": "Quality Assurance Tester/Test Engineer Manual and Automation",
     "url": "https://himalayas.app/companies/peraton/jobs/quality-assurance-tester-test-engineer-manual-and-automation?utm_source=api"
   },
+  "d1dc4d526f885f86251da7ed": {
+    "company": "micro1",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "published": "1794169222",
+    "source": "Himalayas",
+    "title": "Electronics Assembly Quality Engineer",
+    "url": "https://himalayas.app/companies/micro1/jobs/electronics-assembly-quality-engineer?utm_source=api"
+  },
   "d1f4067f52dcf0b676a2f96f": {
     "company": "Newfire Global Partners",
     "first_seen": "2026-10-29",
@@ -9399,6 +9516,24 @@
     "title": "Business Analyst / Project Manager",
     "url": "https://himalayas.app/companies/affinity-international/jobs/business-analyst-project-manager?utm_source=api"
   },
+  "dc2bd67fd6e0781f70c50f26": {
+    "company": "Description Ciklum",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "published": "1794180964",
+    "source": "Himalayas",
+    "title": "Expert Automation QA Engineer",
+    "url": "https://himalayas.app/companies/description-ciklum/jobs/expert-automation-qa-engineer-5546121065?utm_source=api"
+  },
+  "dc3422a6cd69e079274223fd": {
+    "company": "GeBBS",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "published": "1794231280",
+    "source": "Himalayas",
+    "title": "Profee ED Auditor/QA Specialist",
+    "url": "https://himalayas.app/companies/gebbs/jobs/profee-ed-auditor-qa-specialist?utm_source=api"
+  },
   "dc39db292789bbab": {
     "company": "Lifted (an Upwork Company)",
     "description": "",
@@ -9649,6 +9784,15 @@
     "source": "Himalayas",
     "title": "QA Engineer",
     "url": "https://himalayas.app/companies/5blue-software/jobs/qa-engineer?utm_source=api"
+  },
+  "e2bc02aea431b7cdc6f7f5e6": {
+    "company": "Vouched",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "published": "1794185470",
+    "source": "Himalayas",
+    "title": "Senior QA/SDET",
+    "url": "https://himalayas.app/companies/vouched/jobs/senior-qa-sdet?utm_source=api"
   },
   "e2f68e60c0314d49037d9dd5": {
     "company": "GoHealth Urgent Care",
@@ -9901,7 +10045,7 @@
   "e852b631174376fb73e7a5cf": {
     "company": "Toptal",
     "first_seen": "2026-11-07",
-    "last_seen": "2026-11-08",
+    "last_seen": "2026-11-09",
     "published": "2026-11-05T22:37:39+00:00",
     "source": "Remote OK",
     "title": "Agile Program Manager",
@@ -10799,6 +10943,15 @@
     "source": "Himalayas",
     "title": "Quality Engineer I",
     "url": "https://himalayas.app/companies/availity/jobs/quality-engineer-i?utm_source=api"
+  },
+  "fca85db8d982b815af5ac580": {
+    "company": "Description Ciklum",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "published": "1794184715",
+    "source": "Himalayas",
+    "title": "Automation QA Engineer",
+    "url": "https://himalayas.app/companies/description-ciklum/jobs/automation-qa-engineer-8919899392?utm_source=api"
   },
   "fcf9a49b7cdfb53cb218574a": {
     "company": "Exclusively Remote",
