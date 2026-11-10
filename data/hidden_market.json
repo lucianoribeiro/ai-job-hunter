@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T20:48:20.504641+00:00",
+  "generated_at": "2026-11-10T17:54:23.241655+00:00",
   "method": "public ATS engineering-hiring proxy; not confirmed hidden vacancies",
   "companies_checked": 2,
   "companies_failed": 1,
@@ -11,9 +11,9 @@
       "signal": "engineering_hiring_without_public_qa_listing",
       "confidence": "moderate",
       "score": 85,
-      "engineering_roles": 45,
+      "engineering_roles": 47,
       "qa_roles": 0,
-      "engineering_leadership_roles": 17,
+      "engineering_leadership_roles": 18,
       "qa_leadership_roles": 0,
       "remote_engineering_roles": 0,
       "priority": "high",
@@ -51,34 +51,34 @@
       "slug": "ramp",
       "signal": "engineering_hiring_without_public_qa_listing",
       "confidence": "moderate",
-      "score": 65,
-      "engineering_roles": 20,
+      "score": 69,
+      "engineering_roles": 22,
       "qa_roles": 0,
-      "engineering_leadership_roles": 0,
+      "engineering_leadership_roles": 1,
       "qa_leadership_roles": 0,
       "remote_engineering_roles": 0,
       "priority": "medium",
       "reason": "Evidence of engineering hiring without QA roles on this board",
       "evidence": [
         {
-          "title": "Software Engineer, Enterprise Product",
-          "url": "https://jobs.ashbyhq.com/ramp/09360e92-fc95-4ba6-9611-dfefd60b13ce"
+          "title": "Software Engineer, Android",
+          "url": "https://jobs.ashbyhq.com/ramp/f564dcf9-9390-4a3f-896f-8047a5086040"
         },
         {
-          "title": "Software Engineer, Engineering Platform",
-          "url": "https://jobs.ashbyhq.com/ramp/198150d6-789a-4ef8-999f-93a49656d4f1"
+          "title": "Software Engineer, iOS",
+          "url": "https://jobs.ashbyhq.com/ramp/4859cd5e-f2a9-44d7-81f7-8bfc0e62369f"
         },
         {
-          "title": "Software Engineer, Forward Deployed",
-          "url": "https://jobs.ashbyhq.com/ramp/29a5da77-37f0-402a-92bc-072778e77ed8"
+          "title": "Software Engineer, Security, Stablecoin",
+          "url": "https://jobs.ashbyhq.com/ramp/d1183b00-6590-4fe4-a585-28d84e578fe3"
         },
         {
-          "title": "Software Engineer, Bill Pay & Procurement",
-          "url": "https://jobs.ashbyhq.com/ramp/2a4968ae-220c-471b-b890-a011de570bbb"
+          "title": "Software Engineer, Growth Platform",
+          "url": "https://jobs.ashbyhq.com/ramp/f5b60cf1-c0ec-42c1-89db-ece853e998ab"
         },
         {
-          "title": "Software Engineer, Developer API",
-          "url": "https://jobs.ashbyhq.com/ramp/42527ca9-03b9-499e-a5c4-18e4245af138"
+          "title": "Software Engineer, Fraud & Identity",
+          "url": "https://jobs.ashbyhq.com/ramp/8fa367de-71ba-409e-befd-175a163acb1b"
         }
       ],
       "contact_channel": "official_careers_page",

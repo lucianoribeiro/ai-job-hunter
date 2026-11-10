@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T20:47:53.568702+00:00",
+  "generated_at": "2026-11-10T17:54:03.745168+00:00",
   "jobs": [
     {
       "company": "Honda Brasil",
@@ -138,17 +138,6 @@
       "title": "Accounting Specialist, Sumaré/SP",
       "location": "Sumaré",
       "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Accounting-Specialist--Sumar-SP_R01171324",
-      "source": "Workday público",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Confirmar abertura e detalhes no portal oficial"
-    },
-    {
-      "company": "3M Brasil",
-      "title": "Payroll Supervisor, Sumaré/SP",
-      "location": "Sumaré",
-      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Payroll-Supervisor--Sumar-SP_R01172596",
       "source": "Workday público",
       "published": "",
       "regional": true,
@@ -299,6 +288,17 @@
       "verification": "Confirmar abertura e detalhes no portal oficial"
     },
     {
+      "company": "3M Brasil",
+      "title": "CONTROLADOR PRODUCAO - CÉLULA DE RELATO",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/CONTROLADOR-PRODUCAO---CLULA-DE-RELATO_R01172342-2",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
       "company": "Villares Metals",
       "title": "Vaga para Banco de talentos:   1 - BANCO DE TALENTOS SOU Villares Metals - Não encontrou uma vaga com o seu perfil!? Faça o seu cadastro no nosso Banco de Talentos - GERAL Sumaré Banco de talentos",
       "location": "Sumaré",
@@ -443,9 +443,9 @@
     },
     {
       "company": "Rhodia / Solvay",
-      "title": "Senior Maintenance Engineer (F/M/X)",
+      "title": "Operador de Acondicionamento (H/M/X)",
       "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Senior-Maintenance-Engineer-%28FMX%29-13148-914/1376338957/",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Operador-de-Acondicionamento-%28HMX%29-13148-914/1375878657/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -454,9 +454,9 @@
     },
     {
       "company": "Rhodia / Solvay",
-      "title": "Operador de Acondicionamento (H/M/X)",
+      "title": "Senior Maintenance Engineer (F/M/X)",
       "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Operador-de-Acondicionamento-%28HMX%29-13148-914/1375878657/",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Senior-Maintenance-Engineer-%28FMX%29-13148-914/1376338957/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
