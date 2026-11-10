@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-11-09T21:02:43.134898+00:00",
+  "collected_at": "2026-11-10T18:13:59.988572+00:00",
   "jobs": [
     {
       "id": "smartrecruiters:BoschGroup:744000160167170",
@@ -20,7 +20,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-11-06T17:40:59.127516+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -42,7 +42,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-11-06T17:40:59.127516+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -64,7 +64,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-29T17:04:55.230465+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -86,7 +86,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T19:12:42.612682+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -108,7 +108,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T19:12:42.612682+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -126,7 +126,7 @@
       "regional_priority": 1,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -142,7 +142,7 @@
       "regional_priority": 1,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -160,7 +160,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -178,7 +178,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -190,7 +190,7 @@
       "location": "Campinas, Brazil",
       "description": "<p><strong><span data-contrast=\"auto\">About BEES</span></strong><span data-ccp-props=\"{&quot;201341983&quot;:0,&quot;335559739&quot;:0,&quot;335559740&quot;:240}\">&nbsp;</span></p> <p><span data-contrast=\"auto\">Join us to build the future of B2B commerce!</span><span data-ccp-props=\"{&quot;201341983&quot;:0,&quot;335559739&quot;:0,&quot;335559740&quot;:240}\">&nbsp;</span></p> <p><span data-contrast=\"auto\">BEES is AB InBev’s B2B platform. Through our ecosystem, merchants and retailers across 29 countries can stock their businesses quickly, easily, and securely.</span>&nbsp;<br><span data-contrast=\"auto\">At BEES, we dream big, lead with purpose, and develop technology that transforms the way retailers and sellers grow.</span><span data-ccp-props=\"{&quot;201341983&quot;:0,&quot;335559739&quot;:0,&quot;335559740&quot;:240}\">&nbsp;</span></p> <p><span data-ccp-props=\"{&quot;201341983&quot;:0,&quot;335559739&quot;:0,&quot;335559740&quot;:240}\">&nbsp;</span><span data-contrast=\"auto\">Every line of code and every partnership is built in service of a single mission: to make commerce better for retailers and sellers around the world. Here, your work is not just important. It makes a difference!</span><span data-ccp-props=\"{&quot;201341983&quot;:0,&quot;335559739&quot;:0,&quot;335559740&quot;:240}\">&nbsp;</span></p> <p><span data-ccp-props=\"{&quot;201341983&quot;:0,&quot;335559739&quot;:0,&quot;335559740&quot;:240}\">&nbsp;</span><strong><span data-contrast=\"auto\">About this opportunity</span></strong>&nbsp;</p> <p></p> <p>We are looking for an <strong>Intermediate Project Manager </strong>to lead cross-functional technology initiatives that support business priorities and deliver measurable impact. This role is responsible for translating objectives into structured execution plans, coordinating multiple teams, and ensuring programs are delivered with clarity, quality, and predictability.</p> <p>The ideal candidate combines strong program management fundamentals, technical understanding, business acumen, and effective stakeholder management. This person is able to navigate ambiguity, proactively manage risks and dependencies, and coordinate teams to drive execution.</p> <p>The Intermediate Project Manager will typically be assigned to programs with <strong>moderate complexity and low to moderate business criticality</strong>, working primarily with cross-functional teams and managers. The role requires strong ownership and autonomy within the assigned scope, with the ability to recognize when topics require leadership escalation.</p> <p><strong>What you'll do</strong></p> <ul> <li>Lead cross-functional programs from planning and execution through delivery and post-launch stabilization.</li> <li>Translate business and technology objectives into clear program plans, timelines, milestones, dependencies, and deliverables.</li> <li>Coordinate Product, Engineering, Data, Operations, and Business teams to ensure effective execution.</li> <li>Identify, track, and mitigate program-level risks, blockers, and dependencies.</li> <li>Facilitate alignment and decision-making within the program scope by bringing structured analysis, context, and recommendations.</li> <li>Establish and maintain appropriate program governance, tracking mechanisms, and status reporting.</li> <li>Coordinate multiple teams and stakeholders across different functions and, when applicable, markets and time zones.</li> <li>Ensure programs are delivered within agreed scope, timeline, quality, and business expectations.</li> <li>Provide clear visibility into program progress, risks, dependencies, key decisions, and next steps.</li> <li>Coordinate cross-functional teams through influence, without direct authority.</li> <li>Navigate ambiguity within the program scope and create clarity around priorities, ownership, timelines, and actions.</li> <li>Recognize which topics can be resolved independently and which require leadership escalation.</li> <li>Drive continuous improvement in program management practices, execution processes, and team ways of working.</li> <li>Partner with Senior Program Managers and leadership on more complex or strategically critical initiatives when needed.</li> </ul> <p><strong>Required Qualifications</strong></p> <ul> <li>Experience in Program Management, Project Management, Product Management, or related roles within technology organizations.</li> <li>Experience coordinating software development or technology initiatives involving multiple teams and stakeholders.</li> <li>Good understanding of software development lifecycle and Agile methodologies.</li> <li>Ability to manage dependencies across Product, Engineering, Data, Operations, and Business teams.</li> <li>Experience driving initiatives from planning through delivery and post-launch stabilization.</li> <li>Strong organizational, analytical, and problem-solving skills.</li> <li>Strong written and verbal communication skills.</li> <li>Ability to influence stakeholders and coordinate cross-functional teams without direct authority.</li> <li>Experience working in cross-functional and matrixed environments.</li> <li>Ability to identify and proactively manage risks, blockers, and dependencies.</li> <li>Ability to translate business objectives into actionable execution plans.</li> <li>Demonstrated ownership and accountability for program outcomes.</li> <li>Ability to operate autonomously within the assigned scope and appropriately escalate critical topics.</li> <li><strong>Professional proficiency in English is mandatory</strong>, both written and spoken, with the ability to participate in meetings and effectively communicate with stakeholders.</li> </ul> <p><strong>Desirable Qualifications</strong></p> <ul> <li>Experience in Payments, Fintech, E-commerce, or Digital Platforms.</li> <li>Experience working on multi-market or global initiatives.</li> <li>Familiarity with APIs, system integrations, distributed systems, transaction processing, or financial operations.</li> <li>Experience working with high-availability or business-critical systems.</li> <li>PMP, Scrum, SAFe, or similar certifications.</li> <li>Professional proficiency in Spanish.</li> </ul> <p><strong>What sucess looks like</strong></p> <ul> <li>Programs are delivered with predictable execution, clear ownership, and appropriate governance.</li> <li>Risks, blockers, and dependencies are identified and managed proactively.</li> <li>Teams have clarity on priorities, timelines, responsibilities, and expected outcomes.</li> <li>Stakeholders have clear visibility into program health, risks, decisions, and next steps.</li> <li>Cross-functional teams remain aligned throughout program execution.</li> <li>Program-level decisions are facilitated effectively, with critical topics escalated at the right time.</li> <li>Programs deliver the expected value within agreed scope, timeline, and quality.</li> <li>Ambiguous situations are transformed into clear plans, actions, and ownership.</li> <li>Program management practices continuously improve through lessons learned and structured execution.</li> </ul> <p><strong>Key Competencies</strong></p> <ul> <li>Program Management</li> <li>Execution &amp; Delivery</li> <li>Stakeholder Management</li> <li>Technical Acumen</li> <li>Risk &amp; Dependency Management</li> <li>Cross-Functional Collaboration</li> <li>Problem Solving</li> <li>Communication</li> <li>Ownership &amp; Accountability</li> <li>Influence Without Authority</li> <li>Data-Driven Decision Making</li> <li>Prioritization</li> <li>Adaptability &amp; Resilience</li> </ul> <p><strong><span data-contrast=\"auto\">What we offer</span></strong></p> <ul> <li><span data-contrast=\"auto\">Performance-based bonus*</span></li> <li><span data-contrast=\"auto\">Attendance bonus*</span></li> <li><span data-contrast=\"auto\">Private pension plan</span></li> <li><span data-contrast=\"auto\">Meal allowance</span></li> <li><span data-contrast=\"auto\">Casual office and dress code</span></li> <li><span data-contrast=\"auto\">Days off*</span></li> <li>H<span data-contrast=\"auto\">ealth, dental, and life insurance plans</span></li> <li><span data-contrast=\"auto\">Discounts on medications</span></li> <li><span data-contrast=\"auto\">Partnership with WellHub</span></li> <li><span data-contrast=\"auto\">Childcare assistance</span></li> <li><span data-contrast=\"auto\">Discounts on Ambev products*</span></li> <li><span data-contrast=\"auto\">Clube Ben partnership</span></li> <li><span data-contrast=\"auto\">Scholarship program*</span></li> <li><span data-contrast=\"auto\">School supplies support</span></li> <li><span data-contrast=\"auto\">Language learning platforms and training</span></li> <li><span data-contrast=\"auto\">Transportation allowance</span><span data-ccp-props=\"{&quot;201341983&quot;:0,&quot;335559739&quot;:0,&quot;335559740&quot;:240}\">&nbsp;</span></li> </ul> <p><span data-contrast=\"auto\">*Applicable rules apply.</span><span data-ccp-props=\"{&quot;201341983&quot;:0,&quot;335559739&quot;:0,&quot;335559740&quot;:240}\">&nbsp;</span></p> <p></p>",
       "published": "2026-09-15T15:06:17-04:00",
-      "updated": "2026-09-30T08:21:58-04:00",
+      "updated": "2026-11-10T12:45:51-05:00",
       "employment_type": "not stated",
       "area": "Projetos",
       "remote_evidence": "unknown",
@@ -200,7 +200,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -218,7 +218,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -236,7 +236,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -254,7 +254,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -272,7 +272,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -290,7 +290,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -308,7 +308,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -326,7 +326,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -344,7 +344,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -362,7 +362,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -380,7 +380,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -398,7 +398,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -416,7 +416,7 @@
       "regional_priority": 3,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -438,7 +438,7 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     },
     {
@@ -460,14 +460,14 @@
       "regional_priority": 2,
       "discovery_agent": "monica_regional_sp",
       "first_seen_at": "2026-10-25T18:49:34.470560+00:00",
-      "last_seen_at": "2026-11-09T21:02:43.134898+00:00",
+      "last_seen_at": "2026-11-10T18:13:59.988572+00:00",
       "not_seen_in_latest_collection": false
     }
   ],
   "sources": {
     "data/project_jobs_poc.json": {
       "status": "ok",
-      "input": 88,
+      "input": 92,
       "selected": 4
     },
     "data/strategic_jobs.json": {
