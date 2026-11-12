@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T17:56:03.485839+00:00",
+  "generated_at": "2026-11-12T18:22:24.559545+00:00",
   "method": "public ATS engineering-hiring proxy; not confirmed hidden vacancies",
   "companies_checked": 2,
   "companies_failed": 1,
@@ -11,9 +11,9 @@
       "signal": "engineering_hiring_without_public_qa_listing",
       "confidence": "moderate",
       "score": 85,
-      "engineering_roles": 49,
+      "engineering_roles": 48,
       "qa_roles": 0,
-      "engineering_leadership_roles": 20,
+      "engineering_leadership_roles": 21,
       "qa_leadership_roles": 0,
       "remote_engineering_roles": 0,
       "priority": "high",
@@ -52,7 +52,7 @@
       "signal": "engineering_hiring_without_public_qa_listing",
       "confidence": "moderate",
       "score": 69,
-      "engineering_roles": 23,
+      "engineering_roles": 24,
       "qa_roles": 0,
       "engineering_leadership_roles": 1,
       "qa_leadership_roles": 0,
@@ -69,16 +69,16 @@
           "url": "https://jobs.ashbyhq.com/ramp/4859cd5e-f2a9-44d7-81f7-8bfc0e62369f"
         },
         {
+          "title": "Senior Engineer, Backend, Vendor Management",
+          "url": "https://jobs.ashbyhq.com/ramp/415997bf-a1c2-472d-ad54-04bd0d95259b"
+        },
+        {
           "title": "Software Engineer, Security, Stablecoin",
           "url": "https://jobs.ashbyhq.com/ramp/d1183b00-6590-4fe4-a585-28d84e578fe3"
         },
         {
           "title": "Software Engineer, Growth Platform",
           "url": "https://jobs.ashbyhq.com/ramp/f5b60cf1-c0ec-42c1-89db-ece853e998ab"
-        },
-        {
-          "title": "Software Engineer, Fraud & Identity",
-          "url": "https://jobs.ashbyhq.com/ramp/8fa367de-71ba-409e-befd-175a163acb1b"
         }
       ],
       "contact_channel": "official_careers_page",

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T17:55:43.101082+00:00",
+  "generated_at": "2026-11-12T18:22:03.691886+00:00",
   "jobs": [
     {
       "company": "Honda Brasil",
@@ -80,6 +80,17 @@
     },
     {
       "company": "Honda Brasil",
+      "title": "Vaga para Efetivo:   Analista Gestão Vendas SR Sumaré - SP e Híbrido Efetivo",
+      "location": "Sumaré",
+      "url": "https://honda.gupy.io/jobs/12851918",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Honda Brasil",
       "title": "Vaga para Efetivo:   Analista Governança TI PL  (Sumaré/SP) Sumaré - SP e Híbrido Efetivo",
       "location": "Sumaré",
       "url": "https://honda.gupy.io/jobs/12831232",
@@ -97,17 +108,6 @@
       "source": "Portal oficial",
       "published": "",
       "regional": false,
-      "target_role": false,
-      "verification": "Dados parciais; confirmar detalhes no anúncio"
-    },
-    {
-      "company": "Honda Brasil",
-      "title": "Vaga para Efetivo:   Analista Plan Estoque JR Sumaré - SP e Híbrido Efetivo",
-      "location": "Sumaré",
-      "url": "https://honda.gupy.io/jobs/12767271",
-      "source": "Portal oficial",
-      "published": "",
-      "regional": true,
       "target_role": false,
       "verification": "Dados parciais; confirmar detalhes no anúncio"
     },
@@ -179,6 +179,17 @@
     },
     {
       "company": "3M Brasil",
+      "title": "Area Pricing Specialist, Sumaré/SP",
+      "location": "Sumaré",
+      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Area-Pricing-Specialist--Sumar-SP_R01173534",
+      "source": "Workday público",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Confirmar abertura e detalhes no portal oficial"
+    },
+    {
+      "company": "3M Brasil",
       "title": "Platform Integration Engineering Specialist, Sumaré/SP",
       "location": "Sumaré",
       "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Platform-Integration-Engineering-Specialist--Sumar-SP_R01170326",
@@ -212,17 +223,6 @@
     },
     {
       "company": "3M Brasil",
-      "title": "Executivo(a) de Vendas - Fitas e Adesivos Industriais, Minas Gerais",
-      "location": "Sumaré",
-      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-SUMARE-VIRTUAL/Executivo-a--de-Vendas---Fitas-e-Adesivos-Industriais--Minas-Gerais_R01171275-1",
-      "source": "Workday público",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Confirmar abertura e detalhes no portal oficial"
-    },
-    {
-      "company": "3M Brasil",
       "title": "Principal Data Engineering",
       "location": "Sumaré",
       "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Principal-Data-Engineering_R01162545",
@@ -248,17 +248,6 @@
       "title": "Executivo(a) de Vendas de Abrasivos (Londrina/PR e região)",
       "location": "Sumaré",
       "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/Executivo-a--de-Vendas-de-Abrasivos--Londrina-PR-e-regio-_R01171950",
-      "source": "Workday público",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Confirmar abertura e detalhes no portal oficial"
-    },
-    {
-      "company": "3M Brasil",
-      "title": "OPERADOR LOGISTICO A",
-      "location": "Sumaré",
-      "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search/job/BR-So-Paulo-Sumare/OPERADOR-LOGISTICO-A_R01173255",
       "source": "Workday público",
       "published": "",
       "regional": true,
@@ -388,17 +377,6 @@
     },
     {
       "company": "Villares Metals",
-      "title": "Vaga para Efetivo:   Engenheiro Melhoria de Processos ( Com foco em rendimento metalúrgico ) Sumaré - SP Efetivo",
-      "location": "Sumaré",
-      "url": "https://villaresmetals.gupy.io/jobs/12857411",
-      "source": "Portal oficial",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Dados parciais; confirmar detalhes no anúncio"
-    },
-    {
-      "company": "Villares Metals",
       "title": "Vaga para Efetivo:   Líder Produção - CS&S Sumaré - SP Efetivo",
       "location": "Sumaré",
       "url": "https://villaresmetals.gupy.io/jobs/12724224",
@@ -409,10 +387,21 @@
       "verification": "Dados parciais; confirmar detalhes no anúncio"
     },
     {
+      "company": "Villares Metals",
+      "title": "Vaga para Efetivo:   Mecânico de Manutenção - Pontes Rolantes  Sumaré - SP Efetivo",
+      "location": "Sumaré",
+      "url": "https://villaresmetals.gupy.io/jobs/12601258",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
       "company": "Rhodia / Solvay",
-      "title": "Estágio Técnico na Área de Meio Ambiente (H/M/X)",
+      "title": "Operador de Acabamento - Vaga Afirmativa para Pessoas com Deficiência (H/M/X)",
       "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Est%C3%A1gio-T%C3%A9cnico-na-%C3%81rea-de-Meio-Ambiente-%28HMX%29-13148-914/1376833357/",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Operador-de-Acabamento-Vaga-Afirmativa-para-Pessoas-com-Defici%C3%AAncia-%28HMX%29-13148-914/1374756057/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -432,17 +421,6 @@
     },
     {
       "company": "Rhodia / Solvay",
-      "title": "Operador de Acondicionamento (H/M/X)",
-      "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Operador-de-Acondicionamento-%28HMX%29-13148-914/1375878657/",
-      "source": "Portal oficial",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Dados parciais; confirmar detalhes no anúncio"
-    },
-    {
-      "company": "Rhodia / Solvay",
       "title": "Senior Maintenance Engineer (F/M/X)",
       "location": "Paulínia",
       "url": "https://careers.solvay.com/job/Brazil-Paulinia-Senior-Maintenance-Engineer-%28FMX%29-13148-914/1376338957/",
@@ -454,9 +432,20 @@
     },
     {
       "company": "Rhodia / Solvay",
-      "title": "Operador de Acabamento - Vaga Afirmativa para Pessoas com Deficiência (H/M/X)",
+      "title": "Operador de Acondicionamento (H/M/X)",
       "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Operador-de-Acabamento-Vaga-Afirmativa-para-Pessoas-com-Defici%C3%AAncia-%28HMX%29-13148-914/1374756057/",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Operador-de-Acondicionamento-%28HMX%29-13148-914/1375878657/",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Rhodia / Solvay",
+      "title": "Estágio Técnico na Área de Meio Ambiente (H/M/X)",
+      "location": "Paulínia",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-Est%C3%A1gio-T%C3%A9cnico-na-%C3%81rea-de-Meio-Ambiente-%28HMX%29-13148-914/1376833357/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -476,7 +465,7 @@
     {
       "company": "3M Brasil",
       "state": "ok",
-      "found": 17,
+      "found": 16,
       "city": "Sumaré",
       "url": "https://3m.wd1.myworkdayjobs.com/en-US/Search",
       "career_links": []
@@ -499,11 +488,11 @@
     },
     {
       "company": "Petrobras / Replan",
-      "state": "error",
-      "error": "TimeoutError",
+      "state": "portal_only",
       "found": 0,
       "city": "Paulínia",
-      "url": "https://petrobras.com.br/quem-somos/concursos"
+      "url": "https://petrobras.com.br/quem-somos/concursos",
+      "career_links": []
     },
     {
       "company": "Rhodia / Solvay",
@@ -530,11 +519,16 @@
     },
     {
       "company": "Goodyear",
-      "state": "error",
-      "error": "TimeoutError",
+      "state": "portal_only",
       "found": 0,
       "city": "Americana",
-      "url": "https://www.goodyear.com.br/trabalhe-conosco/"
+      "url": "https://www.goodyear.com.br/trabalhe-conosco/",
+      "career_links": [
+        "https://www.goodyear.com.br/informacoes-corporativas",
+        "https://corporate.goodyear.com",
+        "https://jobs.goodyear.com/?locale=pt_BR",
+        "https://corporate.goodyear.com/en-US/"
+      ]
     }
   ],
   "note": "Only publicly exposed links; zero results do not prove no openings. ATS APIs may require authentication."
