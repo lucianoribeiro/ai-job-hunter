@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T18:22:24.559545+00:00",
+  "generated_at": "2026-11-13T17:47:57.569065+00:00",
   "method": "public ATS engineering-hiring proxy; not confirmed hidden vacancies",
   "companies_checked": 2,
   "companies_failed": 1,
@@ -11,9 +11,9 @@
       "signal": "engineering_hiring_without_public_qa_listing",
       "confidence": "moderate",
       "score": 85,
-      "engineering_roles": 48,
+      "engineering_roles": 47,
       "qa_roles": 0,
-      "engineering_leadership_roles": 21,
+      "engineering_leadership_roles": 20,
       "qa_leadership_roles": 0,
       "remote_engineering_roles": 0,
       "priority": "high",
@@ -28,16 +28,16 @@
           "url": "https://job-boards.greenhouse.io/gitlab/jobs/8704363002"
         },
         {
-          "title": "Backend Engineer (Ruby), Create: Change Record",
-          "url": "https://job-boards.greenhouse.io/gitlab/jobs/8891301002"
+          "title": "Backend Engineer (Ruby), Plan: Spec-Driven Development",
+          "url": "https://job-boards.greenhouse.io/gitlab/jobs/8749950002"
         },
         {
           "title": "Backend Engineer (Ruby), Plan: Spec-Driven Development",
           "url": "https://job-boards.greenhouse.io/gitlab/jobs/8682860002"
         },
         {
-          "title": "Backend Engineer (Ruby), Plan: Spec-Driven Development",
-          "url": "https://job-boards.greenhouse.io/gitlab/jobs/8749950002"
+          "title": "Backend Engineer, Source Code: Repository Services (Ruby)",
+          "url": "https://job-boards.greenhouse.io/gitlab/jobs/8912709002"
         }
       ],
       "contact_channel": "official_careers_page",
@@ -52,7 +52,7 @@
       "signal": "engineering_hiring_without_public_qa_listing",
       "confidence": "moderate",
       "score": 69,
-      "engineering_roles": 24,
+      "engineering_roles": 26,
       "qa_roles": 0,
       "engineering_leadership_roles": 1,
       "qa_leadership_roles": 0,
@@ -60,6 +60,10 @@
       "priority": "medium",
       "reason": "Evidence of engineering hiring without QA roles on this board",
       "evidence": [
+        {
+          "title": " Software Engineer, Security, Cloud",
+          "url": "https://jobs.ashbyhq.com/ramp/34413f8d-26bf-4bbc-8ade-eb309a0e2245"
+        },
         {
           "title": "Software Engineer, Android",
           "url": "https://jobs.ashbyhq.com/ramp/f564dcf9-9390-4a3f-896f-8047a5086040"
@@ -75,10 +79,6 @@
         {
           "title": "Software Engineer, Security, Stablecoin",
           "url": "https://jobs.ashbyhq.com/ramp/d1183b00-6590-4fe4-a585-28d84e578fe3"
-        },
-        {
-          "title": "Software Engineer, Growth Platform",
-          "url": "https://jobs.ashbyhq.com/ramp/f5b60cf1-c0ec-42c1-89db-ece853e998ab"
         }
       ],
       "contact_channel": "official_careers_page",

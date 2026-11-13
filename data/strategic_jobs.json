@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T18:22:03.691886+00:00",
+  "generated_at": "2026-11-13T17:47:35.325909+00:00",
   "jobs": [
     {
       "company": "Honda Brasil",
@@ -377,9 +377,9 @@
     },
     {
       "company": "Villares Metals",
-      "title": "Vaga para Efetivo:   Líder Produção - CS&S Sumaré - SP Efetivo",
+      "title": "Vaga para Efetivo:   Engenheiro (a) de Processos - Aciaria Especial Sumaré - SP Efetivo",
       "location": "Sumaré",
-      "url": "https://villaresmetals.gupy.io/jobs/12724224",
+      "url": "https://villaresmetals.gupy.io/jobs/12687826",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -388,9 +388,9 @@
     },
     {
       "company": "Villares Metals",
-      "title": "Vaga para Efetivo:   Mecânico de Manutenção - Pontes Rolantes  Sumaré - SP Efetivo",
+      "title": "Vaga para Efetivo:   Líder Produção - CS&S Sumaré - SP Efetivo",
       "location": "Sumaré",
-      "url": "https://villaresmetals.gupy.io/jobs/12601258",
+      "url": "https://villaresmetals.gupy.io/jobs/12724224",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -402,17 +402,6 @@
       "title": "Operador de Acabamento - Vaga Afirmativa para Pessoas com Deficiência (H/M/X)",
       "location": "Paulínia",
       "url": "https://careers.solvay.com/job/Brazil-Paulinia-Operador-de-Acabamento-Vaga-Afirmativa-para-Pessoas-com-Defici%C3%AAncia-%28HMX%29-13148-914/1374756057/",
-      "source": "Portal oficial",
-      "published": "",
-      "regional": true,
-      "target_role": false,
-      "verification": "Dados parciais; confirmar detalhes no anúncio"
-    },
-    {
-      "company": "Rhodia / Solvay",
-      "title": "Técnico de Inspeção Especialista (H/M/X)",
-      "location": "Paulínia",
-      "url": "https://careers.solvay.com/job/Brazil-Paulinia-T%C3%A9cnico-de-Inspe%C3%A7%C3%A3o-Especialista-%28HMX%29-13148-914/1374475057/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
@@ -446,6 +435,17 @@
       "title": "Estágio Técnico na Área de Meio Ambiente (H/M/X)",
       "location": "Paulínia",
       "url": "https://careers.solvay.com/job/Brazil-Paulinia-Est%C3%A1gio-T%C3%A9cnico-na-%C3%81rea-de-Meio-Ambiente-%28HMX%29-13148-914/1376833357/",
+      "source": "Portal oficial",
+      "published": "",
+      "regional": true,
+      "target_role": false,
+      "verification": "Dados parciais; confirmar detalhes no anúncio"
+    },
+    {
+      "company": "Rhodia / Solvay",
+      "title": "Técnico de Inspeção Especialista (H/M/X)",
+      "location": "Paulínia",
+      "url": "https://careers.solvay.com/job/Brazil-Paulinia-T%C3%A9cnico-de-Inspe%C3%A7%C3%A3o-Especialista-%28HMX%29-13148-914/1374475057/",
       "source": "Portal oficial",
       "published": "",
       "regional": true,
