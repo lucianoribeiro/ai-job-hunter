@@ -716,6 +716,34 @@
     "title": "Senior QA Automation Engineer - Holycode team",
     "url": "https://himalayas.app/companies/holycode/jobs/senior-qa-automation-engineer-holycode-team?utm_source=api"
   },
+  "0bcd425e12a0fc07": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Swarmaero",
+    "created_at": "2026-11-14",
+    "job_id": "0bcd425e12a0fc07",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "Technical Program Manager, Software",
+    "url": "https://www.arbeitnow.com/jobs/companies/swarmaero/remote-technical-program-manager-software-197537"
+  },
   "0c0f511f8692e80f": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -1045,6 +1073,37 @@
     "status_updated_at": "2026-11-03",
     "title": "Project Manager V",
     "url": "https://himalayas.app/companies/centene-corporation/jobs/project-manager-v?utm_source=api"
+  },
+  "103b026abc9ea562": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "Contract/freelance terms detected; confirm daily hours"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "freelance",
+    "company": "Ryz Labs",
+    "created_at": "2026-11-14",
+    "job_id": "103b026abc9ea562",
+    "notes": "",
+    "score": 75,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "Senior QA",
+    "url": "https://himalayas.app/companies/ryz-labs/jobs/senior-qa?utm_source=api"
   },
   "1096ceb503535eba": {
     "assessment": {
@@ -2007,6 +2066,36 @@
     "title": "Senior Software Development Engineer in Test (SDET)",
     "url": "https://jobicy.com/jobs/155928-senior-software-development-engineer-in-test-sdet-2"
   },
+  "1df79d3394d21522": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA leadership target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "SOFTGAMES",
+    "created_at": "2026-11-14",
+    "job_id": "1df79d3394d21522",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "Senior QA Manager Automation & AI - Fully Remote",
+    "url": "https://himalayas.app/companies/softgames/jobs/senior-qa-manager-automation-ai-fully-remote?utm_source=api"
+  },
   "1e665f2a3a28bf55": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -2640,6 +2729,36 @@
     "title": "Senior Transformation Manager / Program Manager",
     "url": "https://www.arbeitnow.ch/jobs/companies/coopers-group-ag/senior-transformation-manager-program-manager-zurich-424562"
   },
+  "258a9d3385f6546a": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Valtech",
+    "created_at": "2026-11-14",
+    "job_id": "258a9d3385f6546a",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "QA Automation Engineer",
+    "url": "https://himalayas.app/companies/valtech-us/jobs/qa-automation-engineer?utm_source=api"
+  },
   "25f47192d0323906": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -2971,6 +3090,62 @@
     "status_updated_at": "2026-10-18",
     "title": "Clinical Trials Associate Project Manager",
     "url": "https://himalayas.app/companies/rochester-regional-health/jobs/clinical-trials-associate-project-manager"
+  },
+  "2c63ebef176047c1": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Nebius",
+    "created_at": "2026-11-14",
+    "job_id": "2c63ebef176047c1",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "Senior / Lead Program Manager",
+    "url": "https://jobicy.com/jobs/162102-senior-lead-program-manager"
+  },
+  "2d5c13973f035fa5": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Remote VA",
+    "created_at": "2026-11-14",
+    "job_id": "2d5c13973f035fa5",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "Project Manager",
+    "url": "https://himalayas.app/companies/remote-va/jobs/project-manager-5205953354?utm_source=api"
   },
   "2e7ba06cfe049a88": {
     "assessment": {
@@ -3804,6 +3979,67 @@
     "status_updated_at": "2026-11-09",
     "title": "Automation QA Engineer (Golang / Java)",
     "url": "https://himalayas.app/companies/finteqhub/jobs/automation-qa-engineer-golang-java?utm_source=api"
+  },
+  "3ab9b8160dd59000": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Caixa Mágica Software",
+    "created_at": "2026-11-14",
+    "job_id": "3ab9b8160dd59000",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "QA Tester E-Commerce",
+    "url": "https://himalayas.app/companies/caixa-magica-software/jobs/qa-tester-e-commerce?utm_source=api"
+  },
+  "3b4328a7c38d92ef": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Kearney Italia, Inc.",
+    "created_at": "2026-11-14",
+    "job_id": "3b4328a7c38d92ef",
+    "notes": "",
+    "score": 50,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "Test Automation / QA Engineer – Journeyman",
+    "url": "https://himalayas.app/companies/kearney-italia-inc/jobs/test-automation-qa-engineer-journeyman?utm_source=api"
   },
   "3b7ac12f9cebb873": {
     "assessment": {
@@ -4795,6 +5031,36 @@
     "title": "Assistant Project Manager",
     "url": "https://himalayas.app/companies/turner-townsend/jobs/assistant-project-manager-7689184983?utm_source=api"
   },
+  "4876b7c2c578f694": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Switch Software",
+    "created_at": "2026-11-14",
+    "job_id": "4876b7c2c578f694",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "SDET / QA Automation",
+    "url": "https://himalayas.app/companies/switch-software/jobs/sdet-qa-automation?utm_source=api"
+  },
   "4918cd754ba2d03d": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -5337,6 +5603,36 @@
     "title": "Assistant Clinical Project Manager",
     "url": "https://himalayas.app/companies/clario/jobs/assistant-clinical-project-manager?utm_source=api"
   },
+  "501c6cc5d8d675f5": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "ICF Tech Hungary Kft.",
+    "created_at": "2026-11-14",
+    "job_id": "501c6cc5d8d675f5",
+    "notes": "",
+    "score": 45,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "QA Engineer",
+    "url": "https://himalayas.app/companies/icf-tech-hungary-kft/jobs/qa-engineer?utm_source=api"
+  },
   "518304fb132bebd7": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -5726,6 +6022,34 @@
     "status_updated_at": "2026-11-10",
     "title": "Senior SAP Logistics Project Manager in Pharma",
     "url": "https://himalayas.app/companies/fusion-consulting/jobs/senior-sap-logistics-project-manager-in-pharma-1821631297?utm_source=api"
+  },
+  "57b3087eadcf2b8b": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Remote VA",
+    "created_at": "2026-11-14",
+    "job_id": "57b3087eadcf2b8b",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "Senior Project Manager",
+    "url": "https://himalayas.app/companies/remote-va/jobs/senior-project-manager?utm_source=api"
   },
   "57cfa83c2f97314c": {
     "assessment": {
@@ -7184,6 +7508,36 @@
     "title": "QA/QC Manager (Garment/Footwear/Toys - Bangladesh)",
     "url": "https://himalayas.app/companies/metasource-co/jobs/qa-qc-manager-garment-footwear-toys-bangladesh?utm_source=api"
   },
+  "72314f6826d1e259": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "CorroHealth",
+    "created_at": "2026-11-14",
+    "job_id": "72314f6826d1e259",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "SR QA Engineer",
+    "url": "https://himalayas.app/companies/corrohealth/jobs/sr-qa-engineer?utm_source=api"
+  },
   "72386750bdd9f6e6": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -7901,6 +8255,37 @@
     "status_updated_at": "2026-11-04",
     "title": "Project Manager",
     "url": "https://himalayas.app/companies/nearshore-business-solutions/jobs/project-manager?utm_source=api"
+  },
+  "7c1263d973e41ab8": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target",
+        "Contract/freelance terms detected; confirm daily hours"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "freelance",
+    "company": "Massive Rocket",
+    "created_at": "2026-11-14",
+    "job_id": "7c1263d973e41ab8",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "Software Development Engineer in Test (SDET)",
+    "url": "https://himalayas.app/companies/massive-rocket/jobs/software-development-engineer-in-test-sdet?utm_source=api"
   },
   "7c35360c8041319f": {
     "assessment": {
@@ -8836,6 +9221,36 @@
     "title": "Senior Test Engineer Automation (Java) - OP02269",
     "url": "https://himalayas.app/companies/dev-pro/jobs/senior-test-engineer-automation-java-op02269?utm_source=api"
   },
+  "8e900cce5bbd58fd": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Location text may include Brazil; confirm eligibility"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "SoftExpert",
+    "created_at": "2026-11-14",
+    "job_id": "8e900cce5bbd58fd",
+    "notes": "",
+    "score": 35,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "Gerente de Projetos de Implantação Pleno",
+    "url": "https://himalayas.app/companies/softexpert/jobs/gerente-de-projetos-de-implantacao-pleno?utm_source=api"
+  },
   "8f4a349bd4203ea4": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -8984,6 +9399,34 @@
     "status_updated_at": "2026-10-22",
     "title": "Software Test Engineer",
     "url": "https://himalayas.app/companies/bright-vision-technologies/jobs/software-test-engineer-78690010?utm_source=api"
+  },
+  "91f78b9393a0269a": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Remote VA",
+    "created_at": "2026-11-14",
+    "job_id": "91f78b9393a0269a",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "Project Manager (Amazon)",
+    "url": "https://himalayas.app/companies/remote-va/jobs/project-manager-amazon-4813309175?utm_source=api"
   },
   "923989d57c3794a9": {
     "assessment": {
@@ -10302,6 +10745,34 @@
     "title": "Risk (QA) Engineer",
     "url": "https://himalayas.app/companies/tabby/jobs/risk-qa-engineer-5106883448?utm_source=api"
   },
+  "a6f111a9ebe7931b": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Nebius",
+    "created_at": "2026-11-14",
+    "job_id": "a6f111a9ebe7931b",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "Technical Program Manager - IP Backbone",
+    "url": "https://jobicy.com/jobs/162109-technical-program-manager-ip-backbone"
+  },
   "a72f4df9827fe4b1": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -10870,6 +11341,36 @@
     "status_updated_at": "2026-10-23",
     "title": "Manual QA Engineer (Game Client)",
     "url": "https://jobicy.com/jobs/156544-manual-qa-engineer-game-client"
+  },
+  "b312f5a5e7ea4b7f": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA/testing target"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Netrist Solutions",
+    "created_at": "2026-11-14",
+    "job_id": "b312f5a5e7ea4b7f",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "Senior Test Automation Engineer (Temporary Position)",
+    "url": "https://himalayas.app/companies/netrist-solutions/jobs/senior-test-automation-engineer-temporary-position?utm_source=api"
   },
   "b393be298b97be60": {
     "assessment": {
@@ -12121,6 +12622,34 @@
     "title": "Principal Technical Program Manager",
     "url": "https://job-boards.greenhouse.io/gitlab/jobs/8693068002"
   },
+  "c69089bb1ecaaf33": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Welocalize",
+    "created_at": "2026-11-14",
+    "job_id": "c69089bb1ecaaf33",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "Senior Project Manager - Generative AI Data Operations",
+    "url": "https://himalayas.app/companies/welocalize/jobs/senior-project-manager-generative-ai-data-operations?utm_source=api"
+  },
   "c87bd260b6ef72ff": {
     "assessment": {
       "brazil_eligibility": "needs_review",
@@ -12662,6 +13191,37 @@
     "status_updated_at": "2026-10-24",
     "title": "Principal Quality Engineer and Technical Integrations Lead",
     "url": "https://himalayas.app/companies/tyfone-inc/jobs/principal-quality-engineer-and-technical-integrations-lead?utm_source=api"
+  },
+  "cff1a1c77f21a6f0": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "Matches QA leadership target",
+        "Location text may include Brazil; confirm eligibility"
+      ],
+      "salary_currency": "unspecified",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "CI&T",
+    "created_at": "2026-11-14",
+    "job_id": "cff1a1c77f21a6f0",
+    "notes": "",
+    "score": 55,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "[Job - 32612] QA Lead",
+    "url": "https://himalayas.app/companies/ci-t/jobs/job-32612-qa-lead?utm_source=api"
   },
   "d000145e7751a3c3": {
     "assessment": {
@@ -13443,6 +14003,36 @@
     "status_updated_at": "2026-10-29",
     "title": "QA Automation Engineer",
     "url": "https://himalayas.app/companies/upland-software/jobs/qa-automation-engineer?utm_source=api"
+  },
+  "e135c25aaba9c9c8": {
+    "assessment": {
+      "brazil_eligibility": "needs_review",
+      "company_reputation": {
+        "reason": "Company reputation requires independent verification",
+        "status": "unverified"
+      },
+      "fit_reasons": [
+        "USD compensation indicated in the listing"
+      ],
+      "salary_currency": "USD_indicated",
+      "two_hours_per_day": "unverified"
+    },
+    "category": "full-time/unspecified",
+    "company": "Avantor",
+    "created_at": "2026-11-14",
+    "job_id": "e135c25aaba9c9c8",
+    "notes": "",
+    "score": 70,
+    "status": "pending_review",
+    "status_history": [
+      {
+        "date": "2026-11-14",
+        "status": "pending_review"
+      }
+    ],
+    "status_updated_at": "2026-11-14",
+    "title": "Principal Portfolio Project Manager",
+    "url": "https://himalayas.app/companies/avantor/jobs/principal-portfolio-project-manager-336880885?utm_source=api"
   },
   "e2461c8ca60469d1": {
     "assessment": {
