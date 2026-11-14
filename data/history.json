@@ -421,7 +421,7 @@
   "09cb66ef4ab27a6d9878c416": {
     "company": "GitLab",
     "first_seen": "2026-11-11",
-    "last_seen": "2026-11-13",
+    "last_seen": "2026-11-14",
     "published": "2026-11-11T10:24:53-05:00",
     "source": "Greenhouse",
     "title": "Senior Professional Services Project Manager, Paris",
@@ -561,6 +561,15 @@
     "published": "1794649220",
     "salary": "",
     "score": 55,
+    "source": "Arbeitnow",
+    "title": "Technical Program Manager, Software",
+    "url": "https://www.arbeitnow.com/jobs/companies/swarmaero/remote-technical-program-manager-software-197537"
+  },
+  "0bcd425e12a0fc07a597f8d0": {
+    "company": "Swarmaero",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "1794649220",
     "source": "Arbeitnow",
     "title": "Technical Program Manager, Software",
     "url": "https://www.arbeitnow.com/jobs/companies/swarmaero/remote-technical-program-manager-software-197537"
@@ -946,6 +955,24 @@
     "source": "Himalayas",
     "title": "Software Test Engineer - Remote",
     "url": "https://himalayas.app/companies/yo-ai-labs/jobs/software-test-engineer-remote?utm_source=api"
+  },
+  "1231ef74196bf6e8efe3ac9d": {
+    "company": "Remote VA",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "1794662681",
+    "source": "Himalayas",
+    "title": "Project Manager (Amazon)",
+    "url": "https://himalayas.app/companies/remote-va/jobs/project-manager-amazon-4813309175?utm_source=api"
+  },
+  "1261b9d459320976e964af15": {
+    "company": "Netrist Solutions",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "1794627127",
+    "source": "Himalayas",
+    "title": "Senior Test Automation Engineer (Temporary Position)",
+    "url": "https://himalayas.app/companies/netrist-solutions/jobs/senior-test-automation-engineer-temporary-position?utm_source=api"
   },
   "12b86d8f51c3fbf92365e78a": {
     "company": "Support Tech LLC",
@@ -1492,6 +1519,15 @@
     "source": "Himalayas",
     "title": "[8BE] Senior QA Engineer",
     "url": "https://himalayas.app/companies/software-mind/jobs/8be-senior-qa-engineer?utm_source=api"
+  },
+  "1b85d9829f588149a2f16991": {
+    "company": "Switch Software",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "1794616960",
+    "source": "Himalayas",
+    "title": "SDET / QA Automation",
+    "url": "https://himalayas.app/companies/switch-software/jobs/sdet-qa-automation?utm_source=api"
   },
   "1b87960d76ba9e6f": {
     "company": "Tellent",
@@ -2238,6 +2274,24 @@
     "title": "Freelance Software Tester | Remote in Germany",
     "url": "https://jobicy.com/jobs/161756-freelance-software-tester-remote-in-germany"
   },
+  "28aaa8368b2dcea0c6739c0b": {
+    "company": "Avantor",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "1794669819",
+    "source": "Himalayas",
+    "title": "Principal Portfolio Project Manager",
+    "url": "https://himalayas.app/companies/avantor/jobs/principal-portfolio-project-manager-336880885?utm_source=api"
+  },
+  "29353c673bb483eb55b90773": {
+    "company": "SOFTGAMES",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "1794640949",
+    "source": "Himalayas",
+    "title": "Senior QA Manager Automation & AI - Fully Remote",
+    "url": "https://himalayas.app/companies/softgames/jobs/senior-qa-manager-automation-ai-fully-remote?utm_source=api"
+  },
   "29ae824a9eb3f64b": {
     "company": "Shield AI",
     "description": "",
@@ -2354,6 +2408,15 @@
     "published": "2026-11-14T07:26:00+00:00",
     "salary": "",
     "score": 55,
+    "source": "Jobicy",
+    "title": "Senior / Lead Program Manager",
+    "url": "https://jobicy.com/jobs/162102-senior-lead-program-manager"
+  },
+  "2c63ebef176047c193505d76": {
+    "company": "Nebius",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "2026-11-14T07:26:00+00:00",
     "source": "Jobicy",
     "title": "Senior / Lead Program Manager",
     "url": "https://jobicy.com/jobs/162102-senior-lead-program-manager"
@@ -3005,6 +3068,15 @@
     "title": "Senior QA Engineer (T11)",
     "url": "https://himalayas.app/companies/ness-usa-inc/jobs/senior-qa-engineer-t11?utm_source=api"
   },
+  "3910f0852275560bd3fb663a": {
+    "company": "Caixa Mágica Software",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "1794630663",
+    "source": "Himalayas",
+    "title": "QA Tester E-Commerce",
+    "url": "https://himalayas.app/companies/caixa-magica-software/jobs/qa-tester-e-commerce?utm_source=api"
+  },
   "392b8fa7910679e4": {
     "company": "Meta",
     "description": "",
@@ -3059,6 +3131,15 @@
     "source": "Himalayas",
     "title": "Automation QA Engineer (Golang / Java)",
     "url": "https://himalayas.app/companies/finteqhub/jobs/automation-qa-engineer-golang-java?utm_source=api"
+  },
+  "39fdffd55966777a65c36d70": {
+    "company": "Massive Rocket",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "1794633767",
+    "source": "Himalayas",
+    "title": "Software Development Engineer in Test (SDET)",
+    "url": "https://himalayas.app/companies/massive-rocket/jobs/software-development-engineer-in-test-sdet?utm_source=api"
   },
   "3ab9b8160dd59000": {
     "company": "Caixa Mágica Software",
@@ -3206,6 +3287,15 @@
     "source": "Himalayas",
     "title": "Middle Manual QA Engineer, Pensions team",
     "url": "https://himalayas.app/companies/investengine/jobs/middle-manual-qa-engineer-pensions-team?utm_source=api"
+  },
+  "3d5b7283d8119ee66bb439af": {
+    "company": "Remote VA",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "1794672501",
+    "source": "Himalayas",
+    "title": "Project Manager",
+    "url": "https://himalayas.app/companies/remote-va/jobs/project-manager-5205953354?utm_source=api"
   },
   "3d8052f506c778eb": {
     "company": "Viseven",
@@ -4199,6 +4289,15 @@
     "title": "Software Quality Engineer",
     "url": "https://himalayas.app/companies/bright-vision-technologies/jobs/software-quality-engineer-503954623?utm_source=api"
   },
+  "4cf6a73d09f3926ce0e46543": {
+    "company": "Welocalize",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "1794663652",
+    "source": "Himalayas",
+    "title": "Senior Project Manager - Generative AI Data Operations",
+    "url": "https://himalayas.app/companies/welocalize/jobs/senior-project-manager-generative-ai-data-operations?utm_source=api"
+  },
   "4d26b6e1b1c8e998": {
     "company": "NearSource Technologies",
     "first_seen": "2026-10-18",
@@ -4685,6 +4784,15 @@
     "title": "AI Test Engineer III",
     "url": "https://himalayas.app/companies/trend-health-partners/jobs/ai-test-engineer-iii?utm_source=api"
   },
+  "57531f8282c693277332b104": {
+    "company": "Remote VA",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "1794671834",
+    "source": "Himalayas",
+    "title": "Senior Project Manager",
+    "url": "https://himalayas.app/companies/remote-va/jobs/senior-project-manager?utm_source=api"
+  },
   "57845102421b23c2e3c5c505": {
     "company": "Bright Vision Technologies",
     "first_seen": "2026-11-11",
@@ -5142,7 +5250,7 @@
   "5e8cf145cf633635316fe957": {
     "company": "GitLab",
     "first_seen": "2026-10-30",
-    "last_seen": "2026-11-13",
+    "last_seen": "2026-11-14",
     "published": "2026-11-06T15:25:07-05:00",
     "source": "Greenhouse",
     "title": "Senior Professional Services Project Manager (EMEA)",
@@ -5789,6 +5897,15 @@
     "title": "API Test Engineer",
     "url": "https://himalayas.app/companies/bright-vision-technologies/jobs/api-test-engineer?utm_source=api"
   },
+  "6d0a7c00838810f18cb40ec5": {
+    "company": "Valtech",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "1794625148",
+    "source": "Himalayas",
+    "title": "QA Automation Engineer",
+    "url": "https://himalayas.app/companies/valtech-us/jobs/qa-automation-engineer?utm_source=api"
+  },
   "6d0cde8c95d86895": {
     "company": "ICF",
     "description": "",
@@ -5853,6 +5970,15 @@
     "source": "Himalayas",
     "title": "Performance Test Engineer - LATAM-English Required",
     "url": "https://himalayas.app/companies/dacodes/jobs/performance-test-engineer-latam-english-required?utm_source=api"
+  },
+  "6e4e2e7fb870fc3f4ad944a6": {
+    "company": "CorroHealth",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "1794646840",
+    "source": "Himalayas",
+    "title": "SR QA Engineer",
+    "url": "https://himalayas.app/companies/corrohealth/jobs/sr-qa-engineer?utm_source=api"
   },
   "6eae25b52b520cd3df183c64": {
     "company": "Altinity",
@@ -8161,6 +8287,15 @@
     "title": "Project Manager II",
     "url": "https://himalayas.app/companies/astreya/jobs/project-manager-ii?utm_source=api"
   },
+  "9966b35f3b81a337e7425f7f": {
+    "company": "SoftExpert",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "1794664738",
+    "source": "Himalayas",
+    "title": "Gerente de Projetos de Implantação Pleno",
+    "url": "https://himalayas.app/companies/softexpert/jobs/gerente-de-projetos-de-implantacao-pleno?utm_source=api"
+  },
   "99ae6cd9367f36f45bb46f79": {
     "company": "Softtest pays pty ltd",
     "first_seen": "2026-11-04",
@@ -8301,7 +8436,7 @@
   "9c533011576fdcf2c7ec4312": {
     "company": "GitLab",
     "first_seen": "2026-11-07",
-    "last_seen": "2026-11-13",
+    "last_seen": "2026-11-14",
     "published": "2026-11-12T14:45:27-05:00",
     "source": "Greenhouse",
     "title": "Professional Services, Program Manager",
@@ -8498,7 +8633,7 @@
   "9f5d7fcbc28da96653b684a7": {
     "company": "Ramp",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-11-13",
+    "last_seen": "2026-11-14",
     "published": "2026-10-16T18:04:33.419+00:00",
     "source": "Ashby",
     "title": "Senior Technical Program Manager",
@@ -8893,6 +9028,15 @@
     "title": "Technical Program Manager - IP Backbone",
     "url": "https://jobicy.com/jobs/162109-technical-program-manager-ip-backbone"
   },
+  "a6f111a9ebe7931b4927f019": {
+    "company": "Nebius",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "2026-11-14T07:26:35+00:00",
+    "source": "Jobicy",
+    "title": "Technical Program Manager - IP Backbone",
+    "url": "https://jobicy.com/jobs/162109-technical-program-manager-ip-backbone"
+  },
   "a72e3ae7622ab680aabbb375": {
     "company": "Vaimo",
     "first_seen": "2026-11-06",
@@ -9185,6 +9329,15 @@
     "source": "Himalayas",
     "title": "Analytic Project Manager - Project Janus (remote - 24 Monate befristet)",
     "url": "https://himalayas.app/companies/advanced-medical-solutions/jobs/analytic-project-manager-project-janus-remote-24-monate-befristet?utm_source=api"
+  },
+  "ad7285c05cbc9d325acef307": {
+    "company": "Kearney Italia, Inc.",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "1794629430",
+    "source": "Himalayas",
+    "title": "Test Automation / QA Engineer – Journeyman",
+    "url": "https://himalayas.app/companies/kearney-italia-inc/jobs/test-automation-qa-engineer-journeyman?utm_source=api"
   },
   "ae2fb849cabe1934d96f1b77": {
     "company": "Power Digital Marketing",
@@ -9896,6 +10049,15 @@
     "title": "Senior Performance Test Automation Engineer",
     "url": "https://himalayas.app/companies/sparq/jobs/senior-performance-test-automation-engineer?utm_source=api"
   },
+  "bcdd92aefb400975c1a87dff": {
+    "company": "ICF Tech Hungary Kft.",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "1794638794",
+    "source": "Himalayas",
+    "title": "QA Engineer",
+    "url": "https://himalayas.app/companies/icf-tech-hungary-kft/jobs/qa-engineer?utm_source=api"
+  },
   "bd739748e2c5714e4201efc5": {
     "company": "Prometeo Talent",
     "first_seen": "2026-11-02",
@@ -9931,7 +10093,7 @@
   "bd94466a0379ce0dd7c7fda6": {
     "company": "GitLab",
     "first_seen": "2026-11-06",
-    "last_seen": "2026-11-13",
+    "last_seen": "2026-11-14",
     "published": "2026-11-06T15:25:07-05:00",
     "source": "Greenhouse",
     "title": "Senior Security Technical Program Manager, Fraud & Abuse",
@@ -10018,6 +10180,15 @@
     "source": "Himalayas",
     "title": "Senior Environmental Project Manager",
     "url": "https://himalayas.app/companies/quanta-infrastructure-solutions-group/jobs/senior-environmental-project-manager?utm_source=api"
+  },
+  "bf61ede655386c3b56c541d7": {
+    "company": "Ryz Labs",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "1794631585",
+    "source": "Himalayas",
+    "title": "Senior QA",
+    "url": "https://himalayas.app/companies/ryz-labs/jobs/senior-qa?utm_source=api"
   },
   "bfb040037861e356f83f68cb": {
     "company": "YO AI Labs",
@@ -10523,7 +10694,7 @@
   "c643ca1ab0148a831a238994": {
     "company": "GitLab",
     "first_seen": "2026-10-18",
-    "last_seen": "2026-11-13",
+    "last_seen": "2026-11-14",
     "published": "2026-11-06T15:25:07-05:00",
     "source": "Greenhouse",
     "title": "Principal Technical Program Manager",
@@ -11606,6 +11777,15 @@
     "title": "Senior QA Engineer - Performance Testing",
     "url": "https://himalayas.app/companies/coderoad/jobs/senior-qa-engineer-performance-testing?utm_source=api"
   },
+  "dc8e790ad68ef9dceef1a825": {
+    "company": "CI&T",
+    "first_seen": "2026-11-14",
+    "last_seen": "2026-11-14",
+    "published": "1794645507",
+    "source": "Himalayas",
+    "title": "[Job - 32612] QA Lead",
+    "url": "https://himalayas.app/companies/ci-t/jobs/job-32612-qa-lead?utm_source=api"
+  },
   "dcd6ffe9084b09b5": {
     "company": "Upgrade",
     "first_seen": "2026-10-18",
@@ -12167,7 +12347,7 @@
   "e852b631174376fb73e7a5cf": {
     "company": "Toptal",
     "first_seen": "2026-11-07",
-    "last_seen": "2026-11-13",
+    "last_seen": "2026-11-14",
     "published": "2026-11-05T22:37:39+00:00",
     "source": "Remote OK",
     "title": "Agile Program Manager",
