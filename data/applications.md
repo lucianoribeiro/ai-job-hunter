@@ -2,7 +2,7 @@
 
 No applications are submitted automatically. Verify employer reputation, Brazil eligibility, pay and hours.
 
-New matches in this run: **20**
+New matches in this run: **19**
 
 ## Pending review
 
@@ -24,6 +24,7 @@ New matches in this run: **20**
 - [Project Manager, OSP Construction & Engineering](https://himalayas.app/companies/ziply-fiber/jobs/project-manager-osp-construction-engineering-2027685616?utm_source=api) — Ziply Fiber | score 80 | full-time/unspecified | employer unverified
 - [Project Manager, AI Model Enablement and Agentic SDLC](https://himalayas.app/companies/crowdstrike/jobs/project-manager-ai-model-enablement-and-agentic-sdlc?utm_source=api) — Crowdstrike | score 80 | full-time/unspecified | employer unverified
 - [Product Support Engineer (SRE, QA)](https://himalayas.app/companies/bsc-analytics/jobs/product-support-engineer-sre-qa?utm_source=api) — BSC Analytics | score 80 | freelance | employer unverified
+- [Senior QA](https://himalayas.app/companies/ryz-labs/jobs/senior-qa?utm_source=api) — Ryz Labs | score 75 | freelance | employer unverified
 - [Senior QA Engineer - Performance Testing](https://himalayas.app/companies/coderoad/jobs/senior-qa-engineer-performance-testing?utm_source=api) — CodeRoad | score 75 | freelance | employer unverified
 - [Quality Assurance Manager as Freelancer (.NET C#) (all genders)](https://www.arbeitnow.com/jobs/companies/vexcash-ag/quality-assurance-manager-as-freelancer-net-c-all-genders-berlin-302572) — Vexcash AG | score 75 | freelance | employer unverified
 - [Senior Transformation Manager / Program Manager](https://www.arbeitnow.ch/jobs/companies/coopers-group-ag/senior-transformation-manager-program-manager-zurich-424562) — Coopers Group AG | score 75 | freelance | employer unverified
@@ -48,7 +49,6 @@ New matches in this run: **20**
 - [Program Manager](https://himalayas.app/companies/massive-rocket/jobs/program-manager?utm_source=api) — Massive Rocket | score 75 | freelance | employer unverified
 - [Sr IT Project Manager with Oracle EBS - Remote](https://himalayas.app/companies/omg-technology/jobs/sr-it-project-manager-with-oracle-ebs-remote?utm_source=api) — OMG Technology | score 75 | freelance | employer unverified
 - [Senior Software Development Engineer in Test (SDET) - Remote](https://himalayas.app/companies/scalepex/jobs/senior-software-development-engineer-in-test-sdet-remote?utm_source=api) — Scalepex | score 75 | freelance | employer unverified
-- [Senior QA](https://himalayas.app/companies/ryz-labs/jobs/senior-qa?utm_source=api) — Ryz Labs | score 75 | freelance | employer unverified
 - [Senior QA Automation Engineer](https://himalayas.app/companies/bright-vision-technologies/jobs/senior-qa-automation-engineer?utm_source=api) — Bright Vision Technologies | score 70 | full-time/unspecified | employer unverified
 - [Electronics Assembly Quality Engineer](https://himalayas.app/companies/micro1/jobs/electronics-assembly-quality-engineer?utm_source=api) — micro1 | score 70 | freelance | employer unverified
 - [Program Manager, Performance Improvement](https://himalayas.app/companies/omada-health/jobs/program-manager-performance-improvement?utm_source=api) — Omada Health | score 70 | full-time/unspecified | employer unverified
