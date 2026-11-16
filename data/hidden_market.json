@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T17:14:24.703041+00:00",
+  "generated_at": "2026-11-16T20:31:50.434334+00:00",
   "method": "public ATS engineering-hiring proxy; not confirmed hidden vacancies",
   "companies_checked": 2,
   "companies_failed": 1,
@@ -11,7 +11,7 @@
       "signal": "engineering_hiring_without_public_qa_listing",
       "confidence": "moderate",
       "score": 85,
-      "engineering_roles": 47,
+      "engineering_roles": 43,
       "qa_roles": 0,
       "engineering_leadership_roles": 20,
       "qa_leadership_roles": 0,
@@ -29,11 +29,11 @@
         },
         {
           "title": "Backend Engineer (Ruby), Plan: Spec-Driven Development",
-          "url": "https://job-boards.greenhouse.io/gitlab/jobs/8749950002"
+          "url": "https://job-boards.greenhouse.io/gitlab/jobs/8682860002"
         },
         {
           "title": "Backend Engineer (Ruby), Plan: Spec-Driven Development",
-          "url": "https://job-boards.greenhouse.io/gitlab/jobs/8682860002"
+          "url": "https://job-boards.greenhouse.io/gitlab/jobs/8749950002"
         },
         {
           "title": "Backend Engineer, Source Code: Repository Services (Ruby)",

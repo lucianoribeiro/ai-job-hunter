@@ -418,7 +418,7 @@
     "description": "",
     "first_seen": "2026-11-11",
     "job_type": "",
-    "last_seen": "2026-11-15",
+    "last_seen": "2026-11-16",
     "location": "Remote, France",
     "published": "2026-11-11T10:24:53-05:00",
     "salary": "",
@@ -619,6 +619,20 @@
     "source": "Himalayas",
     "title": "Risk (QA) Engineer",
     "url": "https://himalayas.app/companies/tabby/jobs/risk-qa-engineer-5106883448?utm_source=api"
+  },
+  "0c85a8c94dabc958": {
+    "company": "Access Offshoring Philippines, Inc.",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "Philippines",
+    "published": "1794830664",
+    "salary": "",
+    "score": 55,
+    "source": "Himalayas",
+    "title": "Offshore Operations & Technical Project Manager (AO-14281)",
+    "url": "https://himalayas.app/companies/access-offshoring-philippines-inc/jobs/offshore-operations-technical-project-manager-ao-14281?utm_source=api"
   },
   "0c9512b75a1657fe": {
     "company": "Bureau Veritas",
@@ -1694,6 +1708,20 @@
     "title": "Senior QA Engineer",
     "url": "https://himalayas.app/companies/ness-usa-inc/jobs/senior-qa-engineer?utm_source=api"
   },
+  "1e2d499adc21403c": {
+    "company": "Ververica GmbH",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "Italy",
+    "published": "1794785189",
+    "salary": "",
+    "score": 55,
+    "source": "Himalayas",
+    "title": "Senior Quality Assurance Engineer (m/f/d)",
+    "url": "https://himalayas.app/companies/ververica-gmbh/jobs/senior-quality-assurance-engineer-m-f-d-7219434811?utm_source=api"
+  },
   "1e47ca18324af518404fb03d": {
     "company": "Testlio",
     "first_seen": "2026-11-09",
@@ -2645,6 +2673,20 @@
     "source": "Himalayas",
     "title": "Program Manager - Retention",
     "url": "https://himalayas.app/companies/scan/jobs/program-manager-retention?utm_source=api"
+  },
+  "2f2a8c1fb1e19cf3": {
+    "company": "Legrand",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "United States",
+    "published": "1794823598",
+    "salary": "",
+    "score": 55,
+    "source": "Himalayas",
+    "title": "IT Program Manager – Enterprise Digital Platforms",
+    "url": "https://himalayas.app/companies/legrand/jobs/it-program-manager-enterprise-digital-platforms?utm_source=api"
   },
   "2f3ce2c28f167875a1b05139": {
     "company": "Acklen Avenue",
@@ -4422,6 +4464,20 @@
     "title": "Senior Project Manager - Generative AI Data Operations",
     "url": "https://himalayas.app/companies/welocalize/jobs/senior-project-manager-generative-ai-data-operations?utm_source=api"
   },
+  "4d039a9b2ccce88f": {
+    "company": "robusta",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "Egypt",
+    "published": "1794783204",
+    "salary": "",
+    "score": 55,
+    "source": "Himalayas",
+    "title": "Senior QA Engineer - (6 months) - Remote - Immediate Hiring",
+    "url": "https://himalayas.app/companies/robusta/jobs/senior-qa-engineer-6-months-remote-immediate-hiring?utm_source=api"
+  },
   "4d26b6e1b1c8e998": {
     "company": "NearSource Technologies",
     "first_seen": "2026-10-18",
@@ -4776,6 +4832,20 @@
     "title": "QA Engineer - Backend (Golang) Middle [Identity]",
     "url": "https://himalayas.app/companies/banco-plata-s-a-institucion-de-banca-multiple/jobs/qa-engineer-backend-golang-middle-identity?utm_source=api"
   },
+  "539c9496083a5340": {
+    "company": "Pearson",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "United States",
+    "published": "1794825671",
+    "salary": "USD 23.5-23.5 hourly",
+    "score": 70,
+    "source": "Himalayas",
+    "title": "Advanced Associate, Content Quality Assurance - Hourly",
+    "url": "https://himalayas.app/companies/pearson/jobs/advanced-associate-content-quality-assurance-hourly?utm_source=api"
+  },
   "53a8670b5e5d5638fefb69ae": {
     "company": "adm Group",
     "first_seen": "2026-10-31",
@@ -5059,6 +5129,34 @@
     "source": "Himalayas",
     "title": "Project Manager, Core",
     "url": "https://himalayas.app/companies/power-digital-marketing/jobs/project-manager-core?utm_source=api"
+  },
+  "586cf4cf79be3446": {
+    "company": "Genpact",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "United States",
+    "published": "1794819096",
+    "salary": "USD 60000-75000 annual",
+    "score": 70,
+    "source": "Himalayas",
+    "title": "Lead Engineer, Testing & QA 4C",
+    "url": "https://himalayas.app/companies/genpact/jobs/lead-engineer-testing-qa-4c?utm_source=api"
+  },
+  "58a60bab8602bf1e": {
+    "company": "DNA.inc",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Contractor",
+    "last_seen": "2026-11-16",
+    "location": "Spain",
+    "published": "1794808432",
+    "salary": "EUR 62400-62400 annual",
+    "score": 75,
+    "source": "Himalayas",
+    "title": "Senior Quality Engineer",
+    "url": "https://himalayas.app/companies/dna-inc/jobs/senior-quality-engineer?utm_source=api"
   },
   "58ae051e7b51898ad77cbfb1": {
     "company": "California FAIR Plan Association",
@@ -5362,6 +5460,20 @@
     "title": "Quality Assurance Associate - Patient Access",
     "url": "https://himalayas.app/companies/united-biosource-corporation/jobs/quality-assurance-associate-patient-access?utm_source=api"
   },
+  "5d783018ebee43c0": {
+    "company": "CI&T",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "Brazil",
+    "published": "1794796832",
+    "salary": "",
+    "score": 55,
+    "source": "Himalayas",
+    "title": "[Job-32685] Senior QA Automation, Brazil",
+    "url": "https://himalayas.app/companies/ci-t/jobs/job-32685-senior-qa-automation-brazil?utm_source=api"
+  },
   "5db7e52789d356daf2f804ae": {
     "company": "Zayo Group",
     "first_seen": "2026-10-18",
@@ -5394,7 +5506,7 @@
     "description": "",
     "first_seen": "2026-10-30",
     "job_type": "",
-    "last_seen": "2026-11-15",
+    "last_seen": "2026-11-16",
     "location": "Remote, United Kingdom",
     "published": "2026-11-06T15:25:07-05:00",
     "salary": "",
@@ -5696,6 +5808,20 @@
     "title": "QA Engineer (Malaysia-based)",
     "url": "https://himalayas.app/companies/kinobi-ai/jobs/qa-engineer-malaysia-based?utm_source=api"
   },
+  "649520029766ec04": {
+    "company": "BookNook",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "United States",
+    "published": "1794813483",
+    "salary": "USD 90000-110000 annual",
+    "score": 50,
+    "source": "Himalayas",
+    "title": "Quality Assurance Engineer",
+    "url": "https://himalayas.app/companies/booknook-com/jobs/quality-assurance-engineer?utm_source=api"
+  },
   "64fadc9df58becc752b68f93": {
     "company": "Codekeeper",
     "first_seen": "2026-11-07",
@@ -5875,6 +6001,20 @@
     "title": "Quality Assurance Associate - Reimbursement HUB Services",
     "url": "https://himalayas.app/companies/united-biosource-corporation/jobs/quality-assurance-associate-reimbursement-hub-services?utm_source=api"
   },
+  "68086f123eaf441b": {
+    "company": "Consultec-TI",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "Colombia",
+    "published": "1794829961",
+    "salary": "",
+    "score": 55,
+    "source": "Himalayas",
+    "title": "Scrum Master / Project Manager",
+    "url": "https://himalayas.app/companies/consultec-ti/jobs/scrum-master-project-manager?utm_source=api"
+  },
   "68508869ecc20bb9": {
     "company": "Workwize",
     "description": "",
@@ -5921,6 +6061,20 @@
     "title": "Program Manager",
     "url": "https://himalayas.app/companies/itc2/jobs/program-manager?utm_source=api"
   },
+  "6878b347a9ab442c": {
+    "company": "Airbnb",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "Brazil",
+    "published": "1794796053",
+    "salary": "BRL 24000-30000 annual",
+    "score": 55,
+    "source": "Himalayas",
+    "title": "Senior iOS Automation Engineer, Quality Engineering",
+    "url": "https://himalayas.app/companies/airbnb/jobs/senior-ios-automation-engineer-quality-engineering?utm_source=api"
+  },
   "68921703fcba2eada23e49b7": {
     "company": "Menlo",
     "first_seen": "2026-11-05",
@@ -5961,6 +6115,20 @@
     "source": "Himalayas",
     "title": "QA Engineer",
     "url": "https://himalayas.app/companies/itrex-group/jobs/qa-engineer?utm_source=api"
+  },
+  "696ba55127ab8624": {
+    "company": "Daniyal Technologies",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "United States",
+    "published": "1794821641",
+    "salary": "USD 1000-2500 monthly",
+    "score": 70,
+    "source": "Himalayas",
+    "title": "Senior SQA Engineer",
+    "url": "https://himalayas.app/companies/daniyal-technologies/jobs/senior-sqa-engineer?utm_source=api"
   },
   "69e51c97305e4bd0": {
     "company": "Caylent",
@@ -6797,7 +6965,7 @@
     "description": "",
     "first_seen": "2026-10-18",
     "job_type": "['testing', 'dev', 'analyst', 'quality assurance', 'digital nomad']",
-    "last_seen": "2026-11-12",
+    "last_seen": "2026-11-16",
     "location": "Remote",
     "published": "2026-08-15T00:00:25+00:00",
     "salary": "",
@@ -7150,6 +7318,20 @@
     "source": "Himalayas",
     "title": "QA Automation Engineer (Banking)",
     "url": "https://himalayas.app/companies/qualysoft/jobs/qa-automation-engineer-banking?utm_source=api"
+  },
+  "7ea5c2a5150d0108": {
+    "company": "MariaDB",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "Bulgaria, Croatia, Estonia, Finland, Italy, Poland, Romania, Serbia, Spain",
+    "published": "1794809088",
+    "salary": "EUR 59500-80500 annual",
+    "score": 55,
+    "source": "Himalayas",
+    "title": "Senior QA Automation Engineer",
+    "url": "https://himalayas.app/companies/mariadb/jobs/senior-qa-automation-engineer?utm_source=api"
   },
   "7ec79b312f5cc97cc8cd3a75": {
     "company": "Logistics Management Institute",
@@ -8747,7 +8929,7 @@
     "description": "",
     "first_seen": "2026-11-07",
     "job_type": "",
-    "last_seen": "2026-11-15",
+    "last_seen": "2026-11-16",
     "location": "Remote, Canada; Remote, United States",
     "published": "2026-11-12T14:45:27-05:00",
     "salary": "",
@@ -8958,7 +9140,7 @@
     "description": "",
     "first_seen": "2026-10-18",
     "job_type": "FullTime",
-    "last_seen": "2026-11-15",
+    "last_seen": "2026-11-16",
     "location": "New York, NY (HQ)",
     "published": "2026-10-16T18:04:33.419+00:00",
     "salary": "$180K – $250K • Offers Equity",
@@ -9162,6 +9344,20 @@
     "source": "Himalayas",
     "title": "Project Manager",
     "url": "https://himalayas.app/companies/dura-digital/jobs/project-manager?utm_source=api"
+  },
+  "a3a31d4df7d56096": {
+    "company": "Consultec-TI",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "Venezuela",
+    "published": "1794807091",
+    "salary": "",
+    "score": 35,
+    "source": "Himalayas",
+    "title": "QA Analyst / Test Engineer",
+    "url": "https://himalayas.app/companies/consultec-ti/jobs/qa-analyst-test-engineer?utm_source=api"
   },
   "a3a3b4d40252ac4750ab3a9f": {
     "company": "Trinzic",
@@ -9571,6 +9767,20 @@
     "title": "Project Manager - Disaster Recovery, Housing and Community Development Training",
     "url": "https://himalayas.app/companies/icf/jobs/project-manager-disaster-recovery-housing-and-community-development-training?utm_source=api"
   },
+  "ab76a433412e2dc5": {
+    "company": "Amplify",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "['Contract']",
+    "last_seen": "2026-11-16",
+    "location": "USA",
+    "published": "2026-11-16T15:38:03+00:00",
+    "salary": "",
+    "score": 75,
+    "source": "Jobicy",
+    "title": "Project Manager, Customer Experience (Fixed-Term)",
+    "url": "https://jobicy.com/jobs/162646-project-manager-customer-experience-fixed-term"
+  },
   "ab7d16ccc0bd237ddfcebdb1": {
     "company": "Goldbelt",
     "first_seen": "2026-10-27",
@@ -9871,6 +10081,20 @@
     "source": "Himalayas",
     "title": "GTM Project Manager",
     "url": "https://himalayas.app/companies/ixopay/jobs/gtm-project-manager?utm_source=api"
+  },
+  "b206ad8133d73ef4": {
+    "company": "SOLV Energy",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "United States",
+    "published": "1794832840",
+    "salary": "USD 104560-130700 annual",
+    "score": 50,
+    "source": "Himalayas",
+    "title": "Software QA and Support Engineer",
+    "url": "https://himalayas.app/companies/solv-energy/jobs/software-qa-and-support-engineer?utm_source=api"
   },
   "b214b1ef75be7988292428b6": {
     "company": "AA Inclusion",
@@ -10436,7 +10660,7 @@
     "description": "",
     "first_seen": "2026-11-06",
     "job_type": "",
-    "last_seen": "2026-11-15",
+    "last_seen": "2026-11-16",
     "location": "Remote, Canada; Remote, United States",
     "published": "2026-11-06T15:25:07-05:00",
     "salary": "",
@@ -10562,6 +10786,20 @@
     "source": "Himalayas",
     "title": "Infrastructure Delivery Program Manager",
     "url": "https://himalayas.app/companies/northmark-strategies-llc/jobs/infrastructure-delivery-program-manager?utm_source=api"
+  },
+  "c041fab5899dec05": {
+    "company": "Inovi, Inc.",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "United States",
+    "published": "1794828169",
+    "salary": "",
+    "score": 55,
+    "source": "Himalayas",
+    "title": "Technical Project Manager (Data Center Deployment)",
+    "url": "https://himalayas.app/companies/inovi-inc/jobs/technical-project-manager-data-center-deployment?utm_source=api"
   },
   "c068f9d9ef23af26416addc7": {
     "company": "Digineox",
@@ -10732,6 +10970,20 @@
     "source": "Himalayas",
     "title": "SDE- II QA Engineer",
     "url": "https://himalayas.app/companies/full-potential-solutions/jobs/sde-ii-qa-engineer?utm_source=api"
+  },
+  "c297c99ebaf6c486": {
+    "company": "GoReel",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "Czechia, Poland, Romania, Slovakia",
+    "published": "1794783180",
+    "salary": "",
+    "score": 55,
+    "source": "Himalayas",
+    "title": "Senior Automation QA Engineer (Python)",
+    "url": "https://himalayas.app/companies/goreel/jobs/senior-automation-qa-engineer-python?utm_source=api"
   },
   "c29ffe4348647385": {
     "company": "WellBe Senior Medical",
@@ -11037,7 +11289,7 @@
     "description": "",
     "first_seen": "2026-10-18",
     "job_type": "",
-    "last_seen": "2026-11-15",
+    "last_seen": "2026-11-16",
     "location": "Remote, Canada; Remote, United States",
     "published": "2026-11-06T15:25:07-05:00",
     "salary": "",
@@ -11164,6 +11416,20 @@
     "source": "Himalayas",
     "title": "SDET Engineer",
     "url": "https://himalayas.app/companies/bright-vision-technologies/jobs/sdet-engineer-4117997796?utm_source=api"
+  },
+  "c9e88b14f46e126d": {
+    "company": "GE HealthCare",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "United States",
+    "published": "1794846474",
+    "salary": "USD 112000-168000 annual",
+    "score": 70,
+    "source": "Himalayas",
+    "title": "Project Manager - Imaging, Northwest IL & East Iowa",
+    "url": "https://himalayas.app/companies/ge-healthcare/jobs/project-manager-imaging-northwest-il-east-iowa?utm_source=api"
   },
   "ca028ab2587705e8": {
     "company": "Trend Health Partners",
@@ -11426,6 +11692,20 @@
     "source": "Himalayas",
     "title": "IT Project Manager - Technical",
     "url": "https://himalayas.app/companies/wellbeseniormedical/jobs/it-project-manager-technical?utm_source=api"
+  },
+  "cef8412e82b4da0d": {
+    "company": "DHM GROUP",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "France",
+    "published": "1794821890",
+    "salary": "",
+    "score": 35,
+    "source": "Himalayas",
+    "title": "QA Architect - Agentic Test Orchestration(H/F)",
+    "url": "https://himalayas.app/companies/dhm-group/jobs/qa-architect-agentic-test-orchestration-h-f?utm_source=api"
   },
   "cf1f5ef34193eace": {
     "company": "Valtech",
@@ -12418,6 +12698,20 @@
     "source": "Himalayas",
     "title": "Senior QA/SDET",
     "url": "https://himalayas.app/companies/vouched/jobs/senior-qa-sdet?utm_source=api"
+  },
+  "e2cea265d2584be8": {
+    "company": "Clicksign",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "Brazil",
+    "published": "1794825310",
+    "salary": "",
+    "score": 35,
+    "source": "Himalayas",
+    "title": "Quality Engineer (QE)",
+    "url": "https://himalayas.app/companies/clicksign/jobs/quality-engineer-qe?utm_source=api"
   },
   "e2f68e60c0314d49037d9dd5": {
     "company": "GoHealth Urgent Care",
@@ -13436,7 +13730,7 @@
     "description": "",
     "first_seen": "2026-11-07",
     "job_type": "['program management', 'Agile', 'Scrum']",
-    "last_seen": "2026-11-15",
+    "last_seen": "2026-11-16",
     "location": "Anywhere in the World",
     "published": "2026-11-05T22:37:39+00:00",
     "salary": "",
@@ -13444,6 +13738,20 @@
     "source": "Remote OK",
     "title": "Agile Program Manager",
     "url": "https://remoteOK.com/remote-jobs/remote-agile-program-manager-toptal-1137692"
+  },
+  "f582896536154245": {
+    "company": "Acxiom",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "United States",
+    "published": "1794823514",
+    "salary": "",
+    "score": 55,
+    "source": "Himalayas",
+    "title": "Senior Technical Project Manager",
+    "url": "https://himalayas.app/companies/acxiom/jobs/senior-technical-project-manager?utm_source=api"
   },
   "f5d95b225a44c4ad": {
     "company": "Expedock",
@@ -13572,6 +13880,20 @@
     "source": "Himalayas",
     "title": "Quality Engineer",
     "url": "https://himalayas.app/companies/jabil/jobs/quality-engineer?utm_source=api"
+  },
+  "f858156cad9319b0": {
+    "company": "Modernizing Medicine, Inc.",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "United States",
+    "published": "1794848813",
+    "salary": "",
+    "score": 55,
+    "source": "Himalayas",
+    "title": "Project Manager",
+    "url": "https://himalayas.app/companies/modernizing-medicine-inc/jobs/project-manager?utm_source=api"
   },
   "f885d564fe2475f9": {
     "company": "Smarthis",
@@ -13784,6 +14106,20 @@
     "title": "Go to Market Program Manager - Platform and Assurance",
     "url": "https://himalayas.app/companies/cisco/jobs/go-to-market-program-manager-platform-and-assurance"
   },
+  "fbacc945c28adb61": {
+    "company": "Consultec-TI",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Full Time",
+    "last_seen": "2026-11-16",
+    "location": "Venezuela",
+    "published": "1794815934",
+    "salary": "",
+    "score": 35,
+    "source": "Himalayas",
+    "title": "QA Automation Engineer",
+    "url": "https://himalayas.app/companies/consultec-ti/jobs/qa-automation-engineer?utm_source=api"
+  },
   "fc16209e3237a2b8": {
     "company": "SwissPeak Partners GmbH",
     "description": "",
@@ -13889,6 +14225,20 @@
     "source": "Himalayas",
     "title": "Senior QA Automation Engineer",
     "url": "https://himalayas.app/companies/epiq/jobs/senior-qa-automation-engineer?utm_source=api"
+  },
+  "fe4d3610fdc4daec": {
+    "company": "Pole To Win International",
+    "description": "",
+    "first_seen": "2026-11-16",
+    "job_type": "Contractor",
+    "last_seen": "2026-11-16",
+    "location": "Albania, Andorra, Austria, Belarus, Belgium, Bosnia and Herzegovina, Bulgaria, Croatia, Cyprus, Czechia, Denmark, Estonia, Faroe Islands, Finland, France, Germany, Gibraltar, Greece, Guernsey, Holy See (Vatican City State), Hungary, Iceland, Ireland, Isle of Man, Italy, Jersey, Kosovo, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Moldova, Monaco, Montenegro, Netherlands, North Macedonia, Norway, Poland, Portugal, Romania, San Marino, Serbia, Slovakia, Slovenia, Spain, Svalbard and Jan Mayen, Sweden, Switzerland, Ukraine, United Kingdom, Åland Islands",
+    "published": "1794814644",
+    "salary": "",
+    "score": 55,
+    "source": "Himalayas",
+    "title": "LQA Game Tester (Czech) - Freelance Remote",
+    "url": "https://himalayas.app/companies/pole-to-win-international/jobs/lqa-game-tester-czech-freelance-remote?utm_source=api"
   },
   "fe5a71820a70915458d435f8": {
     "company": "Bright Vision Technologies",
